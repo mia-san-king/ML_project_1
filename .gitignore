@@ -1,0 +1,14 @@
+# Dataset CSVs (keep locally; do not push)
+dataset/*.csv
+*.csv
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
