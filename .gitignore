@@ -1,6 +1,8 @@
 # Dataset CSVs (keep locally; do not push)
 dataset/*.csv
 *.csv
+data/*.npz
+*.npz
 
 # Python
 __pycache__/

@@ -16,18 +16,25 @@ Official spec: `project1_description.pdf` (also on branch `main`).
 - [x] CSVs kept local under `data/` and gitignored
 - [x] Six methods in root `implementations.py` (docstrings + public-test numbers)
 - [x] Tutorial: `doc/six_functions/six_functions_tutorial.ipynb`
+- [x] Tutorial: `doc/helpers.ipynb`
+- [x] Root `helpers.py`: `load_csv_data`, `create_csv_submission` (NumPy + `os`/`csv`; ids as `np.int64`; empty features → `nan`)
+- [x] Public tests **28 passed** on GitHub commit `f403b32` (`.../tree/f403b324e54dc3bd5d6601962e05bc75b9bada2d`)
+- [x] Full CSV load: `y` `(328135,)`, `x` `(328135, 321)`, `x_test` `(109379, 321)`; labels `{−1: 299160, +1: 28975}` (~8.8% disease); ~44.8% of train feature cells are `nan`
+- [x] EDA: `doc/eda.ipynb` + §13 (drop 143 / keep 178; leakage `HAREHAB1` etc.; do not global-map 7/9/88)
+- [x] Tutorial: `doc/preprocess_tutorial.ipynb`
+- [x] `src/preprocess.py`: drop → sentinels → train median → standardize; `fit_preprocess` / `transform_preprocess` / `add_bias` / `train_val_split` (`src/preprocess_solution.py` is the reference)
 
 **Not done yet (do these next, in order)**
 
-1. **Run the official public tests** from `doc/grading_tests/` against a *local* path to this repo (not only the toy notebook checks).
-2. **Add** `helpers.py` at the repo root: `load_csv_data` and `create_csv_submission` (from the course project helpers, NumPy only — no pandas).
-3. **Load** `data/*.csv` **once** and print shapes, a few column names, and class counts of `y` (`+1` vs `-1`).
-4. **AIcrowd:** `@epfl.ch` account, **one team** of 3, join the challenge (5 submissions/day shared).
-5. **EDA notebook** (NumPy + matplotlib/seaborn only): missing codes (`77/88/99`/blank), leakage columns, 5–10 bullet findings.
-6. **Baseline pipeline:** standardize features → train/val split → `least_squares` and `logistic_regression` → predictions in `{+1,-1}` → one AIcrowd CSV to check the format.
-7. **Fill** `README.md` (still empty) and later `run.py` / `run.ipynb`.
+1. **Baseline in `run.py`:** `load_csv_data` → **split first** → `fit_preprocess` on train only → `transform` val/test → `add_bias` → `least_squares` and `logistic_regression` (map `y` to `{0,1}` for logistic) → `{+1,-1}` preds → `create_csv_submission`. Report **val** F1 / balanced acc (not train accuracy).
+2. **One AIcrowd upload** to check CSV format (after the team exists).
+3. **AIcrowd:** confirm one team of 3 joined (5 submissions/day shared).
+4. **Fill** `README.md`. Keep `run.py` as the reproducer (replace the shape-print script).
+5. Improve one change at a time (ablation), then 2-page PDF.
 
-Do **not** start fancy features or many AIcrowd submissions until 1–3 are done.
+Do **not** start fancy features or many AIcrowd submissions until one val baseline exists.
+
+**Local note:** `helpers.py`, `src/preprocess.py`, and the new notebooks are likely still uncommitted. `black helpers.py` before the next GitHub pytest.
 
 ---
 
@@ -96,17 +103,21 @@ Public GitHub repo of the team. Root must contain:
 ```text
 README.md              # how to run, data path, what the pipeline does  (empty — fill this)
 implementations.py     # the 6 required functions                       (done)
-run.py  or  run.ipynb  # reproduces your best AIcrowd CSV              (missing)
-helpers.py             # load_csv_data, create_csv_submission          (missing)
+run.py  or  run.ipynb  # reproduces your best AIcrowd CSV              (empty / missing)
+helpers.py             # load_csv_data, create_csv_submission          (done)
 ```
 
 This repo currently:
 
 ```text
-data/                  # local CSVs (gitignored); see data/README.md
+data/                  # local CSVs + cache_eda.npz (gitignored)
 doc/PROJECT_PLAN.md
-doc/six_functions/     # tutorial (not graded)
-doc/grading_tests/     # public tests (run from here; do not rely on them being in the submission root)
+doc/helpers.ipynb
+doc/eda.ipynb
+doc/preprocess_tutorial.ipynb
+doc/six_functions_tutorial.ipynb
+src/preprocess.py      # drop / sentinels / impute / scale (done)
+grading_tests/         # public tests (also under ML_course)
 ```
 
 Staff tests (`doc/grading_tests/`):
@@ -159,13 +170,37 @@ Assume a team of 3. Deadline is **29 Oct**.
 
 ### Phase 1 — Understand the data (EDA)
 
-Do this **before** fancy models.
+Do this **before** fancy models. Put work in `doc/eda.ipynb`. Allowed: NumPy, matplotlib, seaborn. **No pandas.**
 
-- Class balance: how many `+1` vs `-1`? (CVD is usually rare → accuracy can look high while you always predict healthy.)
-- Which columns are categorical vs continuous.
-- Missing / “refused / don’t know” codes.
-- Leakage risk: drop any feature that is the disease itself or a near-duplicate of the label (e.g. rehab after heart attack). If unsure, document the decision.
-- Simple plots: histograms, correlation of a few obvious risk factors (age, BMI, smoking, blood pressure).
+Save arrays once so you do not re-run `genfromtxt` every cell:
+
+```python
+np.savez("data/cache_train.npz", y=y, x=x, ids=ids_tr)
+# later: z = np.load("data/cache_train.npz"); y, x = z["y"], z["x"]
+```
+
+Keep `data/*.npz` gitignored like the CSVs.
+
+**Column names** (header of `x_train.csv`, skip `Id`):
+
+```python
+with open("data/x_train.csv") as f:
+    names = f.readline().strip().split(",")[1:]  # length 321
+```
+
+Work through these checks (write the number next to each):
+
+1. **Class balance (done).** `+1` = 28 975 (8.8%), `−1` = 299 160. Accuracy is a bad headline metric. Prefer F1 / balanced accuracy / the AIcrowd metric on a **validation** split of train.
+2. **Missingness.** For each column `j`: `np.mean(np.isnan(x[:, j]))`. List columns with >50%, >90%, 100% missing. Blank in the CSV is already `nan`.
+3. **Sentinel codes (BRFSS).** After ignoring `nan`, count how often a column is in `{7, 9, 77, 99, 777, 999, 7777, 9999}` (don’t know / refused / not asked). Treat those as missing for modeling, not as real numeric values.
+4. **Constants.** Drop columns with `np.nanstd(x[:, j]) == 0` or only one distinct non-nan value.
+5. **Survey metadata / IDs / weights (usually drop).** Examples in this header: `_STATE`, `FMONTH`, `IDATE`, `IMONTH`, `IDAY`, `IYEAR`, `DISPCODE`, `SEQNO`, `_PSU`, phone flags (`CTELENUM`, …), sample weights (`_STRWT`, `_RAWRAKE`, `_WT2RAKE`, `_LLCPWT`, `_CLLCPWT`, `_DUALCOR`, …). They identify *how the survey was sampled*, not the person’s health.
+6. **Leakage (must drop or justify).** Features that *are* the heart-disease event or its immediate care. In this header, inspect at least: `HAREHAB1`, `STREHAB1` (rehab after heart problem), `CVDASPRN`, `ASPUNSAF`, `RLIVPAIN`, `RDUCHART`, `RDUCSTRK`. Also check stroke `CVDSTRK3` (related disease, not identical to MICHD — decide and write it down). The raw items that *define* `_MICHD` (`CVDINFR4`, `CVDCRHD4`) are **not** in `x_train`; good.
+7. **Duplicates / derived.** Height/weight vs `_BMI5` / `_BMI5CAT`; many `_RF*` columns are recodes of earlier questions. Keep one version per concept for the baseline.
+8. **A few plots (seaborn/matplotlib).** Histogram of `_BMI5` or `_AGEG5YR` split by `y`; bar of `_SMOKER3` vs fraction `y==+1`; missingness bar for the 20 worst columns. Readable axes; you will reuse 1–2 figures in the PDF.
+9. **Train vs test.** Same `nan` rate and column mins/maxes on `x_test` so you do not invent a feature that is empty only on test.
+
+**Done when** you have 5–10 bullets, plus three Python lists: `drop_cols`, `impute_as_nan_codes`, `keep_for_baseline`. Those lists are the input to Phase 2.
 
 Write 5–10 bullets of findings. These become report Section 1.
 
@@ -268,8 +303,11 @@ Ids must match `x_test.csv`.
 
 ## 8. Done when…
 
-- [x] Six functions in `implementations.py`, signatures + docstrings (pytest still to run)
-- [ ] Public tests pass from `doc/grading_tests/`
+- [x] Six functions in `implementations.py`, signatures + docstrings
+- [x] `helpers.py` (`load_csv_data`, `create_csv_submission`)
+- [x] Public tests pass on GitHub commit `f403b32` (re-run after pushing `helpers.py`)
+- [x] First full data load (shapes, class counts, nan rate)
+- [x] EDA + `src/preprocess.py` (not yet wired into `run.py`)
 - [ ] Local CV for the chosen model, plus at least two baselines
 - [ ] Ablation of the main improvements
 - [ ] `run.py` / `run.ipynb` reproduces the submitted CSV
