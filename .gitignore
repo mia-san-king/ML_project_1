@@ -1,0 +1,20 @@
+# Dataset CSVs (keep locally; do not push)
+dataset/*.csv
+*.csv
+!outputs/submission_baseline.csv
+data/*.npz
+*.npz
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Local notes and notebooks
+doc/

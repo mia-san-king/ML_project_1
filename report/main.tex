@@ -1,0 +1,172 @@
+% CS-433 Project 1 report — IEEEtran setup from
+% ML_course/projects/project1/latex-example-paper/latex-template.tex
+\documentclass[10pt,conference,compsocconf]{IEEEtran}
+
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\newcommand{\Fp}{\ensuremath{\mathrm{F1}^{+}}}
+
+\begin{document}
+
+\title{Predicting Myocardial Infarction and Coronary Heart Disease from BRFSS Survey Features}
+
+\author{
+  Yijun Liu, Yang Zhang, and Zhengyang Guo\\
+  \textit{\'{E}cole polytechnique f\'{e}d\'{e}rale de Lausanne (EPFL), Switzerland}
+}
+
+\maketitle
+
+\begin{abstract}
+This study evaluates six linear classifiers for myocardial infarction or coronary heart disease (MICHD) using data from the 2015 Behavioral Risk Factor Surveillance System. Because the positive class is underrepresented, models are selected by \Fp. Regularized logistic regression attains the highest validation \Fp ($0.4179$) at $t^\ast=0.23$. The submitted model is the unregularized fit at the same threshold, which reaches public test \Fp of $0.432$.
+\end{abstract}
+
+\section{Introduction}
+
+This study examines whether health and lifestyle survey features can distinguish respondents with myocardial infarction or coronary heart disease (MICHD) from other respondents. The analysis uses the 2015 Behavioral Risk Factor Surveillance System (BRFSS)~\cite{brfss2015,aicrowd_p1}. A respondent is labeled positive if they reported having been diagnosed with coronary heart disease, having had a heart attack, or having angina; all other respondents form the negative class.
+
+The labeled cohort comprises 328{,}135 respondents, including 28{,}975 positive cases (8.8\%). This imbalance makes accuracy alone inadequate: a classifier that predicts the negative class for every respondent achieves accuracy $0.912$ but fails to identify any positive cases. Accordingly, models are compared using \Fp, with threshold selection performed on held-out data.
+
+\section{Method}
+
+The modeling pipeline comprises feature preprocessing, comparison of six linear classifiers, and validation-based threshold selection. Candidate models are compared using positive-class F1 (\Fp) to account for the low prevalence of MICHD. The following subsections describe the data preparation, classifiers, evaluation metric, and training protocol; final model selection is reported in Section~III.
+
+\subsection{Data Preprocessing}
+The training set contains 321 input features, and the test set contains 109{,}379 observations. Before cleaning, 44.8\% of feature values are missing. Exploratory analysis informed the removal of 143 features, leaving 178 predictors. Removed features included survey identifiers and sampling weights, duplicate anthropometric fields, modules with more than 90\% missing values, and potential leakage variables such as \texttt{HAREHAB1}, which records information that may follow a cardiac diagnosis rather than serve as a predictor.
+BRFSS sentinel values, including 77, 99, 777, 999, 7777, and 9999 where applicable, are treated as missing. Codes 7 and 9 are interpreted as ``don't know'' or ``refused'' except in \texttt{\_AGEG5YR}, \texttt{\_AGE65YR}, \texttt{\_AGE80}, \texttt{\_AGE\_G}, and \texttt{\_BMI5}, where they are retained as observed values. On \texttt{\_AGEG5YR}, only code 14 is treated as missing. For \texttt{PHYSHLTH}, \texttt{MENTHLTH}, \texttt{POORHLTH}, and \texttt{CHILDREN}, code 88 (none) is recoded as zero.
+Missing values are imputed using training-fold medians, and features are centered and scaled using training-fold means and standard deviations. These statistics are applied to validation data and, after refitting on all labeled observations, to test data. A constant feature provides the intercept in the linear predictor $x^\top w$.
+
+\subsection{Classifiers}
+The six linear classifiers are batch gradient descent for mean squared error (MSE), stochastic gradient descent for MSE, least squares, ridge regression, logistic regression, and L2-regularized logistic regression. The first four use labels in $\{+1,-1\}$ and the MSE objective
+\begin{equation}
+L(w)=\frac{1}{2N}\|y-Xw\|_2^2,
+\quad
+\nabla L(w)=\frac{1}{N}X^\top(Xw-y).
+\label{eq:mse}
+\end{equation}
+Their updates are
+\begin{align}
+w &\leftarrow w-\gamma\nabla L(w),
+\label{eq:gd}\\
+w &\leftarrow w-\gamma\, x_n(x_n^\top w-y_n),
+\label{eq:sgd}\\
+X^\top X\, w &= X^\top y,
+\label{eq:ls}\\
+(X^\top X+2N\lambda I)\,w &= X^\top y.
+\label{eq:ridge}
+\end{align}
+\eqref{eq:gd} is batch GD with $\gamma=0.1$ for 200 steps.
+\eqref{eq:sgd} is stochastic gradient descent (SGD), with one observation sampled per step, step size $\gamma=0.01$, and 200 steps.
+\eqref{eq:ls} is least squares.
+\eqref{eq:ridge} is ridge regression, which adds $\lambda\|w\|_2^2$ to \eqref{eq:mse}; $\lambda$ is chosen on the validation grid.
+These four models predict $+1$ when $x^\top w\ge t$.
+
+Logistic regression maps labels to $\{0,1\}$ and uses
+$\sigma(z)=(1+e^{-z})^{-1}$ and $\hat p(y=1\mid x)=\sigma(x^\top w)$.
+The mean negative log-likelihood and its gradient are
+\begin{equation}
+L(w)=-\frac{1}{N}\sum_{n=1}^{N}\left[
+\begin{aligned}
+y_n\log\sigma(x_n^\top w)\\
+{}+(1-y_n)\log\big(1-\sigma(x_n^\top w)\big)
+\end{aligned}
+\right].
+\label{eq:nll}
+\end{equation}
+The corresponding gradient is
+\begin{equation}
+\nabla L(w)=\frac{1}{N}X^\top\big(\sigma(Xw)-y\big).
+\label{eq:nll_gradient}
+\end{equation}
+Weights are initialized to zero and optimized for 200 gradient steps with step size $\gamma=0.1$.
+Regularized logistic regression uses the same iteration on
+\begin{equation}
+\nabla L(w)+2\lambda w,
+\qquad
+\lambda=2.85\times 10^{-4},
+\label{eq:reglog}
+\end{equation}
+with $\lambda$ fixed at $2.85\times10^{-4}$ based on preliminary validation experiments; only the decision threshold is tuned in the reported validation comparison.
+Both logistic models predict $+1$ when $\hat p\ge t$.
+
+\subsection{Metrics}
+Let $TP$, $FP$, $TN$, and $FN$ denote the confusion counts for the positive disease class, and let $N=TP+TN+FP+FN$. Accuracy is
+\begin{equation}
+\mathrm{Acc}=\frac{TP+TN}{N}.
+\label{eq:accuracy}
+\end{equation}
+Positive-class recall and precision are
+\begin{equation}
+\mathrm{Rec}^{+}=\frac{TP}{TP+FN}.
+\label{eq:recall}
+\end{equation}
+\begin{equation}
+\mathrm{Prec}^{+}=\frac{TP}{TP+FP}.
+\label{eq:precision}
+\end{equation}
+\Fp\ is the harmonic mean of precision and recall:
+\begin{equation}
+\Fp=\frac{2\,\mathrm{Prec}^{+}\,\mathrm{Rec}^{+}}{\mathrm{Prec}^{+}+\mathrm{Rec}^{+}}.
+\label{eq:f1}
+\end{equation}
+Model selection uses \Fp.
+
+\subsection{Training and Evaluation}
+Labeled observations are shuffled with seed $0$ and split into 80\% training and 20\% validation folds before fitting preprocessing statistics, preventing information from the validation fold from entering preprocessing. Each candidate is trained on the training fold. For every fitted model, 51 thresholds on an evenly spaced grid from $0.05$ to $0.55$ are evaluated, and the threshold maximizing validation \Fp is retained. Ridge regression also undergoes a search over 12 logarithmically spaced penalty values from $10^{-4}$ to $10$. The submitted model is unregularized logistic regression, refitted on all labeled observations at its validation threshold $t^\ast=0.23$. Section~\ref{sec:results} explains why this fit is used rather than the validation leader. Test labels are unavailable.
+
+\section{Results}
+\label{sec:results}
+
+Table~\ref{tab:methods} summarizes validation performance. Regularized logistic regression achieves the highest validation \Fp, with unregularized logistic regression close behind; both outperform the squared-error models. For least squares, both MSE methods, and ridge, $t^\ast=0.05$ is the lower end of the threshold grid, so those scores are the best values on $[0.05,0.55]$. For unregularized logistic regression, selecting $t^\ast=0.23$ increases validation \Fp from $0.192$ at the conventional threshold of $0.5$ to $0.4176$.
+
+\begin{table}[t]
+  \centering
+  \caption{Validation \Fp (phase 1, 20\% holdout, seed 0). A dash marks a hyperparameter the estimator does not use.}
+  \label{tab:methods}
+  \footnotesize
+  \begin{tabular}{@{}lrrrrr@{}}
+    \toprule
+    Method & Steps & $\gamma$ & $\lambda$ & $t^\ast$ & \Fp \\
+    \midrule
+    Least squares & --- & --- & --- & 0.05 & 0.0624 \\
+    MSE, batch GD & 200 & 0.1 & --- & 0.05 & 0.0606 \\
+    MSE, SGD & 200 & 0.01 & --- & 0.05 & 0.1435 \\
+    Ridge & --- & --- & 3.51 & 0.05 & 0.3782 \\
+    Reg.\ logistic & 200 & 0.1 & $2.85\times 10^{-4}$ & 0.23 & \textbf{0.4179} \\
+    Logistic & 200 & 0.1 & --- & 0.23 & 0.4176 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Table~\ref{tab:ablation} reports public test \Fp for three logistic model variants. The bold row is the final model, refitted on all labeled observations. Although regularized logistic regression achieved slightly higher validation \Fp, the unregularized model was selected for the final submission after its public test score exceeded that of the regularized variant. The public test results therefore informed final model selection and are not an independent estimate of generalization performance.
+
+\begin{table}[t]
+  \centering
+  \caption{Public test \Fp for logistic model variants.}
+  \label{tab:ablation}
+  \small
+  \begin{tabular}{lcccr}
+    \toprule
+    Model & Steps & $t$ & $\lambda$ & \Fp \\
+    \midrule
+    Logistic & 50 & 0.36 & --- & 0.419 \\
+    Reg.\ logistic & 200 & 0.23 & $2.85\times 10^{-4}$ & 0.431 \\
+    Logistic & 200 & 0.23 & --- & \textbf{0.432} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Discussion}
+
+The public test score is close to the validation result, although the public score informed final model selection and therefore is not an independent estimate of generalization performance. The threshold comparison shows that decision-threshold selection can improve positive-class F1 without changing the training loss. The squared-error estimators underperform logistic regression, while regularization yields only a marginal change in validation performance.
+
+\section{Conclusion}
+
+Among the evaluated linear estimators, the logistic regression variants achieve the strongest validation performance, with regularized logistic regression marginally ahead. The unregularized variant is used for the final submission based on its higher public test score; that score should be interpreted with the model-selection caveat described above.
+
+\bibliographystyle{IEEEtran}
+\bibliography{literature}
+
+\end{document}

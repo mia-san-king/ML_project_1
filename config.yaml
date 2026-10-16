@@ -1,0 +1,43 @@
+# phase 1: tune on 80% train / 20% val (prints best params; no CSV)
+# phase 2: train on full train with values below; writes outputs/submission_baseline.csv
+phase: 2 # 1
+method: logistic  # least_squares #ridge #mse_sgd #mse_gd #logistic
+seed: 0
+val_ratio: 0.2
+out_csv: outputs/submission_baseline.csv
+
+phase1:
+  threshold_min: 0.05
+  threshold_max: 0.55
+  threshold_n: 51
+  lambda_min: 1.0e-4
+  lambda_max: 10.0
+  lambda_n: 12
+
+logistic:
+  max_iters: 200
+  gamma: 0.1
+  threshold: 0.23
+
+reg_logistic:
+  lambda: 2.85e-4
+  max_iters: 200
+  gamma: 0.1
+  threshold: 0.23
+
+least_squares:
+  threshold: 0.0
+
+ridge:
+  lambda: 1.0e-2
+  threshold: 0.0
+
+mse_gd:
+  max_iters: 200
+  gamma: 0.1
+  threshold: 0.0
+
+mse_sgd:
+  max_iters: 200
+  gamma: 0.01
+  threshold: 0.0
