@@ -4,7 +4,7 @@ Binary classification on CDC BRFSS 2015: predict myocardial infarction / coronar
 
 Competition: [AIcrowd — EPFL Machine Learning Project 1](https://www.aicrowd.com/challenges/epfl-machine-learning-project-1).
 
-NumPy only in the pipeline (no pandas, no scikit-learn). matplotlib/seaborn are for plots in notebooks.
+NumPy only in the pipeline (no pandas, no scikit-learn).
 
 ## Layout
 
@@ -14,10 +14,9 @@ helpers.py           # load_csv_data, create_csv_submission
 run.py               # preprocess → method from config.yaml → CSV
 config.yaml          # phase 1 tune / phase 2 submit; method and hyperparameters
 src/preprocess.py    # drop columns, sentinels, median impute, standardize
-data/                # competition CSVs (gitignored)
+data/                # competition CSVs (gitignored; not in this repo)
 outputs/             # submission CSV from phase 2
-doc/                 # tutorials, EDA, project plan (not graded)
-report/              # 2-page LaTeX report → `cd report && make`
+report/              # LaTeX report → `cd report && make`
 ```
 
 ## Data
@@ -26,7 +25,7 @@ Download the three AIcrowd files and put them in `data/` **without renaming**:
 
 - `x_train.csv`, `y_train.csv`, `x_test.csv`
 
-Optional: `sample_submission.csv`. Do not commit CSVs.
+Optional: `sample_submission.csv`. Competition CSVs stay local and are gitignored. `outputs/submission_baseline.csv` is the committed prediction file.
 
 `run.py` uses `data/cache_eda.npz` when it exists (faster reload). Delete that file to force a full `np.genfromtxt` load.
 
@@ -57,7 +56,7 @@ Training is split into two phases (set `phase` in [`config.yaml`](config.yaml)):
 | **1** | Train on 80% of labeled rows; grid-search threshold (and `lambda` for `ridge`) on the 20% validation split. Prints a YAML snippet to paste back into the config. **Does not** write a submission CSV. |
 | **2** | Uses the hyperparameters already in the config (defaults reproduce the best logistic run). Refits preprocess + model on **all** training rows, predicts test, writes `outputs/submission_baseline.csv`. |
 
-**Default (shipped config):** `phase: 2`, `method: logistic`, `max_iters: 200`, `gamma: 0.1`, `threshold: 0.23` — matches validation F1+ ≈ 0.418 and AIcrowd public F1+ **0.432**.
+**Default (shipped config):** `phase: 2`, `method: logistic`, `max_iters: 200`, `gamma: 0.1`, `threshold: 0.23`. On the phase-1 holdout this reaches validation F1+ **0.4176**. Regularized logistic regression is slightly higher on that split (**0.4179**, `lambda: 2.85e-4`). The uploaded file is the unregularized refit, public F1+ **0.432**.
 
 **Methods** (`method:` in config — one at a time):
 
@@ -104,6 +103,5 @@ While iterating you may pass a local folder as `--github_link` and ignore `test_
 
 ## Notes
 
-- Do not treat BRFSS codes 7/9/88 as missing on every column (`_AGEG5YR` 7 and 9 are real age groups; `PHYSHLTH` 88 means zero days).
+- Do not treat BRFSS codes 7/9/88 as missing on every column. Codes 7 and 9 are kept on `_AGEG5YR`, `_AGE65YR`, `_AGE80`, `_AGE_G`, and `_BMI5`. On `_AGEG5YR`, only code 14 is missing. `PHYSHLTH` code 88 means zero days.
 - `HAREHAB1` and related rehab/aspirin items are dropped as leakage.
-- Team tutorials: `doc/helpers.ipynb`, `doc/eda.ipynb`, `doc/preprocess_tutorial.ipynb`, `doc/run_tutorial.ipynb`.
