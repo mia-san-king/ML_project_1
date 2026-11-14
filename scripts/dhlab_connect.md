@@ -17,11 +17,7 @@ How-To 写明：
 ssh yijliu@dhlabsrv1.epfl.ch
 ```
 
-本机快捷方式（`~/.ssh/config` 已配置）：
-
-```bash
-ssh dhlab
-```
+当前工作就在这台机器上。项目目录是 `/rcp-scratch/students/yijliu/ml-project2/ML_project_1`。
 
 - **Gaspar 用户名：** `yijliu`（不是 SCiper 402257，不是邮箱 `yijun.liu@epfl.ch`）
 - **密码：** Gaspar 密码
@@ -69,14 +65,7 @@ conda activate /scratch/$USER/.conda/envs/ml-p2
 
 定期清理：`conda clean --all`
 
-也可运行本仓库：
-
-```bash
-# 在 Mac 上（会提示 Gaspar 密码一次；装 Miniconda + ml-p2 + GeoCLIP，约 5–15 分钟）
-bash /Users/yijunliu/Documents/ML/ML_project_1/scripts/run_dhlab_setup_from_mac.sh
-```
-
-登录后直接使用：
+环境已经装好。在这台机器上使用：
 
 ```bash
 source ~/.bashrc   # 新会话可省略

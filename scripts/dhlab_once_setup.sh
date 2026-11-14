@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Run ONCE on dhlabsrv1 after: ssh dhlab
+# Run once on dhlabsrv1, from the project directory.
 # Creates scratch layout + conda dirs (data/env on scratch, not home).
 
 set -euo pipefail

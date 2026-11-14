@@ -1,0 +1,47 @@
+---
+description: DHLAB 服务器硬性规定。在 dhlabsrv1 上存数据、用 GPU、跑长任务或写 README 时必须遵守。
+alwaysApply: true
+---
+
+# DHLAB 实验室规定
+
+来源：https://github.com/dh-epfl-students/EPFL-DHLAB-student-projects/blob/main/README-Student-HowTo.md
+文档里的 `/scratch/$USER`、12 TB、2 块 GPU 已过时。以这台机器的实际路径和导师约定为准。
+
+## 存哪里
+
+- 数据、模型、特征、checkpoint、缓存和临时文件放在 `/rcp-scratch/students/yijliu`。不要放 `~`、空的 `~/scratch` 或根分区。
+- 本项目数据只放 `P2_DATA=/rcp-scratch/students/yijliu/ml-project2/data`。图像、特征、权重不进 Git。
+- 只用已有环境 `/rcp-scratch/students/yijliu/.conda/envs/ml-p2`。新环境也必须建在 `/rcp-scratch/students/yijliu/.conda/envs`。
+- `HF_HOME`、`TORCH_HOME`、`TMPDIR` 已指向 scratch。非交互 shell 读不到 `~/.bashrc` 后半段，跑命令前要自己 export 这些变量和 `P2_DATA`。
+- 大下载或训练前先 `df -h /rcp-scratch`。共享盘接近满时停下来告诉用户。不要写满，也不要改存到 home。
+
+## GPU 与长任务
+
+- 先看 `nvidia-smi`。最多 2 块。禁止 GPU 3（实验室常驻服务）。跳过已有别人进程的卡。
+- 下载、提特征、训练放进 `screen -S 名字`，用 `Ctrl-A D` 离开。不要在前台 SSH 里挂长任务。
+
+```bash
+# 正确：空闲卡、数据在 scratch、变量自己导出
+export CUDA_VISIBLE_DEVICES=1
+export P2_DATA=/rcp-scratch/students/yijliu/ml-project2/data
+export HF_HOME=/rcp-scratch/students/yijliu/hf_cache
+export TORCH_HOME=/rcp-scratch/students/yijliu/hf_cache/torch
+export TMPDIR=/rcp-scratch/students/yijliu/tmp
+
+# 错误：占 GPU 3、数据进 home
+CUDA_VISIBLE_DEVICES=3 python scripts/download_images.py
+cp -r images ~/images
+```
+
+## 工作地点
+
+- 代码、元数据、EDA、下图、训练、作图、报告都在这台机器上做：`/rcp-scratch/students/yijliu/ml-project2/ML_project_1`。
+- 数据在 `P2_DATA=/rcp-scratch/students/yijliu/ml-project2/data`。
+- 分支保持 `project_2_Yijun_Liu`。只有用户明确要求时才 git commit。
+
+## 仓库
+
+- 课程仓库保持 `ML_project_1`，分支 `project_2_Yijun_Liu`。不要为了实验室命名规范改名。
+- 新建 DHLAB 仓库才用全小写和连字符，大项目名在前。README 要有姓名、导师、学年、简介、做法与结果、安装用法、依赖文件和开源许可证。
+- 目录用 `notebooks/`、`lib/`、`report/`（PDF 和 LaTeX）。

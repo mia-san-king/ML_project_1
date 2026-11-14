@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Upload and run full DHLAB setup (you will type Gaspar password once or twice).
+# One-time bootstrap over SSH. Day-to-day work stays on dhlabsrv1.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 HOST="${DHLAB_SSH_HOST:-dhlab}"

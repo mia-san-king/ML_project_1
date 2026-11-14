@@ -1,0 +1,9 @@
+data/*
+!data/splits/
+*.npy
+*.pt
+images/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.DS_Store

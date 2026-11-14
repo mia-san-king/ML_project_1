@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # Idempotent DHLAB bootstrap for CS-433 Project 2 (GeoCLIP / SMAPshot).
-# Run on dhlabsrv1: bash dhlab_full_setup.sh
-# Or from Mac: ssh yijliu@dhlabsrv1.epfl.ch 'bash -s' < scripts/dhlab_full_setup.sh
+# Run on dhlabsrv1: bash scripts/dhlab_full_setup.sh
 
 set -euo pipefail
 
@@ -193,4 +192,4 @@ print("GeoCLIP import OK")
 PY
 
 log "Done. Read: ${QUICK}"
-log "New shell: ssh dhlab  →  ml-p2"
+log "Next shell: ml-p2"

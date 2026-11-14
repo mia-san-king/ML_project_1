@@ -6,6 +6,8 @@
 
 队友的结果只作为**背景和参照**（§2）。本教程里的数据、划分、代码和实验全部由你自己从零完成。
 
+**工作地点**：只在 DHLAB 上做。代码在 `/rcp-scratch/students/yijliu/ml-project2/ML_project_1`，数据在 `/rcp-scratch/students/yijliu/ml-project2/data`，不进 Git。
+
 ---
 
 ## 0. 一页速览
@@ -18,7 +20,7 @@
 | 可选目标 1 | 对每个预测给出**可信的可靠度**：预测 $P(\text{误差}\le T)$，并且要校准好 |
 | 可选目标 2 | 在**训练中从未出现的地区**上测试泛化：留出一整个城市和一整个州（建议 Ticino） |
 | 数据 | SMAPshot 公开 API，已核实有 355,281 张 validated 图（§5.2） |
-| 算力 | 本机（Mac）写代码、做 EDA、小样本调试、作图、写报告；DHLAB（Quadro RTX 8000 × 最多 2 块）下载图像、提特征、训练、评估 |
+| 算力 | 全部在 DHLAB 上做（代码、EDA、元数据、下图、训练、作图、报告）。GPU 为 Quadro RTX 8000，最多 2 块，不用 GPU 3 |
 | 关键工程决定 | ① **在下载图像之前**就把留出地区和空间划分定死；② CLIP 主干冻结，所以每张图只过一次 CLIP，把特征缓存下来，之后所有实验都在特征上跑（几分钟一次） |
 
 **一句话故事线**：GeoCLIP 在瑞士历史照片上 25 km 内只对 10–18%（队友测的），而且不知道自己什么时候错。我们用瑞士候选库、瑞士负样本微调和距离平滑损失把它变成"瑞士专家"，再证明：(i) 收益在空间不相交的测试集上依然成立，甚至在没见过的州上也成立；(ii) 模型能告诉我们哪些预测可以信。
@@ -168,445 +170,82 @@ $$
 ### 5.0 总览
 
 ```text
- 本机 Mac                                    DHLAB GPU 服务器
- ─────────────────────────                  ──────────────────────────────────────
- S1 环境与仓库骨架
- S2 拉元数据 (API, ~360 次请求)  ──rsync──▶  data/meta/smapshot.parquet
- S3 EDA：看分布、选留出地区
- S4 清洗 + 划分 (定死, 进 Git)   ──git──▶    data/splits/main.csv
-                                            S5 下载图像 (screen, 可断点续传)
-                                            S6 CLIP 特征缓存 (GPU, 一次)
- S7 评估库 (metrics, bootstrap)  ──git──▶
-                                            S8  基线 B0–B4
-                                            S9  零训练适配 A1–A2 (先验、瑞士候选库)
-                                            S10 微调 A3–A4 (瑞士负样本、软目标)
-                                            S11 (可选) 可靠度模型
-                                            S12 (可选) 留出城市/州的泛化评估
- S13 汇总表格、作图、写报告  ◀──rsync──      results/preds/*.parquet, results/*.json
+全部在 DHLAB
+/rcp-scratch/students/yijliu/ml-project2/ML_project_1
+S1 环境与仓库骨架
+S2 拉元数据 → $P2_DATA/meta/smapshot.parquet
+S3 EDA：看分布、选留出地区
+S4 清洗 + 划分 → data/splits/main.csv.gz
+S5 下载图像（screen，可断点续传）
+S6 CLIP 特征缓存（GPU，一次）
+S7 评估库（metrics、bootstrap）
+S8  基线 B0–B4
+S9  零训练适配 A1–A2（先验、瑞士候选库）
+S10 微调 A3–A4（瑞士负样本、软目标）
+S11（可选）可靠度模型
+S12（可选）留出城市/州的泛化评估
+S13 汇总表格、作图、写报告
 ```
 
-**原则**：
-
-- 代码只在 Mac 上写，`git push` 后在 DHLAB 上 `git pull`。
-- 数据、特征、checkpoint 只在 DHLAB 上（元数据例外，两边都有）。
-- 小结果文件（预测、指标 JSON）用 `rsync` 拉回 Mac 作图。
-- 每一步都有**完成标准**。达到了才进入下一步。
-
-路径约定，代码里统一用环境变量 `P2_DATA`：
-
-| 机器 | `P2_DATA` |
-| --- | --- |
-| Mac | `~/Documents/ML/p2data`（不在仓库里） |
-| DHLAB | `/rcp-scratch/students/yijliu/ml-project2/data` |
-
-```text
-$P2_DATA/
-├── meta/        # 原始 API 页（json）+ smapshot.parquet
-├── geo/         # Natural Earth 国界、州界
-├── images/      # 只在 DHLAB；按 id//1000 分子目录
-├── features/    # clip_vitl14.npy + ids.npy
-├── ckpt/        # 微调后的权重
-└── results/     # preds/*.parquet、metrics/*.json
-```
+数据、特征、checkpoint 不进 Git。代码、划分文件和小的指标 JSON 进 Git。`P2_DATA=/rcp-scratch/students/yijliu/ml-project2/data`。
 
 ---
 
-### S1. 环境与仓库骨架【本机 + DHLAB，约半天】
+### S1. 环境与仓库骨架【已完成】
 
-**1a. 本机建环境**（Apple Silicon 上 PyTorch 自带 MPS，小样本调试够用）：
-
-```bash
-conda create -n p2 python=3.11 -y
-conda activate p2
-pip install torch torchvision geoclip pandas pyarrow pyproj shapely geopandas \
-            scikit-learn matplotlib requests tqdm pyyaml
-pip freeze > requirements-lock.txt   # 报告复现用，提交进 Git
-```
-
-**1b. DHLAB 环境补装**（`ml-p2` 已有 torch 和 geoclip）：
-
-```bash
-ssh dhlab
-ml-p2                                   # 激活环境并进入项目目录
-pip install pyarrow pyproj shapely geopandas scikit-learn requests pyyaml
-mkdir -p $DHLAB_SCRATCH/ml-project2/data
-echo 'export P2_DATA=/rcp-scratch/students/yijliu/ml-project2/data' >> ~/.bashrc
-```
-
-**1c. 在 DHLAB 上确认 GeoCLIP 真的能推理**，不只是能加载：
-
-```bash
-python - <<'PY'
-from geoclip import GeoCLIP
-import torch, urllib.request
-m = GeoCLIP().to("cuda").eval()
-print(m.image_encoder.mlp, m.gps_gallery.shape, m.logit_scale.exp().item())
-urllib.request.urlretrieve("https://smapshot.heig-vd.ch/api/v1/data/collections/2/images/thumbnails/566.jpg", "/tmp/t.jpg")
-print(m.predict("/tmp/t.jpg", top_k=3))   # 真值约在 Aproz (VS)
-PY
-```
-
-如果 `predict` 报 `get_image_features` 相关的错，说明 `transformers` 版本太新、和 geoclip 不兼容。执行 `pip install "transformers<5"` 后重试。
-
-**1d. 仓库骨架**（在 Mac 上建，然后提交）：
-
-```text
-ML_project_1/
-├── README.md              # 安装、数据、复现每张表的命令
-├── tutorial.md
-├── requirements-lock.txt
-├── configs/               # 每个实验一个 yaml
-├── lib/
-│   ├── paths.py           # P2_DATA 等路径
-│   ├── geo.py             # haversine（numpy / torch）、LV95 转换、瑞士网格
-│   ├── smapshot.py        # API 抓取与解析
-│   ├── splits.py          # 留出地区 + 空间块划分
-│   ├── features.py        # CLIP 特征缓存
-│   ├── geoclip_ops.py     # 用缓存特征做 GeoCLIP 推理、先验、训练
-│   ├── metrics.py         # 指标、bootstrap
-│   └── reliability.py
-├── scripts/               # 命令行入口（每步一个）+ 已有的 dhlab_*.sh
-├── notebooks/             # 01_eda.ipynb、02_figures.ipynb
-├── data/splits/           # 划分文件（小，进 Git）
-└── report/
-```
-
-`.gitignore` 加上 `data/*` 和 `!data/splits/`，以及 `*.npy`、`*.pt`、`images/`。
-
-```python
-# lib/paths.py
-import os
-from pathlib import Path
-
-DATA = Path(os.environ.get("P2_DATA", Path.home() / "Documents/ML/p2data")).expanduser()
-META, GEO, IMAGES = DATA / "meta", DATA / "geo", DATA / "images"
-FEATS, CKPT, RESULTS = DATA / "features", DATA / "ckpt", DATA / "results"
-for p in (META, GEO, IMAGES, FEATS, CKPT, RESULTS):
-    p.mkdir(parents=True, exist_ok=True)
-```
-
-**完成标准**：两边都能 `import geoclip`；DHLAB 上 `predict` 输出 3 个坐标；空仓库骨架已推送。
+环境是 `/rcp-scratch/students/yijliu/.conda/envs/ml-p2`（torch 2.15.0+cu132，geoclip 1.3.0）。GPU 1 上 `predict` 对一张 Aproz 缩略图返回了 3 个坐标：前两名约 294 km（意大利北部），第三名距 Aproz 约 5.5 km。依赖锁在 `requirements-lock.txt`。`P2_DATA` 写在 `~/.bashrc`。路径代码在 `lib/paths.py`。
 
 ---
 
-### S2. 拉取 SMAPshot 元数据【本机，约 30 分钟】
+### S2. 拉取 SMAPshot 元数据【已完成】
 
-**已核实的 API 信息**【已知】：
+`scripts/fetch_metadata.py` 调用 `GET /api/v1/images?limit=1000&offset=N&state[]=validated`（`state=validated` 会 400）。结果在 `$P2_DATA/meta/smapshot.parquet`：355,281 行，`id` 唯一，经纬度全部非空。`view_type`：lowOblique 146,929，terrestrial 100,999，highOblique 60,500，nadir 40,531，空 6,322。
 
-| 项 | 值 |
-| --- | --- |
-| 列表接口 | `GET https://smapshot.heig-vd.ch/api/v1/images?limit=1000&offset=N&state[]=validated` |
-| 数量 | validated 共 355,281 张（总 357,113）。`limit=1000` 可用，所以约 356 次请求 |
-| 过滤参数 | 必须用数组写法，例如 `state[]=validated`、`view_type[]=terrestrial`（写成 `state=validated` 会返回 400） |
-| 返回字段 | `id, original_id, collection_id, owner_id, title, view_type, date_shot_min, date_shot_max, latitude, longitude, height, width, media.image_url` |
-| `view_type` | terrestrial 约 101k；nadir（垂直航拍）约 40.5k；其余约 214k 为空（多半是倾斜航拍） |
-| 单张详细 | `GET /images/{id}/attributes`：相机位姿（海拔、方位角、俯仰、焦距）、`country_iso_a2`、许可证、摄影师 |
-| 缩略图 | 大多约 500×366 px、约 65 KB；部分来自外部 IIIF，宽 200 px |
-| 收藏 | 63 个。大多是航拍（Swissair、Comet、Friedli 等），还有 "Views of Zürich"、"Fonds Perrochet (Tessin)"，以及**瑞士以外**的 imagineRio（里约）、Vorarlberg（奥地利） |
-
-**两个必须记住的数据事实**：
-
-1. 坐标是**相机位置**。倾斜航拍的相机在飞机上，可能离画面主体好几公里，这是一部分无法消除的误差。所以**一定要按 `view_type` 分开报告结果**。
-2. `title` 里常有地名（例如 "Aproz"）。它**不能**作为模型输入，否则就是标签泄漏。
-
-```python
-# lib/smapshot.py
-import json, time
-import pandas as pd
-import requests
-from lib.paths import META
-
-BASE = "https://smapshot.heig-vd.ch/api/v1"
-UA = {"User-Agent": "EPFL CS-433 student project (contact: <your-epfl-email>)"}
-
-def fetch_pages(page=1000, delay=1.0, max_pages=None):
-    """断点续传：已存在的页直接跳过。"""
-    s = requests.Session(); s.headers.update(UA)
-    offset, n = 0, 0
-    while max_pages is None or n < max_pages:
-        f = META / f"page_{offset:07d}.json"
-        if not f.exists():
-            r = s.get(f"{BASE}/images", params={"limit": page, "offset": offset,
-                                                "state[]": "validated"}, timeout=120)
-            r.raise_for_status()
-            f.write_text(r.text)
-            time.sleep(delay)
-        rows = json.loads(f.read_text())["rows"]
-        n += 1
-        if len(rows) < page:
-            break
-        offset += page
-
-def pages_to_parquet():
-    rows = [r for f in sorted(META.glob("page_*.json")) for r in json.loads(f.read_text())["rows"]]
-    df = pd.json_normalize(rows).rename(columns={"media.image_url": "image_url"})
-    keep = ["id", "original_id", "collection_id", "owner_id", "title", "view_type",
-            "date_shot_min", "date_shot_max", "latitude", "longitude", "height", "width", "image_url"]
-    df = df[keep].drop_duplicates("id").reset_index(drop=True)
-    df.to_parquet(META / "smapshot.parquet")
-    return df
-```
-
-```bash
-# Mac，在仓库根目录
-python -c "from lib.smapshot import fetch_pages, pages_to_parquet; fetch_pages(); print(pages_to_parquet().shape)"
-rsync -avP ~/Documents/ML/p2data/meta/smapshot.parquet dhlab:/rcp-scratch/students/yijliu/ml-project2/data/meta/
-```
-
-**完成标准**：`smapshot.parquet` 约 35.5 万行；`id` 唯一；经纬度非空的比例已记录。
+坐标是相机位置，不是画面主体，所以结果要按 `view_type` 分开报。`title` 里常有地名，不能当模型输入。
 
 ---
 
-### S3. 探索性分析（EDA）与选留出地区【本机，约半天】
+### S3. 探索性分析（EDA）与选留出地区【已完成】
 
-在 `notebooks/01_eda.ipynb` 里做，结果直接决定 S4 的划分。
+[`notebooks/01_eda.ipynb`](../notebooks/01_eda.ipynb)。收藏名称在 `$P2_DATA/meta/collections.json`。
 
-1. **基本统计**：按 `collection_id`、`view_type` 计数；`date_shot_min` 的覆盖率和年代直方图；缺坐标的数量。
-2. **地图**：把所有点画在 LV95 坐标上，按 `view_type` 着色。
-3. **国界过滤**：下载 Natural Earth 国界和州界（已核实可下载，分别约 5 MB 和 15 MB）。
+选择标准：留出集至少 2,000 张，并且 terrestrial 和航拍都要有；留出州要和训练区的语言、地形不同；留出城市不能占掉太大一块训练集。
 
-```python
-# lib/geo.py
-import numpy as np
-import torch
-import geopandas as gpd
-from pyproj import Transformer
-from lib.paths import GEO
-
-R_EARTH = 6371.0088
-TO_LV95 = Transformer.from_crs("EPSG:4326", "EPSG:2056", always_xy=True)
-TO_WGS = Transformer.from_crs("EPSG:2056", "EPSG:4326", always_xy=True)
-NE = "https://naciscdn.org/naturalearth/10m/cultural/"
-
-def haversine_km(lat1, lon1, lat2, lon2):
-    lat1, lon1, lat2, lon2 = map(np.radians, (lat1, lon1, lat2, lon2))
-    h = np.sin((lat2 - lat1) / 2) ** 2 + np.cos(lat1) * np.cos(lat2) * np.sin((lon2 - lon1) / 2) ** 2
-    return 2 * R_EARTH * np.arcsin(np.sqrt(np.clip(h, 0, 1)))
-
-def haversine_torch(a, b):
-    """a: (N,2)、b: (M,2)，[lat, lon] 度 → (N,M) km"""
-    a, b = torch.deg2rad(a), torch.deg2rad(b)
-    dlat = a[:, None, 0] - b[None, :, 0]
-    dlon = a[:, None, 1] - b[None, :, 1]
-    h = torch.sin(dlat / 2) ** 2 + torch.cos(a[:, None, 0]) * torch.cos(b[None, :, 0]) * torch.sin(dlon / 2) ** 2
-    return 2 * R_EARTH * torch.asin(torch.sqrt(h.clamp(0, 1)))
-
-def load_boundaries():
-    """返回 LV95 坐标下的 (瑞士国界, 各州 GeoDataFrame)。"""
-    f0, f1 = GEO / "ne_admin0.gpkg", GEO / "ne_admin1_ch.gpkg"
-    if not f0.exists():
-        a0 = gpd.read_file(NE + "ne_10m_admin_0_countries.zip")
-        a0[a0.ADM0_A3 == "CHE"].to_file(f0)
-        a1 = gpd.read_file(NE + "ne_10m_admin_1_states_provinces.zip")
-        a1[a1.adm0_a3 == "CHE"][["name", "geometry"]].to_file(f1)
-    ch = gpd.read_file(f0).to_crs(2056).geometry.union_all()
-    cantons = gpd.read_file(f1).to_crs(2056)
-    return ch, cantons
-
-def to_lv95(lat, lon):
-    e, n = TO_LV95.transform(np.asarray(lon), np.asarray(lat))
-    return np.asarray(e), np.asarray(n)
-```
-
-4. **选留出城市和留出州**。下面的代码统计每个候选城市 10 km 内、每个州内的图片数：
-
-```python
-import pandas as pd, numpy as np
-from lib.geo import haversine_km, load_boundaries, to_lv95
-import geopandas as gpd
-
-df = pd.read_parquet(META / "smapshot.parquet").dropna(subset=["latitude", "longitude"])
-CITIES = {"Basel": (47.5596, 7.5886), "Bern": (46.9480, 7.4474), "Lausanne": (46.5197, 6.6323),
-          "Luzern": (47.0502, 8.3093), "Zürich": (47.3769, 8.5417), "Genève": (46.2044, 6.1432),
-          "St. Gallen": (47.4245, 9.3767)}
-for c, (la, lo) in CITIES.items():
-    d = haversine_km(df.latitude.values, df.longitude.values, la, lo)
-    print(f"{c:10s} ≤10km: {(d <= 10).sum():6d}   其中 terrestrial: {((d <= 10) & (df.view_type == 'terrestrial')).sum()}")
-
-ch, cantons = load_boundaries()
-e, n = to_lv95(df.latitude, df.longitude)
-pts = gpd.GeoDataFrame(df[["id", "view_type"]], geometry=gpd.points_from_xy(e, n), crs=2056)
-print(gpd.sjoin(pts, cantons, predicate="within").groupby("name").size().sort_values())
-```
-
-**选择标准**：
-
-- 每个留出集至少 2,000 张，并且 terrestrial 和航拍两类都要有。
-- 留出州的语言、建筑、地形最好和训练区不同。**Ticino** 是阿尔卑斯以南、讲意大利语的州，还有单独的收藏 "Fonds Perrochet (Tessin)"，是天然的"没见过的地区"。
-- 留出城市不要选数据占比太大的城市，否则训练集损失太多。如果苏黎世占了很大比例（有专门的 "Views of Zürich" 收藏），就选 Basel 或 Bern。
-
-**为什么不用 4Dbrowser 做"没见过的城市"**【已知】：它的覆盖接口返回 342,688 个点，但几乎都在捷克、斯洛伐克、德国和荷兰。瑞士外接框里只有 685 个点，而且看起来是现代全景。可以把它作为**跨国家的压力测试**（可选，见 S12d），但不能作为瑞士城市的留出集。
-
-**完成标准**：notebook 里有地图、各收藏和 `view_type` 的计数表，以及你选定的留出城市、留出州和理由，写进 README。
+据此选定 **Ticino**（14,467 张，terrestrial 8,994；阿尔卑斯以南、意大利语，另有 Fonds Perrochet）和 **Bern**（10 km 内 3,985 张，terrestrial 1,455）。Zürich 10 km 内 32,128 张，太大。Basel 有 3,633 张，但 terrestrial 只有 176。4Dbrowser 瑞士框内只有约 685 个现代全景点，不能当瑞士留出城市。
 
 ---
 
-### S4. 清洗与划分（下载前就定死）【本机，约半天】
+### S4. 清洗与划分【已完成】
 
-**4a. 清洗规则**（每一步记录删掉多少张，报告里要用）：
+代码在 `lib/splits.py`，入口 `scripts/make_splits.py`。文件 `data/splits/main.csv.gz`。Fig. 1 在 `report/figures/fig1_split_map.png`。
 
-1. 去掉缺坐标的图。
-2. 只保留瑞士国界向外 5 km 缓冲区内的点。航拍相机可能在边境湖面上空，所以要留缓冲；这一步也会去掉 imagineRio 和 Vorarlberg。
-3. **主基准去掉 `view_type == "nadir"`**（垂直航拍更像正射影像，是另一种任务），但把它们单独存一个附加测试集。
-4. 去重放到 S6 之后做：CLIP 余弦相似度 > 0.97 且距离 < 50 m 视为重复，只保留一张。
+清洗：
 
-**4b. 划分方案**：三个测试集 + 训练 + 验证。
+1. 缺坐标：0 张。
+2. 只留瑞士国界向外 5 km 以内，去掉里约、Vorarlberg 等。境外 31,138 张（另有 nadir 274），标成 `outside`，不下载。
+3. `view_type == nadir` 不进主实验，标签加 `nadir_` 前缀，共 40,531 张。
+4. 近重复（CLIP 余弦 > 0.97 且距离 < 50 m）留到 S6，现在还没删。
 
-| 集合 | 定义 | 用途 |
+划分（seed 0）：
+
+| 集合 | 规则 | 非 nadir 张数 |
 | --- | --- | --- |
-| `test_region` | 留出州（例如 Ticino）内的全部图 | RQ3：完全没见过的地区 |
-| `test_city` | 留出城市中心 10 km 内的全部图 | RQ3：没见过的城市 |
-| `buffer` | 留出州向外 10 km 的环带、留出城市 10–20 km 的环带 | **直接丢弃**，避免同一座山或同一个湖跨集合泄漏 |
-| 其余部分 | 按 10 km × 10 km LV95 块随机分配：train 70% / val 10% / `test_in` 20% | 主实验 |
-| `random_*`（对照） | 在"其余部分"里做一次纯随机划分 | 量化空间泄漏 |
+| `test_region` | Ticino 州界内 | 13,040 |
+| `test_city` | Bern（46.9480, 7.4474）10 km 内 | 3,378 |
+| `buffer` | Ticino 向外 10 km，以及 Bern 的 10–20 km 环带；训练和测试都不用 | 13,515 |
+| train / val / `test_in` | 其余点按 10 km × 10 km 的 LV95 块随机分 70% / 10% / 20% | 176,538 / 29,532 / 47,609 |
 
-```python
-# lib/splits.py
-import numpy as np
-import pandas as pd
-import geopandas as gpd
-from shapely.geometry import Point
-from lib.geo import load_boundaries, to_lv95
-
-def make_splits(df, region="Ticino", city_center=(47.5596, 7.5886), city_r_km=10,
-                buffer_km=10, block_km=10, frac=(0.7, 0.1, 0.2), seed=0):
-    ch, cantons = load_boundaries()
-    e, n = to_lv95(df.latitude.values, df.longitude.values)
-    pts = gpd.GeoSeries(gpd.points_from_xy(e, n), crs=2056)
-
-    keep = pts.within(ch.buffer(5_000)).values
-    reg = cantons.loc[cantons.name == region].geometry.union_all()
-    in_reg = pts.within(reg).values
-    near_reg = pts.within(reg.buffer(buffer_km * 1000)).values & ~in_reg
-    ce, cn = to_lv95(np.array([city_center[0]]), np.array([city_center[1]]))
-    d_city = np.hypot(e - ce[0], n - cn[0]) / 1000        # LV95 中近似欧氏距离，km
-    in_city = d_city <= city_r_km
-    near_city = (d_city > city_r_km) & (d_city <= city_r_km + buffer_km)
-
-    split = np.full(len(df), "", dtype=object)
-    split[~keep] = "outside"
-    split[keep & (near_reg | near_city)] = "buffer"
-    split[keep & in_city] = "test_city"
-    split[keep & in_reg] = "test_region"
-
-    rest = keep & (split == "")
-    bx = np.floor(e / (block_km * 1000)).astype(np.int64)
-    by = np.floor(n / (block_km * 1000)).astype(np.int64)
-    block = bx * 100_000 + by
-    blocks = np.unique(block[rest])
-    rng = np.random.default_rng(seed)
-    rng.shuffle(blocks)
-    n_tr, n_va = int(frac[0] * len(blocks)), int(frac[1] * len(blocks))
-    lookup = {b: s for s, bs in (("train", blocks[:n_tr]), ("val", blocks[n_tr:n_tr + n_va]),
-                                 ("test_in", blocks[n_tr + n_va:])) for b in bs}
-    split[rest] = [lookup[b] for b in block[rest]]
-
-    rnd = np.full(len(df), "", dtype=object)
-    r = rng.random(rest.sum())
-    rnd[rest] = np.where(r < frac[0], "train", np.where(r < frac[0] + frac[1], "val", "test_in"))
-
-    out = pd.DataFrame({"id": df.id.values, "split": split, "random_split": rnd, "block": block})
-    out.loc[df.view_type.values == "nadir", "split"] = "nadir_" + out.loc[df.view_type.values == "nadir", "split"]
-    return out
-```
-
-```bash
-python -c "
-import pandas as pd
-from lib.paths import META
-from lib.splits import make_splits
-df = pd.read_parquet(META/'smapshot.parquet').dropna(subset=['latitude','longitude'])
-s = make_splits(df); s.to_csv('data/splits/main.csv.gz', index=False)
-print(s.split.value_counts())"
-git add data/splits/main.csv.gz && git commit -m "Fix data splits (Ticino + Basel held out, 10 km blocks)" && git push
-```
-
-**注意**：
-
-- 按块分配，所以各集合的实际张数不会正好是 70/10/20，在报告里写实际张数。
-- **从此以后不准再改划分**。超参数只在 `val` 上选，三个测试集只在最终评估时跑一次。
-- 块大小的敏感性检查（5 km、20 km）放到最后，作为附录。
-
-**完成标准**：`main.csv.gz` 已进 Git；一张"划分地图"（每个集合一种颜色），这张图之后直接放进报告。
+块划分所以比例不会正好是 70/10/20。`random_split` 列是同一批「其余点」上的纯随机对照，用来看空间泄漏。从此不改这个文件。超参数只在 `val` 上选。5 km 和 20 km 块的检查放附录。文件还没 git commit。
 
 ---
 
-### S5. 下载图像【DHLAB，`screen` 里跑 1–4 天】
+### S5. 下载图像【DHLAB，进行中】
 
-**规模估算**：35 万张 × 约 65 KB ≈ 23 GB。scratch 空间够用，瓶颈是请求延时：
+`scripts/download_images.py` 在 `screen` 会话 `dl` 里跑，每张间隔 0.5 秒。已有文件会跳过，所以中断后可以续传。日志：`$P2_DATA/download.log`。
 
-| 延时 | 全量耗时 |
-| --- | --- |
-| 1 s | 约 4 天 |
-| 0.3 s | 约 1.5 天 |
+下 308,947 张：三个测试集、`val`、`train`，含 nadir。不下 `outside` 和 `buffer`。顺序是测试集和 `val`，然后 `train` 的 5 万张，然后其余 `train`。图片在 `$P2_DATA/images/`，按 `id // 1000` 分子目录。真值仍在 `smapshot.parquet`，用 `id` 对应。
 
-**策略**：按优先级下载，可以随时中断、续传，下载期间就能开始后面的步骤。
-
-| 优先级 | 内容 |
-| --- | --- |
-| 1 | 三个测试集和 val（全量） |
-| 2 | train 的随机 50k |
-| 3 | train 剩下的部分 |
-
-先用 0.5 s 延时跑。如果对方服务器响应变慢或返回 429，就加大延时。可以在 SMAPshot 开发文档里找联系人，问一下能否批量导出。
-
-```python
-# scripts/download_images.py
-import io, sys, time
-import pandas as pd, requests
-from PIL import Image
-from tqdm import tqdm
-from lib.paths import META, IMAGES
-
-def img_path(i):
-    return IMAGES / f"{i // 1000:04d}" / f"{i}.jpg"
-
-def main(delay=0.5, max_side=512):
-    meta = pd.read_parquet(META / "smapshot.parquet")[["id", "image_url"]]
-    sp = pd.read_csv("data/splits/main.csv.gz")
-    df = meta.merge(sp, on="id")
-    df = df[~df.split.isin(["outside", "buffer"])]
-    pri = {"test_region": 0, "test_city": 0, "test_in": 0, "val": 0, "train": 1}
-    df["pri"] = df.split.map(pri).fillna(2)
-    df["r"] = pd.Series(range(len(df))).sample(frac=1, random_state=0).values
-    df.loc[(df.pri == 1) & (df.r >= 50_000), "pri"] = 2
-    df = df.sort_values(["pri", "r"])
-
-    s = requests.Session()
-    s.headers["User-Agent"] = "EPFL CS-433 student project (contact: <your-epfl-email>)"
-    fail = open(IMAGES / "failed.txt", "a")
-    for i, url in tqdm(zip(df.id, df.image_url), total=len(df)):
-        p = img_path(i)
-        if p.exists():
-            continue
-        try:
-            r = s.get(url, timeout=30)
-            r.raise_for_status()
-            im = Image.open(io.BytesIO(r.content)).convert("RGB")
-            im.thumbnail((max_side, max_side))
-            p.parent.mkdir(exist_ok=True)
-            im.save(p, quality=90)
-        except Exception as e:
-            fail.write(f"{i}\t{url}\t{e!r}\n"); fail.flush()
-        time.sleep(delay)
-
-if __name__ == "__main__":
-    main(delay=float(sys.argv[1]) if len(sys.argv) > 1 else 0.5)
-```
-
-```bash
-ssh dhlab
-ml-p2 && git pull
-screen -S dl                                   # 新开一个 screen
-python -m scripts.download_images 0.5 2>&1 | tee $P2_DATA/download.log
-# 按 Ctrl-A 再按 D 离开 screen；之后用 screen -r dl 回来看
-find $P2_DATA/images -name '*.jpg' | wc -l     # 随时查看进度
-du -sh $P2_DATA/images
-```
-
-**IIIF 小图**：如果某些 `image_url` 里有 `/full/200,/`，可以改成 `/full/!512,512/` 请求更大的图（IIIF 标准语法）。先手动试一张，确认服务器支持再改。
-
-**完成标准**：优先级 1 全部下完；`failed.txt` 失败率 < 1%（失败的图在 split 文件里标记掉）。
+约 8.3 万张 IIIF 原地址只有 200 像素，已改成 `/full/!512,512/`（试过一张，从 200×133 变成 512×341）。按已下样本估计总体积约 8–12 GB，耗时大约两天。失败记在 `$P2_DATA/images/failed.txt`，目标是失败率低于 1%。
 
 ---
 
@@ -675,109 +314,27 @@ print(len(ids)); cache_features(ids)"
 
 ---
 
-### S7. 评估库【本机写，两边共用】
+### S7. 评估库【已完成】
 
-所有方法都输出同一种格式：`results/preds/<method>.parquet`，列为 `id, split, lat_pred, lon_pred`，可靠度方法再加 `conf_*` 列。评估只用这一份代码。
-
-```python
-# lib/metrics.py
-import numpy as np, pandas as pd
-from lib.geo import haversine_km
-
-THRESHOLDS_KM = (1, 5, 10, 25, 50, 200, 750, 2500)
-
-def summarize(err_km):
-    e = np.asarray(err_km)
-    out = {"n": len(e), "median_km": float(np.median(e)), "mean_km": float(e.mean()),
-           "p90_km": float(np.percentile(e, 90))}
-    out |= {f"acc@{t}km": float((e <= t).mean() * 100) for t in THRESHOLDS_KM}
-    return out
-
-def bootstrap_ci(err_km, blocks, stat=np.median, n=1000, seed=0):
-    """按空间块重采样（同一个块的图一起抽），比逐张重采样更诚实。"""
-    rng = np.random.default_rng(seed)
-    e, b = np.asarray(err_km), np.asarray(blocks)
-    ub, inv = np.unique(b, return_inverse=True)
-    groups = [np.flatnonzero(inv == k) for k in range(len(ub))]
-    vals = [stat(e[np.concatenate([groups[k] for k in rng.integers(0, len(ub), len(ub))])])
-            for _ in range(n)]
-    return np.percentile(vals, [2.5, 97.5])
-
-def evaluate(pred: pd.DataFrame, truth: pd.DataFrame):
-    m = pred.merge(truth[["id", "latitude", "longitude", "view_type", "block"]], on="id")
-    m["err_km"] = haversine_km(m.latitude, m.longitude, m.lat_pred, m.lon_pred)
-    rows = []
-    for split, g in m.groupby("split"):
-        rows.append({"split": split, "view_type": "all", **summarize(g.err_km),
-                     "median_ci": bootstrap_ci(g.err_km, g.block).tolist()})
-        for vt, h in g.groupby(g.view_type.fillna("oblique/none")):
-            rows.append({"split": split, "view_type": vt, **summarize(h.err_km)})
-    return pd.DataFrame(rows), m
-```
-
-**自测**：`haversine_km(46.5197, 6.6323, 47.3769, 8.5417)` 应该约等于 173.5 km（洛桑到苏黎世）。
-
-**完成标准**：在一个手写的小例子上，`summarize` 的输出和手算结果一致。
+`lib/metrics.py`：`summarize`（含 1/5/25 km 等命中率）、按 `block` 整块 bootstrap 的 `bootstrap_ci`、`evaluate`（按 split 和 `view_type`）。预测表统一为 `id, split, lat_pred, lon_pred`，存在 `$P2_DATA/results/preds/`。自测：`scripts/check_metrics.py`（洛桑–苏黎世约 173.46 km）。
 
 ---
 
-### S8. 基线【DHLAB（kNN、GeoCLIP 用 GPU），约 1 天】
+### S8. 基线【B0 已完成；B1/B2 等特征】
+
+**B0（已完成）**：非 nadir `train`（176,538 张）在 LV95 下东、北各自取中位数，转回经纬度 (47.130, 8.501)，对全体非 nadir 图给同一预测。`scripts/run_b0.py` → `$P2_DATA/results/preds/B0.parquet`，`metrics/B0_summary.json`。在 `val`（29,532）上：中位误差约 59.5 km，≤25 km 约 10.9%。
 
 | 编号 | 基线 | 做法 | 能回答什么 |
 | --- | --- | --- | --- |
-| **B0** | 常数预测 | 永远预测 train 坐标的几何中位点（或者 LV95 坐标的中位数） | "什么都不看"能得多少分 |
+| B0 | 常数预测 | 已完成，见上 | "什么都不看"能得多少分 |
 | **B1** | GeoCLIP 零样本 | 全球 10 万点候选库 | 起点 |
 | **B2** | kNN 检索 | CLIP 特征在 train 里找 top-1 近邻，用它的坐标；变体：top-k 的加权中位点 | 同地点照片多的数据上，检索可能非常强 |
 | **B3** | GeoCLIP + 瑞士网格候选库，不训练 | 见 S9 的 A2 | 候选库单独的作用 |
 | B4（可选） | PLONK-YFCC 零样本 | 官方代码和权重 | 和"最强的现成模型"比较 |
 
-**用缓存特征跑 GeoCLIP**（B1、B3、A1–A4 都用这一套）。同时保存 top-k 和 logsumexp，供 S11 用：
+**用缓存特征跑 GeoCLIP**（B1、B3、A1–A4）：推理与 kNN 在 `lib/geoclip_ops.py`（`embed_gallery`、`predict_feats`、`knn_predict`、`regional_penalty`）；CPU 烟测 `scripts/check_geoclip_ops.py`。**B1、B2、B3 尚未跑**（等 S6 特征）。
 
-```python
-# lib/geoclip_ops.py
-import numpy as np, torch, torch.nn.functional as F
-
-@torch.no_grad()
-def embed_gallery(model, gallery, bs=20_000):
-    g = torch.as_tensor(gallery, dtype=torch.float32)
-    return torch.cat([F.normalize(model.location_encoder(g[i:i + bs].to(model.logit_scale.device)), dim=1)
-                      for i in range(0, len(g), bs)])
-
-@torch.no_grad()
-def predict_feats(model, feats, gallery, penalty=None, lam=0.0, k=20, chunk=1024):
-    """feats: (N,768) 缓存的 CLIP 特征；gallery: (M,2)；penalty: (M,) 区域先验 U(g)"""
-    dev = model.logit_scale.device
-    G = embed_gallery(model, gallery)
-    pen = None if penalty is None else lam * torch.as_tensor(penalty, device=dev, dtype=torch.float32)
-    scale = model.logit_scale.exp()
-    top_i, top_l, lse = [], [], []
-    for i in range(0, len(feats), chunk):
-        f = torch.as_tensor(feats[i:i + chunk], device=dev).float()
-        logits = scale * F.normalize(model.image_encoder.mlp(f), dim=1) @ G.T
-        if pen is not None:
-            logits = logits - pen
-        l, idx = logits.topk(k, dim=1)
-        top_i.append(idx.cpu()); top_l.append(l.cpu()); lse.append(torch.logsumexp(logits, 1).cpu())
-    top_i, top_l, lse = torch.cat(top_i).numpy(), torch.cat(top_l).numpy(), torch.cat(lse).numpy()
-    return np.asarray(gallery)[top_i[:, 0]], top_i, top_l, lse
-```
-
-**kNN**（同样分块）：
-
-```python
-@torch.no_grad()
-def knn_predict(f_query, f_train, gps_train, k=1, chunk=4096, device="cuda"):
-    T = F.normalize(torch.as_tensor(f_train, device=device).float(), dim=1)
-    sims, idxs = [], []
-    for i in range(0, len(f_query), chunk):
-        q = F.normalize(torch.as_tensor(f_query[i:i + chunk], device=device).float(), dim=1)
-        s, j = (q @ T.T).topk(k, dim=1)
-        sims.append(s.cpu()); idxs.append(j.cpu())
-    s, j = torch.cat(sims).numpy(), torch.cat(idxs).numpy()
-    return gps_train[j[:, 0]], s, j   # s[:,0] 也是 S11 的一个可靠度特征
-```
-
-每个基线跑完，就把预测存成 `results/preds/B*.parquet`，再用 `evaluate` 出表。这一步只看 `val`。
+每个基线跑完，就把预测存成 `results/preds/B*.parquet`，再用 `evaluate` 出表。这一步先看 `val`。
 
 **完成标准**：
 
@@ -787,41 +344,11 @@ def knn_predict(f_query, f_train, gps_train, k=1, chunk=4096, device="cuda"):
 
 ---
 
-### S9. 零训练适配 A1–A2【DHLAB，约 1 天】
+### S9. 零训练适配 A1–A2【网格与 oracle 已完成；A1/A2 预测等特征】
 
-**A1：区域先验**（复现 Week 1 的方法，但在你的划分上）：
+**A1：区域先验**（复现 Week 1，在你的划分上）：$s(I,g)=s_\text{GeoCLIP}(I,g)-\lambda U(g)$，$U$ 在 `lib/geoclip_ops.regional_penalty`。**λ、b 网格搜索尚未跑**（等 S6）。
 
-$$
-s(I,g)=s_\text{GeoCLIP}(I,g)-\lambda\,U(g),\qquad U(g)=\Big[\max\big(0,\tfrac{d(g,c)-R}{b}\big)\Big]^2
-$$
-
-```python
-CH_CENTER = (46.80, 8.23)
-def regional_penalty(gallery, R=179.0, b=50.0):
-    d = haversine_km(gallery[:, 0], gallery[:, 1], *CH_CENTER)
-    return np.clip((d - R) / b, 0, None) ** 2
-```
-
-λ 和 b 在 `val` 上做网格搜索，例如 λ ∈ {1, 3, 10, 30}、b ∈ {25, 50, 100}。
-
-**A2：瑞士网格候选库**：在 LV95 坐标下，国界向外 5 km 的范围内铺规则网格。
-
-- 1 km 间距约 5 万个点；0.5 km 间距约 20 万个点。
-- 这个网格也覆盖 Ticino 和留出城市，**但网格只是地理坐标，不含任何图像标签**，所以不算泄漏。
-
-```python
-import shapely
-def swiss_grid(step_m=1000, buffer_m=5000):
-    ch, _ = load_boundaries()
-    poly = ch.buffer(buffer_m)
-    x0, y0, x1, y1 = poly.bounds
-    xs, ys = np.meshgrid(np.arange(x0, x1, step_m), np.arange(y0, y1, step_m))
-    xs, ys = xs.ravel(), ys.ravel()
-    shapely.prepare(poly)
-    m = shapely.contains_xy(poly, xs, ys)
-    lon, lat = TO_WGS.transform(xs[m], ys[m])
-    return np.stack([lat, lon], axis=1).astype(np.float32)
-```
+**A2：瑞士网格候选库**：`lib/geo.swiss_grid` + `scripts/build_swiss_grid.py` → `$P2_DATA/geo/grid_1km.npy`（**48,554** 点，国界外 5 km、1 km 间距）。网格只有坐标、无图像标签，不算泄漏。
 
 **候选库的变体**（做成一个小消融）：
 
@@ -834,12 +361,9 @@ def swiss_grid(step_m=1000, buffer_m=5000):
 
 **G-train 的问题**：它在 `test_region` 里一个点都没有。这正是 RQ3 要展示的。
 
-**诊断（RQ1′）**：
+**诊断（RQ1′，已完成）**：`scripts/oracle_gallery.py` → `$P2_DATA/results/metrics/oracle_val.json`。非 nadir `val`（29,532）上：1 km 网格 oracle 中位 **0.39 km**（P90 0.55 km）；train 去重坐标库（156,255 点）oracle 中位 **2.07 km**。候选够密时，误差瓶颈更可能在排序而非库覆盖。
 
-- oracle 误差 = 候选库里离真值最近的点的距离。用 `sklearn.neighbors.BallTree(np.radians(gallery), metric="haversine")` 计算。
-- 如果 oracle 中位数远小于实际中位误差，说明瓶颈在排序，而不是候选点不够。
-
-**完成标准**：在 `val` 上有一张小表：B1 → +A1 → +A2（各个候选库）→ oracle。
+**待做**：B1 → +A1 → +A2 在 `val` 上的预测表（等特征）；A1 的 λ、b 搜索。
 
 ---
 
@@ -863,65 +387,9 @@ q_{n,j}=\frac{\exp\big(-\text{Hav}(g_n,x_j)/\tau\big)}{\sum_{j'}\exp\big(-\text{
 \mathcal L=-\frac1B\sum_n\sum_j q_{n,j}\log\operatorname{softmax}_j(\ell_{n,j})
 $$
 
-其中 $x_j$ 是 batch 内的（加噪）GPS 加上负样本队列，$\tau$ 例如取 {1, 5, 25} km。$\tau\to0$ 时退化为硬 InfoNCE。
+其中 $x_j$ 是 batch 内的（加噪）GPS 加上负样本队列，$\tau$ 例如取 {1, 5, 25} km。训练循环在 `lib/geoclip_ops.train`（`jitter`、硬 InfoNCE / 软目标）。
 
-```python
-# lib/geoclip_ops.py（续）
-from lib.geo import haversine_torch
-
-def jitter(gps, sigma_km):
-    lat = gps[:, 0:1]
-    d = torch.randn_like(gps) * sigma_km
-    return gps + torch.cat([d[:, :1] / 111.2, d[:, 1:] / (111.2 * torch.cos(torch.deg2rad(lat)))], 1)
-
-def train(model, f_tr, g_tr, neg_pool, *, train_loc=True, soft_tau_km=None, epochs=10, bs=512,
-          n_neg=4096, sigma_km=1.0, lr_mlp=1e-4, lr_loc=3e-5, val_fn=None, seed=0):
-    """f_tr: (N,768) GPU fp16；g_tr: (N,2) GPU；neg_pool: (M,2) GPU（例如瑞士网格）"""
-    torch.manual_seed(seed)
-    mlp, loc = model.image_encoder.mlp, model.location_encoder
-    groups = [{"params": mlp.parameters(), "lr": lr_mlp}, {"params": [model.logit_scale], "lr": lr_mlp}]
-    if train_loc:
-        groups.append({"params": loc.parameters(), "lr": lr_loc})
-    else:
-        loc.requires_grad_(False)
-    opt = torch.optim.AdamW(groups, weight_decay=1e-4)
-    best, best_state = float("inf"), None
-    for ep in range(epochs):
-        model.train()
-        perm = torch.randperm(len(f_tr), device=f_tr.device)
-        for i in range(0, len(perm) - bs + 1, bs):
-            idx = perm[i:i + bs]
-            g = g_tr[idx]
-            neg = neg_pool[torch.randint(len(neg_pool), (n_neg,), device=g.device)]
-            locs = torch.cat([jitter(g, sigma_km), neg])
-            img = F.normalize(mlp(f_tr[idx].float()), dim=1)
-            le = F.normalize(loc(locs), dim=1)
-            logits = model.logit_scale.exp() * img @ le.T                # (B, B+n_neg)
-            if soft_tau_km is None:
-                loss = F.cross_entropy(logits, torch.arange(len(idx), device=g.device))
-            else:
-                q = torch.softmax(-haversine_torch(g, locs) / soft_tau_km, dim=1)
-                loss = -(q * F.log_softmax(logits, dim=1)).sum(1).mean()
-            opt.zero_grad(); loss.backward(); opt.step()
-            with torch.no_grad():
-                model.logit_scale.clamp_(0, np.log(100))
-        if val_fn is not None:              # 例如：val 子集 5k 张、瑞士网格上的中位误差
-            model.eval(); v = val_fn(model)
-            print(f"epoch {ep}  loss {loss.item():.3f}  val median {v:.2f} km")
-            if v < best:
-                best = v
-                best_state = {k: t.detach().clone() for k, t in model.state_dict().items()}
-    if best_state is not None:
-        model.load_state_dict(best_state)
-    return model, best
-```
-
-**运行方式**：每个设定一个 yaml（`configs/A4_tau5.yaml`），一个入口脚本 `scripts/train.py --config ...`。训练结束保存 `ckpt/<name>.pt` 和 `results/preds/<name>.parquet`（在 `val` 和三个测试集上都用 G-grid500m 预测）。
-
-```bash
-screen -S train
-CUDA_VISIBLE_DEVICES=0 python -m scripts.train --config configs/A4_tau5.yaml 2>&1 | tee logs/A4_tau5.log
-```
+**入口（脚手架已就绪，尚未训练）**：`configs/A3a.yaml`、`A3b.yaml`、`A3c.yaml`、`A4_tau5.yaml`；`scripts/train.py --config ...`。特征文件不存在时 **exit 2** 并提示跑 S6。特征就绪后接 GPU 训练，保存 `ckpt/` 与 `results/preds/`。
 
 **超参数**（只在 `val` 上选，预算控制在 20–30 次运行以内）：
 
@@ -1050,15 +518,9 @@ $$
 
 ---
 
-### S13. 汇总、作图与复现打包【本机】
+### S13. 汇总、作图与复现打包【DHLAB】
 
-**拉回结果**：
-
-```bash
-rsync -avP dhlab:/rcp-scratch/students/yijliu/ml-project2/data/results/ ~/Documents/ML/p2data/results/
-```
-
-**在 `notebooks/02_figures.ipynb` 里出图**：
+结果已经在 `$P2_DATA/results/`。在 `notebooks/02_figures.ipynb` 里出图：
 
 | 图 | 内容 |
 | --- | --- |
@@ -1128,30 +590,30 @@ E0–E10 在 `val` 上完成选择，然后在 `test_in`、`test_city`、`test_r
 
 ## 7. 时间线与 TODO（一个人）
 
-**每天的节奏**：上午在 Mac 上写和测代码，推送；下午在 DHLAB 上 `git pull` 后把长任务丢进 `screen`；晚上把结果拉回本地看。
+**每天的节奏**：代码和长任务都在 DHLAB 上做。长任务放进 `screen`。
 
 ### 第 1 周（11/14–11/20）：数据和基准定死
 
-- [ ] S1 本机建 `p2` 环境；DHLAB 补装包；`predict` 跑通
-- [ ] S1 仓库骨架、`.gitignore`、`lib/paths.py`
-- [ ] S2 拉全量元数据 → `smapshot.parquet`，rsync 到 DHLAB
-- [ ] S3 EDA notebook：分布、地图、选定留出城市和州
-- [ ] S4 写 `splits.py`，生成 `main.csv.gz` 并提交（**本周最重要**）
-- [ ] S5 在 DHLAB 上启动下载（先下优先级 1）
-- [ ] S7 写 `metrics.py` 并自测
+- [x] S1 环境与 `predict`
+- [x] S2 全量元数据 → `smapshot.parquet`（355,281 行）
+- [x] S3 EDA notebook（Ticino + Bern 建议）
+- [x] S4 划分 `data/splits/main.csv.gz`（Ticino + Bern）和 Fig. 1；尚未 commit
+- [ ] S5 下载进行中（`screen dl`）
+- [x] S7 `lib/metrics.py` 与自测
+- [x] S8 B0 在 `val` 上的数字（B1/B2 等图）
 - [ ] 读 GeoCLIP 和 PIGEON 的方法部分
 
 ### 第 2 周（11/21–11/27）：特征和基线
 
 - [ ] S6 对已下载的图缓存特征，`assert` 通过；去重
 - [ ] S8 B0、B1、B2 在 `val` 上的数字
-- [ ] S9 A1（λ、b 搜索）、A2（网格候选库）、oracle 诊断
+- [x] S9 1 km 网格（`grid_1km.npy`）与 `val` oracle（`oracle_val.json`）；A1/A2 预测待特征
 - [ ] 下载继续跑；下完后增量缓存特征
-- [ ] 写报告的 Data & Benchmark 小节和划分地图（趁记忆新鲜）
+- [x] 报告草稿：`report/sections/data_benchmark.tex`、Fig. 1 已在 `report/figures/`
 
 ### 第 3 周（11/28–12/04）：微调
 
-- [ ] S10 `train.py` + yaml 配置；先在 5k 子集上确认 loss 下降
+- [x] S10 `train.py` + 四份 yaml（缺特征则退出）；**尚未**在 GPU 上训练
 - [ ] A3a → A3b → A3c → A4，在 `val` 上做消融
 - [ ] 最终配置跑 3 个种子
 - [ ] E9、E10
@@ -1180,17 +642,17 @@ E0–E10 在 `val` 上完成选择，然后在 `test_in`、`test_city`、`test_r
 **今天（周六）**
 
 1. 读完本教程 §3–§5（1.5 小时）。
-2. S1：本机建环境；DHLAB 上跑通 `predict`。
-3. S2：开始拉元数据（大约 6 分钟加上请求延时，放在后台跑）。
+2. S1：已完成。
+3. S2、S4 已完成（Ticino + Bern）。划分文件还没 commit。
 
 **周日**
 
-1. S3：EDA notebook，选留出城市和州。
+1. S3：已完成（`notebooks/01_eda.ipynb`）。
 2. 读 GeoCLIP 的 Fig. 2 和 §3，写 5 行笔记：图像怎么变成向量、GPS 怎么变成向量、损失是什么、推理时怎么出坐标、候选库是什么。
 
 **周一**
 
-1. S4：划分定死并提交。
+1. S4：划分和 Fig. 1 已完成，还没 commit。
 2. S5：DHLAB 上启动下载。
 3. S7：`metrics.py`。
 
@@ -1249,16 +711,16 @@ E0–E10 在 `val` 上完成选择，然后在 `test_in`、`test_city`、`test_r
 
 ---
 
-## 10. 工作流速查（本机 ↔ DHLAB）
+## 10. 工作流速查（只在 DHLAB）
+
+项目目录：`/rcp-scratch/students/yijliu/ml-project2/ML_project_1`。数据目录：`P2_DATA=/rcp-scratch/students/yijliu/ml-project2/data`。
 
 | 动作 | 命令 |
 | --- | --- |
-| 本机推代码 | `git add -A && git commit -m "..." && git push origin project_2_Yijun_Liu` |
-| 服务器拉代码 | `ssh dhlab` → `ml-p2` → `git pull` |
-| 本机 → 服务器传小数据 | `rsync -avP ~/Documents/ML/p2data/meta/ dhlab:/rcp-scratch/students/yijliu/ml-project2/data/meta/` |
-| 服务器 → 本机拉结果 | `rsync -avP dhlab:/rcp-scratch/students/yijliu/ml-project2/data/results/ ~/Documents/ML/p2data/results/` |
+| 进入项目 | `ml-p2`（激活环境并 `cd` 到项目） |
+| 推代码 | `git add -A && git commit -m "..." && git push origin project_2_Yijun_Liu` |
 | 长任务 | `screen -S name` → 运行 → `Ctrl-A D` 离开；`screen -r name` 回来；`screen -ls` 列出全部 |
-| 选 GPU | 先看 `nvidia-smi`；用 `CUDA_VISIBLE_DEVICES=0`（最多 2 块，不用 GPU 3） |
+| 选 GPU | 先看 `nvidia-smi`；用 `CUDA_VISIBLE_DEVICES=1`（最多 2 块，不用 GPU 3） |
 | 磁盘 | `du -sh $P2_DATA/*`；scratch 是共享的，用完删掉临时文件 |
 
 **规则**：图像、特征、checkpoint 永远不进 Git；划分文件、配置、代码、小的指标 JSON 进 Git。
