@@ -1,0 +1,12 @@
+% Data \& benchmark draft (not full 4-page report)
+\section{Data and benchmark}
+\label{sec:data}
+
+We use the public SMAPshot corpus: validated historical photographs with camera pose (latitude, longitude) from a volunteer 3D georeferencing workflow.
+After filtering non-nadir views and removing rows without coordinates, we retain 176{,}538 training images and 29{,}532 validation images under a spatial split that holds out the canton of Ticino and a 10\,km disk around Bern city center for testing (Fig.~\ref{fig:split}).
+Split assignments are fixed in \texttt{data/splits/main.csv.gz}; ground-truth coordinates come from \texttt{smapshot.parquet} aligned by image id.
+
+\paragraph{Baseline B0.}
+A constant predictor uses the component-wise median of training positions in LV95, converted back to WGS84 ($47.130^\circ\mathrm{N}$, $8.501^\circ\mathrm{E}$), applied to every image.
+On validation, median haversine error is $\approx 59.5$\,km and accuracy within 25\,km is $\approx 10.9\%$ (see \texttt{\$P2\_DATA/results/metrics/B0\_summary.json}).
+Stronger baselines (GeoCLIP zero-shot, kNN on cached CLIP features) and Swiss-grid oracle diagnostics are pending cached features (S6).

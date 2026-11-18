@@ -1,0 +1,12 @@
+run_name: A4_tau5
+features: clip_vitl14
+train_loc: true
+soft_tau_km: 5.0
+negatives: swiss_grid
+epochs: 15
+batch_size: 512
+n_neg: 4096
+sigma_km: 1.0
+lr_mlp: 1.0e-4
+lr_loc: 3.0e-5
+seed: 0
