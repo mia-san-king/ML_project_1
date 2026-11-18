@@ -2,6 +2,8 @@
 
 把 GeoCLIP 适配到瑞士历史照片的细粒度定位。步骤在 [`doc/tutorial.md`](doc/tutorial.md)。
 
+图片与位置双塔加入拍摄年代的新实验，见 [`doc/time_geoclip.md`](doc/time_geoclip.md)；包含不加时间的对照配置、数据检查、训练和预测命令。
+
 | | 路径 |
 | --- | --- |
 | 代码 | `/rcp-scratch/students/yijliu/ml-project2/ML_project_1` |
