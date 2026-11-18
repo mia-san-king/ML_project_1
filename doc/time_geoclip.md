@@ -1,10 +1,10 @@
 # 带拍摄年代的 GeoCLIP
 
-这是一组待训练的新实验：图像和位置两个编码器都接收拍摄年代，通过同一个对比损失联合训练。代码本身没有证明定位精度提高；需要在相同数据和候选库上比较两套配置。
+这组实验研究拍摄年代如何影响瑞士历史照片定位。T0 使用图像和经纬度，T1 和 T2 的图像和位置编码器还接收年代。三个模型使用相同的对比损失。
 
 ## 模型与训练目标
 
-已有缓存是冻结 CLIP 产生的 **768 维、未归一化、进入 GeoCLIP 图像 MLP 之前**的特征。继续复用这些缓存以及 GeoCLIP 的预训练图像投影和位置编码器，在两端加入小型残差 MLP 融合时间信息。输出归一化后比较余弦相似度。
+已有缓存是冻结 CLIP 产生的 **768 维、未归一化、进入 GeoCLIP 图像 MLP 之前**的特征。所有配置复用这些缓存以及 GeoCLIP 的预训练图像投影和位置编码器。双侧 T1 在两端加入小型残差 MLP 融合时间信息。输出归一化后比较余弦相似度。
 
 \[
 s_{ij}=\exp(\alpha)\,\langle F(I_i,t_i),G(g_j,t_i)\rangle.
@@ -56,12 +56,18 @@ python models/geoclip_time/scripts/train_time.py --config models/geoclip_time/co
 
 ## 训练与预测
 
-两份配置的训练超参数相同，区别是运行名与是否启用时间融合：
+下列配置使用相同的训练划分、损失、训练轮数和种子。
 
 | 配置 | 用途 |
 | --- | --- |
 | `models/geoclip_time/configs/T0_no_time.yaml` | 不使用时间的对照 |
-| `models/geoclip_time/configs/T1_dual_time.yaml` | 图片和位置双塔都使用时间 |
+| `models/geoclip_time/configs/T1_dual_time.yaml` | 两塔通过残差网络结合时间 |
+| `models/geoclip_time/configs/T1_image_only.yaml` | 仅图片侧保留 T1 的时间残差网络，位置编码器继续训练 |
+| `models/geoclip_time/configs/T2_direct_time.yaml` | 把时间直接加入两塔的第一层 |
+
+本目录的 `T0_no_time` 是无日期的 GeoCLIP。队友的 [T0 检索实验](https://github.com/mia-san-king/ML_project_1/blob/f019e23583dc236a80ea28dcbdb1b2584d561a19/scripts/run_knn_time.py) 按视觉相似度取前 50 张训练照片，再按年份差重排。小组报告中可分别标为“无时间 GeoCLIP”和“图像近邻＋年份重排”。
+
+T2 图像侧把三个日期特征拼到 768 维 CLIP 特征之后。位置侧在每个尺度的 512 维空间 Fourier 特征之后拼入同一个查询日期。两个输入层都复制 GeoCLIP 的预训练权重，并把新增日期输入的权重置零，随后联合训练。推理时，日期向量完全相同的照片共享该日期下的候选位置向量。T1 和 T2 的参数量不同，结果比较反映两套完整结构的表现。
 
 GPU 使用前按实验室规则检查 `df -h /rcp-scratch` 和 `nvidia-smi`，选择空闲卡，不用 GPU 3，最多两块卡。设置 `CUDA_VISIBLE_DEVICES` 后，训练命令里的 `cuda` 指该可见设备。长任务放进 `screen`，缓存仍放在 scratch：
 

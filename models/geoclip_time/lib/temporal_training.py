@@ -49,8 +49,8 @@ def _configuration(cfg):
         raise ValueError("this runner requires sigma_km=0 to retain exact positive GPS")
     if out["negatives"] != "swiss_grid":
         raise ValueError("this runner supports negatives=swiss_grid")
-    if out["model"]["mode"] not in ("both", "none"):
-        raise ValueError("model.mode must be both or none")
+    if out["model"]["mode"] not in ("both", "image_only", "none", "direct"):
+        raise ValueError("model.mode must be both, image_only, none, or direct")
     for key in ("lr_mlp", "lr_loc"):
         if not np.isfinite(out[key]) or out[key] <= 0:
             raise ValueError(f"{key} must be finite and positive")
@@ -234,6 +234,8 @@ def run_training(cfg, *, data_root=None, split_csv=None, device="cpu", overwrite
             total_loss += float(loss.detach()) * last_size
             seen += last_size
             steps += 1
+            if epoch == 1 and steps in (1, 100):
+                print(f"epoch=1 step={steps} seen={seen} mean_train_loss={total_loss / seen:.6f}", flush=True)
         model.eval()
         predicted = _predict_rows(model, data, validation, grid, cfg)
         score = float(np.median(_distance_errors(data.table.iloc[validation], predicted)))

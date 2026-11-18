@@ -1,0 +1,30 @@
+run_name: T1_image_only
+features: clip_vitl14
+model:
+  backbone: geoclip
+  feature_dim: 768
+  embed_dim: 512
+  time_dim: 3
+  hidden_dim: 128
+  mode: image_only
+  sigma: [1, 16, 256]
+time:
+  year_center: 1950.0
+  year_scale: 100.0
+  min_year: 1800
+  max_year: 2026
+train_loc: true
+soft_tau_km: null
+negatives: swiss_grid
+gallery: geo/grid_1km.npy
+epochs: 15
+batch_size: 32
+n_neg: 128
+sigma_km: 0.0
+lr_mlp: 1.0e-4
+lr_loc: 3.0e-5
+val_limit: 256
+query_chunk: 16
+gallery_chunk: 256
+allow_partial_features: false
+seed: 0

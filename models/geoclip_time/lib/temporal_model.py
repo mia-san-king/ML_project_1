@@ -49,7 +49,8 @@ class TemporalGeoCLIP(nn.Module):
     ``times`` contains the query's normalized midpoint, interval half-width,
     and known-date mask. For each query, the same time vector conditions every
     candidate. Missing dates can learn a residual via their zero-valued time
-    vector; they are not discarded. ``mode='none'`` omits temporal adapters.
+    vector; they are not discarded. ``mode='image_only'`` uses only the image
+    time adapter; ``mode='none'`` omits temporal adapters.
     """
 
     def __init__(
@@ -57,8 +58,8 @@ class TemporalGeoCLIP(nn.Module):
         hidden_dim=128, mode="both", logit_scale=None,
     ):
         super().__init__()
-        if mode not in {"both", "none"}:
-            raise ValueError("mode must be 'both' or 'none'")
+        if mode not in {"both", "image_only", "none"}:
+            raise ValueError("mode must be 'both', 'image_only', or 'none'")
         for name, value in (("embed_dim", embed_dim), ("time_dim", time_dim), ("hidden_dim", hidden_dim)):
             if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
                 raise ValueError(f"{name} must be a positive integer")
@@ -77,8 +78,9 @@ class TemporalGeoCLIP(nn.Module):
         self.logit_scale = nn.Parameter(scale.reshape(()))
         self.image_time_adapter = None
         self.location_time_adapter = None
-        if mode == "both":
+        if mode in {"both", "image_only"}:
             self.image_time_adapter = _TimeResidual(embed_dim, time_dim, hidden_dim)
+        if mode == "both":
             self.location_time_adapter = _TimeResidual(embed_dim, time_dim, hidden_dim)
 
     def encode_image(self, feats, times):
@@ -87,7 +89,7 @@ class TemporalGeoCLIP(nn.Module):
         _matrix(times, "times", width=self.time_dim, rows=len(feats))
         base = self.image_mlp(feats)
         _matrix(base, "image embeddings", width=self.embed_dim, rows=len(feats))
-        if self.mode == "both":
+        if self.mode in {"both", "image_only"}:
             base = self.image_time_adapter(base, times.to(base))
         return F.normalize(base, dim=-1)
 
@@ -102,7 +104,7 @@ class TemporalGeoCLIP(nn.Module):
         """Return normalized GPS/query-time pairs, shaped ``[B, C, D]``."""
         _matrix(base, "location bases", width=self.embed_dim)
         _matrix(times, "times", width=self.time_dim)
-        if self.mode == "none":
+        if self.mode in {"none", "image_only"}:
             return F.normalize(base, dim=-1).unsqueeze(0).expand(len(times), -1, -1)
         # The singleton candidate axis on times is intentional: no candidate's
         # own date can enter this scoring path.

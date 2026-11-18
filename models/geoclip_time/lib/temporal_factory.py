@@ -7,6 +7,7 @@ import math
 import torch
 from torch import nn
 
+from models.geoclip_time.lib.temporal_direct import DirectTemporalGeoCLIP
 from models.geoclip_time.lib.temporal_model import TemporalGeoCLIP
 
 
@@ -16,7 +17,9 @@ DEFAULT_ARCHITECTURE = {
 }
 
 
-def build_temporal_model(architecture: dict, *, pretrained: bool = True) -> TemporalGeoCLIP:
+def build_temporal_model(
+    architecture: dict, *, pretrained: bool = True,
+) -> TemporalGeoCLIP | DirectTemporalGeoCLIP:
     """Load packaged small-tower weights only; restore needs no pretrained files.
 
     GeoCLIP itself is deliberately never instantiated: even its non-pretrained
@@ -45,6 +48,14 @@ def build_temporal_model(architecture: dict, *, pretrained: bool = True) -> Temp
         projection.load_state_dict(read("image_encoder_mlp_weights.pth"), strict=True)
         location.load_state_dict(read("location_encoder_weights.pth"), strict=True)
         scale = read("logit_scale_weights.pth")
+    if arch["mode"] == "direct":
+        from geoclip.model.location_encoder import equal_earth_projection
+
+        return DirectTemporalGeoCLIP(
+            projection, location, embed_dim=arch["embed_dim"],
+            time_dim=arch["time_dim"], logit_scale=scale,
+            coordinate_projection=equal_earth_projection,
+        )
     return TemporalGeoCLIP(
         projection, location, embed_dim=arch["embed_dim"], time_dim=arch["time_dim"],
         hidden_dim=arch["hidden_dim"], mode=arch["mode"], logit_scale=scale,
