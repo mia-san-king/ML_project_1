@@ -291,13 +291,13 @@ CLIP 冻结；每张已下载图存 **768 维 fp16**（与 `geoclip` `ImageEncod
 
 | 编号 | 基线 | 做法 | `val` 结果 |
 | --- | --- | --- | --- |
-| B0 | 常数预测 | `scripts/run_b0.py` | n=29,532；中位 **59.5 km**，≤25 km **10.9%** |
-| B1 | GeoCLIP 零样本 | MP-16 候选库；`scripts/run_baselines.py` | n=29,529；中位 **248 km**，≤25 km **14.6%** |
+| B0 | 常数预测 | `models/baselines/scripts/run_b0.py` | n=29,532；中位 **59.5 km**，≤25 km **10.9%** |
+| B1 | GeoCLIP 零样本 | MP-16 候选库；`models/geoclip/scripts/run_baselines.py` | n=29,529；中位 **248 km**，≤25 km **14.6%** |
 | B2 | kNN 检索 | 非 nadir `train` top-1（768 维 CLIP） | n=29,529；中位 **37.6 km**，≤25 km **38.5%** |
 | B3 | GeoCLIP + 瑞士网格 | `grid_1km.npy`，权重同 B1 | n=29,529；中位 **62.1 km**，≤25 km **20.8%** |
 | B4（可选） | PLONK-YFCC | 官方权重 | 未做 |
 
-**落盘（避免重跑）**：`features/clip_mlp512.npy`；`gallery_mp16_*`、`gallery_grid1km_*`；`preds/B{1,2,3}.parquet`；B1/B3 的 `B*_topk.npz`（top-20，供可靠度）；`metrics/B*_summary.json`（含各 split）。入口 `scripts/run_baselines.py`（`--which b1|b2|b3|all`，已有文件则跳过）。
+**落盘（避免重跑）**：`features/clip_mlp512.npy`；`gallery_mp16_*`、`gallery_grid1km_*`；`preds/B{1,2,3}.parquet`；B1/B3 的 `B*_topk.npz`（top-20，供可靠度）；`metrics/B*_summary.json`（含各 split）。入口 `models/geoclip/scripts/run_baselines.py`（`--which b1|b2|b3|all`，已有文件则跳过）。
 
 **要点**：B1 全球库在瑞士上仍偏大；B2 在 `val` 很强；B3 换网格后中位优于 B0，仍弱于 B2。微调与 A1/A2 应超过 B2（至少在 `val` 上）。
 
@@ -305,7 +305,7 @@ CLIP 冻结；每张已下载图存 **768 维 fp16**（与 `geoclip` `ImageEncod
 
 ### S9. 零训练适配 A1–A2【已完成】
 
-**A1（区域先验）**：$s=s_\text{GeoCLIP}-\lambda U(g)$；`scripts/search_a1.py` 在 `val` 上网格搜 **λ∈{1,3,10,30}、scale_km∈{25,50,100}** → `metrics/a1_search.json`。**最优 λ=30、scale_km=25**；`scripts/run_a1.py` → `preds/A1.parquet`、`A1_topk.npz`、`metrics/A1_summary.json`。**val**：中位 **67.5 km**，≤25 km **24.1%**（B1 248 km / 14.6%）；平均误差由 ~1653 km 降到 ~85 km（少飞出瑞士）。
+**A1（区域先验）**：$s=s_\text{GeoCLIP}-\lambda U(g)$；`models/geoclip/scripts/search_a1.py` 在 `val` 上网格搜 **λ∈{1,3,10,30}、scale_km∈{25,50,100}** → `metrics/a1_search.json`。**最优 λ=30、scale_km=25**；`models/geoclip/scripts/run_a1.py` → `preds/A1.parquet`、`A1_topk.npz`、`metrics/A1_summary.json`。**val**：中位 **67.5 km**，≤25 km **24.1%**（B1 248 km / 14.6%）；平均误差由 ~1653 km 降到 ~85 km（少飞出瑞士）。
 
 **A2（瑞士网格）**：即 **B3**（`grid_1km.npy`），**val** 中位 **62.1 km**，≤25 km **20.8%**。
 
@@ -320,13 +320,13 @@ CLIP 冻结；每张已下载图存 **768 维 fp16**（与 `geoclip` `ImageEncod
 
 **仍 optional**：G-train / G-grid+train（S14 E9）。**Oracle**：`oracle_val.json`（网格 oracle 0.39 km vs B3 62 km → 排序瓶颈）。
 
-**入口**：`scripts/run_s9_tmux.sh`（`search_a1` → `run_a1` → `s9_ablation`）；推理复用 `lib/baseline_infer.py`。
+**入口**：`models/geoclip/scripts/run_s9_tmux.sh`（`search_a1` → `run_a1` → `s9_ablation`）；推理复用 `models/geoclip/lib/baseline_infer.py`。
 
 ---
 
 ### S10. 微调 A3–A4【已完成首轮；推理用 1 km 网格】
 
-非 nadir `train`（176,308）上读缓存 **768 维**特征；`scripts/train.py` + yaml；`lib/geoclip_ops.geoclip_train`；15 epoch，batch 512，每 epoch 在 **5k val 子集 + 1 km 网格** 上记中位误差并保留最佳 `ckpt/`。结束后对 **全 `val`/test** 在 1 km 网格上导出 `preds/`、`metrics/`。长任务：`scripts/run_s10_tmux.sh` → `results/s10.log`。
+非 nadir `train`（176,308）上读缓存 **768 维**特征；`models/geoclip/scripts/train.py` + yaml；`models.geoclip.lib.geoclip_ops.train`；15 epoch，batch 512，每 epoch 在 **5k val 子集 + 1 km 网格** 上记中位误差并保留最佳 `ckpt/`。结束后对 **全 `val`/test** 在 1 km 网格上导出 `preds/`、`metrics/`。长任务：`models/geoclip/scripts/run_s10_tmux.sh` → `results/s10.log`。
 
 | 编号 | 训练 | 负样本 | `val` 中位 | ≤25 km |
 | --- | --- | --- | --- | --- |
@@ -346,7 +346,7 @@ CLIP 冻结；每张已下载图存 **768 维 fp16**（与 `geoclip` `ImageEncod
 | test_city | 93.3 ± 0.6 | 8.1% |
 | test_region | 79.8 ± 0.9 | 3.7% |
 
-配置：`A4_tau5`（seed 0）、`A4_tau5_s1`、`A4_tau5_s2`；`scripts/summarize_a4_multiseed.py`。
+配置：`A4_tau5`（seed 0）、`A4_tau5_s1`、`A4_tau5_s2`；`models/geoclip/scripts/summarize_a4_multiseed.py`。
 
 ---
 
@@ -354,9 +354,9 @@ CLIP 冻结；每张已下载图存 **768 维 fp16**（与 `geoclip` `ImageEncod
 
 对 A4_tau5（seed 0）估计 $\hat p_T=P(e\le T)$，$T\in\{1,5,25\}$ km。标签是真值误差是否不超过 T。只在 `val` 上拟合：train 上的预测过拟合，置信度会偏高。
 
-`scripts/export_topk.py` 在 1 km 网格上导出 top-20，`$P2_DATA/results/preds/A4_tau5_topk.npz`（93,538 行：val / test_in / test_city / test_region）。特征：`p1`、`margin`、`entropy_k`、`spread_k`（候选点 `features/gallery_grid1km_gps.npy`）、B2 的 `knn_sim`、A4 与 B2 坐标的 `knn_agree`、`view_type` one-hot。宽高比这次没读 jpg。
+`models/geoclip/scripts/export_topk.py` 在 1 km 网格上导出 top-20，`$P2_DATA/results/preds/A4_tau5_topk.npz`（93,538 行：val / test_in / test_city / test_region）。特征：`p1`、`margin`、`entropy_k`、`spread_k`（候选点 `features/gallery_grid1km_gps.npy`）、B2 的 `knn_sim`、A4 与 B2 坐标的 `knn_agree`、`view_type` one-hot。宽高比这次没读 jpg。
 
-`lib/reliability.py`：`HistGradientBoostingClassifier`，按 `block` 做 5 折 `GroupKFold` 在深度 {2, 4, 6} 里选，再 `CalibratedClassifierCV(method="isotonic")` 在全 val 上重训。对照是只对 `p1` 做 isotonic。入口 `scripts/run_reliability.py`（CPU）。指标 `$P2_DATA/results/metrics/reliability.json`。T=25 km 的图：`report/figures/risk_coverage.png`（test_in，模型 vs p1）、`calibration_test_in.png`、`calibration_test_region.png`。
+`lib/reliability.py`：`HistGradientBoostingClassifier`，按 `block` 做 5 折 `GroupKFold` 在深度 {2, 4, 6} 里选，再 `CalibratedClassifierCV(method="isotonic")` 在全 val 上重训。对照是只对 `p1` 做 isotonic。入口 `models/geoclip/scripts/run_reliability.py`（CPU）。指标 `$P2_DATA/results/metrics/reliability.json`。T=25 km 的图：`report/figures/risk_coverage.png`（test_in，模型 vs p1）、`calibration_test_in.png`、`calibration_test_region.png`。
 
 **test_in AUROC**（模型 / p1 isotonic）：
 

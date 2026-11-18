@@ -49,7 +49,7 @@ geo/grid_1km.npy
 
 ```bash
 export P2_DATA=/rcp-scratch/students/yijliu/ml-project2/data
-python scripts/train_time.py --config configs/T1_dual_time.yaml --check-data
+python models/geoclip_time/scripts/train_time.py --config models/geoclip_time/configs/T1_dual_time.yaml --check-data
 ```
 
 可用 `--data-root` 和 `--split-csv` 覆盖路径。缺少缓存时，使用项目已有的 `scripts/cache_features.py`；时间模型不需要重新提取图片特征。训练仅实例化 GeoCLIP 的图像 MLP 和位置编码器，不构建完整 CLIP 图像／文本网络。
@@ -60,8 +60,8 @@ python scripts/train_time.py --config configs/T1_dual_time.yaml --check-data
 
 | 配置 | 用途 |
 | --- | --- |
-| `configs/T0_no_time.yaml` | 不使用时间的对照 |
-| `configs/T1_dual_time.yaml` | 图片和位置双塔都使用时间 |
+| `models/geoclip_time/configs/T0_no_time.yaml` | 不使用时间的对照 |
+| `models/geoclip_time/configs/T1_dual_time.yaml` | 图片和位置双塔都使用时间 |
 
 GPU 使用前按实验室规则检查 `df -h /rcp-scratch` 和 `nvidia-smi`，选择空闲卡，不用 GPU 3，最多两块卡。设置 `CUDA_VISIBLE_DEVICES` 后，训练命令里的 `cuda` 指该可见设备。长任务放进 `screen`，缓存仍放在 scratch：
 
@@ -70,8 +70,8 @@ export HF_HOME=/rcp-scratch/students/yijliu/hf_cache
 export TORCH_HOME=/rcp-scratch/students/yijliu/hf_cache/torch
 export TMPDIR=/rcp-scratch/students/yijliu/tmp
 
-python scripts/train_time.py --config configs/T0_no_time.yaml --device cuda
-python scripts/train_time.py --config configs/T1_dual_time.yaml --device cuda
+python models/geoclip_time/scripts/train_time.py --config models/geoclip_time/configs/T0_no_time.yaml --device cuda
+python models/geoclip_time/scripts/train_time.py --config models/geoclip_time/configs/T1_dual_time.yaml --device cuda
 ```
 
 训练保存最佳验证 checkpoint 到 `$P2_DATA/ckpt/<run_name>.pt`，日志和数据审计位于 `$P2_DATA/results/metrics/<run_name>_train_log.json`。同名产物默认拒绝覆盖；更改实验时优先设置新的 `run_name`。`--overwrite-run` 只在明确要替换这个实验时使用，不是恢复训练。
@@ -79,7 +79,7 @@ python scripts/train_time.py --config configs/T1_dual_time.yaml --device cuda
 训练完成后单独导出预测：
 
 ```bash
-python scripts/predict_time.py \
+python models/geoclip_time/scripts/predict_time.py \
   --checkpoint "$P2_DATA/ckpt/T1_dual_time.pt" \
   --data-root "$P2_DATA" \
   --splits val test_in test_city test_region \
@@ -99,9 +99,9 @@ T1 同时增加了时间输入和融合层容量。若要单独归因于年代�
 项目运行环境之外，测试额外需要 `pytest`。在仓库根目录执行：
 
 ```bash
-python -m pytest tests -q
-python scripts/train_time.py --help
-python scripts/predict_time.py --help
+python -m pytest -q models/geoclip_time/tests
+python models/geoclip_time/scripts/train_time.py --help
+python models/geoclip_time/scripts/predict_time.py --help
 ```
 
 测试使用小型真实 PyTorch 网络和合成元数据检查日期／ID 对齐、查询时间条件化、梯度、分块检索、训练保存与恢复，不依赖 SMAPshot 图片或服务器 GPU。合成测试通过不代表真实历史图片上的精度已得到验证。
