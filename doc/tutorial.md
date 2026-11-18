@@ -35,7 +35,7 @@
 | 评分看 *solid baselines*：从很简单的基线开始，展示每个改动的增益 | 所有方法在**同一组测试集**上比较；一定要有常数预测和 kNN 这种最朴素的基线 |
 | 可复现：超参数、预处理、交叉验证细节都写清 | 固定种子；划分文件进 Git；每个实验一个配置文件；README 里写清每张表怎么复现 |
 | 创新性：说清"解决当前模型的什么具体问题" | 具体问题：全球模型在瑞士尺度上分辨率不够，而且对新地区的泛化和自身可靠度都未知 |
-| 伦理段落 200–400 词 | 建议写"识别出风险"的版本（§9.3） |
+| 伦理段落 200–400 词 | 建议写"识别出风险"的版本（§8.3） |
 | AI 工具允许，但要在附录说明 | 从现在开始记录用 AI 做了什么 |
 | 代码超过 100 MB 不能放 GitHub | 图像和特征不进仓库；只提交 ID、划分文件和脚本 |
 | 提交链接 `https://github.com/<user>/<repo>/tree/<commit-hash>` | **【需确认】** 课程是按组提交的。你单独做的版本怎么提交（单独仓库、组仓库里的独立目录，还是合并进组报告），要和组里、助教确认 |
@@ -183,8 +183,7 @@ S8  基线 B0–B4
 S9  零训练适配 A1–A2（先验、瑞士候选库）
 S10 微调 A3–A4（瑞士负样本、软目标）
 S11（可选）可靠度模型
-S12（可选）留出城市/州的泛化评估
-S13 汇总表格、作图、写报告
+S13 汇总表格、作图、写报告（`test_city` / `test_region` 在最终评估时填主表第三、四列）
 ```
 
 数据、特征、checkpoint 不进 Git。代码、划分文件和小的指标 JSON 进 Git。`P2_DATA=/rcp-scratch/students/yijliu/ml-project2/data`。
@@ -239,78 +238,46 @@ S13 汇总表格、作图、写报告
 
 ---
 
-### S5. 下载图像【DHLAB，进行中】
+### S5. 下载图像【DHLAB，已完成】
 
-`scripts/download_images.py` 在 `screen` 会话 `dl` 里跑，每张间隔 0.5 秒。已有文件会跳过，所以中断后可以续传。日志：`$P2_DATA/download.log`。
+`scripts/download_images.py`，间隔 0.5 s，IIIF 统一 `/full/!512,512/`；已有文件跳过。日志 `$P2_DATA/download.log` 末尾：`finished seen=308947 saved_this_run=308670`；磁盘 **308,672** 张，约 **6.7 GB**。队列含 nadir，不含 `outside` / `buffer`。
 
-下 308,947 张：三个测试集、`val`、`train`，含 nadir。不下 `outside` 和 `buffer`。顺序是测试集和 `val`，然后 `train` 的 5 万张，然后其余 `train`。图片在 `$P2_DATA/images/`，按 `id // 1000` 分子目录。真值仍在 `smapshot.parquet`，用 `id` 对应。
+**数据概览（发给组内对齐用）**：
 
-约 8.3 万张 IIIF 原地址只有 200 像素，已改成 `/full/!512,512/`（试过一张，从 200×133 变成 512×341）。按已下样本估计总体积约 8–12 GB，耗时大约两天。失败记在 `$P2_DATA/images/failed.txt`，目标是失败率低于 1%。
+| 项 | 内容 |
+| --- | --- |
+| 数据 `P2_DATA` | `/rcp-scratch/students/yijliu/ml-project2/data` |
+| 划分 | Ticino 全州 + Bern 10 km 留出；`data/splits/main.csv.gz`（规则同 S4） |
+| 图片 | `$P2_DATA/images/{id//1000}/{id}.jpg` |
+| GT | `$P2_DATA/meta/smapshot.parquet`（355,281 validated；按 `id` 对齐） |
+
+| 集合 | 规则 | 张数（非 nadir） |
+| --- | --- | --- |
+| `train` | 10 km LV95 块内 70% | 176,538 |
+| `val` | 同块 10%（调参只用 val） | 29,532 |
+| `test_in` | 同块 20% | 47,609 |
+| `test_region` | 整州 Ticino（训练未见） | 13,040 |
+| `test_city` | Bern 市中心 (46.9480°, 7.4474°) 10 km 内 | 3,378 |
+| `buffer` | Ticino/Bern 缓冲带，不下载 | 13,515 |
+| `outside` | 瑞士国界外，不下载 | 31,138 |
+| `nadir` | 带 `nadir_` 前缀，不进主表 | 40,531 |
 
 ---
 
-### S6. 缓存 CLIP 特征【DHLAB GPU，35 万张约 1–3 小时】
+### S6. 缓存 CLIP 特征【DHLAB GPU，已完成】
 
-CLIP 冻结，所以每张图只算一次 768 维特征（进入 `mlp` 之前），之后所有实验都只用这个 `.npy`。
+CLIP 冻结；每张已下载图存 **768 维 fp16**（与 `geoclip` `ImageEncoder` 进 `mlp` 之前一致，走 `get_image_features`）。实现：`lib/features.py`、`scripts/cache_features.py`（分片可续跑，默认 `workers=0` 避免 NFS 上 DataLoader 临时目录问题）。
 
-| 项 | 估算 |
+| 项 | 结果 |
 | --- | --- |
-| 存储 | 35 万 × 768 × fp16 ≈ 0.55 GB |
-| 显存 | batch 256 在 48 GB 卡上没问题 |
+| 输出 | `$P2_DATA/features/clip_vitl14.npy`（308,672×768，~453 MB）、`clip_vitl14_ids.npy`、`clip_vitl14_meta.json` |
+| 分片 | `features/clip_vitl14_shards/`（中断后可重跑，已存在 shard 会跳过） |
+| 日志 | `$P2_DATA/features/cache.log`（tmux 会话 `feat`） |
+| 校验 | 首 batch 与 GeoCLIP 前向 `atol=1e-3`；无 NaN；`failed_ids=0` |
 
-```python
-# lib/features.py
-import numpy as np, torch
-from PIL import Image
-from torch.utils.data import Dataset, DataLoader
-from geoclip import GeoCLIP
-from lib.paths import FEATS
-from scripts.download_images import img_path
+长任务示例：`scripts/run_cache_features_tmux.sh`（先 `nvidia-smi` 选空闲卡，勿用 GPU 3）。
 
-class Imgs(Dataset):
-    def __init__(self, ids): self.ids = ids
-    def __len__(self): return len(self.ids)
-    def __getitem__(self, k): return Image.open(img_path(self.ids[k])).convert("RGB")
-
-@torch.no_grad()
-def cache_features(ids, out_name="clip_vitl14", bs=256, workers=8, device="cuda"):
-    model = GeoCLIP().to(device).eval()
-    enc = model.image_encoder
-    proc = lambda ims: enc.image_processor(images=ims, return_tensors="pt")["pixel_values"]
-    dl = DataLoader(Imgs(ids), batch_size=bs, num_workers=workers, collate_fn=proc)
-    out, first = [], True
-    for px in dl:
-        px = px.to(device)
-        pooled = enc.CLIP.vision_model(pixel_values=px).pooler_output
-        f = enc.CLIP.visual_projection(pooled)                      # (B, 768)
-        if first:   # 和 GeoCLIP 自己的前向结果对一次，确保特征没取错
-            assert torch.allclose(enc.mlp(f), enc(px), atol=1e-3), "特征和 GeoCLIP 前向不一致"
-            first = False
-        out.append(f.half().cpu())
-    np.save(FEATS / f"{out_name}.npy", torch.cat(out).numpy())
-    np.save(FEATS / f"{out_name}_ids.npy", np.asarray(ids))
-```
-
-```bash
-nvidia-smi                                     # 先看哪块卡空着（不要用 GPU 3）
-screen -S feat
-CUDA_VISIBLE_DEVICES=0 python -c "
-import numpy as np, pandas as pd
-from scripts.download_images import img_path
-from lib.features import cache_features
-ids = [i for i in pd.read_csv('data/splits/main.csv.gz').id if img_path(i).exists()]
-print(len(ids)); cache_features(ids)"
-```
-
-**下载还没完成时**：先对已下载的图缓存一版，后续再对新图增量缓存。每次输出存成带版本号的文件，用 `_ids.npy` 对齐。
-
-**去重**（做完特征后）：对每张图在 50 m 内的邻居里找余弦相似度 > 0.97 的，只保留 id 最小的一张。在 split 文件里加一列 `dup`，并记录删了多少张。
-
-**完成标准**：
-
-- `assert` 通过。
-- 随便挑两张同一地点的图，余弦相似度明显高于两张随机图。
-- 特征里没有 NaN。
+**去重**（尚未做）：50 m 内余弦 > 0.97 的近重复，在 split 加 `dup` 列——等 B2/kNN 前再做即可。
 
 ---
 
@@ -320,201 +287,88 @@ print(len(ids)); cache_features(ids)"
 
 ---
 
-### S8. 基线【B0 已完成；B1/B2 等特征】
+### S8. 基线【B0–B3 已完成】
 
-**B0（已完成）**：非 nadir `train`（176,538 张）在 LV95 下东、北各自取中位数，转回经纬度 (47.130, 8.501)，对全体非 nadir 图给同一预测。`scripts/run_b0.py` → `$P2_DATA/results/preds/B0.parquet`，`metrics/B0_summary.json`。在 `val`（29,532）上：中位误差约 59.5 km，≤25 km 约 10.9%。
-
-| 编号 | 基线 | 做法 | 能回答什么 |
+| 编号 | 基线 | 做法 | `val` 结果 |
 | --- | --- | --- | --- |
-| B0 | 常数预测 | 已完成，见上 | "什么都不看"能得多少分 |
-| **B1** | GeoCLIP 零样本 | 全球 10 万点候选库 | 起点 |
-| **B2** | kNN 检索 | CLIP 特征在 train 里找 top-1 近邻，用它的坐标；变体：top-k 的加权中位点 | 同地点照片多的数据上，检索可能非常强 |
-| **B3** | GeoCLIP + 瑞士网格候选库，不训练 | 见 S9 的 A2 | 候选库单独的作用 |
-| B4（可选） | PLONK-YFCC 零样本 | 官方代码和权重 | 和"最强的现成模型"比较 |
+| B0 | 常数预测 | `scripts/run_b0.py` | n=29,532；中位 **59.5 km**，≤25 km **10.9%** |
+| B1 | GeoCLIP 零样本 | MP-16 候选库；`scripts/run_baselines.py` | n=29,529；中位 **248 km**，≤25 km **14.6%** |
+| B2 | kNN 检索 | 非 nadir `train` top-1（768 维 CLIP） | n=29,529；中位 **37.6 km**，≤25 km **38.5%** |
+| B3 | GeoCLIP + 瑞士网格 | `grid_1km.npy`，权重同 B1 | n=29,529；中位 **62.1 km**，≤25 km **20.8%** |
+| B4（可选） | PLONK-YFCC | 官方权重 | 未做 |
 
-**用缓存特征跑 GeoCLIP**（B1、B3、A1–A4）：推理与 kNN 在 `lib/geoclip_ops.py`（`embed_gallery`、`predict_feats`、`knn_predict`、`regional_penalty`）；CPU 烟测 `scripts/check_geoclip_ops.py`。**B1、B2、B3 尚未跑**（等 S6 特征）。
+**落盘（避免重跑）**：`features/clip_mlp512.npy`；`gallery_mp16_*`、`gallery_grid1km_*`；`preds/B{1,2,3}.parquet`；B1/B3 的 `B*_topk.npz`（top-20，供可靠度）；`metrics/B*_summary.json`（含各 split）。入口 `scripts/run_baselines.py`（`--which b1|b2|b3|all`，已有文件则跳过）。
 
-每个基线跑完，就把预测存成 `results/preds/B*.parquet`，再用 `evaluate` 出表。这一步先看 `val`。
-
-**完成标准**：
-
-- B1 在 `val` 上的中位误差在 100–200 km 量级（和队友的数字同一量级）。
-- B0 和 B2 的数字已经有了。
-- 已经知道"kNN 有多强"。这决定了后面的方法要超过的门槛。
+**要点**：B1 全球库在瑞士上仍偏大；B2 在 `val` 很强；B3 换网格后中位优于 B0，仍弱于 B2。微调与 A1/A2 应超过 B2（至少在 `val` 上）。
 
 ---
 
-### S9. 零训练适配 A1–A2【网格与 oracle 已完成；A1/A2 预测等特征】
+### S9. 零训练适配 A1–A2【已完成】
 
-**A1：区域先验**（复现 Week 1，在你的划分上）：$s(I,g)=s_\text{GeoCLIP}(I,g)-\lambda U(g)$，$U$ 在 `lib/geoclip_ops.regional_penalty`。**λ、b 网格搜索尚未跑**（等 S6）。
+**A1（区域先验）**：$s=s_\text{GeoCLIP}-\lambda U(g)$；`scripts/search_a1.py` 在 `val` 上网格搜 **λ∈{1,3,10,30}、scale_km∈{25,50,100}** → `metrics/a1_search.json`。**最优 λ=30、scale_km=25**；`scripts/run_a1.py` → `preds/A1.parquet`、`A1_topk.npz`、`metrics/A1_summary.json`。**val**：中位 **67.5 km**，≤25 km **24.1%**（B1 248 km / 14.6%）；平均误差由 ~1653 km 降到 ~85 km（少飞出瑞士）。
 
-**A2：瑞士网格候选库**：`lib/geo.swiss_grid` + `scripts/build_swiss_grid.py` → `$P2_DATA/geo/grid_1km.npy`（**48,554** 点，国界外 5 km、1 km 间距）。网格只有坐标、无图像标签，不算泄漏。
+**A2（瑞士网格）**：即 **B3**（`grid_1km.npy`），**val** 中位 **62.1 km**，≤25 km **20.8%**。
 
-**候选库的变体**（做成一个小消融）：
+**val 消融（零训练）**：`metrics/s9_val_ablation.json`
 
-| 变体 | 内容 |
-| --- | --- |
-| G-global | GeoCLIP 原始的 10 万点 |
-| G-grid1km / G-grid500m | 瑞士网格 |
-| G-train | train 集里出现过的坐标 |
-| G-grid+train | 两者合并 |
+| 行 | 中位 km | ≤25 km |
+| --- | --- | --- |
+| B1 全球 | 248 | 14.6% |
+| **A1 + 先验** | 67.5 | 24.1% |
+| A2 网格 (=B3) | 62.1 | 20.8% |
+| B2 kNN | 37.6 | 38.5% |
 
-**G-train 的问题**：它在 `test_region` 里一个点都没有。这正是 RQ3 要展示的。
+**仍 optional**：G-train / G-grid+train（S14 E9）。**Oracle**：`oracle_val.json`（网格 oracle 0.39 km vs B3 62 km → 排序瓶颈）。
 
-**诊断（RQ1′，已完成）**：`scripts/oracle_gallery.py` → `$P2_DATA/results/metrics/oracle_val.json`。非 nadir `val`（29,532）上：1 km 网格 oracle 中位 **0.39 km**（P90 0.55 km）；train 去重坐标库（156,255 点）oracle 中位 **2.07 km**。候选够密时，误差瓶颈更可能在排序而非库覆盖。
-
-**待做**：B1 → +A1 → +A2 在 `val` 上的预测表（等特征）；A1 的 λ、b 搜索。
+**入口**：`scripts/run_s9_tmux.sh`（`search_a1` → `run_a1` → `s9_ablation`）；推理复用 `lib/baseline_infer.py`。
 
 ---
 
-### S10. 微调 A3–A4【DHLAB GPU，每次训练几分钟到半小时】
+### S10. 微调 A3–A4【已完成首轮；推理用 1 km 网格】
 
-所有训练都只读缓存特征：train 特征约 0.4 GB，直接整块放进 GPU 显存，不需要 DataLoader。
+非 nadir `train`（176,308）上读缓存 **768 维**特征；`scripts/train.py` + yaml；`lib/geoclip_ops.geoclip_train`；15 epoch，batch 512，每 epoch 在 **5k val 子集 + 1 km 网格** 上记中位误差并保留最佳 `ckpt/`。结束后对 **全 `val`/test** 在 1 km 网格上导出 `preds/`、`metrics/`。长任务：`scripts/run_s10_tmux.sh` → `results/s10.log`。
 
-**要比较的设定**：
+| 编号 | 训练 | 负样本 | `val` 中位 | ≤25 km |
+| --- | --- | --- | --- | --- |
+| A3a | 只 MLP | 全球 | 33.4 km | 42.5% |
+| A3b | 只 MLP | 瑞士网格 | 28.9 km | 46.2% |
+| A3c | MLP + 位置编码器 | 瑞士网格 | 29.9 km | 45.4% |
+| **A4_tau5** | MLP + 位置编码器 | 瑞士网格，τ=5 km 软目标 | **27.7 km** | **47.3%** |
 
-| 编号 | 训练哪些部分 | 负样本 | 损失 |
-| --- | --- | --- | --- |
-| A3a | 只训图像 MLP | batch 内 + 全球 GPS 队列（原版做法） | InfoNCE |
-| A3b | 只训图像 MLP | batch 内 + **瑞士网格随机点** | InfoNCE |
-| A3c | MLP + 位置编码器 | 瑞士网格 | InfoNCE |
-| **A4** | MLP + 位置编码器 | 瑞士网格 | **haversine 平滑软目标** |
+相对 **B2**（37.6 km / 38.5%）与 **B3**（62.1 km），微调后在 `val` 上更好。
 
-**为什么要软目标**：SMAPshot 里很多照片拍的是同一地点。硬 InfoNCE 会把"同一个 batch 里另一张同地点照片的 GPS"当成负样本，这是错的。软目标按距离给正样本权重（PIGEON 的思路）：
+**A4_tau5 三种子（seed 0/1/2）**，1 km 网格推理；汇总 `metrics/A4_tau5_multiseed.json`：
 
-$$
-q_{n,j}=\frac{\exp\big(-\text{Hav}(g_n,x_j)/\tau\big)}{\sum_{j'}\exp\big(-\text{Hav}(g_n,x_{j'})/\tau\big)},\qquad
-\mathcal L=-\frac1B\sum_n\sum_j q_{n,j}\log\operatorname{softmax}_j(\ell_{n,j})
-$$
+| split | 中位 km（3 seed 平均 ± std） | ≤25 km 平均 |
+| --- | --- | --- |
+| val | 26.6 ± 1.0 | 48.4% |
+| test_in | 32.0 ± 1.9 | 43.2% |
+| test_city | 93.3 ± 0.6 | 8.1% |
+| test_region | 79.8 ± 0.9 | 3.7% |
 
-其中 $x_j$ 是 batch 内的（加噪）GPS 加上负样本队列，$\tau$ 例如取 {1, 5, 25} km。训练循环在 `lib/geoclip_ops.train`（`jitter`、硬 InfoNCE / 软目标）。
-
-**入口（脚手架已就绪，尚未训练）**：`configs/A3a.yaml`、`A3b.yaml`、`A3c.yaml`、`A4_tau5.yaml`；`scripts/train.py --config ...`。特征文件不存在时 **exit 2** 并提示跑 S6。特征就绪后接 GPU 训练，保存 `ckpt/` 与 `results/preds/`。
-
-**超参数**（只在 `val` 上选，预算控制在 20–30 次运行以内）：
-
-| 超参数 | 搜索范围 |
-| --- | --- |
-| τ | {1, 5, 25} km |
-| σ | {0.5, 2} km |
-| 位置编码器学习率 | {1e-5, 3e-5, 1e-4} |
-| epochs | 10–20，用早停 |
-| 种子 | 最终配置跑 3 个种子，报告均值 ± 标准差 |
-
-**常见坑**：
-
-- **位置编码器训崩**：val 误差突然变大，说明学习率太大。先冻结位置编码器训 2 个 epoch，再一起训。
-- **只学会了"预测训练集的热门地点"**：在 `test_region` 上会很明显。这本身就是 RQ3 的一个发现，要记录下来。
-- `logit_scale` 一直变大会让概率过度自信，所以代码里 clamp 到 100。这会影响 S11 的可靠度。
-
-**A5（可选，时间多再做）**：先在 0.5 km 网格上取 top-50，再在 top-50 附近用 100 m 的细网格重新打分，"由粗到细"。或者在 top-k 候选里取 softmax 加权的 LV95 坐标平均，看能否降低 ≤1 km 尺度上的误差。
-
-**完成标准**：消融表 B1 → A2 → A3a → A3b → A3c → A4，每一行在 `val` 上都有数字。最终配置在三个测试集上各跑一次。
+配置：`A4_tau5`（seed 0）、`A4_tau5_s1`、`A4_tau5_s2`；`scripts/summarize_a4_multiseed.py`。
 
 ---
 
-### S11.（可选）可靠度：每个预测给一个可信的置信度【CPU 即可，约 2–3 天】
+### S11. 预测可靠度【已完成】
 
-**目标**：对每张图输出 $\hat p_T=P(e\le T)$，$T\in\{1,5,25\}$ km。要求排序好（AUROC 高）并且校准（ECE 低）。
+对 A4_tau5（seed 0）估计 $\hat p_T=P(e\le T)$，$T\in\{1,5,25\}$ km。标签是真值误差是否不超过 T。只在 `val` 上拟合：train 上的预测过拟合，置信度会偏高。
 
-**特征**（全部来自模型输出，不用标签）：
+`scripts/export_topk.py` 在 1 km 网格上导出 top-20，`$P2_DATA/results/preds/A4_tau5_topk.npz`（93,538 行：val / test_in / test_city / test_region）。特征：`p1`、`margin`、`entropy_k`、`spread_k`（候选点 `features/gallery_grid1km_gps.npy`）、B2 的 `knn_sim`、A4 与 B2 坐标的 `knn_agree`、`view_type` one-hot。宽高比这次没读 jpg。
 
-| 特征 | 计算 |
-| --- | --- |
-| `p1` | $\exp(\ell_1-\text{logsumexp})$，top-1 在整个候选库上的概率 |
-| `margin` | $\ell_1-\ell_2$ |
-| `entropy_k` | top-k 归一化后的熵 |
-| `spread_k` | top-k 候选点到 top-1 点的距离，按概率加权平均（km）。候选点很分散 = 模型拿不准 |
-| `knn_sim` | 和 train 里最近邻的余弦相似度（"类似的照片见过吗"） |
-| `knn_agree` | kNN 预测点和 GeoCLIP 预测点的距离（两种方法一致时更可信） |
-| `view_type` | one-hot 编码 |
-| `img_wh` | 图像宽高比（全景照片） |
+`lib/reliability.py`：`HistGradientBoostingClassifier`，按 `block` 做 5 折 `GroupKFold` 在深度 {2, 4, 6} 里选，再 `CalibratedClassifierCV(method="isotonic")` 在全 val 上重训。对照是只对 `p1` 做 isotonic。入口 `scripts/run_reliability.py`（CPU）。指标 `$P2_DATA/results/metrics/reliability.json`。T=25 km 的图：`report/figures/risk_coverage.png`（test_in，模型 vs p1）、`calibration_test_in.png`、`calibration_test_region.png`。
 
-**训练数据**：
+**test_in AUROC**（模型 / p1 isotonic）：
 
-- 不能用 train 集上的预测，因为它们过拟合，会过度自信。
-- 简单做法（推荐）：在 `val` 上训练可靠度模型，用 val 的空间块做 5 折 `GroupKFold` 选超参数；然后在三个测试集上评估。
-- 进阶做法：5 折空间交叉拟合。把 train 按块分成 5 折，每次用 4 折微调、对剩下 1 折预测，得到整个 train 的"诚实"预测。缓存特征时训练很快，所以可行，但要花 5 倍训练时间。
+| T | 模型 | p1 |
+| --- | --- | --- |
+| 1 km | 0.752 | 0.706 |
+| 5 km | 0.706 | 0.684 |
+| 25 km | 0.687 | 0.634 |
 
-**模型**：
+三个阈值上模型都高于 p1。T=25 km 时，只保留模型最有把握的一小部分，≤25 km 命中率能到 80% 以上；全覆盖时回到约 41%。
 
-- `LogisticRegression`（基线）。
-- `HistGradientBoostingClassifier`（主模型）。
-- 再用 `CalibratedClassifierCV(method="isotonic")` 校准。
-
-**对照基线**：直接用 `p1` 作为置信度，用 isotonic 映射到概率。
-
-```python
-# lib/reliability.py
-import numpy as np
-from sklearn.ensemble import HistGradientBoostingClassifier
-from sklearn.calibration import CalibratedClassifierCV
-from sklearn.metrics import roc_auc_score, brier_score_loss
-
-def ece(p, y, n_bins=15):
-    bins = np.minimum((p * n_bins).astype(int), n_bins - 1)
-    return sum(abs(p[bins == b].mean() - y[bins == b].mean()) * (bins == b).mean()
-               for b in range(n_bins) if (bins == b).any())
-
-def risk_coverage(conf, err_km, t=25):
-    order = np.argsort(-conf)
-    e = np.asarray(err_km)[order]
-    cov = np.arange(1, len(e) + 1) / len(e)
-    acc = np.cumsum(e <= t) / np.arange(1, len(e) + 1)
-    return cov, acc
-
-def fit_reliability(X_val, err_val, T=25, groups=None):
-    y = (err_val <= T).astype(int)
-    clf = CalibratedClassifierCV(HistGradientBoostingClassifier(max_depth=4, learning_rate=0.05),
-                                 method="isotonic", cv=5)
-    clf.fit(X_val, y)
-    return clf
-
-def report(clf, X, err, T=25):
-    y, p = (err <= T).astype(int), clf.predict_proba(X)[:, 1]
-    return {"auroc": roc_auc_score(y, p), "brier": brier_score_loss(y, p), "ece": ece(p, y)}
-```
-
-**要出的图和表**：
-
-- 风险–覆盖曲线：横轴覆盖率，纵轴 ≤25 km 命中率；每个测试集一条线；对照"p1 基线"。
-- 校准图（reliability diagram）：`test_in` 和 `test_region` 各一张。
-- 表：AUROC / Brier / ECE × {p1 基线, 可靠度模型} × {T=1, 5, 25 km} × 三个测试集。
-
-**完成标准**：至少在 `test_in` 上，可靠度模型的 AUROC 高于 p1 基线；有一句话说清"在没见过的地区，可靠度是否仍然校准"。
-
----
-
-### S12.（可选）泛化到没见过的城市和州【DHLAB，约 1 天】
-
-S4 已经把 `test_city` 和 `test_region` 留出来了，所以这一步只是**评估和分析**，不需要额外训练。
-
-**12a. 主对比表**：每个方法三列（`test_in` / `test_city` / `test_region`），指标为中位误差、≤5 km、≤25 km。
-
-**预期现象**【假设】：
-
-- kNN 和 G-train 在 `test_region` 上崩溃，因为它们只能输出训练集里出现过的位置。由于有 10 km 的缓冲带，误差至少是 10 km 左右。
-- GeoCLIP + 瑞士网格（A2–A4）理论上能预测到任何位置，所以增益应该部分保留。
-- 两者的差距就是"GPS 编码器方法能泛化到新地区"的证据，可以作为报告的一个核心发现。
-
-**12b. 泛化差距**：
-
-$$
-\Delta = \text{metric}(T_\text{region}) - \text{metric}(T_\text{in})
-$$
-
-- 对比零样本 B1 和微调后的 A4 的 $\Delta$。如果 A4 的 $\Delta$ 很大，说明微调"记住了训练区"。
-- 还可以画"误差 vs 到最近训练图的距离"的散点或分箱图，展示误差随距离怎么增长。
-
-**12c. 可靠度的迁移**：S11 的模型在 `test_region` 上的 ECE 是否明显变差？可以给"新地区"的预测加一个 `knn_sim` 很低时降置信的规则，看能否改善。
-
-**12d. 跨国家压力测试**（可选，额外加分）：
-
-- 在 4Dbrowser 的覆盖数据里取一个城市（例如 Dresden），抽 1–2k 张，用 `/images/coverage` 返回的 `imageUrl`。
-- 在全球候选库上对比零样本 GeoCLIP 和瑞士微调后的模型。
-- 预期微调模型变差（灾难性遗忘）。这能说明"专家化"的代价，一段话加一张小表即可。
-
-**完成标准**：一张三列主表；一张"误差随到训练区距离变化"的图。
+**没见过的地区，校准变差。** T=25 km 的 ECE：test_in 上模型 0.052（p1 0.058），test_region 上模型 0.354（p1 0.416）。val 里 ≤25 km 约占 47%，Ticino 只有 3.8%，所以概率整体偏高；校准图几乎是一条贴在横轴上的线。test_region 的 AUROC 也只剩 0.525，和 p1 的 0.522 差不多。`test_city` 和 `test_region` 在 1 km、5 km 上命中数为 0，AUROC 没有定义。
 
 ---
 
@@ -598,31 +452,30 @@ E0–E10 在 `val` 上完成选择，然后在 `test_in`、`test_city`、`test_r
 - [x] S2 全量元数据 → `smapshot.parquet`（355,281 行）
 - [x] S3 EDA notebook（Ticino + Bern 建议）
 - [x] S4 划分 `data/splits/main.csv.gz`（Ticino + Bern）和 Fig. 1；尚未 commit
-- [ ] S5 下载进行中（`screen dl`）
+- [x] S5 下载完成（308,672 张，~6.7 GB）
 - [x] S7 `lib/metrics.py` 与自测
 - [x] S8 B0 在 `val` 上的数字（B1/B2 等图）
 - [ ] 读 GeoCLIP 和 PIGEON 的方法部分
 
 ### 第 2 周（11/21–11/27）：特征和基线
 
-- [ ] S6 对已下载的图缓存特征，`assert` 通过；去重
-- [ ] S8 B0、B1、B2 在 `val` 上的数字
-- [x] S9 1 km 网格（`grid_1km.npy`）与 `val` oracle（`oracle_val.json`）；A1/A2 预测待特征
-- [ ] 下载继续跑；下完后增量缓存特征
+- [x] S6 特征已缓存（308,672×768）；去重仍待做
+- [x] S8 B0–B3 在 `val` 及全 split 预测已落盘
+- [x] S9 A1 搜索 + A2（B3）；`s9_val_ablation.json`
 - [x] 报告草稿：`report/sections/data_benchmark.tex`、Fig. 1 已在 `report/figures/`
 
 ### 第 3 周（11/28–12/04）：微调
 
-- [x] S10 `train.py` + 四份 yaml（缺特征则退出）；**尚未**在 GPU 上训练
-- [ ] A3a → A3b → A3c → A4，在 `val` 上做消融
+- [x] S10 首轮 A3a–A4 训练与 `val` 指标（见上表）
+- [x] A4_tau5 三种子 + `test_in` / `test_city` / `test_region` 已评（`A4_tau5_multiseed.json`）
 - [ ] 最终配置跑 3 个种子
 - [ ] E9、E10
 - [ ] 在三个测试集上做最终评估（只跑一次）
 
 ### 第 4 周（12/05–12/11）：可选部分和收尾实验
 
-- [ ] S11 可靠度：特征、模型、风险–覆盖、校准（可选）
-- [ ] S12 泛化分析表和"误差 vs 距离"图（可选）
+- [x] S11 可靠度：特征、模型、风险–覆盖、校准（`metrics/reliability.json`）
+- [ ] 主表填 `test_in` / `test_city` / `test_region` 三列（S4 已留出，最终评估时跑）
 - [ ] bootstrap 置信区间；块大小敏感性检查（附录）
 - [ ] **12/09 冻结实验**，之后只写作
 
@@ -633,36 +486,13 @@ E0–E10 在 `val` 上完成选择，然后在 `test_in`、`test_city`、`test_r
 - [ ] 确认提交方式（组仓库还是个人仓库）
 - [ ] **12/16 提交**（留一天缓冲）
 
-**时间不够时按这个顺序砍**：E13 → E11 → S11 的交叉拟合（只保留 val 拟合）→ A5 → 整个 S11。S12 的成本很低（S4 已经留出了数据），尽量保留。
+**时间不够时按这个顺序砍**：E13 → E11 → S11 的交叉拟合（只保留 val 拟合）→ A5 → 整个 S11。`test_region` 列尽量保留。
 
 ---
 
-## 8. 今天到周一的启动清单
+## 8. 报告结构（4 页）
 
-**今天（周六）**
-
-1. 读完本教程 §3–§5（1.5 小时）。
-2. S1：已完成。
-3. S2、S4 已完成（Ticino + Bern）。划分文件还没 commit。
-
-**周日**
-
-1. S3：已完成（`notebooks/01_eda.ipynb`）。
-2. 读 GeoCLIP 的 Fig. 2 和 §3，写 5 行笔记：图像怎么变成向量、GPS 怎么变成向量、损失是什么、推理时怎么出坐标、候选库是什么。
-
-**周一**
-
-1. S4：划分和 Fig. 1 已完成，还没 commit。
-2. S5：DHLAB 上启动下载。
-3. S7：`metrics.py`。
-
-从这一刻起，后面的步骤可以和下载并行。
-
----
-
-## 9. 报告结构（4 页）
-
-### 9.1 篇幅分配
+### 8.1 篇幅分配
 
 | 部分 | 篇幅 | 内容 |
 | --- | --- | --- |
@@ -680,13 +510,13 @@ E0–E10 在 `val` 上完成选择，然后在 `test_in`、`test_city`、`test_r
 2. 一套把 GeoCLIP 瑞士化的简单方法（瑞士候选库 + 瑞士负样本 + 距离平滑损失），并做了逐项消融。
 3. （可选）一个校准的可靠度估计器，以及它在新地区上的表现分析。
 
-### 9.2 写作要点
+### 8.2 写作要点
 
 - 每张表都从 B0 开始，一行加一个改动，标出增益。
 - 主表一定要有 `test_region` 列，这是区别于"随机划分刷分"的关键。
 - 超参数放进附录的一张表。
 
-### 9.3 伦理段落（"识别出风险"版本）
+### 8.3 伦理段落（"识别出风险"版本）
 
 **风险**：
 
@@ -705,44 +535,23 @@ E0–E10 在 `val` 上完成选择，然后在 `test_in`、`test_city`、`test_r
 - 用可靠度模型把低置信度的预测交给人工。
 - 仓库里不放图像，只放 ID 和下载脚本，并遵守各档案馆的许可。
 
-### 9.4 AI 使用附录
+### 8.4 AI 使用附录
 
 如实写：用 AI 辅助过哪些代码、文献检索、写作润色；哪些内容是人工核对过的。
 
 ---
 
-## 10. 工作流速查（只在 DHLAB）
+## 9. 风险与备选方案
 
-项目目录：`/rcp-scratch/students/yijliu/ml-project2/ML_project_1`。数据目录：`P2_DATA=/rcp-scratch/students/yijliu/ml-project2/data`。
-
-| 动作 | 命令 |
+| 风险 | 备选 |
 | --- | --- |
-| 进入项目 | `ml-p2`（激活环境并 `cd` 到项目） |
-| 推代码 | `git add -A && git commit -m "..." && git push origin project_2_Yijun_Liu` |
-| 长任务 | `screen -S name` → 运行 → `Ctrl-A D` 离开；`screen -r name` 回来；`screen -ls` 列出全部 |
-| 选 GPU | 先看 `nvidia-smi`；用 `CUDA_VISIBLE_DEVICES=1`（最多 2 块，不用 GPU 3） |
-| 磁盘 | `du -sh $P2_DATA/*`；scratch 是共享的，用完删掉临时文件 |
-
-**规则**：图像、特征、checkpoint 永远不进 Git；划分文件、配置、代码、小的指标 JSON 进 Git。
-
-DHLAB 的登录和环境细节见 [`scripts/dhlab_connect.md`](scripts/dhlab_connect.md)。
+| GPU 被占满 | 特征已缓存；B1/B2 推理与 kNN 可分批跑；单卡微调每次几分钟 |
+| 微调在 `test_in` 上不如 kNN | 主表强调 `test_region`：kNN 无训练坐标；可记作发现或做简单混合 |
+| 4 页写不下 | 主线 RQ1 + 三列测试表；可靠度/S11 压缩进附录 |
 
 ---
 
-## 11. 风险与备选方案
-
-| 风险 | 后果 | 备选 |
-| --- | --- | --- |
-| 下载太慢或被限流 | 第 2 周还没有足够的训练图 | 按优先级下载，测试集先下完；先用 50k 张 train 做完全部实验，之后再用全量重跑最终配置；联系 SMAPshot 问批量导出 |
-| geoclip 和新版 transformers 不兼容 | 特征提不出来 | `pip install "transformers<5"`；或者直接用 `open_clip` 的 ViT-L/14（OpenAI 权重）提特征，再加载 geoclip 的 MLP 权重 |
-| GPU 被占满 | 训练排队 | 特征缓存后，训练用 1 块卡几分钟就够；kNN 和可靠度可以在 CPU 上跑 |
-| 微调打不过 kNN（`test_in` 上） | 主方法的故事变弱 | 强调 `test_region`：kNN 在那里必然崩溃；再加一个 kNN + GeoCLIP 的混合（`knn_sim` 高时用 kNN，否则用 GeoCLIP） |
-| 留出州样本太少 | RQ3 的置信区间很宽 | 换更大的州，或者留出两个城市 |
-| 4 页写不下 | 被扣写作分 | 主线只讲 RQ1 + `test_region`；可靠度放一张图 + 一段话；其余进附录 |
-
----
-
-## 12. 需要确认的问题
+## 10. 需要确认的问题
 
 **问助教或组里**
 
@@ -756,7 +565,7 @@ DHLAB 的登录和环境细节见 [`scripts/dhlab_connect.md`](scripts/dhlab_con
 
 ---
 
-## 13. 参考文献（已核对出处）
+## 11. 参考文献（已核对出处）
 
 1. Vivanco Cepeda, Nayak, Shah. **GeoCLIP**: Clip-Inspired Alignment between Locations and Images for Effective Worldwide Geo-localization. NeurIPS 2023. [arXiv:2309.16020](https://arxiv.org/abs/2309.16020) · [code](https://github.com/VicenteVivan/geo-clip) · `papers/neurips-2023-1b57aadd.pdf`
 2. Haas, Alberti, Skreta. Learning Generalized Zero-Shot Learners for Open-Domain Image Geolocalization (**StreetCLIP**). arXiv 2023. [arXiv:2302.00275](https://arxiv.org/abs/2302.00275) · `papers/arxiv-2302.00275.pdf`

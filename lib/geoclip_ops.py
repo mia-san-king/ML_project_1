@@ -54,6 +54,59 @@ def predict_feats(model, feats, gallery, penalty=None, lam=0.0, top_k=1, chunk=1
 
 
 @torch.no_grad()
+def predict_mlp512(
+    model,
+    mlp_feats,
+    gallery,
+    gallery_emb=None,
+    penalty=None,
+    lam=0.0,
+    top_k=20,
+    chunk=1024,
+):
+    """mlp_feats: (N,512) already L2-normalized or raw (will normalize)."""
+    device = model.logit_scale.device
+    gallery = np.asarray(gallery, dtype=float)
+    if gallery_emb is None:
+        gallery_emb = embed_gallery(model, gallery)
+    else:
+        gallery_emb = gallery_emb.to(device)
+    penalty_t = None
+    if penalty is not None:
+        penalty_t = lam * torch.as_tensor(penalty, device=device, dtype=torch.float32)
+    scale = model.logit_scale.exp()
+    top_indices, top_logits, logsumexp = [], [], []
+    for start in range(0, len(mlp_feats), chunk):
+        batch = torch.as_tensor(mlp_feats[start : start + chunk], device=device).float()
+        image_emb = F.normalize(batch, dim=1) if batch.shape[1] == 512 else F.normalize(
+            model.image_encoder.mlp(batch), dim=1
+        )
+        logits = scale * image_emb @ gallery_emb.T
+        if penalty_t is not None:
+            logits = logits - penalty_t
+        values, indices = logits.topk(top_k, dim=1)
+        top_indices.append(indices.cpu())
+        top_logits.append(values.cpu())
+        logsumexp.append(torch.logsumexp(logits, dim=1).cpu())
+    top_indices = torch.cat(top_indices).numpy()
+    top_logits = torch.cat(top_logits).numpy()
+    logsumexp = torch.cat(logsumexp).numpy()
+    predictions = gallery[top_indices[:, 0]]
+    return predictions, top_indices, top_logits, logsumexp
+
+
+@torch.no_grad()
+def compute_mlp512(model, clip768, chunk=2048):
+    device = model.logit_scale.device
+    mlp = model.image_encoder.mlp
+    parts = []
+    for start in range(0, len(clip768), chunk):
+        batch = torch.as_tensor(np.asarray(clip768[start : start + chunk]), device=device).float()
+        parts.append(F.normalize(mlp(batch), dim=1).half().cpu())
+    return torch.cat(parts, dim=0).numpy()
+
+
+@torch.no_grad()
 def knn_predict(f_query, f_train, gps_train, k=1, chunk=4096, device="cuda"):
     train = F.normalize(torch.as_tensor(f_train, device=device).float(), dim=1)
     similarities, indices = [], []
