@@ -372,6 +372,33 @@ CLIP 冻结；每张已下载图存 **768 维 fp16**（与 `geoclip` `ImageEncod
 
 ---
 
+### S12. 拍摄时间（T 系列）【已完成】
+
+**目的**：把 SMAPshot 的 `date_shot_min` / `date_shot_max` 接入 GeoCLIP 查询侧，和 A4 对比。
+
+**特征**：`lib/time_feats.py` 生成 13 维时间向量（对齐 `clip_vitl14_ids`），落盘 `$P2_DATA/features/time_feats.npy`。含中点年份归一化、多周期 sin/cos、`log1p(跨度天数)`、`has_date`；缺日期用可学习 unknown 向量。
+
+**模型**：`lib/geoclip_ops.TimeBranch`，残差融合 `q = normalize(img_emb + α·time_emb)`，从 `A4_tau5.pt` 初始化；1 km 网格不变。
+
+| ID | 做法 |
+| --- | --- |
+| **T0** | B2 的 top-50 视觉近邻，按 `sim - γ·|Δyear|/50` 重排（val 上 γ=1.0） |
+| **T1** | 只训 TimeBranch，冻结 MLP 与位置编码器，5 epoch |
+| **T2** | T1 + 训练时 30% time dropout |
+| **T3** | T2 + 与 A4 同样微调 MLP 与位置编码器（**val 上最优**） |
+
+入口：`scripts/run_knn_time.py`（T0）、`scripts/train.py` + `configs/T{1,2,3}.yaml`、`scripts/eval_time.py`、`scripts/summarize_time_multiseed.py`（T3 三 seed）。
+
+**val（T3 vs A4）**：中位 **21.5 ± 0.5 km** vs 27.7 km；≤25 km **54.0%** vs 47.3%。T0 仅 val：**26.9 km / 48.0%**（无训练）。
+
+**test_in（T3 三 seed 平均）**：中位 **25.2 ± 0.6 km** vs A4 **32.0 ± 1.9 km**；≤25 km **49.8%** vs **43.2%**。达标：分布内增益超过 A4 种子波动。
+
+**留出集**：`test_city` 中位 ~93.7 km、≤25 km ~8.2%（与 A4 接近）。`test_region` 中位 ~97 km（略差于 A4 79.8 km），≤25 km ~4.2%（略高于 A4 3.7%）。Ticino 年代分布偏 1920–30 年代，时间分支容易学到训练区年代先验。
+
+**对照**：`eval_time.py` 打乱年份后，test_in 中位升至 **33.9 km**（真日期 **25.1 km**），说明增益确实用到日期。test_region 打乱后 **80.2 km**（真日期 **89.6 km**），Ticino 上日期与地点先验混杂，不能当可靠特征。
+
+---
+
 ### S13. 汇总、作图与复现打包【DHLAB】
 
 结果已经在 `$P2_DATA/results/`。在 `notebooks/02_figures.ipynb` 里出图：
@@ -475,6 +502,7 @@ E0–E10 在 `val` 上完成选择，然后在 `test_in`、`test_city`、`test_r
 ### 第 4 周（12/05–12/11）：可选部分和收尾实验
 
 - [x] S11 可靠度：特征、模型、风险–覆盖、校准（`metrics/reliability.json`）
+- [x] S12 拍摄时间：T0–T3、`metrics/T3_multiseed.json`、`time_analysis.json`
 - [ ] 主表填 `test_in` / `test_city` / `test_region` 三列（S4 已留出，最终评估时跑）
 - [ ] bootstrap 置信区间；块大小敏感性检查（附录）
 - [ ] **12/09 冻结实验**，之后只写作
