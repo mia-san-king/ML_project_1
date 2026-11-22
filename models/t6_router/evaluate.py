@@ -1,9 +1,10 @@
-"""Evaluate the fixed T4/T5 confidence switch against its two component models."""
+"""Evaluate the frozen T6 selection model and both of its experts on held-out photos."""
 from __future__ import annotations
 
 import argparse
 import json
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
 import numpy as np
 import pandas as pd
@@ -12,7 +13,8 @@ from models.clip_regression.scripts.compare_t1 import (
     ERROR_ATOL_KM, _errors, _gps, _provenance, _validate_ids,
 )
 from models.t5_reranker.evaluate import GPS, PREDICTED, original_rows
-from models.t6_router.router import choose_t4
+from models.t6_router.bundle import DEFAULT_BUNDLE, LEGACY_RULE, RULE, load_bundle
+from models.t6_router.router import select_expert
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -20,7 +22,7 @@ TEST_SPLITS = ("test_in", "test_city", "test_region")
 RADII = (1, 5, 25, 50)
 
 
-def paired_predictions(path, truth):
+def paired_predictions(path, truth, *, models=("T4", "T5")):
     """Require exactly the canonical test queries from each independent calibrator."""
     original = truth.loc[truth.split.isin(TEST_SPLITS)]
     if set(original.block) & set(truth.loc[truth.split.eq("val"), "block"]):
@@ -28,7 +30,7 @@ def paired_predictions(path, truth):
     if original[["split", "block"]].isna().any().any():
         raise ValueError("Missing canonical test split or block")
     paired = original[["split", "block"]].copy()
-    for model in ("T4", "T5"):
+    for model in models:
         raw = pd.read_parquet(path, filters=[("model", "=", model), ("split", "in", TEST_SPLITS)])
         _validate_ids(raw, model)
         frame = raw.set_index("id").sort_index()
@@ -100,10 +102,15 @@ def dispatch_metrics(frame):
     }
 
 
-def run(path, data_root, split_csv, output_dir):
+def run(path, data_root, split_csv, output_dir, *, model_path=DEFAULT_BUNDLE, legacy_confidence=False):
+    if output_dir.exists():
+        raise FileExistsError(f"Choose a new T6 evaluation directory: {output_dir}")
+    gate = None if legacy_confidence else load_bundle(model_path).get("gate")
     truth, _, sources = original_rows(data_root, split_csv)
     paired = paired_predictions(path, truth)
-    use4 = choose_t4(paired.T4_p25.to_numpy(), paired.T5_p25.to_numpy())
+    use4, probability = select_expert(paired, gate, legacy_confidence=legacy_confidence)
+    if probability is not None:
+        paired["gate_p_T4_given_one_hit"] = probability
     paired["chosen_model"] = np.where(use4, "T4", "T5")
     paired["selected_expert_p25"] = np.where(use4, paired.T4_p25, paired.T5_p25)
     for name in (*PREDICTED, "error_km"):
@@ -124,22 +131,30 @@ def run(path, data_root, split_csv, output_dir):
             metrics.append({**key, "model": name, **distance_metrics(errors)})
         routing.append({**key, **dispatch_metrics(frame)})
 
-    output_dir.mkdir(exist_ok=True, parents=True)
-    paired.reset_index().to_parquet(output_dir / "predictions.parquet", index=False)
-    pd.DataFrame(metrics).to_csv(output_dir / "metrics.csv", index=False)
-    pd.DataFrame(routing).to_csv(output_dir / "routing.csv", index=False)
+    inputs = {**sources, "predictions": path}
+    if gate is not None:
+        inputs["gate"] = gate
     report = {
-        "rule": "Select T4 exactly when its estimated probability of error <=25 km exceeds T5's. Ties select T5.",
-        "selected_expert_p25": "Probability reported by the chosen expert before selection; T6 has no separately fitted probability.",
+        "model_version": 1 if legacy_confidence else 2,
+        "rule": LEGACY_RULE if legacy_confidence else RULE,
+        "selected_expert_p25": "The selected expert's own probability of a 25 km hit before routing.",
         "oracle": "Evaluation-only upper bound selecting the smaller of the two true errors separately for each photo.",
         "tests": "Official held-out queries only. No thresholds were fitted. Base predictors and per-expert calibrators are frozen.",
         "block_ci": "Percentile 95% interval for paired T6 minus T5 hit-rate change in percentage points; 3,000 draws of spatial blocks with replacement (seed 42). Small block counts limit interpretation.",
-        "inputs": {key: _provenance(p) for key, p in {**sources, "predictions": path}.items()},
+        "inputs": {key: _provenance(p) for key, p in inputs.items()},
         "metrics": metrics, "routing": routing,
     }
-    (output_dir / "comparison.json").write_text(
-        json.dumps(report, indent=2, allow_nan=False) + "\n", encoding="utf-8"
-    )
+    output_dir.parent.mkdir(parents=True, exist_ok=True)
+    with TemporaryDirectory(dir=output_dir.parent) as temp:
+        staging = Path(temp) / "evaluation"
+        staging.mkdir()
+        paired.reset_index().to_parquet(staging / "predictions.parquet", index=False)
+        pd.DataFrame(metrics).to_csv(staging / "metrics.csv", index=False)
+        pd.DataFrame(routing).to_csv(staging / "routing.csv", index=False)
+        (staging / "comparison.json").write_text(
+            json.dumps(report, indent=2, allow_nan=False) + "\n", encoding="utf-8"
+        )
+        staging.rename(output_dir)
     return report
 
 
@@ -148,9 +163,15 @@ if __name__ == "__main__":
     cli.add_argument("--predictions", type=Path, default=ROOT / "data/local_runs/confidence_models/predictions.parquet")
     cli.add_argument("--data-root", type=Path, default=ROOT / "data/t1_original")
     cli.add_argument("--split-csv", type=Path, default=ROOT / "data/splits/main.csv.gz")
-    cli.add_argument("--output-dir", type=Path, default=ROOT / "data/local_runs/t6_aug8192")
+    cli.add_argument("--model", type=Path, default=DEFAULT_BUNDLE, help="T6 v2 manifest")
+    cli.add_argument("--legacy-confidence", action="store_true", help="Explicitly reproduce the v1 confidence switch")
+    cli.add_argument("--output-dir", type=Path, help="New directory for evaluated predictions and metrics")
     args = cli.parse_args()
-    outcome = run(args.predictions, args.data_root, args.split_csv, args.output_dir)
+    output = args.output_dir or DEFAULT_BUNDLE.parent.parent / (
+        "evaluation_v1_replay" if args.legacy_confidence else "evaluation_v2"
+    )
+    outcome = run(args.predictions, args.data_root, args.split_csv, output,
+                  model_path=args.model, legacy_confidence=args.legacy_confidence)
     print(pd.DataFrame(outcome["routing"])[[
         "split", "n", "choose_T4", "rescued_hits_25km", "lost_hits_25km",
         "delta_25km_vs_T5_pp", "block_ci95_low_pp", "block_ci95_high_pp",

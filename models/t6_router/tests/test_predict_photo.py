@@ -36,7 +36,7 @@ def test_photo_uses_own_branch_evidence_and_returns_its_coordinates(tmp_path, mo
             return np.array([p5])
 
     monkeypatch.setattr(inference.GeoConfidence, "load", CheckInputs)
-    gate_options = {}
+    gate_options = {"legacy_confidence": True} if gate_score is None else {}
     if gate_score is not None:
         import joblib
 
@@ -48,11 +48,19 @@ def test_photo_uses_own_branch_evidence_and_returns_its_coordinates(tmp_path, mo
                 }
                 return np.array([gate_score])
 
-        gate_options["gate_path"] = "gate.joblib"
+        files["gate"] = "gate.joblib"
         monkeypatch.setattr(joblib, "load", lambda _: Gate())
     result = inference.predict_photo(model_path="T6.json", feature="x.npy", **gate_options)
+    if gate_score is not None:
+        assert result["gate_p_T4_given_one_hit"] == gate_score
     assert result["selected_model"] == expected
     assert (result["lat_pred"], result["lon_pred"]) == ((46., 7.) if expected == "T4" else (47., 8.))
     assert result["branches"]["T4"]["p_within_25km"] == p4
     assert result["branches"]["T5"]["p_within_25km"] == p5
     assert result["selected_branch_p_within_25km"] == (p4 if expected == "T4" else p5)
+
+
+def test_v1_cannot_silently_select_by_confidence(monkeypatch):
+    monkeypatch.setattr(inference, "load_bundle", lambda path: {})
+    with pytest.raises(ValueError, match="--legacy-confidence"):
+        inference.predict_photo(model_path="v1/T6.json", feature="x.npy")

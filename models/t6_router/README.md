@@ -1,31 +1,43 @@
-# T6 逐张照片选择 T4 或 T5
+# T6 根据位置和置信度选择 T4 或 T5
 
-T4 回归坐标，T5 在真实训练照片中检索并重排。T6 对同一张照片运行两者，各自估计定位误差在 25 公里以内的概率。T4 概率严格更高时采用 T4 的坐标，其余情况采用 T5。两套定位器及相应的校准器均已冻结。T6 直接执行这个规则，没有拟合额外权重或用测试集调整阈值。
+T4 为查询照片回归一组瑞士坐标，T5 从真实训练照片中检索一个参考地点。当前的 **T6 v2** 冻结这两个模型和它们各自的置信度估计器。一个单独训练的梯度提升树读取六个数，即 T4 和 T5 各自预测的纬度、经度与 25 公里命中概率。输出是两组坐标中的一组。
 
-## 单图运行
+训练选择器时使用恰好一个专家在 25 公里内命中的验证照片。选择器估计在这个条件下命中方是 T4 的概率。概率大于 0.5 时选择 T4，其他情况选择 T5。这样即使某个专家报告的置信度较低，模型仍然可以根据预测地点选择它。
 
-模型包含两个定位器、两份置信度参数、瑞士边界和训练图库索引。索引包含 176,308 张真实训练照片及其 8,192 张扩散变体的视觉向量，每张变体关联原图，只有真实训练照片提供检索坐标。输入为一张新照片的原始 CLIP ViT-L/14 特征，保存为 768 维的 `.npy` 文件。运行环境需兼容模型包的依赖，本次校准使用 scikit-learn 1.7.2。
+## 单张照片推理
 
-```text
-python -m models.t6_router.predict_photo --model data/local_runs/t6_aug8192/bundle/T6.json --feature photo_clip.npy --date-min 1910 --date-max 1920 --device cuda
+在仓库根目录运行。输入为原始 CLIP ViT-L/14 视觉特征，保存为 768 维的 `.npy`。摄于某一年的照片可以把两个端点设为相同年份，日期未知时可以省略。默认设备为 CPU。
+
+```sh
+python -m models.t6_router.predict_photo --feature photo_clip.npy --date-min 1910 --date-max 1920 --device cuda
 ```
 
-拍摄日期未知时可省略两个日期参数，CPU 推断可省略设备参数。解压独立分发包后，从解压目录运行同一命令，将 `--model` 的值改为 `bundle/T6.json`。输出包含两组坐标与概率、最终选择的模型和坐标。`selected_branch_p_within_25km` 是该分支自身报告的概率，尚未对“选择概率较高的分支”这一步重新校准。
+命令默认读取 `data/local_runs/t6_aug8192/bundle_v2/T6.json`。如果模型包放在其他位置，用 `--model <目录>/T6.json` 指定。包中包含选择器、两个定位器、两份置信度模型、瑞士边界与训练图库索引。索引收录 176,308 张真实训练照片和 8,192 个扩散变体，坐标取自对应的真实照片。模型发布时使用 scikit-learn 1.7.2。
 
-## 六输入选择器实验
+输出中，`selected_model` 和 `lat_pred`、`lon_pred` 给出选中的专家及坐标。`gate_p_T4_given_one_hit` 是选择器估计的条件概率。`selected_branch_p_within_25km` 是被选专家原先报告的 25 公里命中概率。
 
-新的选择器把 T4 的预测经纬度、T5 的预测经纬度和两者各自的 25 公里置信度一起输入梯度提升树。训练标签来自恰好一个模型命中的照片。按地理块交叉验证时，每张照片的两个置信度都由在其他块上拟合的校准器给出。移除坐标的对照使用相同模型，仅保留两个置信度。
+## 打包与评估
 
-在仓库根目录，使用上次地理块实验导出的逐图文件训练并评估。每次选择新的输出目录。
+已有 v1 模型包时，可以从本机核验并复用其权重和图库。下面的命令在同一个数据工作区生成 `bundle_v2`。支持硬链接的文件系统可共享旧包的底层文件，其他文件系统会复制这些文件。新目录与归档目录均应作为只读模型包使用。
 
-```text
+```sh
+python -m models.t6_router.bundle --from-bundle data/local_runs/t6_aug8192/bundle/T6.json --gate <已发布选择器目录>/gate.joblib --output data/local_runs/t6_aug8192/bundle_v2
+python -m models.t6_router.evaluate --model data/local_runs/t6_aug8192/bundle_v2/T6.json
+```
+
+打包会核验已发布选择器和配套 T4、T5 权重及校准器的 SHA-256。需要从源数据重建图库时，用 `--data-root <增强图库>` 替换 `--from-bundle …`。批量评估按照片 ID 对齐已冻结的专家预测和真实坐标，在普通、伯尔尼、提契诺三个留出集分别报告结果。默认输出目录为 `data/local_runs/t6_aug8192/evaluation_v2`，其中 `predictions.parquet` 保存逐图结果，`metrics.csv` 保存各距离阈值的命中率和误差统计，`routing.csv` 保存相对 T5 救回或丢失的照片数。再次评估时请用 `--output-dir` 指向新目录。
+
+## 选择器的地理块验证
+
+以下命令复现选择器训练和五折验证。每张外折验证照片的置信度都由其他地理块拟合的校准器估算。去掉预测坐标的对照保留两个置信度和相同的树模型。部署用的选择器由所有验证照片中的单边命中样本拟合，以折外置信度作为训练输入。T5 此前用过本验证集选择重排权重，所以这些指标属于开发验证结果。
+
+```sh
 python -m models.t6_router.train_geographic_gate --workspace <Windows数据工作区> --previous-decisions <上轮空间验证目录>/decisions.parquet --output-dir <新目录>
-python -m models.t6_router.predict_photo --model <T6.json> --feature <照片特征.npy> --gate <新目录>/gate.joblib
 ```
 
-带 `--gate` 的输出包含 `gate_p_T4_given_one_hit`，表示在恰有一个模型命中的条件下，选择器估计 T4 命中的概率。默认 T6 和各专家仍可单独运行。
+在 29,529 张照片的地理块交叉验证中，T6 v2 有 15,414 张落在 25 公里内（52.20%），中位误差为 22.76 公里。相对只输入两个置信度的树，增加预测位置使净命中数增加 282 张。相对已归档的 v1 规则，v2 救回 318 张、丢失 607 张。完整的折划分和逐折统计见[选择器实验记录](../../report/experiments/2026-11-22-local-models/t6/geographic_gate.json)。
 
-## 原版 T6 的本地留出测试
+## 归档参考 · v1 置信度规则的留出测试
 
 每张照片分别比较 T4、T5 和 T6 的真实误差，25 公里以内计为命中。最后一列用真实坐标事后计算，表示两者至少有一个命中的比例。
 
@@ -41,14 +53,5 @@ python -m models.t6_router.predict_photo --model <T6.json> --feature <照片特�
 
 提契诺有 2,509 张照片只有 T4 命中，其中两模型报出的概率中位数分别为 T4 的 14.8% 和 T5 的 50.6%。置信度比较让这 2,509 张全部选择了 T5。
 
-## 复现
 
-在项目仓库根目录执行。打包时的增强图库及划分须与 T5 训练时相同。批量评估读取已冻结的逐照片预测，对 T4、T5 的坐标和误差按原始照片 ID 配对核验。
-
-```text
-python -m models.t6_router.bundle --data-root <增强图库>
-python -m models.t6_router.evaluate
-python -m models.t6_router.analyze_proximity
-```
-
-实验文件在 `data/local_runs/t6_aug8192/`。`metrics.csv` 给出 1、5、25、50 公里命中率及误差均值、中位数和第 90 百分位。`predictions.parquet` 保存每张照片的选择、两组坐标、分支置信度和评估误差。`routing.csv` 给出各区选用 T4 的次数与得失。`proximity.json` 按真实地点至图库的最近距离和验证集确定的 T5 置信度分位点分层。
+v1 直接采用 25 公里置信度更高的专家，相同时采用 T5。需要复现上表时，可以给批量评估命令添加 `--legacy-confidence`。单图推理也支持 `--model <旧包>/T6.json --legacy-confidence`。归档的 `T6.zip` 对应 v1。

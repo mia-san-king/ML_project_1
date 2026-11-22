@@ -10,7 +10,7 @@
 
 ```text
 models/
-├── t6_router/          # T6：比较 T4 和 T5 的 25 公里命中概率，逐张选择坐标
+├── t6_router/          # T6 用 T4、T5 的两个预测坐标和两个置信度选择定位结果
 ├── t5_reranker/        # T5：用 T1 的位置分重排 T3 的前 50 张训练照片
 ├── clip_regression/    # T4：冻结的 CLIP 特征和日期直接回归瑞士坐标
 ├── baselines/          # 常数预测 B0、图片近邻检索 B2
