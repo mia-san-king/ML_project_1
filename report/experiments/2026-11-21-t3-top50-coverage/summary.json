@@ -1,0 +1,49 @@
+{
+  "radius_km": 25,
+  "k": 50,
+  "training_references": 176308,
+  "gamma": 1.0,
+  "winner_ids_checked_against_original_predictions": true,
+  "splits": {
+    "test_in": {
+      "queries": 47593,
+      "top50_within_25km": 43977,
+      "year_winner_within_25km": 21806,
+      "top50_hit_year_miss": 22171,
+      "no_top50_hit": 3616,
+      "visual_first_within_25km": 18480,
+      "change_from_visual_miss_to_year_hit": 6132,
+      "change_from_visual_hit_to_year_miss": 2806
+    },
+    "test_city": {
+      "queries": 3377,
+      "top50_within_25km": 1676,
+      "year_winner_within_25km": 216,
+      "top50_hit_year_miss": 1460,
+      "no_top50_hit": 1701,
+      "visual_first_within_25km": 225,
+      "change_from_visual_miss_to_year_hit": 72,
+      "change_from_visual_hit_to_year_miss": 81
+    },
+    "test_region": {
+      "queries": 13039,
+      "top50_within_25km": 2933,
+      "year_winner_within_25km": 438,
+      "top50_hit_year_miss": 2495,
+      "no_top50_hit": 10106,
+      "visual_first_within_25km": 306,
+      "change_from_visual_miss_to_year_hit": 256,
+      "change_from_visual_hit_to_year_miss": 124
+    }
+  },
+  "total": {
+    "queries": 64009,
+    "top50_within_25km": 48586,
+    "year_winner_within_25km": 22460,
+    "top50_hit_year_miss": 26126,
+    "no_top50_hit": 15423,
+    "visual_first_within_25km": 19011,
+    "change_from_visual_miss_to_year_hit": 6460,
+    "change_from_visual_hit_to_year_miss": 3011
+  }
+}

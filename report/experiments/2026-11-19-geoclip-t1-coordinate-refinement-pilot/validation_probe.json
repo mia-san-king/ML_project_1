@@ -1,0 +1,36 @@
+{
+  "split": "validation sample excluding checkpoint selection subset",
+  "n": 2048,
+  "seed": 0,
+  "checkpoint_epoch": 12,
+  "seed_method": "T1 location retrieval with archive-year reranking",
+  "frozen_query_time": true,
+  "trust_radius_km": 1,
+  "proposed_steps_km": [
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.125,
+    0.0625,
+    0.03125,
+    0.015625
+  ],
+  "score_reproduction_max_abs_diff": 4.64320182800293e-05,
+  "before": {
+    "median_km": 26.92844284932507,
+    "mean_km": 48.60704326958833,
+    "acc25_percent": 48.53515625
+  },
+  "after": {
+    "median_km": 26.927334224675526,
+    "mean_km": 48.61555495593685,
+    "acc25_percent": 48.583984375
+  },
+  "closer": 973,
+  "farther": 991,
+  "max_travel_km": 1.0000328668665588,
+  "median_travel_km": 0.33875053932290455,
+  "increased_similarity": 1964,
+  "median_cosine_gain": 0.001266568899154663
+}

@@ -1,0 +1,170 @@
+{
+  "selected_gamma": 1.0,
+  "cached_training_references": 176308,
+  "counts": {
+    "val": 29529,
+    "test_in": 47593,
+    "test_city": 3377,
+    "test_region": 13039
+  },
+  "metrics": {
+    "visual": {
+      "test_city": {
+        "n": 3377,
+        "median_km": 93.24576820952254,
+        "acc25_pct": 6.6627183891027535
+      },
+      "test_in": {
+        "n": 47593,
+        "median_km": 37.07015382273353,
+        "acc25_pct": 38.82923959405795
+      },
+      "test_region": {
+        "n": 13039,
+        "median_km": 91.24042312643306,
+        "acc25_pct": 2.346805736636245
+      },
+      "val": {
+        "n": 29529,
+        "median_km": 31.373305168722002,
+        "acc25_pct": 44.20400284466118
+      }
+    },
+    "year": {
+      "test_city": {
+        "n": 3377,
+        "median_km": 93.28672923039784,
+        "acc25_pct": 6.396209653538644
+      },
+      "test_in": {
+        "n": 47593,
+        "median_km": 29.114367102910503,
+        "acc25_pct": 45.817662261256906
+      },
+      "test_region": {
+        "n": 13039,
+        "median_km": 82.1887585371459,
+        "acc25_pct": 3.3591533093028607
+      },
+      "val": {
+        "n": 29529,
+        "median_km": 24.55006864213487,
+        "acc25_pct": 50.47241694605303
+      }
+    },
+    "grid_T0": {
+      "test_city": {
+        "n": 3377,
+        "median_km": 87.80693276701365,
+        "acc25_pct": 8.02487414865265
+      },
+      "test_in": {
+        "n": 47593,
+        "median_km": 35.233844351472264,
+        "acc25_pct": 40.40300044124136
+      },
+      "test_region": {
+        "n": 13039,
+        "median_km": 91.91024663622295,
+        "acc25_pct": 3.466523506403865
+      },
+      "val": {
+        "n": 29529,
+        "median_km": 29.848752818583307,
+        "acc25_pct": 44.45460394866064
+      }
+    },
+    "grid_T1": {
+      "test_city": {
+        "n": 3377,
+        "median_km": 91.6281714020225,
+        "acc25_pct": 9.268581581285163
+      },
+      "test_in": {
+        "n": 47593,
+        "median_km": 33.60879034871867,
+        "acc25_pct": 42.001975080368965
+      },
+      "test_region": {
+        "n": 13039,
+        "median_km": 86.63288388845017,
+        "acc25_pct": 2.10138814326252
+      },
+      "val": {
+        "n": 29529,
+        "median_km": 28.449529016509295,
+        "acc25_pct": 46.58471333265603
+      }
+    },
+    "teammate_CLIP_visual": {
+      "test_city": {
+        "n": 3377,
+        "median_km": 93.50010080323021,
+        "acc25_pct": 5.211726384364821
+      },
+      "test_in": {
+        "n": 47593,
+        "median_km": 43.46341874755343,
+        "acc25_pct": 32.79473872208098
+      },
+      "test_region": {
+        "n": 13039,
+        "median_km": 92.76690165952195,
+        "acc25_pct": 2.1550732418130223
+      },
+      "val": {
+        "n": 29529,
+        "median_km": 37.59382052930713,
+        "acc25_pct": 38.484201970943815
+      }
+    },
+    "teammate_CLIP_year": {
+      "test_city": {
+        "n": 3377,
+        "median_km": 92.42113380642226,
+        "acc25_pct": 4.767545158424637
+      },
+      "test_in": {
+        "n": 47593,
+        "median_km": 31.37150242079103,
+        "acc25_pct": 44.0232807345618
+      },
+      "test_region": {
+        "n": 13039,
+        "median_km": 78.40240820858736,
+        "acc25_pct": 4.103075389216965
+      },
+      "val": {
+        "n": 29529,
+        "median_km": 26.90772558194579,
+        "acc25_pct": 48.04090893697721
+      }
+    }
+  },
+  "paired_changes": {
+    "val": {
+      "changed_gps": 15602,
+      "closer": 9026,
+      "farther": 6576,
+      "changed_reference": 15603
+    },
+    "test_in": {
+      "changed_gps": 24352,
+      "closer": 14244,
+      "farther": 10108,
+      "changed_reference": 24352
+    },
+    "test_city": {
+      "changed_gps": 2057,
+      "closer": 1052,
+      "farther": 1005,
+      "changed_reference": 2057
+    },
+    "test_region": {
+      "changed_gps": 7981,
+      "closer": 4553,
+      "farther": 3428,
+      "changed_reference": 7981
+    }
+  }
+}

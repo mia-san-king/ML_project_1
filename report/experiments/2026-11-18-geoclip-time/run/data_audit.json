@@ -1,0 +1,98 @@
+{
+  "coverage": {
+    "train": {
+      "expected": 176538,
+      "available": 176308,
+      "missing": 230
+    },
+    "test_in": {
+      "expected": 47609,
+      "available": 47593,
+      "missing": 16
+    },
+    "outside": {
+      "expected": 31138,
+      "available": 0,
+      "missing": 31138
+    },
+    "val": {
+      "expected": 29532,
+      "available": 29529,
+      "missing": 3
+    },
+    "nadir_train": {
+      "expected": 25503,
+      "available": 25479,
+      "missing": 24
+    },
+    "buffer": {
+      "expected": 13515,
+      "available": 0,
+      "missing": 13515
+    },
+    "test_region": {
+      "expected": 13040,
+      "available": 13039,
+      "missing": 1
+    },
+    "nadir_test_in": {
+      "expected": 7119,
+      "available": 7119,
+      "missing": 0
+    },
+    "nadir_val": {
+      "expected": 4195,
+      "available": 4195,
+      "missing": 0
+    },
+    "test_city": {
+      "expected": 3378,
+      "available": 3377,
+      "missing": 1
+    },
+    "nadir_test_region": {
+      "expected": 1427,
+      "available": 1427,
+      "missing": 0
+    },
+    "nadir_buffer": {
+      "expected": 1407,
+      "available": 0,
+      "missing": 1407
+    },
+    "nadir_test_city": {
+      "expected": 606,
+      "available": 606,
+      "missing": 0
+    },
+    "nadir_outside": {
+      "expected": 274,
+      "available": 0,
+      "missing": 274
+    }
+  },
+  "dates": {
+    "total": 308672,
+    "valid": 289359,
+    "invalid": 19313,
+    "reasons": {
+      "missing": 226,
+      "one_sided": 17834,
+      "malformed": 3,
+      "reversed": 245,
+      "out_of_range": 1005
+    },
+    "config": {
+      "year_center": 1950.0,
+      "year_scale": 100.0,
+      "min_year": 1800.0,
+      "max_year": 2026.0
+    }
+  },
+  "feature_rows": 308672,
+  "feature_dim": 768,
+  "metadata_rows": 355281,
+  "split_rows": 355281,
+  "gallery_rows": 48554,
+  "validation_limit": 256
+}

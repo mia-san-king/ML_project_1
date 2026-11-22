@@ -1,0 +1,29 @@
+{
+  "state": "completed",
+  "stage": "all training and evaluation complete",
+  "updated_utc": "2026-11-18T14:56:26.950280+00:00",
+  "elapsed_seconds": 3860.0090550479945,
+  "code_commit": "c2e7870c4ca07b7eccc60559dbe766c6fdce5d9e",
+  "results": {
+    "T0_no_time": {
+      "checkpoint": "/rcp-scratch/students/zhang7/ml-project2/data/ckpt/zhang7_T0_no_time_available_s0_20261118.pt",
+      "training_log": "/rcp-scratch/students/zhang7/ml-project2/data/results/metrics/zhang7_T0_no_time_available_s0_20261118_train_log.json",
+      "best_val_subset_median_km": 28.677944035550553,
+      "training_seconds": 1674.0647352419328,
+      "training_peak_mib": 196.32861328125,
+      "predictions": "/rcp-scratch/students/zhang7/ml-project2/data/results/preds/zhang7_T0_no_time_available_s0_20261118.parquet",
+      "metrics": "/rcp-scratch/students/zhang7/ml-project2/data/results/metrics/zhang7_T0_no_time_available_s0_20261118_summary.json",
+      "evaluation_seconds": 68.69386934209615
+    },
+    "T1_dual_time": {
+      "checkpoint": "/rcp-scratch/students/zhang7/ml-project2/data/ckpt/zhang7_T1_dual_time_available_s0_20261118.pt",
+      "training_log": "/rcp-scratch/students/zhang7/ml-project2/data/results/metrics/zhang7_T1_dual_time_available_s0_20261118_train_log.json",
+      "best_val_subset_median_km": 24.939520636388796,
+      "training_seconds": 1853.6165334780235,
+      "training_peak_mib": 1001.37548828125,
+      "predictions": "/rcp-scratch/students/zhang7/ml-project2/data/results/preds/zhang7_T1_dual_time_available_s0_20261118.parquet",
+      "metrics": "/rcp-scratch/students/zhang7/ml-project2/data/results/metrics/zhang7_T1_dual_time_available_s0_20261118_summary.json",
+      "evaluation_seconds": 247.2412836109288
+    }
+  }
+}

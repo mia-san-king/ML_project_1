@@ -1,0 +1,187 @@
+{
+  "splits": [
+    {
+      "split": "val",
+      "view_type": "all",
+      "n": 29529,
+      "median_km": 27.594593021901115,
+      "mean_km": 50.28473294601531,
+      "p90_km": 137.9954497843632,
+      "acc@1km": 1.3173490466998543,
+      "acc@5km": 12.320092112838227,
+      "acc@10km": 25.087202411189004,
+      "acc@25km": 47.43811168681635,
+      "acc@50km": 66.88001625520674,
+      "acc@200km": 95.51627213925293,
+      "acc@750km": 100.0,
+      "acc@2500km": 100.0
+    },
+    {
+      "split": "test_in",
+      "view_type": "all",
+      "n": 47593,
+      "median_km": 33.46471040215373,
+      "mean_km": 52.91101001993171,
+      "p90_km": 136.70834470493463,
+      "acc@1km": 0.6135356039753745,
+      "acc@5km": 8.646229487529679,
+      "acc@10km": 19.353686466497173,
+      "acc@25km": 41.87170382199063,
+      "acc@50km": 62.294875296787346,
+      "acc@200km": 97.8988506713172,
+      "acc@750km": 100.0,
+      "acc@2500km": 100.0
+    },
+    {
+      "split": "test_city",
+      "view_type": "all",
+      "n": 3377,
+      "median_km": 93.81109014320283,
+      "mean_km": 88.49646313331435,
+      "p90_km": 128.42174779201486,
+      "acc@1km": 0.0,
+      "acc@5km": 0.0,
+      "acc@10km": 0.0,
+      "acc@25km": 3.3461652354160494,
+      "acc@50km": 14.065738821439147,
+      "acc@200km": 99.91116375481197,
+      "acc@750km": 100.0,
+      "acc@2500km": 100.0
+    },
+    {
+      "split": "test_region",
+      "view_type": "all",
+      "n": 13039,
+      "median_km": 99.1428213437723,
+      "mean_km": 103.02686961172638,
+      "p90_km": 163.65510705855166,
+      "acc@1km": 0.0,
+      "acc@5km": 0.0,
+      "acc@10km": 0.0,
+      "acc@25km": 1.948002147403942,
+      "acc@50km": 11.266201395812562,
+      "acc@200km": 98.84960503106066,
+      "acc@750km": 100.0,
+      "acc@2500km": 100.0
+    }
+  ],
+  "val": {
+    "split": "val",
+    "view_type": "all",
+    "n": 29529,
+    "median_km": 27.594593021901115,
+    "mean_km": 50.28473294601531,
+    "p90_km": 137.9954497843632,
+    "acc@1km": 1.3173490466998543,
+    "acc@5km": 12.320092112838227,
+    "acc@10km": 25.087202411189004,
+    "acc@25km": 47.43811168681635,
+    "acc@50km": 66.88001625520674,
+    "acc@200km": 95.51627213925293,
+    "acc@750km": 100.0,
+    "acc@2500km": 100.0
+  },
+  "audit": {
+    "coverage": {
+      "train": {
+        "expected": 177050,
+        "available": 176820,
+        "missing": 230
+      },
+      "test_in": {
+        "expected": 47609,
+        "available": 47593,
+        "missing": 16
+      },
+      "outside": {
+        "expected": 31138,
+        "available": 0,
+        "missing": 31138
+      },
+      "val": {
+        "expected": 29532,
+        "available": 29529,
+        "missing": 3
+      },
+      "nadir_train": {
+        "expected": 25503,
+        "available": 25479,
+        "missing": 24
+      },
+      "buffer": {
+        "expected": 13515,
+        "available": 0,
+        "missing": 13515
+      },
+      "test_region": {
+        "expected": 13040,
+        "available": 13039,
+        "missing": 1
+      },
+      "nadir_test_in": {
+        "expected": 7119,
+        "available": 7119,
+        "missing": 0
+      },
+      "nadir_val": {
+        "expected": 4195,
+        "available": 4195,
+        "missing": 0
+      },
+      "test_city": {
+        "expected": 3378,
+        "available": 3377,
+        "missing": 1
+      },
+      "nadir_test_region": {
+        "expected": 1427,
+        "available": 1427,
+        "missing": 0
+      },
+      "nadir_buffer": {
+        "expected": 1407,
+        "available": 0,
+        "missing": 1407
+      },
+      "nadir_test_city": {
+        "expected": 606,
+        "available": 606,
+        "missing": 0
+      },
+      "nadir_outside": {
+        "expected": 274,
+        "available": 0,
+        "missing": 274
+      }
+    },
+    "dates": {
+      "total": 309184,
+      "valid": 289830,
+      "invalid": 19354,
+      "reasons": {
+        "missing": 226,
+        "one_sided": 17872,
+        "malformed": 3,
+        "reversed": 245,
+        "out_of_range": 1008
+      },
+      "config": {
+        "year_center": 1950.0,
+        "year_scale": 100.0,
+        "min_year": 1800.0,
+        "max_year": 2026.0
+      }
+    },
+    "feature_rows": 309184,
+    "feature_dim": 768,
+    "metadata_rows": 355793,
+    "split_rows": 355793
+  },
+  "checkpoint": "/rcp-scratch/students/zhang7/ml-project2/runs/2026-11-20-diffusion-augmentation/models/T1/data/ckpt/T1_augmented_s0.pt",
+  "time_config": {
+    "year_center": 1950.0,
+    "year_scale": 100.0,
+    "min_year": 1800,
+    "max_year": 2026
+  }
+}

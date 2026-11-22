@@ -1,0 +1,102 @@
+{
+  "split": "test_in",
+  "n_photos": 47593,
+  "n_blocks": 93,
+  "repetitions": 1000,
+  "seed": 0,
+  "interval": "95% percentile paired spatial-block bootstrap",
+  "resampling": "Blocks sampled uniformly with replacement; all photos retained; same draws for all models and before/after",
+  "positive_means_improvement": true,
+  "median_estimand": "Difference of pooled photo medians, not median paired differences",
+  "models": {
+    "T1": {
+      "before": {
+        "median_km": 33.608863570640494,
+        "mean_km": 51.474216373177725,
+        "within25": 19990,
+        "pct25": 42.001975080368965
+      },
+      "after": {
+        "median_km": 33.46471040215373,
+        "mean_km": 52.91101001993171,
+        "within25": 19928,
+        "pct25": 41.87170382199063
+      },
+      "median_reduction_km": 0.14415316848676696,
+      "median_reduction_95pct_km": [
+        -3.0012478836921264,
+        2.132149041070987
+      ],
+      "acc25_gain_percentage_points": -0.13027125837833609,
+      "acc25_gain_95pct_percentage_points": [
+        -2.2316577997088376,
+        2.0049997437719416
+      ]
+    },
+    "T3": {
+      "before": {
+        "median_km": 29.114367102910503,
+        "mean_km": 47.71534934513796,
+        "within25": 21806,
+        "pct25": 45.817662261256906
+      },
+      "after": {
+        "median_km": 29.268019712657566,
+        "mean_km": 48.13191965770047,
+        "within25": 21748,
+        "pct25": 45.69579560019331
+      },
+      "median_reduction_km": -0.15365260974706274,
+      "median_reduction_95pct_km": [
+        -0.6122929194328198,
+        0.27983504924818153
+      ],
+      "acc25_gain_percentage_points": -0.12186666106359922,
+      "acc25_gain_95pct_percentage_points": [
+        -0.45979615154895065,
+        0.24005870944168536
+      ]
+    },
+    "T4": {
+      "before": {
+        "median_km": 48.295636068774186,
+        "mean_km": 55.40962863947008,
+        "within25": 10013,
+        "pct25": 21.038808228100773
+      },
+      "after": {
+        "median_km": 48.31966039784523,
+        "mean_km": 55.41276111940506,
+        "within25": 10012,
+        "pct25": 21.03670707877209
+      },
+      "median_reduction_km": -0.02402432907104668,
+      "median_reduction_95pct_km": [
+        -0.08226113051603416,
+        0.05282854333997126
+      ],
+      "acc25_gain_percentage_points": -0.0021011493286842153,
+      "acc25_gain_95pct_percentage_points": [
+        -0.04930646590563929,
+        0.048743725094444905
+      ]
+    }
+  },
+  "inputs": {
+    "predictions": {
+      "T1": {
+        "before": "report/experiments/2026-11-18-geoclip-time/preds/zhang7_T1_dual_time_available_s0_20261118.parquet",
+        "after": "report/experiments/2026-11-20-diffusion-augmentation/models/T1/data/results/preds/T1_augmented_s0.parquet"
+      },
+      "T3": {
+        "before": "report/experiments/2026-11-18-geoclip-t0-photo-rerank/results/predictions.parquet",
+        "after": "report/experiments/2026-11-20-diffusion-augmentation/models/T3/predictions.parquet"
+      },
+      "T4": {
+        "before": "report/experiments/2026-11-20-clip-regression-t4/predictions.parquet",
+        "after": "report/experiments/2026-11-20-diffusion-augmentation/models/T4/predictions.parquet"
+      }
+    },
+    "split_csv": "data/splits/main.csv.gz"
+  }
+}

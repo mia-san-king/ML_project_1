@@ -1,0 +1,35 @@
+run_name: zhang7_T0_no_time_available_s0_20261118
+features: clip_vitl14
+model:
+  backbone: geoclip
+  feature_dim: 768
+  embed_dim: 512
+  time_dim: 3
+  hidden_dim: 128
+  mode: none
+  sigma:
+  - 1
+  - 16
+  - 256
+time:
+  year_center: 1950.0
+  year_scale: 100.0
+  min_year: 1800
+  max_year: 2026
+train_loc: true
+soft_tau_km: null
+negatives: swiss_grid
+gallery: geo/grid_1km.npy
+epochs: 15
+batch_size: 32
+n_neg: 128
+sigma_km: 0.0
+lr_mlp: 0.0001
+lr_loc: 3.0e-05
+val_limit: 256
+query_chunk: 64
+gallery_chunk: 2048
+allow_partial_features: true
+seed: 0
+data_root: /rcp-scratch/students/zhang7/ml-project2/data
+split_csv: /rcp-scratch/students/zhang7/ml-project2/ML_project_1/data/splits/main.csv.gz

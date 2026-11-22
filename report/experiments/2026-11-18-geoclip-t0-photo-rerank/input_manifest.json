@@ -1,0 +1,42 @@
+{
+  "code_commit": "c2e7870c4ca07b7eccc60559dbe766c6fdce5d9e",
+  "inputs": [
+    {
+      "path": "/rcp-scratch/students/zhang7/ml-project2/data/meta/smapshot.parquet",
+      "resolved": "/rcp-scratch/students/yijliu/ml-project2/data/meta/smapshot.parquet",
+      "bytes": 16892797,
+      "mtime_ns": 1794679522888123141,
+      "sha256": "0b80fdc41eb452c08b319bddcb46f492963f6993dc9567dd5e9f445889aa5650"
+    },
+    {
+      "path": "/rcp-scratch/students/zhang7/ml-project2/data/features/clip_vitl14.npy",
+      "resolved": "/rcp-scratch/students/yijliu/ml-project2/data/features/clip_vitl14.npy",
+      "bytes": 474120320,
+      "mtime_ns": 1794954755356792370,
+      "sha256": "179bf8d521ba7b05c7cc66261f6230530d702f6b913cb1020beac32d6e500355"
+    },
+    {
+      "path": "/rcp-scratch/students/zhang7/ml-project2/data/features/clip_vitl14_ids.npy",
+      "resolved": "/rcp-scratch/students/yijliu/ml-project2/data/features/clip_vitl14_ids.npy",
+      "bytes": 2469504,
+      "mtime_ns": 1794954755373318973,
+      "sha256": "9bd4e88dfeacb6a18f0620d7c006e324ad0d14828a543097d187371e34302a98"
+    },
+    {
+      "path": "/rcp-scratch/students/zhang7/ml-project2/data/geo/grid_1km.npy",
+      "resolved": "/rcp-scratch/students/yijliu/ml-project2/data/geo/grid_1km.npy",
+      "bytes": 388560,
+      "mtime_ns": 1794683695944693154,
+      "sha256": "e851e30246445e062d4f768194a3cf690a01ad1dd20a74f007e9906d5df78489"
+    },
+    {
+      "path": "/rcp-scratch/students/zhang7/ml-project2/ML_project_1/data/splits/main.csv.gz",
+      "resolved": "/rcp-scratch/students/zhang7/ml-project2/ML_project_1/data/splits/main.csv.gz",
+      "bytes": 1440433,
+      "mtime_ns": 1795009362167048807,
+      "sha256": "67d2a56bcad5ba826d73a63174315779827456fd9011e40583f743021e72a0a3"
+    }
+  ],
+  "T0_checkpoint": "/rcp-scratch/students/zhang7/ml-project2/data/ckpt/zhang7_T0_no_time_available_s0_20261118.pt",
+  "T0_sha256": "90e16b13717b8d0b7834354362acd7dd29bc58c56df48148710698abebc3d602"
+}

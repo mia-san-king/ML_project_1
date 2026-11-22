@@ -1,0 +1,126 @@
+{
+  "host": "zhang7@dhlabsrv1.epfl.ch",
+  "artifacts": [
+    {
+      "remote": "/rcp-scratch/students/zhang7/ml-project2/data/ckpt/zhang7_T0_no_time_available_s0_20261118.pt",
+      "local_relative": "ckpt/zhang7_T0_no_time_available_s0_20261118.pt",
+      "bytes": 41751797,
+      "sha256": "90e16b13717b8d0b7834354362acd7dd29bc58c56df48148710698abebc3d602"
+    },
+    {
+      "remote": "/rcp-scratch/students/zhang7/ml-project2/data/results/metrics/zhang7_T0_no_time_available_s0_20261118_train_log.json",
+      "local_relative": "metrics/zhang7_T0_no_time_available_s0_20261118_train_log.json",
+      "bytes": 9577,
+      "sha256": "dbf1b9ebb4a9471430b05ca7ffd577fc9c9c6946d95abc6d09c20852cb6b3d50"
+    },
+    {
+      "remote": "/rcp-scratch/students/zhang7/ml-project2/data/ckpt/zhang7_T1_dual_time_available_s0_20261118.pt",
+      "local_relative": "ckpt/zhang7_T1_dual_time_available_s0_20261118.pt",
+      "bytes": 42812181,
+      "sha256": "9789dc6a862b355e7d35ef03709d4c4f844c15f58bfa2907f9b2244941be7578"
+    },
+    {
+      "remote": "/rcp-scratch/students/zhang7/ml-project2/data/results/metrics/zhang7_T1_dual_time_available_s0_20261118_train_log.json",
+      "local_relative": "metrics/zhang7_T1_dual_time_available_s0_20261118_train_log.json",
+      "bytes": 9584,
+      "sha256": "7cbcca3c8f5d6b9ded7de9894fbd0b060ae454165c45ced786fc680437fab3e8"
+    },
+    {
+      "remote": "/rcp-scratch/students/zhang7/ml-project2/runs/2026-11-18-geoclip-time/T0_no_time_full.yaml",
+      "local_relative": "run/T0_no_time_full.yaml",
+      "bytes": 690,
+      "sha256": "94908b9a9f9c11687b8165ea1114880063fb4329ec93a57f66a443df220b458f"
+    },
+    {
+      "remote": "/rcp-scratch/students/zhang7/ml-project2/runs/2026-11-18-geoclip-time/T1_dual_time_full.yaml",
+      "local_relative": "run/T1_dual_time_full.yaml",
+      "bytes": 692,
+      "sha256": "f7ff60f5e4d9d1089500adf1cf1c50b0efbf42ede0fd745548f06a4a6111b37f"
+    },
+    {
+      "remote": "/rcp-scratch/students/zhang7/ml-project2/runs/2026-11-18-geoclip-time/input_manifest.json",
+      "local_relative": "run/input_manifest.json",
+      "bytes": 1779,
+      "sha256": "418660b420180534ade1f65ef3941a53cf831fd629a42b52646a39d5320801ea"
+    },
+    {
+      "remote": "/rcp-scratch/students/zhang7/ml-project2/runs/2026-11-18-geoclip-time/data_audit.json",
+      "local_relative": "run/data_audit.json",
+      "bytes": 1873,
+      "sha256": "b05ed5deb203aeb3f6dbe3682b3c0a7355d103843b04adec8bbb90dbce4cc722"
+    },
+    {
+      "remote": "/rcp-scratch/students/zhang7/ml-project2/runs/2026-11-18-geoclip-time/run_pipeline.py",
+      "local_relative": "run/run_pipeline.py",
+      "bytes": 3177,
+      "sha256": "6b2dce69f92d80be9294af482666faa73d4fcd95ff9d0057966f78f5cfe6bcc7"
+    },
+    {
+      "remote": "/rcp-scratch/students/zhang7/ml-project2/runs/2026-11-18-geoclip-time/launch_full.sh",
+      "local_relative": "run/launch_full.sh",
+      "bytes": 580,
+      "sha256": "694f3e54d49190b5f52c708501614cdac9fc0beebaa262bc7a2180e46ed7a372"
+    },
+    {
+      "remote": "/rcp-scratch/students/zhang7/ml-project2/runs/2026-11-18-geoclip-time/analyze_comparison.py",
+      "local_relative": "run/analyze_comparison.py",
+      "bytes": 16997,
+      "sha256": "f53ab24b6ac51be8064d07bdc69ce4d0de578636812c5f0d1afe4352eb1c5137"
+    },
+    {
+      "remote": "/rcp-scratch/students/zhang7/ml-project2/data/results/metrics/zhang7_T0_no_time_available_s0_20261118_summary.json",
+      "local_relative": "metrics/zhang7_T0_no_time_available_s0_20261118_summary.json",
+      "bytes": 4499,
+      "sha256": "a286c51b75a4609b1a50401afb0a901970b7b3e05c20caceed3485f72df88ef5"
+    },
+    {
+      "remote": "/rcp-scratch/students/zhang7/ml-project2/data/results/preds/zhang7_T0_no_time_available_s0_20261118.parquet",
+      "local_relative": "preds/zhang7_T0_no_time_available_s0_20261118.parquet",
+      "bytes": 1027151,
+      "sha256": "a31664386ab76731f908e62195bc6f0c004ea4b89f35659753ccaa9aedf97e99"
+    },
+    {
+      "remote": "/rcp-scratch/students/zhang7/ml-project2/data/results/metrics/zhang7_T1_dual_time_available_s0_20261118_summary.json",
+      "local_relative": "metrics/zhang7_T1_dual_time_available_s0_20261118_summary.json",
+      "bytes": 4493,
+      "sha256": "0c85cd78474d5021b547dd0f2560d2dc26f6ecccaebd433ae6556739451a22af"
+    },
+    {
+      "remote": "/rcp-scratch/students/zhang7/ml-project2/data/results/preds/zhang7_T1_dual_time_available_s0_20261118.parquet",
+      "local_relative": "preds/zhang7_T1_dual_time_available_s0_20261118.parquet",
+      "bytes": 1024557,
+      "sha256": "8f46c86bd4d63ce60953c140d756dddfe0c3a740c00b99fac6aa6785949474c8"
+    },
+    {
+      "remote": "/rcp-scratch/students/zhang7/ml-project2/runs/2026-11-18-geoclip-time/comparison.json",
+      "local_relative": "run/comparison.json",
+      "bytes": 54073,
+      "sha256": "a44a1e4fe2d97279297ccaf8c72f1365fa81590f55d5d45d3d515da6406c5967"
+    },
+    {
+      "remote": "/rcp-scratch/students/zhang7/ml-project2/runs/2026-11-18-geoclip-time/training_curves.png",
+      "local_relative": "run/training_curves.png",
+      "bytes": 121037,
+      "sha256": "edcd3ee942f414ec3926de9d1c8ae6385852127c181e6f847d7a857b96228b95"
+    },
+    {
+      "remote": "/rcp-scratch/students/zhang7/ml-project2/runs/2026-11-18-geoclip-time/test_in_error_cdf.png",
+      "local_relative": "run/test_in_error_cdf.png",
+      "bytes": 57051,
+      "sha256": "5cf851ecacd2340981feadfeea445f17f3a2e1993706f1eba1e0cae57b5600f9"
+    },
+    {
+      "remote": "/rcp-scratch/students/zhang7/ml-project2/runs/2026-11-18-geoclip-time/pipeline_status.json",
+      "local_relative": "run/pipeline_status.json",
+      "bytes": 1751,
+      "sha256": "dc5e4706a25d55dc21f9cb0d578ef6f53ce9fcdfac311d515205c128e1035b53"
+    },
+    {
+      "remote": "/rcp-scratch/students/zhang7/ml-project2/runs/2026-11-18-geoclip-time/full_console.log",
+      "local_relative": "run/full_console.log",
+      "bytes": 5143,
+      "sha256": "e9b214bd2228a3f7d9b38ddd56ca47cf7f082ec69673120dd92e3bab64b1dbd3"
+    }
+  ],
+  "completed_download_utc": "2026-11-18T15:03:11.138455+00:00"
+}

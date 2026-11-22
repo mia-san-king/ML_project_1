@@ -1,0 +1,2550 @@
+{
+  "status": "complete_cpu_paired_sensitivity",
+  "split": "test_in",
+  "fixed_gamma": 1.0,
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "inputs": {
+    "candidates": "/rcp-scratch/students/zhang7/ml-project2/runs/2026-11-18-geoclip-t1-location-rerank/candidate_diagnostic.npz",
+    "predictions": "/rcp-scratch/students/zhang7/ml-project2/runs/2026-11-18-geoclip-t1-location-rerank/results/predictions.parquet",
+    "candidates_sha256": "761bb98b8475ce932f78837a6e4f817b8cef4bb56d71145e886d2d2494e1b03f",
+    "predictions_sha256": "8645927b06838bd3d88333e9a76f802e7161ac7872ba2147acac0285a7496c0b"
+  },
+  "score_validation_atol": 2e-06,
+  "scope": "explicit CPU paired sensitivity: fixed CPU candidates and gamma, true versus shuffled years; not claimed to reproduce the original GPU run",
+  "validation": {
+    "location": {
+      "queries": 47593,
+      "winner_mismatches": 215,
+      "mismatches": [
+        {
+          "query_id": 4241,
+          "main_neighbor_id": 343146,
+          "recomputed_neighbor_id": 205086,
+          "score_gap": 2.592802047729492e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 5334,
+          "main_neighbor_id": 392869,
+          "recomputed_neighbor_id": 170552,
+          "score_gap": 3.6656856536865234e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 6494,
+          "main_neighbor_id": 12645,
+          "recomputed_neighbor_id": 12302,
+          "score_gap": 8.732080459594727e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 7837,
+          "main_neighbor_id": 1668,
+          "recomputed_neighbor_id": 225437,
+          "score_gap": 5.4836273193359375e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 8474,
+          "main_neighbor_id": 1900,
+          "recomputed_neighbor_id": 256887,
+          "score_gap": 2.086162567138672e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 10883,
+          "main_neighbor_id": 162021,
+          "recomputed_neighbor_id": 208207,
+          "score_gap": 1.2516975402832031e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 11685,
+          "main_neighbor_id": 12824,
+          "recomputed_neighbor_id": 175598,
+          "score_gap": 6.16908073425293e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 12256,
+          "main_neighbor_id": 92254,
+          "recomputed_neighbor_id": 19271,
+          "score_gap": 4.470348358154297e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 12936,
+          "main_neighbor_id": 92523,
+          "recomputed_neighbor_id": 91605,
+          "score_gap": 5.066394805908203e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 14466,
+          "main_neighbor_id": 389588,
+          "recomputed_neighbor_id": 137843,
+          "score_gap": 6.854534149169922e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 14989,
+          "main_neighbor_id": 374874,
+          "recomputed_neighbor_id": 373940,
+          "score_gap": 7.152557373046875e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 15663,
+          "main_neighbor_id": 341341,
+          "recomputed_neighbor_id": 296965,
+          "score_gap": 1.4901161193847656e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 16553,
+          "main_neighbor_id": 12729,
+          "recomputed_neighbor_id": 147718,
+          "score_gap": 1.7285346984863281e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 17168,
+          "main_neighbor_id": 338634,
+          "recomputed_neighbor_id": 338638,
+          "score_gap": 9.834766387939453e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 17806,
+          "main_neighbor_id": 286884,
+          "recomputed_neighbor_id": 138261,
+          "score_gap": 2.086162567138672e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 18456,
+          "main_neighbor_id": 94626,
+          "recomputed_neighbor_id": 91582,
+          "score_gap": 1.0728836059570312e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 18695,
+          "main_neighbor_id": 392926,
+          "recomputed_neighbor_id": 3360,
+          "score_gap": 1.043081283569336e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 19234,
+          "main_neighbor_id": 232871,
+          "recomputed_neighbor_id": 178493,
+          "score_gap": 3.3974647521972656e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 21041,
+          "main_neighbor_id": 154469,
+          "recomputed_neighbor_id": 376915,
+          "score_gap": 2.980232238769531e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 21075,
+          "main_neighbor_id": 338591,
+          "recomputed_neighbor_id": 338596,
+          "score_gap": 4.172325134277344e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 21380,
+          "main_neighbor_id": 204954,
+          "recomputed_neighbor_id": 204955,
+          "score_gap": 2.384185791015625e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 21668,
+          "main_neighbor_id": 132360,
+          "recomputed_neighbor_id": 5599,
+          "score_gap": 1.2516975402832031e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 21791,
+          "main_neighbor_id": 237767,
+          "recomputed_neighbor_id": 298337,
+          "score_gap": 4.76837158203125e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 22200,
+          "main_neighbor_id": 136744,
+          "recomputed_neighbor_id": 137973,
+          "score_gap": 6.556510925292969e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 24121,
+          "main_neighbor_id": 390640,
+          "recomputed_neighbor_id": 15207,
+          "score_gap": 3.069639205932617e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 24560,
+          "main_neighbor_id": 177758,
+          "recomputed_neighbor_id": 147284,
+          "score_gap": 7.271766662597656e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 25517,
+          "main_neighbor_id": 97355,
+          "recomputed_neighbor_id": 339426,
+          "score_gap": 7.450580596923828e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 25898,
+          "main_neighbor_id": 366124,
+          "recomputed_neighbor_id": 138014,
+          "score_gap": 5.364418029785156e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 26162,
+          "main_neighbor_id": 163271,
+          "recomputed_neighbor_id": 296052,
+          "score_gap": 2.384185791015625e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 27985,
+          "main_neighbor_id": 269611,
+          "recomputed_neighbor_id": 245995,
+          "score_gap": 2.6226043701171875e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 28792,
+          "main_neighbor_id": 151370,
+          "recomputed_neighbor_id": 162606,
+          "score_gap": 2.384185791015625e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 29198,
+          "main_neighbor_id": 173554,
+          "recomputed_neighbor_id": 21987,
+          "score_gap": 4.589557647705078e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 29234,
+          "main_neighbor_id": 340434,
+          "recomputed_neighbor_id": 340435,
+          "score_gap": 1.2814998626708984e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 31573,
+          "main_neighbor_id": 235341,
+          "recomputed_neighbor_id": 152400,
+          "score_gap": 1.3113021850585938e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 32182,
+          "main_neighbor_id": 25853,
+          "recomputed_neighbor_id": 92045,
+          "score_gap": 1.0728836059570312e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 36753,
+          "main_neighbor_id": 52147,
+          "recomputed_neighbor_id": 49062,
+          "score_gap": 2.205371856689453e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 37685,
+          "main_neighbor_id": 40987,
+          "recomputed_neighbor_id": 50890,
+          "score_gap": 3.5762786865234375e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 39218,
+          "main_neighbor_id": 29820,
+          "recomputed_neighbor_id": 41618,
+          "score_gap": 1.5497207641601562e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 45524,
+          "main_neighbor_id": 62909,
+          "recomputed_neighbor_id": 41174,
+          "score_gap": 1.9669532775878906e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 45543,
+          "main_neighbor_id": 77961,
+          "recomputed_neighbor_id": 87838,
+          "score_gap": 1.919269561767578e-05,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 49191,
+          "main_neighbor_id": 249324,
+          "recomputed_neighbor_id": 249732,
+          "score_gap": 1.1920928955078125e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 53431,
+          "main_neighbor_id": 69143,
+          "recomputed_neighbor_id": 73033,
+          "score_gap": 2.980232238769531e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 55469,
+          "main_neighbor_id": 370093,
+          "recomputed_neighbor_id": 182960,
+          "score_gap": 2.0563602447509766e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 55477,
+          "main_neighbor_id": 78039,
+          "recomputed_neighbor_id": 78038,
+          "score_gap": 8.046627044677734e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 57207,
+          "main_neighbor_id": 40633,
+          "recomputed_neighbor_id": 70085,
+          "score_gap": 5.364418029785156e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 60989,
+          "main_neighbor_id": 40587,
+          "recomputed_neighbor_id": 47530,
+          "score_gap": 1.8477439880371094e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 64767,
+          "main_neighbor_id": 77074,
+          "recomputed_neighbor_id": 72722,
+          "score_gap": 2.384185791015625e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 66379,
+          "main_neighbor_id": 183262,
+          "recomputed_neighbor_id": 183375,
+          "score_gap": 3.993511199951172e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 71718,
+          "main_neighbor_id": 391371,
+          "recomputed_neighbor_id": 297422,
+          "score_gap": 2.3245811462402344e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 73949,
+          "main_neighbor_id": 45523,
+          "recomputed_neighbor_id": 372808,
+          "score_gap": 4.76837158203125e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 78088,
+          "main_neighbor_id": 51090,
+          "recomputed_neighbor_id": 48183,
+          "score_gap": 1.4007091522216797e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 78550,
+          "main_neighbor_id": 247950,
+          "recomputed_neighbor_id": 247559,
+          "score_gap": 2.3245811462402344e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 89407,
+          "main_neighbor_id": 42777,
+          "recomputed_neighbor_id": 35161,
+          "score_gap": 2.384185791015625e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 90062,
+          "main_neighbor_id": 181422,
+          "recomputed_neighbor_id": 37170,
+          "score_gap": 1.138448715209961e-05,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 91372,
+          "main_neighbor_id": 380155,
+          "recomputed_neighbor_id": 167143,
+          "score_gap": 6.020069122314453e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 91780,
+          "main_neighbor_id": 92842,
+          "recomputed_neighbor_id": 93522,
+          "score_gap": 1.9073486328125e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 92073,
+          "main_neighbor_id": 340111,
+          "recomputed_neighbor_id": 392212,
+          "score_gap": 2.9802322387695312e-08,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 92494,
+          "main_neighbor_id": 220000,
+          "recomputed_neighbor_id": 215953,
+          "score_gap": 4.172325134277344e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 93921,
+          "main_neighbor_id": 394930,
+          "recomputed_neighbor_id": 394935,
+          "score_gap": 1.6391277313232422e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 95009,
+          "main_neighbor_id": 238574,
+          "recomputed_neighbor_id": 170340,
+          "score_gap": 1.0132789611816406e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 95195,
+          "main_neighbor_id": 339396,
+          "recomputed_neighbor_id": 379987,
+          "score_gap": 5.960464477539063e-08,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 96272,
+          "main_neighbor_id": 150265,
+          "recomputed_neighbor_id": 353364,
+          "score_gap": 1.3023614883422852e-05,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 97756,
+          "main_neighbor_id": 16663,
+          "recomputed_neighbor_id": 373552,
+          "score_gap": 5.960464477539063e-08,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 98497,
+          "main_neighbor_id": 393009,
+          "recomputed_neighbor_id": 98950,
+          "score_gap": 2.086162567138672e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 138411,
+          "main_neighbor_id": 381608,
+          "recomputed_neighbor_id": 379621,
+          "score_gap": 6.854534149169922e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 138866,
+          "main_neighbor_id": 360296,
+          "recomputed_neighbor_id": 360878,
+          "score_gap": 4.76837158203125e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 141284,
+          "main_neighbor_id": 12729,
+          "recomputed_neighbor_id": 147718,
+          "score_gap": 6.22868537902832e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 141376,
+          "main_neighbor_id": 48042,
+          "recomputed_neighbor_id": 89122,
+          "score_gap": 1.430511474609375e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 143113,
+          "main_neighbor_id": 20293,
+          "recomputed_neighbor_id": 28576,
+          "score_gap": 1.2218952178955078e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 145905,
+          "main_neighbor_id": 12806,
+          "recomputed_neighbor_id": 2462,
+          "score_gap": 1.0132789611816406e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 148335,
+          "main_neighbor_id": 293562,
+          "recomputed_neighbor_id": 372228,
+          "score_gap": 4.172325134277344e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 148650,
+          "main_neighbor_id": 285311,
+          "recomputed_neighbor_id": 364663,
+          "score_gap": 2.384185791015625e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 148987,
+          "main_neighbor_id": 294131,
+          "recomputed_neighbor_id": 213177,
+          "score_gap": 7.152557373046875e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 152919,
+          "main_neighbor_id": 171285,
+          "recomputed_neighbor_id": 141353,
+          "score_gap": 0.0,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 153248,
+          "main_neighbor_id": 28697,
+          "recomputed_neighbor_id": 379486,
+          "score_gap": 6.854534149169922e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 154692,
+          "main_neighbor_id": 154902,
+          "recomputed_neighbor_id": 114390,
+          "score_gap": 4.738569259643555e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 154815,
+          "main_neighbor_id": 154144,
+          "recomputed_neighbor_id": 229862,
+          "score_gap": 5.960464477539062e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 154994,
+          "main_neighbor_id": 2360,
+          "recomputed_neighbor_id": 136816,
+          "score_gap": 1.519918441772461e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 155794,
+          "main_neighbor_id": 95958,
+          "recomputed_neighbor_id": 97361,
+          "score_gap": 1.3709068298339844e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 156754,
+          "main_neighbor_id": 186351,
+          "recomputed_neighbor_id": 186155,
+          "score_gap": 2.384185791015625e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 157183,
+          "main_neighbor_id": 159987,
+          "recomputed_neighbor_id": 163964,
+          "score_gap": 1.1920928955078125e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 157407,
+          "main_neighbor_id": 92505,
+          "recomputed_neighbor_id": 275852,
+          "score_gap": 9.47713851928711e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 157723,
+          "main_neighbor_id": 280938,
+          "recomputed_neighbor_id": 376847,
+          "score_gap": 1.7285346984863281e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 158206,
+          "main_neighbor_id": 28681,
+          "recomputed_neighbor_id": 294097,
+          "score_gap": 1.7881393432617188e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 158611,
+          "main_neighbor_id": 31500,
+          "recomputed_neighbor_id": 155669,
+          "score_gap": 1.3023614883422852e-05,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 160012,
+          "main_neighbor_id": 238767,
+          "recomputed_neighbor_id": 239368,
+          "score_gap": 1.296401023864746e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 161346,
+          "main_neighbor_id": 91511,
+          "recomputed_neighbor_id": 276394,
+          "score_gap": 8.940696716308594e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 161450,
+          "main_neighbor_id": 277168,
+          "recomputed_neighbor_id": 211900,
+          "score_gap": 4.6193599700927734e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 161914,
+          "main_neighbor_id": 167926,
+          "recomputed_neighbor_id": 166355,
+          "score_gap": 3.2782554626464844e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 163640,
+          "main_neighbor_id": 215113,
+          "recomputed_neighbor_id": 177275,
+          "score_gap": 2.086162567138672e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 169107,
+          "main_neighbor_id": 170261,
+          "recomputed_neighbor_id": 169723,
+          "score_gap": 1.1920928955078125e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 169927,
+          "main_neighbor_id": 166533,
+          "recomputed_neighbor_id": 213215,
+          "score_gap": 1.7583370208740234e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 169979,
+          "main_neighbor_id": 359738,
+          "recomputed_neighbor_id": 180714,
+          "score_gap": 1.1622905731201172e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 170188,
+          "main_neighbor_id": 294381,
+          "recomputed_neighbor_id": 214567,
+          "score_gap": 1.043081283569336e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 173469,
+          "main_neighbor_id": 215237,
+          "recomputed_neighbor_id": 215286,
+          "score_gap": 2.086162567138672e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 174504,
+          "main_neighbor_id": 291812,
+          "recomputed_neighbor_id": 214671,
+          "score_gap": 9.834766387939453e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 175244,
+          "main_neighbor_id": 187317,
+          "recomputed_neighbor_id": 186841,
+          "score_gap": 3.2782554626464844e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 176482,
+          "main_neighbor_id": 177400,
+          "recomputed_neighbor_id": 143349,
+          "score_gap": 6.854534149169922e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 176738,
+          "main_neighbor_id": 219264,
+          "recomputed_neighbor_id": 226841,
+          "score_gap": 4.470348358154297e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 176844,
+          "main_neighbor_id": 8393,
+          "recomputed_neighbor_id": 355510,
+          "score_gap": 5.424022674560547e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 176992,
+          "main_neighbor_id": 156664,
+          "recomputed_neighbor_id": 149671,
+          "score_gap": 8.940696716308594e-08,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 179698,
+          "main_neighbor_id": 12715,
+          "recomputed_neighbor_id": 8295,
+          "score_gap": 1.2814998626708984e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 181655,
+          "main_neighbor_id": 357262,
+          "recomputed_neighbor_id": 357275,
+          "score_gap": 3.4868717193603516e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 185223,
+          "main_neighbor_id": 137965,
+          "recomputed_neighbor_id": 156356,
+          "score_gap": 3.427267074584961e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 185647,
+          "main_neighbor_id": 376361,
+          "recomputed_neighbor_id": 236836,
+          "score_gap": 3.337860107421875e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 185806,
+          "main_neighbor_id": 188053,
+          "recomputed_neighbor_id": 187815,
+          "score_gap": 6.67572021484375e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 186232,
+          "main_neighbor_id": 187130,
+          "recomputed_neighbor_id": 238377,
+          "score_gap": 5.0067901611328125e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 186822,
+          "main_neighbor_id": 184361,
+          "recomputed_neighbor_id": 184351,
+          "score_gap": 2.9802322387695312e-08,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 202143,
+          "main_neighbor_id": 19249,
+          "recomputed_neighbor_id": 144461,
+          "score_gap": 2.1457672119140625e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 204298,
+          "main_neighbor_id": 4247,
+          "recomputed_neighbor_id": 234013,
+          "score_gap": 1.6391277313232422e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 208211,
+          "main_neighbor_id": 213515,
+          "recomputed_neighbor_id": 212286,
+          "score_gap": 4.172325134277344e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 210027,
+          "main_neighbor_id": 296489,
+          "recomputed_neighbor_id": 292895,
+          "score_gap": 2.980232238769531e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 212444,
+          "main_neighbor_id": 294708,
+          "recomputed_neighbor_id": 143616,
+          "score_gap": 1.3262033462524414e-05,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 213191,
+          "main_neighbor_id": 210165,
+          "recomputed_neighbor_id": 91729,
+          "score_gap": 6.854534149169922e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 213320,
+          "main_neighbor_id": 217152,
+          "recomputed_neighbor_id": 161262,
+          "score_gap": 5.960464477539063e-08,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 213601,
+          "main_neighbor_id": 379775,
+          "recomputed_neighbor_id": 166820,
+          "score_gap": 8.940696716308594e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 213780,
+          "main_neighbor_id": 2441,
+          "recomputed_neighbor_id": 2360,
+          "score_gap": 4.649162292480469e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 214085,
+          "main_neighbor_id": 181744,
+          "recomputed_neighbor_id": 172458,
+          "score_gap": 1.4007091522216797e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 215192,
+          "main_neighbor_id": 259584,
+          "recomputed_neighbor_id": 137509,
+          "score_gap": 2.7120113372802734e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 215411,
+          "main_neighbor_id": 92496,
+          "recomputed_neighbor_id": 363941,
+          "score_gap": 9.655952453613281e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 215918,
+          "main_neighbor_id": 177828,
+          "recomputed_neighbor_id": 16483,
+          "score_gap": 5.662441253662109e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 217442,
+          "main_neighbor_id": 284078,
+          "recomputed_neighbor_id": 231753,
+          "score_gap": 1.1324882507324219e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 222323,
+          "main_neighbor_id": 174802,
+          "recomputed_neighbor_id": 181826,
+          "score_gap": 2.7120113372802734e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 222537,
+          "main_neighbor_id": 170840,
+          "recomputed_neighbor_id": 176755,
+          "score_gap": 3.159046173095703e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 225412,
+          "main_neighbor_id": 19919,
+          "recomputed_neighbor_id": 33071,
+          "score_gap": 3.814697265625e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 226907,
+          "main_neighbor_id": 237291,
+          "recomputed_neighbor_id": 142441,
+          "score_gap": 1.8477439880371094e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 231893,
+          "main_neighbor_id": 393625,
+          "recomputed_neighbor_id": 181221,
+          "score_gap": 1.430511474609375e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 232065,
+          "main_neighbor_id": 17758,
+          "recomputed_neighbor_id": 232763,
+          "score_gap": 6.556510925292969e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 234198,
+          "main_neighbor_id": 24883,
+          "recomputed_neighbor_id": 295077,
+          "score_gap": 2.980232238769531e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 236657,
+          "main_neighbor_id": 369424,
+          "recomputed_neighbor_id": 295701,
+          "score_gap": 4.947185516357422e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 237274,
+          "main_neighbor_id": 295391,
+          "recomputed_neighbor_id": 295630,
+          "score_gap": 3.337860107421875e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 238908,
+          "main_neighbor_id": 391525,
+          "recomputed_neighbor_id": 233619,
+          "score_gap": 4.410743713378906e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 239660,
+          "main_neighbor_id": 231528,
+          "recomputed_neighbor_id": 20474,
+          "score_gap": 5.155801773071289e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 240858,
+          "main_neighbor_id": 364508,
+          "recomputed_neighbor_id": 92830,
+          "score_gap": 2.384185791015625e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 242231,
+          "main_neighbor_id": 231246,
+          "recomputed_neighbor_id": 178914,
+          "score_gap": 2.115964889526367e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 242622,
+          "main_neighbor_id": 288287,
+          "recomputed_neighbor_id": 143951,
+          "score_gap": 6.288290023803711e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 245289,
+          "main_neighbor_id": 365149,
+          "recomputed_neighbor_id": 95409,
+          "score_gap": 1.7881393432617188e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 250525,
+          "main_neighbor_id": 272826,
+          "recomputed_neighbor_id": 272869,
+          "score_gap": 3.7550926208496094e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 256813,
+          "main_neighbor_id": 187317,
+          "recomputed_neighbor_id": 186841,
+          "score_gap": 8.940696716308594e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 256824,
+          "main_neighbor_id": 276155,
+          "recomputed_neighbor_id": 276157,
+          "score_gap": 1.6391277313232422e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 256929,
+          "main_neighbor_id": 179731,
+          "recomputed_neighbor_id": 161628,
+          "score_gap": 1.1920928955078125e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 257126,
+          "main_neighbor_id": 148581,
+          "recomputed_neighbor_id": 396525,
+          "score_gap": 8.940696716308594e-08,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 257776,
+          "main_neighbor_id": 280227,
+          "recomputed_neighbor_id": 276265,
+          "score_gap": 0.0,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 258472,
+          "main_neighbor_id": 258877,
+          "recomputed_neighbor_id": 258871,
+          "score_gap": 5.155801773071289e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 259122,
+          "main_neighbor_id": 218268,
+          "recomputed_neighbor_id": 153296,
+          "score_gap": 2.562999725341797e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 259139,
+          "main_neighbor_id": 186717,
+          "recomputed_neighbor_id": 186651,
+          "score_gap": 3.2782554626464844e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 259585,
+          "main_neighbor_id": 285929,
+          "recomputed_neighbor_id": 288059,
+          "score_gap": 2.980232238769531e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 261992,
+          "main_neighbor_id": 262776,
+          "recomputed_neighbor_id": 995,
+          "score_gap": 1.341104507446289e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 262928,
+          "main_neighbor_id": 263036,
+          "recomputed_neighbor_id": 99524,
+          "score_gap": 2.0265579223632812e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 263141,
+          "main_neighbor_id": 272590,
+          "recomputed_neighbor_id": 272592,
+          "score_gap": 5.453824996948242e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 267878,
+          "main_neighbor_id": 265186,
+          "recomputed_neighbor_id": 345123,
+          "score_gap": 4.589557647705078e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 270042,
+          "main_neighbor_id": 270243,
+          "recomputed_neighbor_id": 270244,
+          "score_gap": 7.450580596923828e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 271347,
+          "main_neighbor_id": 271462,
+          "recomputed_neighbor_id": 271449,
+          "score_gap": 2.384185791015625e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 271367,
+          "main_neighbor_id": 261919,
+          "recomputed_neighbor_id": 261109,
+          "score_gap": 8.642673492431641e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 281355,
+          "main_neighbor_id": 232489,
+          "recomputed_neighbor_id": 5378,
+          "score_gap": 1.7881393432617188e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 282129,
+          "main_neighbor_id": 398412,
+          "recomputed_neighbor_id": 358145,
+          "score_gap": 3.5762786865234375e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 283590,
+          "main_neighbor_id": 231382,
+          "recomputed_neighbor_id": 233060,
+          "score_gap": 1.4901161193847656e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 286176,
+          "main_neighbor_id": 186155,
+          "recomputed_neighbor_id": 186351,
+          "score_gap": 2.205371856689453e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 288301,
+          "main_neighbor_id": 277053,
+          "recomputed_neighbor_id": 365487,
+          "score_gap": 3.0994415283203125e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 288572,
+          "main_neighbor_id": 280626,
+          "recomputed_neighbor_id": 285615,
+          "score_gap": 1.1026859283447266e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 292380,
+          "main_neighbor_id": 209399,
+          "recomputed_neighbor_id": 168575,
+          "score_gap": 4.172325134277344e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 292674,
+          "main_neighbor_id": 145878,
+          "recomputed_neighbor_id": 141089,
+          "score_gap": 1.0132789611816406e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 293120,
+          "main_neighbor_id": 150154,
+          "recomputed_neighbor_id": 158203,
+          "score_gap": 2.980232238769531e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 297522,
+          "main_neighbor_id": 274592,
+          "recomputed_neighbor_id": 279531,
+          "score_gap": 1.1920928955078125e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 297885,
+          "main_neighbor_id": 213928,
+          "recomputed_neighbor_id": 4478,
+          "score_gap": 3.0100345611572266e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 298090,
+          "main_neighbor_id": 393429,
+          "recomputed_neighbor_id": 217668,
+          "score_gap": 1.3709068298339844e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 336524,
+          "main_neighbor_id": 185772,
+          "recomputed_neighbor_id": 185119,
+          "score_gap": 5.662441253662109e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 336580,
+          "main_neighbor_id": 185119,
+          "recomputed_neighbor_id": 185623,
+          "score_gap": 3.2782554626464844e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 337700,
+          "main_neighbor_id": 185119,
+          "recomputed_neighbor_id": 185772,
+          "score_gap": 2.682209014892578e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 337702,
+          "main_neighbor_id": 185119,
+          "recomputed_neighbor_id": 185772,
+          "score_gap": 5.960464477539063e-08,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 345292,
+          "main_neighbor_id": 149352,
+          "recomputed_neighbor_id": 163822,
+          "score_gap": 1.1622905731201172e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 345554,
+          "main_neighbor_id": 343002,
+          "recomputed_neighbor_id": 347628,
+          "score_gap": 1.4603137969970703e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 346956,
+          "main_neighbor_id": 203541,
+          "recomputed_neighbor_id": 203632,
+          "score_gap": 1.0520219802856445e-05,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 347182,
+          "main_neighbor_id": 343999,
+          "recomputed_neighbor_id": 205015,
+          "score_gap": 2.384185791015625e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 347601,
+          "main_neighbor_id": 247175,
+          "recomputed_neighbor_id": 266132,
+          "score_gap": 1.8477439880371094e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 349807,
+          "main_neighbor_id": 52147,
+          "recomputed_neighbor_id": 49062,
+          "score_gap": 1.1920928955078125e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 349879,
+          "main_neighbor_id": 133722,
+          "recomputed_neighbor_id": 208159,
+          "score_gap": 1.3113021850585938e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 350338,
+          "main_neighbor_id": 347453,
+          "recomputed_neighbor_id": 21173,
+          "score_gap": 2.9802322387695312e-08,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 353025,
+          "main_neighbor_id": 11000,
+          "recomputed_neighbor_id": 364930,
+          "score_gap": 4.291534423828125e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 353418,
+          "main_neighbor_id": 372775,
+          "recomputed_neighbor_id": 358619,
+          "score_gap": 2.384185791015625e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 354960,
+          "main_neighbor_id": 214550,
+          "recomputed_neighbor_id": 217198,
+          "score_gap": 4.470348358154297e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 356863,
+          "main_neighbor_id": 155502,
+          "recomputed_neighbor_id": 226308,
+          "score_gap": 5.960464477539063e-08,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 357540,
+          "main_neighbor_id": 11525,
+          "recomputed_neighbor_id": 145373,
+          "score_gap": 3.8743019104003906e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 357566,
+          "main_neighbor_id": 391589,
+          "recomputed_neighbor_id": 391590,
+          "score_gap": 2.8014183044433594e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 357726,
+          "main_neighbor_id": 396893,
+          "recomputed_neighbor_id": 91896,
+          "score_gap": 1.2516975402832031e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 358611,
+          "main_neighbor_id": 358012,
+          "recomputed_neighbor_id": 39486,
+          "score_gap": 2.384185791015625e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 359994,
+          "main_neighbor_id": 359336,
+          "recomputed_neighbor_id": 145770,
+          "score_gap": 0.0,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 360205,
+          "main_neighbor_id": 392482,
+          "recomputed_neighbor_id": 216709,
+          "score_gap": 3.8743019104003906e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 363884,
+          "main_neighbor_id": 217227,
+          "recomputed_neighbor_id": 365489,
+          "score_gap": 4.172325134277344e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 364328,
+          "main_neighbor_id": 17002,
+          "recomputed_neighbor_id": 31567,
+          "score_gap": 1.5497207641601562e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 364430,
+          "main_neighbor_id": 294128,
+          "recomputed_neighbor_id": 372870,
+          "score_gap": 4.32133674621582e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 366321,
+          "main_neighbor_id": 375253,
+          "recomputed_neighbor_id": 24320,
+          "score_gap": 5.960464477539063e-08,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 369083,
+          "main_neighbor_id": 166799,
+          "recomputed_neighbor_id": 168221,
+          "score_gap": 1.430511474609375e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 369505,
+          "main_neighbor_id": 356921,
+          "recomputed_neighbor_id": 356111,
+          "score_gap": 1.7881393432617188e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 373193,
+          "main_neighbor_id": 170340,
+          "recomputed_neighbor_id": 245243,
+          "score_gap": 5.066394805908203e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 376101,
+          "main_neighbor_id": 95921,
+          "recomputed_neighbor_id": 392240,
+          "score_gap": 3.546476364135742e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 376424,
+          "main_neighbor_id": 170828,
+          "recomputed_neighbor_id": 365989,
+          "score_gap": 5.960464477539062e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 378863,
+          "main_neighbor_id": 294846,
+          "recomputed_neighbor_id": 152875,
+          "score_gap": 1.2516975402832031e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 379409,
+          "main_neighbor_id": 179443,
+          "recomputed_neighbor_id": 25827,
+          "score_gap": 1.7583370208740234e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 379426,
+          "main_neighbor_id": 373028,
+          "recomputed_neighbor_id": 373024,
+          "score_gap": 1.1920928955078125e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 380723,
+          "main_neighbor_id": 33731,
+          "recomputed_neighbor_id": 202018,
+          "score_gap": 8.940696716308594e-08,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 381239,
+          "main_neighbor_id": 175357,
+          "recomputed_neighbor_id": 376568,
+          "score_gap": 6.258487701416016e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 381692,
+          "main_neighbor_id": 17253,
+          "recomputed_neighbor_id": 376157,
+          "score_gap": 2.205371856689453e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 381732,
+          "main_neighbor_id": 172954,
+          "recomputed_neighbor_id": 93991,
+          "score_gap": 1.6093254089355469e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 389860,
+          "main_neighbor_id": 394987,
+          "recomputed_neighbor_id": 372645,
+          "score_gap": 2.384185791015625e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 389948,
+          "main_neighbor_id": 177053,
+          "recomputed_neighbor_id": 22057,
+          "score_gap": 1.0222196578979492e-05,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 389967,
+          "main_neighbor_id": 19105,
+          "recomputed_neighbor_id": 370920,
+          "score_gap": 4.172325134277344e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 390092,
+          "main_neighbor_id": 357639,
+          "recomputed_neighbor_id": 177053,
+          "score_gap": 3.5762786865234375e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 390264,
+          "main_neighbor_id": 394987,
+          "recomputed_neighbor_id": 372645,
+          "score_gap": 8.940696716308594e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 390612,
+          "main_neighbor_id": 366558,
+          "recomputed_neighbor_id": 31452,
+          "score_gap": 3.5762786865234375e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 391845,
+          "main_neighbor_id": 391830,
+          "recomputed_neighbor_id": 391729,
+          "score_gap": 4.4405460357666016e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 392326,
+          "main_neighbor_id": 372752,
+          "recomputed_neighbor_id": 372644,
+          "score_gap": 5.066394805908203e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 392333,
+          "main_neighbor_id": 372752,
+          "recomputed_neighbor_id": 380601,
+          "score_gap": 2.4437904357910156e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 393040,
+          "main_neighbor_id": 365397,
+          "recomputed_neighbor_id": 10975,
+          "score_gap": 3.516674041748047e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 395738,
+          "main_neighbor_id": 352177,
+          "recomputed_neighbor_id": 356708,
+          "score_gap": 2.9802322387695312e-08,
+          "classification": "numerical_near_tie"
+        }
+      ],
+      "exact_winner_match": false,
+      "main_winner_cosine_max_abs_difference": 4.2051076889038086e-05,
+      "main_winner_cosine_differences_above_tolerance": 11996
+    },
+    "year": {
+      "queries": 47593,
+      "winner_mismatches": 112,
+      "mismatches": [
+        {
+          "query_id": 758,
+          "main_neighbor_id": 1495,
+          "recomputed_neighbor_id": 923,
+          "score_gap": 3.337860107421875e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 1938,
+          "main_neighbor_id": 349442,
+          "recomputed_neighbor_id": 343247,
+          "score_gap": null,
+          "classification": "main_winner_outside_candidate_list"
+        },
+        {
+          "query_id": 3412,
+          "main_neighbor_id": 396502,
+          "recomputed_neighbor_id": 284563,
+          "score_gap": 5.364418029785156e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 5516,
+          "main_neighbor_id": 6586,
+          "recomputed_neighbor_id": 206245,
+          "score_gap": 0.07894687533378603,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 5537,
+          "main_neighbor_id": 395364,
+          "recomputed_neighbor_id": 395345,
+          "score_gap": 4.76837158203125e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 7058,
+          "main_neighbor_id": 12300,
+          "recomputed_neighbor_id": 389917,
+          "score_gap": 0.006424394116374965,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 8554,
+          "main_neighbor_id": 394770,
+          "recomputed_neighbor_id": 345418,
+          "score_gap": null,
+          "classification": "main_winner_outside_candidate_list"
+        },
+        {
+          "query_id": 10883,
+          "main_neighbor_id": 206215,
+          "recomputed_neighbor_id": 206214,
+          "score_gap": 8.881092071533203e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 19365,
+          "main_neighbor_id": 136667,
+          "recomputed_neighbor_id": 391047,
+          "score_gap": 0.17714059793883735,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 23249,
+          "main_neighbor_id": 22145,
+          "recomputed_neighbor_id": 14707,
+          "score_gap": 0.034148166309937555,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 25976,
+          "main_neighbor_id": 284767,
+          "recomputed_neighbor_id": 391721,
+          "score_gap": 1.0132789611816406e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 36753,
+          "main_neighbor_id": 52147,
+          "recomputed_neighbor_id": 49062,
+          "score_gap": 2.205371856689453e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 37584,
+          "main_neighbor_id": 47631,
+          "recomputed_neighbor_id": 75959,
+          "score_gap": 3.449773521291277e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 41209,
+          "main_neighbor_id": 42632,
+          "recomputed_neighbor_id": 38449,
+          "score_gap": null,
+          "classification": "main_winner_outside_candidate_list"
+        },
+        {
+          "query_id": 41499,
+          "main_neighbor_id": 81397,
+          "recomputed_neighbor_id": 39964,
+          "score_gap": 6.467103958129883e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 45543,
+          "main_neighbor_id": 77961,
+          "recomputed_neighbor_id": 87838,
+          "score_gap": 1.919269561767578e-05,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 46625,
+          "main_neighbor_id": 69764,
+          "recomputed_neighbor_id": 53751,
+          "score_gap": 1.0520219802856445e-05,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 47148,
+          "main_neighbor_id": 62497,
+          "recomputed_neighbor_id": 35132,
+          "score_gap": 1.088040773994381e-05,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 47379,
+          "main_neighbor_id": 68730,
+          "recomputed_neighbor_id": 58667,
+          "score_gap": 2.6397561759816668e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 61062,
+          "main_neighbor_id": 183309,
+          "recomputed_neighbor_id": 183473,
+          "score_gap": 0.03439894385025127,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 64664,
+          "main_neighbor_id": 52745,
+          "recomputed_neighbor_id": 58982,
+          "score_gap": 3.993511199951172e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 68740,
+          "main_neighbor_id": 36392,
+          "recomputed_neighbor_id": 48320,
+          "score_gap": 1.1026859283447266e-05,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 72877,
+          "main_neighbor_id": 36535,
+          "recomputed_neighbor_id": 34411,
+          "score_gap": 5.555882480634544e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 77142,
+          "main_neighbor_id": 183459,
+          "recomputed_neighbor_id": 183590,
+          "score_gap": 3.48968128037197e-05,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 78088,
+          "main_neighbor_id": 51090,
+          "recomputed_neighbor_id": 48183,
+          "score_gap": 1.4007091522216797e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 79384,
+          "main_neighbor_id": 183546,
+          "recomputed_neighbor_id": 183544,
+          "score_gap": 2.086162567138672e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 80307,
+          "main_neighbor_id": 52339,
+          "recomputed_neighbor_id": 38567,
+          "score_gap": 5.662441253662109e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 85743,
+          "main_neighbor_id": 183459,
+          "recomputed_neighbor_id": 183455,
+          "score_gap": 3.4570693969726562e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 87035,
+          "main_neighbor_id": 48478,
+          "recomputed_neighbor_id": 39673,
+          "score_gap": null,
+          "classification": "main_winner_outside_candidate_list"
+        },
+        {
+          "query_id": 91371,
+          "main_neighbor_id": 33112,
+          "recomputed_neighbor_id": 22176,
+          "score_gap": 8.225440979003906e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 92236,
+          "main_neighbor_id": 397865,
+          "recomputed_neighbor_id": 397864,
+          "score_gap": 2.086162567138672e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 93921,
+          "main_neighbor_id": 394930,
+          "recomputed_neighbor_id": 394935,
+          "score_gap": 1.6391277313232422e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 98934,
+          "main_neighbor_id": 98180,
+          "recomputed_neighbor_id": 99464,
+          "score_gap": 8.344650268554688e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 114817,
+          "main_neighbor_id": 283815,
+          "recomputed_neighbor_id": 283821,
+          "score_gap": 4.0531158447265625e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 137647,
+          "main_neighbor_id": 292732,
+          "recomputed_neighbor_id": 284088,
+          "score_gap": 0.006316616183421497,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 144975,
+          "main_neighbor_id": 391725,
+          "recomputed_neighbor_id": 391724,
+          "score_gap": 4.76837158203125e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 147283,
+          "main_neighbor_id": 285178,
+          "recomputed_neighbor_id": 286697,
+          "score_gap": 4.500150680541992e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 147448,
+          "main_neighbor_id": 286060,
+          "recomputed_neighbor_id": 287369,
+          "score_gap": 2.2649765014648438e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 150273,
+          "main_neighbor_id": 395141,
+          "recomputed_neighbor_id": 395152,
+          "score_gap": 2.682209014892578e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 151398,
+          "main_neighbor_id": 147966,
+          "recomputed_neighbor_id": 389573,
+          "score_gap": 5.960464477539062e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 151606,
+          "main_neighbor_id": 281691,
+          "recomputed_neighbor_id": 284657,
+          "score_gap": 8.165836334228516e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 153360,
+          "main_neighbor_id": 288388,
+          "recomputed_neighbor_id": 283380,
+          "score_gap": 5.364418029785156e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 155852,
+          "main_neighbor_id": 389586,
+          "recomputed_neighbor_id": 389587,
+          "score_gap": 3.3676624298095703e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 157184,
+          "main_neighbor_id": 392276,
+          "recomputed_neighbor_id": 392288,
+          "score_gap": 1.8477439880371094e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 162080,
+          "main_neighbor_id": 281301,
+          "recomputed_neighbor_id": 287843,
+          "score_gap": 1.519918441772461e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 164094,
+          "main_neighbor_id": 287450,
+          "recomputed_neighbor_id": 282624,
+          "score_gap": 3.933906555175781e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 168551,
+          "main_neighbor_id": 205702,
+          "recomputed_neighbor_id": 205722,
+          "score_gap": 1.043081283569336e-05,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 168818,
+          "main_neighbor_id": 169615,
+          "recomputed_neighbor_id": 167530,
+          "score_gap": 2.175569534301758e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 172211,
+          "main_neighbor_id": 96629,
+          "recomputed_neighbor_id": 396419,
+          "score_gap": 0.004158148615738377,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 177201,
+          "main_neighbor_id": 393614,
+          "recomputed_neighbor_id": 398304,
+          "score_gap": 4.649162292480469e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 179944,
+          "main_neighbor_id": 390875,
+          "recomputed_neighbor_id": 136245,
+          "score_gap": null,
+          "classification": "main_winner_outside_candidate_list"
+        },
+        {
+          "query_id": 181241,
+          "main_neighbor_id": 287133,
+          "recomputed_neighbor_id": 282691,
+          "score_gap": 5.27501106262207e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 184885,
+          "main_neighbor_id": 185548,
+          "recomputed_neighbor_id": 184474,
+          "score_gap": 2.086162567138672e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 187396,
+          "main_neighbor_id": 390316,
+          "recomputed_neighbor_id": 187586,
+          "score_gap": 3.218520532866087e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 201073,
+          "main_neighbor_id": 19141,
+          "recomputed_neighbor_id": 19249,
+          "score_gap": 0.0077757272629196406,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 204298,
+          "main_neighbor_id": 4247,
+          "recomputed_neighbor_id": 234013,
+          "score_gap": 1.6391277313232422e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 208211,
+          "main_neighbor_id": 213515,
+          "recomputed_neighbor_id": 212286,
+          "score_gap": 4.172325134277344e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 212170,
+          "main_neighbor_id": 286728,
+          "recomputed_neighbor_id": 212610,
+          "score_gap": 7.68899917602539e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 214232,
+          "main_neighbor_id": 209355,
+          "recomputed_neighbor_id": 212305,
+          "score_gap": 1.773238182067871e-05,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 220665,
+          "main_neighbor_id": 152096,
+          "recomputed_neighbor_id": 395546,
+          "score_gap": 0.022920649312231922,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 232607,
+          "main_neighbor_id": 281453,
+          "recomputed_neighbor_id": 234357,
+          "score_gap": null,
+          "classification": "main_winner_outside_candidate_list"
+        },
+        {
+          "query_id": 233318,
+          "main_neighbor_id": 286546,
+          "recomputed_neighbor_id": 281719,
+          "score_gap": 5.960464477539063e-08,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 236007,
+          "main_neighbor_id": 203691,
+          "recomputed_neighbor_id": 203632,
+          "score_gap": 4.857778549194336e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 236721,
+          "main_neighbor_id": 229613,
+          "recomputed_neighbor_id": 161911,
+          "score_gap": null,
+          "classification": "main_winner_outside_candidate_list"
+        },
+        {
+          "query_id": 237180,
+          "main_neighbor_id": 288708,
+          "recomputed_neighbor_id": 280850,
+          "score_gap": 9.5367431640625e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 239620,
+          "main_neighbor_id": 281928,
+          "recomputed_neighbor_id": 288562,
+          "score_gap": 2.0265579223632812e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 242161,
+          "main_neighbor_id": 369559,
+          "recomputed_neighbor_id": 369571,
+          "score_gap": 9.626150131225586e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 245941,
+          "main_neighbor_id": 178958,
+          "recomputed_neighbor_id": 349636,
+          "score_gap": 0.036353549410087005,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 248245,
+          "main_neighbor_id": 99987,
+          "recomputed_neighbor_id": 246755,
+          "score_gap": null,
+          "classification": "main_winner_outside_candidate_list"
+        },
+        {
+          "query_id": 257619,
+          "main_neighbor_id": 204220,
+          "recomputed_neighbor_id": 289990,
+          "score_gap": 2.5033950805664062e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 257822,
+          "main_neighbor_id": 4851,
+          "recomputed_neighbor_id": 258233,
+          "score_gap": null,
+          "classification": "main_winner_outside_candidate_list"
+        },
+        {
+          "query_id": 262234,
+          "main_neighbor_id": 262821,
+          "recomputed_neighbor_id": 262891,
+          "score_gap": 6.854534149169922e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 262577,
+          "main_neighbor_id": 7467,
+          "recomputed_neighbor_id": 263185,
+          "score_gap": 0.0578210666857103,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 262928,
+          "main_neighbor_id": 205227,
+          "recomputed_neighbor_id": 205183,
+          "score_gap": 2.384185791015625e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 263141,
+          "main_neighbor_id": 270570,
+          "recomputed_neighbor_id": 270575,
+          "score_gap": 2.086162567138672e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 263642,
+          "main_neighbor_id": 246530,
+          "recomputed_neighbor_id": 246740,
+          "score_gap": 1.6987323760986328e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 263834,
+          "main_neighbor_id": 341662,
+          "recomputed_neighbor_id": 469,
+          "score_gap": 1.7881393432617188e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 271610,
+          "main_neighbor_id": 271952,
+          "recomputed_neighbor_id": 271918,
+          "score_gap": 4.470348358154297e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 271682,
+          "main_neighbor_id": 270916,
+          "recomputed_neighbor_id": 270892,
+          "score_gap": 9.238719940185547e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 279700,
+          "main_neighbor_id": 211128,
+          "recomputed_neighbor_id": 206403,
+          "score_gap": 0.019816179275512713,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 281355,
+          "main_neighbor_id": 232489,
+          "recomputed_neighbor_id": 5378,
+          "score_gap": 1.7881393432617188e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 282129,
+          "main_neighbor_id": 398412,
+          "recomputed_neighbor_id": 358145,
+          "score_gap": 3.5762786865234375e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 283590,
+          "main_neighbor_id": 231382,
+          "recomputed_neighbor_id": 233060,
+          "score_gap": 1.4901161193847656e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 286176,
+          "main_neighbor_id": 186155,
+          "recomputed_neighbor_id": 186351,
+          "score_gap": 2.205371856689453e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 288301,
+          "main_neighbor_id": 277053,
+          "recomputed_neighbor_id": 365487,
+          "score_gap": 3.0994415283203125e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 288572,
+          "main_neighbor_id": 280626,
+          "recomputed_neighbor_id": 285615,
+          "score_gap": 1.1026859283447266e-06,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 295902,
+          "main_neighbor_id": 398584,
+          "recomputed_neighbor_id": 398590,
+          "score_gap": 5.900859832763672e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 297778,
+          "main_neighbor_id": 286613,
+          "recomputed_neighbor_id": 297680,
+          "score_gap": 1.1178317438353957e-08,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 298774,
+          "main_neighbor_id": 392611,
+          "recomputed_neighbor_id": 392610,
+          "score_gap": 6.854534149169922e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 345901,
+          "main_neighbor_id": 203536,
+          "recomputed_neighbor_id": 208160,
+          "score_gap": 2.3543834686279297e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 346956,
+          "main_neighbor_id": 203541,
+          "recomputed_neighbor_id": 203632,
+          "score_gap": 1.0520219802856445e-05,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 348775,
+          "main_neighbor_id": 392205,
+          "recomputed_neighbor_id": 389670,
+          "score_gap": 9.834766387939453e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 353263,
+          "main_neighbor_id": 352301,
+          "recomputed_neighbor_id": 352866,
+          "score_gap": 3.5762786865234375e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 355321,
+          "main_neighbor_id": 392996,
+          "recomputed_neighbor_id": 393005,
+          "score_gap": 4.470348358154297e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 357566,
+          "main_neighbor_id": 391589,
+          "recomputed_neighbor_id": 391590,
+          "score_gap": 2.8014183044433594e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 363993,
+          "main_neighbor_id": 394426,
+          "recomputed_neighbor_id": 286488,
+          "score_gap": 2.562999725341797e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 365571,
+          "main_neighbor_id": 365986,
+          "recomputed_neighbor_id": 365075,
+          "score_gap": 0.00015783192681279035,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 366814,
+          "main_neighbor_id": 393591,
+          "recomputed_neighbor_id": 398604,
+          "score_gap": 2.0265579223632812e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 367879,
+          "main_neighbor_id": 368203,
+          "recomputed_neighbor_id": 368202,
+          "score_gap": 1.8924474716186523e-05,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 369785,
+          "main_neighbor_id": 391045,
+          "recomputed_neighbor_id": 391044,
+          "score_gap": 7.644295692443848e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 380396,
+          "main_neighbor_id": 284783,
+          "recomputed_neighbor_id": 282113,
+          "score_gap": 8.940696716308594e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 389860,
+          "main_neighbor_id": 394987,
+          "recomputed_neighbor_id": 372645,
+          "score_gap": 2.384185791015625e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 389948,
+          "main_neighbor_id": 177053,
+          "recomputed_neighbor_id": 22057,
+          "score_gap": 1.0222196578979492e-05,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 389967,
+          "main_neighbor_id": 19105,
+          "recomputed_neighbor_id": 370920,
+          "score_gap": 4.172325134277344e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 390092,
+          "main_neighbor_id": 357639,
+          "recomputed_neighbor_id": 177053,
+          "score_gap": 3.5762786865234375e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 390264,
+          "main_neighbor_id": 394987,
+          "recomputed_neighbor_id": 372645,
+          "score_gap": 8.940696716308594e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 390612,
+          "main_neighbor_id": 366558,
+          "recomputed_neighbor_id": 31452,
+          "score_gap": 3.5762786865234375e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 391845,
+          "main_neighbor_id": 391830,
+          "recomputed_neighbor_id": 391729,
+          "score_gap": 4.4405460357666016e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 392326,
+          "main_neighbor_id": 372752,
+          "recomputed_neighbor_id": 372644,
+          "score_gap": 5.066394805908203e-07,
+          "classification": "numerical_near_tie"
+        },
+        {
+          "query_id": 392333,
+          "main_neighbor_id": 372752,
+          "recomputed_neighbor_id": 380601,
+          "score_gap": 2.4437904357910156e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 393040,
+          "main_neighbor_id": 365397,
+          "recomputed_neighbor_id": 10975,
+          "score_gap": 3.516674041748047e-06,
+          "classification": "substantive"
+        },
+        {
+          "query_id": 395738,
+          "main_neighbor_id": 352177,
+          "recomputed_neighbor_id": 356708,
+          "score_gap": 2.9802322387695312e-08,
+          "classification": "numerical_near_tie"
+        }
+      ],
+      "exact_winner_match": false,
+      "main_winner_cosine_max_abs_difference": 6.750226020812988e-05,
+      "main_winner_cosine_differences_above_tolerance": 17214
+    }
+  },
+  "original": {
+    "location": {
+      "n": 47593,
+      "median_km": 33.553609622137664,
+      "mean_km": 51.27439240727071,
+      "acc@25km": 42.0460992162713
+    },
+    "year": {
+      "n": 47593,
+      "median_km": 32.02334866445764,
+      "mean_km": 49.878782187855016,
+      "acc@25km": 43.468577311789545
+    }
+  },
+  "original_definition": "true archive years evaluated on the fixed diagnostic candidate artifact",
+  "original_main": {
+    "location": {
+      "n": 47593,
+      "median_km": 33.56539127919635,
+      "mean_km": 51.27407655439325,
+      "acc@25km": 42.0460992162713
+    },
+    "year": {
+      "n": 47593,
+      "median_km": 32.036808705957455,
+      "mean_km": 49.87584247729922,
+      "acc@25km": 43.466476162460864
+    }
+  },
+  "known_query_missing_reference": {
+    "location": {
+      "known_queries": 43616,
+      "count": 2580,
+      "percent": 5.915260454878943
+    },
+    "year": {
+      "known_queries": 43616,
+      "count": 22036,
+      "percent": 50.52274394717535
+    }
+  },
+  "shuffle_policy": {
+    "gamma": 1.0,
+    "permuted_values": "all finite reference years across the full train reference pool",
+    "nan_mask_preserved": true,
+    "query_years_fixed": true,
+    "candidate_indices_and_cosines_fixed": true,
+    "numpy_generator": "default_rng (PCG64)",
+    "known_reference_count": 163669,
+    "missing_reference_count": 12639
+  },
+  "shuffles": [
+    {
+      "seed": 0,
+      "n": 47593,
+      "median_km": 33.68484587685465,
+      "mean_km": 51.353415769271734,
+      "acc@25km": 41.90952450990692
+    },
+    {
+      "seed": 1,
+      "n": 47593,
+      "median_km": 33.70255974424819,
+      "mean_km": 51.328210274164526,
+      "acc@25km": 41.83598428340302
+    },
+    {
+      "seed": 2,
+      "n": 47593,
+      "median_km": 33.74552086072998,
+      "mean_km": 51.39402515882339,
+      "acc@25km": 41.97466013909609
+    },
+    {
+      "seed": 3,
+      "n": 47593,
+      "median_km": 33.677539263335866,
+      "mean_km": 51.35597849776527,
+      "acc@25km": 42.08391990418759
+    },
+    {
+      "seed": 4,
+      "n": 47593,
+      "median_km": 33.70381879462313,
+      "mean_km": 51.25326860345826,
+      "acc@25km": 41.94944634715189
+    },
+    {
+      "seed": 5,
+      "n": 47593,
+      "median_km": 33.677696581212004,
+      "mean_km": 51.42914999238409,
+      "acc@25km": 41.84649003004643
+    },
+    {
+      "seed": 6,
+      "n": 47593,
+      "median_km": 33.73798690741128,
+      "mean_km": 51.50976740889024,
+      "acc@25km": 41.94944634715189
+    },
+    {
+      "seed": 7,
+      "n": 47593,
+      "median_km": 33.73841447784125,
+      "mean_km": 51.41069258206297,
+      "acc@25km": 41.87170382199063
+    },
+    {
+      "seed": 8,
+      "n": 47593,
+      "median_km": 33.72200202088472,
+      "mean_km": 51.515539978160604,
+      "acc@25km": 41.86119807534722
+    },
+    {
+      "seed": 9,
+      "n": 47593,
+      "median_km": 33.63670558541993,
+      "mean_km": 51.3311740001042,
+      "acc@25km": 42.04820036559999
+    },
+    {
+      "seed": 10,
+      "n": 47593,
+      "median_km": 33.67428891319541,
+      "mean_km": 51.28572452383503,
+      "acc@25km": 41.92003025655033
+    },
+    {
+      "seed": 11,
+      "n": 47593,
+      "median_km": 33.722525518764805,
+      "mean_km": 51.41438737590828,
+      "acc@25km": 41.915827957892965
+    },
+    {
+      "seed": 12,
+      "n": 47593,
+      "median_km": 33.73453398566704,
+      "mean_km": 51.50286663095934,
+      "acc@25km": 41.73933141428361
+    },
+    {
+      "seed": 13,
+      "n": 47593,
+      "median_km": 33.680745476369005,
+      "mean_km": 51.336889153817424,
+      "acc@25km": 41.95574979513794
+    },
+    {
+      "seed": 14,
+      "n": 47593,
+      "median_km": 33.677696581212004,
+      "mean_km": 51.373724720782775,
+      "acc@25km": 41.94524404849453
+    },
+    {
+      "seed": 15,
+      "n": 47593,
+      "median_km": 33.588850869527136,
+      "mean_km": 51.36465191767857,
+      "acc@25km": 42.05240266425735
+    },
+    {
+      "seed": 16,
+      "n": 47593,
+      "median_km": 33.61740967089806,
+      "mean_km": 51.21899157589029,
+      "acc@25km": 41.9851658857395
+    },
+    {
+      "seed": 17,
+      "n": 47593,
+      "median_km": 33.677696581212004,
+      "mean_km": 51.34439858750929,
+      "acc@25km": 41.94104174983716
+    },
+    {
+      "seed": 18,
+      "n": 47593,
+      "median_km": 33.7281089195653,
+      "mean_km": 51.37099836639644,
+      "acc@25km": 41.997772781711596
+    },
+    {
+      "seed": 19,
+      "n": 47593,
+      "median_km": 33.677539263335866,
+      "mean_km": 51.367751540271456,
+      "acc@25km": 41.98726703506818
+    }
+  ],
+  "shuffle_distribution": {
+    "median_km": {
+      "median": 33.68279567661183,
+      "min": 33.588850869527136,
+      "max": 33.74552086072998
+    },
+    "acc@25km": {
+      "median": 41.94734519782321,
+      "min": 41.73933141428361,
+      "max": 42.08391990418759
+    }
+  },
+  "source_sha256": "bf45cfb458c59547f4549ef5122a3757505dfffd88481c7935a8d35123a56755"
+}

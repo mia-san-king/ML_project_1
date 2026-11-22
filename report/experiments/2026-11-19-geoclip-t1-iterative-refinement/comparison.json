@@ -1,0 +1,28 @@
+{
+  "same_ids": true,
+  "last_experiment_8_step_reproduced": true,
+  "counts": {
+    "1": {
+      "median_reduction_km_8_to_128": 0.013177670823210974,
+      "mean_reduction_km_8_to_128": 0.0005127644918405562,
+      "closer_8_to_128": 251,
+      "farther_8_to_128": 235,
+      "extra_moves_after_8": 486,
+      "extra_moves_after_32": 19,
+      "at_radius_at_128": 33,
+      "outside_1km_at_128": 0,
+      "max_path_independent_distance_km": 1.0000308683909833
+    },
+    "5": {
+      "median_reduction_km_8_to_128": 0.013177670823210974,
+      "mean_reduction_km_8_to_128": 0.0003619137976702014,
+      "closer_8_to_128": 248,
+      "farther_8_to_128": 242,
+      "extra_moves_after_8": 490,
+      "extra_moves_after_32": 20,
+      "at_radius_at_128": 0,
+      "outside_1km_at_128": 32,
+      "max_path_independent_distance_km": 2.6284617345459163
+    }
+  }
+}

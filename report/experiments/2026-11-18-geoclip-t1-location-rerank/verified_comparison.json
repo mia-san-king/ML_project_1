@@ -1,0 +1,396 @@
+{
+  "verified": true,
+  "selected_gamma": 1.0,
+  "hyperparameters_changed": false,
+  "cached_training_references": 176308,
+  "counts": {
+    "val": 29529,
+    "test_in": 47593,
+    "test_city": 3377,
+    "test_region": 13039
+  },
+  "same_eval_ids_and_splits": true,
+  "metrics": {
+    "location": {
+      "val": {
+        "n": 29529,
+        "median_km": 28.338973346853106,
+        "mean_km": 49.55685629749367,
+        "acc@25km": 46.72694639168275
+      },
+      "test_in": {
+        "n": 47593,
+        "median_km": 33.56539127919635,
+        "mean_km": 51.27407655439325,
+        "acc@25km": 42.0460992162713
+      },
+      "test_city": {
+        "n": 3377,
+        "median_km": 91.82395848692757,
+        "mean_km": 82.38073783077685,
+        "acc@25km": 8.972460763991709
+      },
+      "test_region": {
+        "n": 13039,
+        "median_km": 86.69618188114767,
+        "mean_km": 96.15277030560821,
+        "acc@25km": 2.0630416442978756
+      }
+    },
+    "year": {
+      "val": {
+        "n": 29529,
+        "median_km": 26.672075779221185,
+        "mean_km": 47.90825948371904,
+        "acc@25km": 48.18314199600393
+      },
+      "test_in": {
+        "n": 47593,
+        "median_km": 32.036808705957455,
+        "mean_km": 49.87584247729922,
+        "acc@25km": 43.466476162460864
+      },
+      "test_city": {
+        "n": 3377,
+        "median_km": 91.99834360873209,
+        "mean_km": 82.80774446213078,
+        "acc@25km": 8.913236600533017
+      },
+      "test_region": {
+        "n": 13039,
+        "median_km": 83.19784194404193,
+        "mean_km": 94.37916764843914,
+        "acc@25km": 2.3084592376716007
+      }
+    },
+    "grid_T1": {
+      "val": {
+        "n": 29529,
+        "median_km": 28.449455250075683,
+        "mean_km": 49.852377919543365,
+        "acc@25km": 46.58471333265603
+      },
+      "test_in": {
+        "n": 47593,
+        "median_km": 33.608863570640494,
+        "mean_km": 51.47421637317773,
+        "acc@25km": 42.001975080368965
+      },
+      "test_city": {
+        "n": 3377,
+        "median_km": 91.62815717937403,
+        "mean_km": 82.13508555593627,
+        "acc@25km": 9.268581581285163
+      },
+      "test_region": {
+        "n": 13039,
+        "median_km": 86.63288406719317,
+        "mean_km": 96.11954022872867,
+        "acc@25km": 2.10138814326252
+      }
+    },
+    "grid_T2": {
+      "val": {
+        "n": 29529,
+        "median_km": 28.261392634694214,
+        "mean_km": 49.75387955750931,
+        "acc@25km": 46.70324088184496
+      },
+      "test_in": {
+        "n": 47593,
+        "median_km": 33.97743211234131,
+        "mean_km": 53.67731100172454,
+        "acc@25km": 41.32750614586179
+      },
+      "test_city": {
+        "n": 3377,
+        "median_km": 91.30233017181646,
+        "mean_km": 83.40130156042177,
+        "acc@25km": 8.676339946698253
+      },
+      "test_region": {
+        "n": 13039,
+        "median_km": 88.61017244416347,
+        "mean_km": 96.9273601027166,
+        "acc@25km": 2.7992944244190507
+      }
+    },
+    "T3_visual": {
+      "val": {
+        "n": 29529,
+        "median_km": 31.373305168722002,
+        "mean_km": 52.521698619725086,
+        "acc@25km": 44.20400284466118
+      },
+      "test_in": {
+        "n": 47593,
+        "median_km": 37.07015382273353,
+        "mean_km": 55.43590288790086,
+        "acc@25km": 38.82923959405795
+      },
+      "test_city": {
+        "n": 3377,
+        "median_km": 93.24576820952254,
+        "mean_km": 85.39743741638323,
+        "acc@25km": 6.6627183891027535
+      },
+      "test_region": {
+        "n": 13039,
+        "median_km": 91.24042312643306,
+        "mean_km": 97.1208306729192,
+        "acc@25km": 2.346805736636245
+      }
+    },
+    "T3_year": {
+      "val": {
+        "n": 29529,
+        "median_km": 24.55006864213487,
+        "mean_km": 45.150325665172694,
+        "acc@25km": 50.47241694605303
+      },
+      "test_in": {
+        "n": 47593,
+        "median_km": 29.114367102910503,
+        "mean_km": 47.71534934513795,
+        "acc@25km": 45.817662261256906
+      },
+      "test_city": {
+        "n": 3377,
+        "median_km": 93.28672923039784,
+        "mean_km": 84.4360677613683,
+        "acc@25km": 6.396209653538644
+      },
+      "test_region": {
+        "n": 13039,
+        "median_km": 82.1887585371459,
+        "mean_km": 92.97070117310437,
+        "acc@25km": 3.3591533093028607
+      }
+    }
+  },
+  "paired_location_to_year": {
+    "val": {
+      "n": 29529,
+      "changed_gps": 23215,
+      "closer": 11941,
+      "farther": 11274,
+      "equal_error": 6314,
+      "within25_before": 13798,
+      "within25_after": 14228,
+      "within25_gained": 842,
+      "within25_lost": 412,
+      "acc25_delta_pp": 1.456195604321181,
+      "no_valid_query_date": {
+        "n": 1932,
+        "changed_gps": 0,
+        "closer": 0,
+        "farther": 0,
+        "changed_reference": 0
+      },
+      "changed_reference": 23256
+    },
+    "test_in": {
+      "n": 47593,
+      "changed_gps": 35591,
+      "closer": 18553,
+      "farther": 17038,
+      "equal_error": 12002,
+      "within25_before": 20011,
+      "within25_after": 20687,
+      "within25_gained": 1448,
+      "within25_lost": 772,
+      "acc25_delta_pp": 1.4203769461895666,
+      "no_valid_query_date": {
+        "n": 3977,
+        "changed_gps": 0,
+        "closer": 0,
+        "farther": 0,
+        "changed_reference": 0
+      },
+      "changed_reference": 35625
+    },
+    "test_city": {
+      "n": 3377,
+      "changed_gps": 2861,
+      "closer": 1479,
+      "farther": 1382,
+      "equal_error": 516,
+      "within25_before": 303,
+      "within25_after": 301,
+      "within25_gained": 18,
+      "within25_lost": 20,
+      "acc25_delta_pp": -0.0592241634586918,
+      "no_valid_query_date": {
+        "n": 207,
+        "changed_gps": 0,
+        "closer": 0,
+        "farther": 0,
+        "changed_reference": 0
+      },
+      "changed_reference": 2861
+    },
+    "test_region": {
+      "n": 13039,
+      "changed_gps": 9679,
+      "closer": 5031,
+      "farther": 4648,
+      "equal_error": 3360,
+      "within25_before": 269,
+      "within25_after": 301,
+      "within25_gained": 62,
+      "within25_lost": 30,
+      "acc25_delta_pp": 0.245417593373725,
+      "no_valid_query_date": {
+        "n": 204,
+        "changed_gps": 0,
+        "closer": 0,
+        "farther": 0,
+        "changed_reference": 0
+      },
+      "changed_reference": 9689
+    }
+  },
+  "year_minus_baseline": {
+    "location": {
+      "val": {
+        "median_km": -1.6668975676319207,
+        "mean_km": -1.648596813774624,
+        "acc@25km": 1.4561956043211808
+      },
+      "test_in": {
+        "median_km": -1.528582573238893,
+        "mean_km": -1.398234077094024,
+        "acc@25km": 1.4203769461895632
+      },
+      "test_city": {
+        "median_km": 0.17438512180451937,
+        "mean_km": 0.42700663135393313,
+        "acc@25km": -0.0592241634586923
+      },
+      "test_region": {
+        "median_km": -3.49833993710574,
+        "mean_km": -1.7736026571690786,
+        "acc@25km": 0.24541759337372504
+      }
+    },
+    "grid_T1": {
+      "val": {
+        "median_km": -1.7773794708544983,
+        "mean_km": -1.944118435824322,
+        "acc@25km": 1.598428663347903
+      },
+      "test_in": {
+        "median_km": -1.5720548646830395,
+        "mean_km": -1.5983738958785096,
+        "acc@25km": 1.4645010820918998
+      },
+      "test_city": {
+        "median_km": 0.370186429358057,
+        "mean_km": 0.6726589061945134,
+        "acc@25km": -0.3553449807521467
+      },
+      "test_region": {
+        "median_km": -3.4350421231512485,
+        "mean_km": -1.740372580289531,
+        "acc@25km": 0.20707109440908056
+      }
+    },
+    "grid_T2": {
+      "val": {
+        "median_km": -1.5893168554730295,
+        "mean_km": -1.8456200737902648,
+        "acc@25km": 1.4799011141589702
+      },
+      "test_in": {
+        "median_km": -1.9406234063838568,
+        "mean_km": -3.8014685244253172,
+        "acc@25km": 2.1389700165990746
+      },
+      "test_city": {
+        "median_km": 0.6960134369156208,
+        "mean_km": -0.5935570982909866,
+        "acc@25km": 0.23689665383476388
+      },
+      "test_region": {
+        "median_km": -5.412330500121541,
+        "mean_km": -2.548192454277469,
+        "acc@25km": -0.4908351867474501
+      }
+    },
+    "T3_visual": {
+      "val": {
+        "median_km": -4.701229389500817,
+        "mean_km": -4.613439136006043,
+        "acc@25km": 3.97913915134275
+      },
+      "test_in": {
+        "median_km": -5.033345116776076,
+        "mean_km": -5.560060410601636,
+        "acc@25km": 4.637236568402912
+      },
+      "test_city": {
+        "median_km": -1.2474246007904526,
+        "mean_km": -2.589692954252442,
+        "acc@25km": 2.250518211430263
+      },
+      "test_region": {
+        "median_km": -8.042581182391132,
+        "mean_km": -2.7416630244800615,
+        "acc@25km": -0.03834649896464448
+      }
+    },
+    "T3_year": {
+      "val": {
+        "median_km": 2.122007137086314,
+        "mean_km": 2.7579338185463484,
+        "acc@25km": -2.289274950049098
+      },
+      "test_in": {
+        "median_km": 2.922441603046952,
+        "mean_km": 2.160493132161271,
+        "acc@25km": -2.351186098796042
+      },
+      "test_city": {
+        "median_km": -1.2883856216657534,
+        "mean_km": -1.6283232992375218,
+        "acc@25km": 2.5170269469943722
+      },
+      "test_region": {
+        "median_km": 1.0090834068960248,
+        "mean_km": 1.4084664753347624,
+        "acc@25km": -1.05069407163126
+      }
+    }
+  },
+  "candidate_spread_reported": {
+    "val": {
+      "n": 29529,
+      "candidate_radius_median_km": 2.124789311914662,
+      "candidate_radius_le5km_percent": 63.16502421348504
+    },
+    "test_in": {
+      "n": 47593,
+      "candidate_radius_median_km": 2.497203358168546,
+      "candidate_radius_le5km_percent": 59.76929380371063
+    },
+    "test_city": {
+      "n": 3377,
+      "candidate_radius_median_km": 0.988167589448338,
+      "candidate_radius_le5km_percent": 77.28753331359195
+    },
+    "test_region": {
+      "n": 13039,
+      "candidate_radius_median_km": 4.097129945156337,
+      "candidate_radius_le5km_percent": 52.55004218114886
+    }
+  },
+  "verification_limits": [
+    "Neural cosine values and complete top-K membership were not recomputed.",
+    "Candidate spread was range/count checked only; full candidates were not exported."
+  ],
+  "comparison_files": {
+    "grid_T1": "/rcp-scratch/students/zhang7/ml-project2/data/results/preds/zhang7_T1_dual_time_available_s0_20261118.parquet",
+    "grid_T2": "/rcp-scratch/students/zhang7/ml-project2/data/results/preds/zhang7_T2_direct_pretrained_s0_20261118.parquet",
+    "T3": "/rcp-scratch/students/zhang7/ml-project2/runs/2026-11-18-geoclip-t0-photo-rerank/results/predictions.parquet"
+  }
+}

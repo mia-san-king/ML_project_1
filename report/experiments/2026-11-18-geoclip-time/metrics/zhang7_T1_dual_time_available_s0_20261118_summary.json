@@ -1,0 +1,187 @@
+{
+  "splits": [
+    {
+      "split": "val",
+      "view_type": "all",
+      "n": 29529,
+      "median_km": 28.449455250075683,
+      "mean_km": 49.852377919543365,
+      "p90_km": 133.71872527953812,
+      "acc@1km": 1.2902570354566698,
+      "acc@5km": 12.635036743540248,
+      "acc@10km": 24.83998780859494,
+      "acc@25km": 46.58471333265603,
+      "acc@50km": 66.15869145585695,
+      "acc@200km": 96.33580547935927,
+      "acc@750km": 100.0,
+      "acc@2500km": 100.0
+    },
+    {
+      "split": "test_in",
+      "view_type": "all",
+      "n": 47593,
+      "median_km": 33.608863570640494,
+      "mean_km": 51.47421637317773,
+      "p90_km": 132.45272059399,
+      "acc@1km": 0.7122896224234656,
+      "acc@5km": 8.833231777782446,
+      "acc@10km": 19.904187590612064,
+      "acc@25km": 42.001975080368965,
+      "acc@50km": 63.33074191582796,
+      "acc@200km": 98.02071733238081,
+      "acc@750km": 100.0,
+      "acc@2500km": 100.0
+    },
+    {
+      "split": "test_city",
+      "view_type": "all",
+      "n": 3377,
+      "median_km": 91.62815717937401,
+      "mean_km": 82.13508555593627,
+      "p90_km": 128.12901608079628,
+      "acc@1km": 0.0,
+      "acc@5km": 0.0,
+      "acc@10km": 0.0,
+      "acc@25km": 9.268581581285163,
+      "acc@50km": 21.764880071068994,
+      "acc@200km": 100.0,
+      "acc@750km": 100.0,
+      "acc@2500km": 100.0
+    },
+    {
+      "split": "test_region",
+      "view_type": "all",
+      "n": 13039,
+      "median_km": 86.63288406719317,
+      "mean_km": 96.11954022872865,
+      "p90_km": 162.05814354597953,
+      "acc@1km": 0.0,
+      "acc@5km": 0.0,
+      "acc@10km": 0.0,
+      "acc@25km": 2.10138814326252,
+      "acc@50km": 14.29557481401948,
+      "acc@200km": 99.44014111511619,
+      "acc@750km": 100.0,
+      "acc@2500km": 100.0
+    }
+  ],
+  "val": {
+    "split": "val",
+    "view_type": "all",
+    "n": 29529,
+    "median_km": 28.449455250075683,
+    "mean_km": 49.852377919543365,
+    "p90_km": 133.71872527953812,
+    "acc@1km": 1.2902570354566698,
+    "acc@5km": 12.635036743540248,
+    "acc@10km": 24.83998780859494,
+    "acc@25km": 46.58471333265603,
+    "acc@50km": 66.15869145585695,
+    "acc@200km": 96.33580547935927,
+    "acc@750km": 100.0,
+    "acc@2500km": 100.0
+  },
+  "audit": {
+    "coverage": {
+      "train": {
+        "expected": 176538,
+        "available": 176308,
+        "missing": 230
+      },
+      "test_in": {
+        "expected": 47609,
+        "available": 47593,
+        "missing": 16
+      },
+      "outside": {
+        "expected": 31138,
+        "available": 0,
+        "missing": 31138
+      },
+      "val": {
+        "expected": 29532,
+        "available": 29529,
+        "missing": 3
+      },
+      "nadir_train": {
+        "expected": 25503,
+        "available": 25479,
+        "missing": 24
+      },
+      "buffer": {
+        "expected": 13515,
+        "available": 0,
+        "missing": 13515
+      },
+      "test_region": {
+        "expected": 13040,
+        "available": 13039,
+        "missing": 1
+      },
+      "nadir_test_in": {
+        "expected": 7119,
+        "available": 7119,
+        "missing": 0
+      },
+      "nadir_val": {
+        "expected": 4195,
+        "available": 4195,
+        "missing": 0
+      },
+      "test_city": {
+        "expected": 3378,
+        "available": 3377,
+        "missing": 1
+      },
+      "nadir_test_region": {
+        "expected": 1427,
+        "available": 1427,
+        "missing": 0
+      },
+      "nadir_buffer": {
+        "expected": 1407,
+        "available": 0,
+        "missing": 1407
+      },
+      "nadir_test_city": {
+        "expected": 606,
+        "available": 606,
+        "missing": 0
+      },
+      "nadir_outside": {
+        "expected": 274,
+        "available": 0,
+        "missing": 274
+      }
+    },
+    "dates": {
+      "total": 308672,
+      "valid": 289359,
+      "invalid": 19313,
+      "reasons": {
+        "missing": 226,
+        "one_sided": 17834,
+        "malformed": 3,
+        "reversed": 245,
+        "out_of_range": 1005
+      },
+      "config": {
+        "year_center": 1950.0,
+        "year_scale": 100.0,
+        "min_year": 1800.0,
+        "max_year": 2026.0
+      }
+    },
+    "feature_rows": 308672,
+    "feature_dim": 768,
+    "metadata_rows": 355281,
+    "split_rows": 355281
+  },
+  "checkpoint": "/rcp-scratch/students/zhang7/ml-project2/data/ckpt/zhang7_T1_dual_time_available_s0_20261118.pt",
+  "time_config": {
+    "year_center": 1950.0,
+    "year_scale": 100.0,
+    "min_year": 1800,
+    "max_year": 2026
+  }
+}

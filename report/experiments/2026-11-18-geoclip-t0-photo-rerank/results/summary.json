@@ -1,0 +1,289 @@
+{
+  "experiment": "trained T0 image-reference retrieval with validation-selected year reranking",
+  "device": "cpu",
+  "threads": 4,
+  "query_chunk": 256,
+  "encode_batch": 2048,
+  "top_k_requested": 50,
+  "top_k_effective": 50,
+  "selected_gamma": 1.0,
+  "gammas": [
+    0.0,
+    0.05,
+    0.1,
+    0.2,
+    0.35,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "selection_split": "full available val",
+  "test_gamma_search": false,
+  "score": "cosine - gamma * min(abs(query_year-reference_year)/50, 1); zero penalty if either date missing",
+  "visual_ties": "smaller reference index in feature-cache order; reranked ties keep visual rank",
+  "date_policy": {
+    "source": "f019e23:lib/time_feats.py:dates_to_features",
+    "parser": "scalar pandas.to_datetime(errors=coerce, utc=True) for each endpoint",
+    "year": "midpoint.year + (midpoint.dayofyear-1)/366",
+    "valid_midpoint_year_range": [
+      1800,
+      2030
+    ],
+    "both_endpoints_required": true,
+    "reject_reversed_intervals": false
+  },
+  "checkpoint": {
+    "path": "/rcp-scratch/students/zhang7/ml-project2/data/ckpt/zhang7_T0_no_time_available_s0_20261118.pt",
+    "sha256": "90e16b13717b8d0b7834354362acd7dd29bc58c56df48148710698abebc3d602",
+    "run_name": "zhang7_T0_no_time_available_s0_20261118",
+    "epoch": 8,
+    "architecture": {
+      "backbone": "geoclip",
+      "feature_dim": 768,
+      "embed_dim": 512,
+      "time_dim": 3,
+      "hidden_dim": 128,
+      "mode": "none",
+      "sigma": [
+        1,
+        16,
+        256
+      ]
+    },
+    "training_time_config": {
+      "year_center": 1950.0,
+      "year_scale": 100.0,
+      "min_year": 1800,
+      "max_year": 2026
+    },
+    "training_validation_n": 256,
+    "training_validation_ids_sha256": "0293d793464e1499a35d4230314b5e4effdce1797f659bb2d19cae6c79c50f1b"
+  },
+  "inputs": {
+    "metadata": {
+      "path": "/rcp-scratch/students/zhang7/ml-project2/data/meta/smapshot.parquet",
+      "bytes": 16892797
+    },
+    "split": {
+      "path": "/rcp-scratch/students/zhang7/ml-project2/ML_project_1/data/splits/main.csv.gz",
+      "bytes": 1440433
+    },
+    "features": {
+      "path": "/rcp-scratch/students/zhang7/ml-project2/data/features/clip_vitl14.npy",
+      "bytes": 474120320
+    },
+    "feature_ids": {
+      "path": "/rcp-scratch/students/zhang7/ml-project2/data/features/clip_vitl14_ids.npy",
+      "bytes": 2469504
+    }
+  },
+  "input_alignment": {
+    "checkpoint_audit_match": true,
+    "full_input_sha256_verification": "required separately from experiment launcher; not checked by this CLI"
+  },
+  "id_hash_encoding": "ordered little-endian signed int64 bytes, SHA256",
+  "references": {
+    "split": "train",
+    "n": 176308,
+    "ordered_ids_sha256": "e704cdc01a645a4056fa4fc065cfcbed2b56018102ec39dbfb052ccda7bad182",
+    "known_dates": 163669
+  },
+  "queries": {
+    "val": {
+      "n": 29529,
+      "ordered_ids_sha256": "57a6f00700fba48b1cd6a7280493714bb7d54f9ae9a8e93b922e65222dcc37a2",
+      "known_dates": 27597
+    },
+    "test_in": {
+      "n": 47593,
+      "ordered_ids_sha256": "c41c4f278f5859f1c20d5d6af91b72d45ebd327c8b4f34273d77826cb66c9a5e",
+      "known_dates": 43616
+    },
+    "test_city": {
+      "n": 3377,
+      "ordered_ids_sha256": "80c0b680333468223393c82adf46dcb150aa48d39525b07f68e360ad9c180ab2",
+      "known_dates": 3170
+    },
+    "test_region": {
+      "n": 13039,
+      "ordered_ids_sha256": "c1afb9409f02b7716685e98433bd735d47062d73824d98ffc36fc3229123a44e",
+      "known_dates": 12835
+    }
+  },
+  "audit": {
+    "coverage": {
+      "train": {
+        "expected": 176538,
+        "available": 176308,
+        "missing": 230
+      },
+      "test_in": {
+        "expected": 47609,
+        "available": 47593,
+        "missing": 16
+      },
+      "outside": {
+        "expected": 31138,
+        "available": 0,
+        "missing": 31138
+      },
+      "val": {
+        "expected": 29532,
+        "available": 29529,
+        "missing": 3
+      },
+      "nadir_train": {
+        "expected": 25503,
+        "available": 25479,
+        "missing": 24
+      },
+      "buffer": {
+        "expected": 13515,
+        "available": 0,
+        "missing": 13515
+      },
+      "test_region": {
+        "expected": 13040,
+        "available": 13039,
+        "missing": 1
+      },
+      "nadir_test_in": {
+        "expected": 7119,
+        "available": 7119,
+        "missing": 0
+      },
+      "nadir_val": {
+        "expected": 4195,
+        "available": 4195,
+        "missing": 0
+      },
+      "test_city": {
+        "expected": 3378,
+        "available": 3377,
+        "missing": 1
+      },
+      "nadir_test_region": {
+        "expected": 1427,
+        "available": 1427,
+        "missing": 0
+      },
+      "nadir_buffer": {
+        "expected": 1407,
+        "available": 0,
+        "missing": 1407
+      },
+      "nadir_test_city": {
+        "expected": 606,
+        "available": 606,
+        "missing": 0
+      },
+      "nadir_outside": {
+        "expected": 274,
+        "available": 0,
+        "missing": 274
+      }
+    },
+    "dates": {
+      "total": 308672,
+      "valid": 289359,
+      "invalid": 19313,
+      "reasons": {
+        "missing": 226,
+        "one_sided": 17834,
+        "malformed": 3,
+        "reversed": 245,
+        "out_of_range": 1005
+      },
+      "config": {
+        "year_center": 1950.0,
+        "year_scale": 100.0,
+        "min_year": 1800.0,
+        "max_year": 2026.0
+      }
+    },
+    "feature_rows": 308672,
+    "feature_dim": 768,
+    "metadata_rows": 355281,
+    "split_rows": 355281
+  },
+  "metrics": [
+    {
+      "split": "val",
+      "method": "visual",
+      "gamma": 0.0,
+      "n": 29529,
+      "median_km": 31.373305168722002,
+      "mean_km": 52.521698619725086,
+      "acc@25km": 44.20400284466118
+    },
+    {
+      "split": "val",
+      "method": "year",
+      "gamma": 1.0,
+      "n": 29529,
+      "median_km": 24.55006864213487,
+      "mean_km": 45.150325665172694,
+      "acc@25km": 50.47241694605303
+    },
+    {
+      "split": "test_in",
+      "method": "visual",
+      "gamma": 0.0,
+      "n": 47593,
+      "median_km": 37.07015382273353,
+      "mean_km": 55.43590288790086,
+      "acc@25km": 38.82923959405795
+    },
+    {
+      "split": "test_in",
+      "method": "year",
+      "gamma": 1.0,
+      "n": 47593,
+      "median_km": 29.114367102910503,
+      "mean_km": 47.71534934513795,
+      "acc@25km": 45.817662261256906
+    },
+    {
+      "split": "test_city",
+      "method": "visual",
+      "gamma": 0.0,
+      "n": 3377,
+      "median_km": 93.24576820952254,
+      "mean_km": 85.39743741638321,
+      "acc@25km": 6.6627183891027535
+    },
+    {
+      "split": "test_city",
+      "method": "year",
+      "gamma": 1.0,
+      "n": 3377,
+      "median_km": 93.28672923039784,
+      "mean_km": 84.4360677613683,
+      "acc@25km": 6.396209653538644
+    },
+    {
+      "split": "test_region",
+      "method": "visual",
+      "gamma": 0.0,
+      "n": 13039,
+      "median_km": 91.24042312643306,
+      "mean_km": 97.1208306729192,
+      "acc@25km": 2.346805736636245
+    },
+    {
+      "split": "test_region",
+      "method": "year",
+      "gamma": 1.0,
+      "n": 13039,
+      "median_km": 82.18875853714592,
+      "mean_km": 92.97070117310437,
+      "acc@25km": 3.3591533093028607
+    }
+  ],
+  "outputs": {
+    "predictions": "predictions.parquet",
+    "validation_curve": "val_gamma_search.json"
+  },
+  "source_sha256": "522b8609dd6404d17c209cd9af06fe4d31682f08af9b5795509464130cdf0d5b",
+  "elapsed_seconds": 344.10858488304075
+}

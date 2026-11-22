@@ -1,0 +1,14 @@
+{
+  "database": "/rcp-scratch/students/zhang7/ml-project2/runs/2026-11-20-diffusion-augmentation/synthetic_store/synthetic.sqlite",
+  "selected": 512,
+  "eligible_train": 176308,
+  "accepted": 512,
+  "rejected": 0,
+  "error": 0,
+  "pending": 0,
+  "model_sha256": "9cd25c622cfe78a21719d84501a5512121cfeefc6403274ad6e7a024c46b38fd",
+  "model_revision": "462165984030d82259a11f4367a4eed129e94a7b",
+  "selection_ids_sha256": "e08650fcd41a0dfe59fcb619485f10a52bec703c25be3352e0a3f33c0eccce68",
+  "training_filter": "status='accepted' AND is_synthetic=1 AND is_diffusion=1",
+  "updated_at": "2026-11-20T16:31:25.928032+00:00"
+}

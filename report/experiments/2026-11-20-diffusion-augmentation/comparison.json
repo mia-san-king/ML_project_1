@@ -1,0 +1,230 @@
+[
+  {
+    "model": "T1",
+    "split": "val",
+    "n": 29529,
+    "original": {
+      "median_km": 28.449455250075683,
+      "mean_km": 49.85237791954337,
+      "within25": 13756,
+      "pct25": 46.58471333265603
+    },
+    "augmented": {
+      "median_km": 27.594593021901115,
+      "mean_km": 50.28473294601531,
+      "within25": 14008,
+      "pct25": 47.43811168681635
+    },
+    "median_change_km": -0.8548622281745679,
+    "hit_change": 252
+  },
+  {
+    "model": "T1",
+    "split": "test_in",
+    "n": 47593,
+    "original": {
+      "median_km": 33.608863570640494,
+      "mean_km": 51.474216373177725,
+      "within25": 19990,
+      "pct25": 42.001975080368965
+    },
+    "augmented": {
+      "median_km": 33.46471040215373,
+      "mean_km": 52.91101001993171,
+      "within25": 19928,
+      "pct25": 41.87170382199063
+    },
+    "median_change_km": -0.14415316848676696,
+    "hit_change": -62
+  },
+  {
+    "model": "T1",
+    "split": "test_city",
+    "n": 3377,
+    "original": {
+      "median_km": 91.62815717937401,
+      "mean_km": 82.13508555593627,
+      "within25": 313,
+      "pct25": 9.268581581285163
+    },
+    "augmented": {
+      "median_km": 93.81109014320283,
+      "mean_km": 88.49646313331435,
+      "within25": 113,
+      "pct25": 3.3461652354160494
+    },
+    "median_change_km": 2.1829329638288186,
+    "hit_change": -200
+  },
+  {
+    "model": "T1",
+    "split": "test_region",
+    "n": 13039,
+    "original": {
+      "median_km": 86.63288406719317,
+      "mean_km": 96.11954022872865,
+      "within25": 274,
+      "pct25": 2.10138814326252
+    },
+    "augmented": {
+      "median_km": 99.1428213437723,
+      "mean_km": 103.02686961172638,
+      "within25": 254,
+      "pct25": 1.948002147403942
+    },
+    "median_change_km": 12.509937276579123,
+    "hit_change": -20
+  },
+  {
+    "model": "T3",
+    "split": "val",
+    "n": 29529,
+    "original": {
+      "median_km": 24.55006864213487,
+      "mean_km": 45.150325665172694,
+      "within25": 14904,
+      "pct25": 50.47241694605303
+    },
+    "augmented": {
+      "median_km": 25.310972731877758,
+      "mean_km": 45.573816073613756,
+      "within25": 14699,
+      "pct25": 49.77818415794643
+    },
+    "median_change_km": 0.7609040897428869,
+    "hit_change": -205
+  },
+  {
+    "model": "T3",
+    "split": "test_in",
+    "n": 47593,
+    "original": {
+      "median_km": 29.114367102910503,
+      "mean_km": 47.71534934513796,
+      "within25": 21806,
+      "pct25": 45.817662261256906
+    },
+    "augmented": {
+      "median_km": 29.268019712657566,
+      "mean_km": 48.13191965770047,
+      "within25": 21748,
+      "pct25": 45.69579560019331
+    },
+    "median_change_km": 0.15365260974706274,
+    "hit_change": -58
+  },
+  {
+    "model": "T3",
+    "split": "test_city",
+    "n": 3377,
+    "original": {
+      "median_km": 93.28672923039784,
+      "mean_km": 84.43606776136828,
+      "within25": 216,
+      "pct25": 6.396209653538644
+    },
+    "augmented": {
+      "median_km": 93.26324141146326,
+      "mean_km": 83.867621987423,
+      "within25": 211,
+      "pct25": 6.248149244891916
+    },
+    "median_change_km": -0.023487818934583515,
+    "hit_change": -5
+  },
+  {
+    "model": "T3",
+    "split": "test_region",
+    "n": 13039,
+    "original": {
+      "median_km": 82.18875853714592,
+      "mean_km": 92.97070117310437,
+      "within25": 438,
+      "pct25": 3.3591533093028607
+    },
+    "augmented": {
+      "median_km": 81.67937870179877,
+      "mean_km": 92.71234267409618,
+      "within25": 462,
+      "pct25": 3.543216504333154
+    },
+    "median_change_km": -0.509379835347147,
+    "hit_change": 24
+  },
+  {
+    "model": "T4",
+    "split": "val",
+    "n": 29529,
+    "original": {
+      "median_km": 43.49719221575373,
+      "mean_km": 51.56591456565909,
+      "within25": 7639,
+      "pct25": 25.86948423583596
+    },
+    "augmented": {
+      "median_km": 43.488303672623765,
+      "mean_km": 51.57314837019398,
+      "within25": 7632,
+      "pct25": 25.84577872599817
+    },
+    "median_change_km": -0.008888543129963011,
+    "hit_change": -7
+  },
+  {
+    "model": "T4",
+    "split": "test_in",
+    "n": 47593,
+    "original": {
+      "median_km": 48.295636068774186,
+      "mean_km": 55.40962863947008,
+      "within25": 10013,
+      "pct25": 21.038808228100773
+    },
+    "augmented": {
+      "median_km": 48.31966039784523,
+      "mean_km": 55.41276111940506,
+      "within25": 10012,
+      "pct25": 21.03670707877209
+    },
+    "median_change_km": 0.02402432907104668,
+    "hit_change": -1
+  },
+  {
+    "model": "T4",
+    "split": "test_city",
+    "n": 3377,
+    "original": {
+      "median_km": 61.08437084109968,
+      "mean_km": 62.15605077340782,
+      "within25": 356,
+      "pct25": 10.541901095647024
+    },
+    "augmented": {
+      "median_km": 61.05974102463938,
+      "mean_km": 62.09769811493329,
+      "within25": 355,
+      "pct25": 10.512289013917679
+    },
+    "median_change_km": -0.024629816460297604,
+    "hit_change": -1
+  },
+  {
+    "model": "T4",
+    "split": "test_region",
+    "n": 13039,
+    "original": {
+      "median_km": 47.45018456637549,
+      "mean_km": 58.79965465785179,
+      "within25": 2660,
+      "pct25": 20.40033744919089
+    },
+    "augmented": {
+      "median_km": 47.35380705689998,
+      "mean_km": 58.757727774048426,
+      "within25": 2666,
+      "pct25": 20.446353247948462
+    },
+    "median_change_km": -0.09637750947550927,
+    "hit_change": 6
+  }
+]

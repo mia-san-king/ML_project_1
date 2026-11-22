@@ -1,0 +1,104 @@
+{
+  "method": "Original T3, exhaustive nearest cached training coordinate using spherical distance; ground truth is used only for this diagnostic.",
+  "training_photos": 176308,
+  "unique_training_coordinates": 156064,
+  "splits": {
+    "test_city": {
+      "n": 3377,
+      "median_nearest_km": 17.268403254747657,
+      "median_T3_km": 93.28672923039797,
+      "pct_within25_possible": 100,
+      "pct_within25_T3": 6.396209653538644,
+      "n_unreachable_25": 0,
+      "n_reachable_but_missed": 3161,
+      "n_T3_hits": 216,
+      "n_query_blocks_shared_with_train": 2,
+      "bins": {
+        "5..15": {
+          "n": 1007,
+          "median_error_km": 72.15046021471328,
+          "hit25_pct": 14.895729890764647
+        },
+        "15..25": {
+          "n": 2370,
+          "median_error_km": 94.48825036306917,
+          "hit25_pct": 2.7848101265822782
+        }
+      }
+    },
+    "test_in": {
+      "n": 47593,
+      "median_nearest_km": 2.3876643695695536,
+      "median_T3_km": 29.114367102910563,
+      "pct_within25_possible": 100,
+      "pct_within25_T3": 45.817662261256906,
+      "n_unreachable_25": 0,
+      "n_reachable_but_missed": 25787,
+      "n_T3_hits": 21806,
+      "n_query_blocks_shared_with_train": 0,
+      "bins": {
+        "0..5": {
+          "n": 44476,
+          "median_error_km": 28.5000284820258,
+          "hit25_pct": 46.391312168360464
+        },
+        "5..15": {
+          "n": 3117,
+          "median_error_km": 39.70520692757263,
+          "hit25_pct": 37.632338787295474
+        }
+      }
+    },
+    "test_region": {
+      "n": 13039,
+      "median_nearest_km": 24.25923637352691,
+      "median_T3_km": 82.18875853714577,
+      "pct_within25_possible": 52.59605797990643,
+      "pct_within25_T3": 3.3591533093028607,
+      "n_unreachable_25": 6181,
+      "n_reachable_but_missed": 6420,
+      "n_T3_hits": 438,
+      "n_query_blocks_shared_with_train": 1,
+      "bins": {
+        "5..15": {
+          "n": 2387,
+          "median_error_km": 57.77202479254282,
+          "hit25_pct": 13.070800167574362
+        },
+        "15..25": {
+          "n": 4471,
+          "median_error_km": 70.43033816235379,
+          "hit25_pct": 2.81816148512637
+        },
+        "25..inf": {
+          "n": 6181,
+          "median_error_km": 117.57297087258529,
+          "hit25_pct": 0
+        }
+      }
+    },
+    "val": {
+      "n": 29529,
+      "median_nearest_km": 2.0706867854262034,
+      "median_T3_km": 24.550068642134484,
+      "pct_within25_possible": 100,
+      "pct_within25_T3": 50.47241694605303,
+      "n_unreachable_25": 0,
+      "n_reachable_but_missed": 14625,
+      "n_T3_hits": 14904,
+      "n_query_blocks_shared_with_train": 0,
+      "bins": {
+        "0..5": {
+          "n": 28468,
+          "median_error_km": 24.304978269217962,
+          "hit25_pct": 50.772797527047906
+        },
+        "5..15": {
+          "n": 1061,
+          "median_error_km": 30.87425773853993,
+          "hit25_pct": 42.41281809613572
+        }
+      }
+    }
+  }
+}

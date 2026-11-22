@@ -1,0 +1,91 @@
+{
+  "checkpoint": "zhang7_T1_dual_time_available_s0_20261118.pt",
+  "epoch": 12,
+  "seed_method": "T1 spatial top-1 from train photo coordinates; gamma=0",
+  "fixed_time": "query midpoint, interval half-width, known mask from original T1 preprocessing",
+  "max_offset_km": 1,
+  "proposed_steps_km": [
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.125,
+    0.0625,
+    0.03125,
+    0.015625
+  ],
+  "scope": "validation only",
+  "max_initial_cosine_difference_vs_previous_run": 7.042288780212402e-05,
+  "matched_pilot": {
+    "n": 2048,
+    "known_query_time_n": 1910,
+    "before": {
+      "median_km": 28.176675956643567,
+      "mean_km": 50.24577123858889,
+      "within_25km": 961,
+      "acc25_percent": 46.923828125
+    },
+    "after": {
+      "median_km": 28.134992504175024,
+      "mean_km": 50.25683087398586,
+      "within_25km": 961,
+      "acc25_percent": 46.923828125
+    },
+    "closer": 937,
+    "farther": 977,
+    "unchanged": 134,
+    "score_improved": 1914,
+    "median_score_gain": 0.0002186894416809082,
+    "median_displacement_km": 0.12350707623649562,
+    "maximum_displacement_km": 1.00003048729202,
+    "id_sha256": "ccc083af685c0a6bc4e0b0e4487f1bae4fde9c682191187273695d387d6dee4c"
+  },
+  "full_validation": {
+    "n": 29529,
+    "known_query_time_n": 27574,
+    "before": {
+      "median_km": 28.3389733468531,
+      "mean_km": 49.55685629749367,
+      "within_25km": 13798,
+      "acc25_percent": 46.72694639168275
+    },
+    "after": {
+      "median_km": 28.27687416464563,
+      "mean_km": 49.554891831307316,
+      "within_25km": 13799,
+      "acc25_percent": 46.73033289308815
+    },
+    "closer": 13822,
+    "farther": 13818,
+    "unchanged": 1889,
+    "score_improved": 27640,
+    "median_score_gain": 0.00021097064018249512,
+    "median_displacement_km": 0.12403503843605743,
+    "maximum_displacement_km": 1.0000327506535844,
+    "id_sha256": "57a6f00700fba48b1cd6a7280493714bb7d54f9ae9a8e93b922e65222dcc37a2"
+  },
+  "full_validation_known_query_time": {
+    "n": 27574,
+    "known_query_time_n": 27574,
+    "before": {
+      "median_km": 29.59822874398462,
+      "mean_km": 50.7426641418811,
+      "within_25km": 12574,
+      "acc25_percent": 45.60092841082179
+    },
+    "after": {
+      "median_km": 29.58942929573358,
+      "mean_km": 50.74070407213292,
+      "within_25km": 12576,
+      "acc25_percent": 45.60818162036701
+    },
+    "closer": 12904,
+    "farther": 12881,
+    "unchanged": 1789,
+    "score_improved": 25785,
+    "median_score_gain": 0.0002143383026123047,
+    "median_displacement_km": 0.12499949435034102,
+    "maximum_displacement_km": 1.0000327506535844,
+    "id_sha256": "94062f2294c4814883bdf8d68bc84b0626c5991c912187aa85001e3d60ed6bd2"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "split": "test_in",
+  "n": 47593,
+  "spatial_blocks": 93,
+  "replicates": 1000,
+  "seed": 0,
+  "direction": "year minus location",
+  "delta_median_km": -1.528582573238893,
+  "delta_median_km_paired_block_ci95": [
+    -2.132434492865364,
+    -0.650584107108072
+  ],
+  "delta_acc25_percentage_points": 1.4203769461895666,
+  "delta_acc25_pp_paired_block_ci95": [
+    0.8810556906058717,
+    2.0928122430577356
+  ]
+}

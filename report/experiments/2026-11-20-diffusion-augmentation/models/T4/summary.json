@@ -1,0 +1,148 @@
+{
+  "model": "T4",
+  "solver": "ordinary least squares (pivoted QR, float64)",
+  "train_n": 176820,
+  "train_id_sha256": "b634518b537774a710319cbc7313f64723a897d21045445772ae29e4fc050b5f",
+  "design_rank": 772,
+  "parameters": 1544,
+  "coverage": {
+    "train": {
+      "expected": 177050,
+      "available": 176820,
+      "missing": 230
+    },
+    "test_in": {
+      "expected": 47609,
+      "available": 47593,
+      "missing": 16
+    },
+    "outside": {
+      "expected": 31138,
+      "available": 0,
+      "missing": 31138
+    },
+    "val": {
+      "expected": 29532,
+      "available": 29529,
+      "missing": 3
+    },
+    "nadir_train": {
+      "expected": 25503,
+      "available": 25479,
+      "missing": 24
+    },
+    "buffer": {
+      "expected": 13515,
+      "available": 0,
+      "missing": 13515
+    },
+    "test_region": {
+      "expected": 13040,
+      "available": 13039,
+      "missing": 1
+    },
+    "nadir_test_in": {
+      "expected": 7119,
+      "available": 7119,
+      "missing": 0
+    },
+    "nadir_val": {
+      "expected": 4195,
+      "available": 4195,
+      "missing": 0
+    },
+    "test_city": {
+      "expected": 3378,
+      "available": 3377,
+      "missing": 1
+    },
+    "nadir_test_region": {
+      "expected": 1427,
+      "available": 1427,
+      "missing": 0
+    },
+    "nadir_buffer": {
+      "expected": 1407,
+      "available": 0,
+      "missing": 1407
+    },
+    "nadir_test_city": {
+      "expected": 606,
+      "available": 606,
+      "missing": 0
+    },
+    "nadir_outside": {
+      "expected": 274,
+      "available": 0,
+      "missing": 274
+    }
+  },
+  "time_config": {
+    "year_center": 1950.0,
+    "year_scale": 100.0,
+    "min_year": 1800.0,
+    "max_year": 2026.0
+  },
+  "splits": {
+    "val": {
+      "n": 29529,
+      "median_km": 43.488303672623765,
+      "mean_km": 51.57314837019397,
+      "p90_km": 102.32981428246855,
+      "acc@1km": 0.05757052389176742,
+      "acc@5km": 1.6492261844288665,
+      "acc@10km": 6.058451014257171,
+      "acc@25km": 25.84577872599817,
+      "acc@50km": 57.004978157065935,
+      "acc@200km": 99.96274848454063,
+      "acc@750km": 100.0,
+      "acc@2500km": 100.0,
+      "projected": 799
+    },
+    "test_in": {
+      "n": 47593,
+      "median_km": 48.31966039784523,
+      "mean_km": 55.41276111940506,
+      "p90_km": 106.34269197966785,
+      "acc@1km": 0.04622528523102137,
+      "acc@5km": 1.1766436240623621,
+      "acc@10km": 4.527976803311411,
+      "acc@25km": 21.03670707877209,
+      "acc@50km": 51.93200680772383,
+      "acc@200km": 99.96428046141239,
+      "acc@750km": 100.0,
+      "acc@2500km": 100.0,
+      "projected": 1378
+    },
+    "test_city": {
+      "n": 3377,
+      "median_km": 61.05974102463938,
+      "mean_km": 62.09769811493329,
+      "p90_km": 100.3980852605207,
+      "acc@1km": 0.029612081729345572,
+      "acc@5km": 0.5922416345869115,
+      "acc@10km": 1.7767249037607342,
+      "acc@25km": 10.512289013917679,
+      "acc@50km": 35.267989339650576,
+      "acc@200km": 100.0,
+      "acc@750km": 100.0,
+      "acc@2500km": 100.0,
+      "projected": 11
+    },
+    "test_region": {
+      "n": 13039,
+      "median_km": 47.35380705689998,
+      "mean_km": 58.757727774048426,
+      "p90_km": 121.0306099868791,
+      "acc@1km": 0.007669299792928905,
+      "acc@5km": 1.05069407163126,
+      "acc@10km": 3.71194109977759,
+      "acc@25km": 20.446353247948462,
+      "acc@50km": 52.84914487307309,
+      "acc@200km": 100.0,
+      "acc@750km": 100.0,
+      "acc@2500km": 100.0,
+      "projected": 655
+    }
+  }
+}

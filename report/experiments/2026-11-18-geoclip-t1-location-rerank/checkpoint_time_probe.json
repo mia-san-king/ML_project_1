@@ -1,0 +1,17 @@
+{
+  "experiment": "fixed GPS, changed query year; embedding diagnostic only",
+  "checkpoint_sha256": "9789dc6a862b355e7d35ef03709d4c4f844c15f58bfa2907f9b2244941be7578",
+  "epoch": 12,
+  "n": 512,
+  "years": [
+    1900,
+    1980
+  ],
+  "coordinate_source": "distinct training photo GPS previously selected in T3, sorted by (latitude,longitude) and sampled with pandas sample(random_state=0)",
+  "source_predictions_sha256": "6384132e1f7e54f8affdfed0acf92f0bcda931c0646cee67a8ea5503380f00f1",
+  "cosine_percentiles_10_50_90": [
+    0.7585100054740905,
+    0.8488172888755798,
+    0.9037012934684754
+  ]
+}

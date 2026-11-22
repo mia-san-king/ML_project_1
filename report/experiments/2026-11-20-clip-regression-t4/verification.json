@@ -1,0 +1,13 @@
+{
+  "reloaded_predictions_checked": 576,
+  "test_in_rms_distance_to_each_clouds_own_centroid_km": {
+    "ground_truth": 82.26828767719739,
+    "T4": 54.10605497108176,
+    "T1": 85.0896651984856
+  },
+  "T4_raw_shift_1930_to_1950_at_fixed_interval_width_km": {
+    "east": 2.5083437685231447,
+    "north": 0.05732100777024831,
+    "length": 2.508998636711604
+  }
+}

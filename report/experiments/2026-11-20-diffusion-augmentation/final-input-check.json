@@ -1,0 +1,117 @@
+{
+  "data": {
+    "coverage": {
+      "train": {
+        "expected": 177050,
+        "available": 176820,
+        "missing": 230
+      },
+      "test_in": {
+        "expected": 47609,
+        "available": 47593,
+        "missing": 16
+      },
+      "outside": {
+        "expected": 31138,
+        "available": 0,
+        "missing": 31138
+      },
+      "val": {
+        "expected": 29532,
+        "available": 29529,
+        "missing": 3
+      },
+      "nadir_train": {
+        "expected": 25503,
+        "available": 25479,
+        "missing": 24
+      },
+      "buffer": {
+        "expected": 13515,
+        "available": 0,
+        "missing": 13515
+      },
+      "test_region": {
+        "expected": 13040,
+        "available": 13039,
+        "missing": 1
+      },
+      "nadir_test_in": {
+        "expected": 7119,
+        "available": 7119,
+        "missing": 0
+      },
+      "nadir_val": {
+        "expected": 4195,
+        "available": 4195,
+        "missing": 0
+      },
+      "test_city": {
+        "expected": 3378,
+        "available": 3377,
+        "missing": 1
+      },
+      "nadir_test_region": {
+        "expected": 1427,
+        "available": 1427,
+        "missing": 0
+      },
+      "nadir_buffer": {
+        "expected": 1407,
+        "available": 0,
+        "missing": 1407
+      },
+      "nadir_test_city": {
+        "expected": 606,
+        "available": 606,
+        "missing": 0
+      },
+      "nadir_outside": {
+        "expected": 274,
+        "available": 0,
+        "missing": 274
+      }
+    },
+    "dates": {
+      "total": 309184,
+      "valid": 289830,
+      "invalid": 19354,
+      "reasons": {
+        "missing": 226,
+        "one_sided": 17872,
+        "malformed": 3,
+        "reversed": 245,
+        "out_of_range": 1008
+      },
+      "config": {
+        "year_center": 1950.0,
+        "year_scale": 100.0,
+        "min_year": 1800.0,
+        "max_year": 2026.0
+      }
+    },
+    "feature_rows": 309184,
+    "feature_dim": 768,
+    "metadata_rows": 355793,
+    "split_rows": 355793
+  },
+  "augmentation": {
+    "train_originals": 176308,
+    "train_variants": 512,
+    "train_rows": 176820,
+    "parents_with_variant": 512,
+    "evaluation_originals": 93538
+  },
+  "gallery_rows": 48554,
+  "split_csv": "/rcp-scratch/students/zhang7/ml-project2/runs/2026-11-20-diffusion-augmentation/augmented/splits/main.csv.gz",
+  "initialization": "packaged GeoCLIP pretrained weights",
+  "training_protocol": {
+    "epochs": 15,
+    "seed": 0,
+    "batch_size": 32,
+    "n_neg": 128,
+    "val_limit": 256,
+    "lr_mlp": 0.0001,
+    "lr_loc": 3e-05
+  }
+}

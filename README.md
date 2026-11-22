@@ -2,10 +2,13 @@
 
 瑞士历史照片定位：在相同的数据划分和评估标准下比较不同模型。当前分支为 `Yang_Zhang`。
 
+换电脑后可从[中文项目交接](doc/project2_handoff.md)继续。各模型指标见[实验报告](report/geoclip_time_baselines.md)，原版 T3 的前 50 名统计、运行配置和复算脚本在[实验归档](report/experiments/)。
+
 ## 先按模型找文件
 
 ```text
 models/
+├── clip_regression/    # T4：冻结的 CLIP 特征和日期直接回归瑞士坐标
 ├── baselines/          # 常数预测 B0、图片近邻检索 B2
 │   ├── lib/
 │   └── scripts/
@@ -22,6 +25,7 @@ models/
 
 | 模型目录 | 入口说明 | 方法说明 |
 | --- | --- | --- |
+| [`models/clip_regression/`](models/clip_regression/) | T4 单层回归训练与 T1 逐图比较 | [T4 实验说明](doc/time_geoclip.md#t4已知拍摄日期直接回归坐标) |
 | [`models/baselines/`](models/baselines/) | 常数预测和 kNN 的运行命令 | [`doc/tutorial.md`](doc/tutorial.md) S8 |
 | [`models/geoclip/`](models/geoclip/) | 原有 B1/B3、A1、A3/A4 实验 | [`doc/method_notes.md`](doc/method_notes.md) |
 | [`models/geoclip_time/`](models/geoclip_time/) | T0/T1 数据检查、训练、预测和测试 | [`doc/time_geoclip.md`](doc/time_geoclip.md) |

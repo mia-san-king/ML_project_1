@@ -67,6 +67,8 @@ python models/geoclip_time/scripts/train_time.py --config models/geoclip_time/co
 
 本目录的 `T0_no_time` 是无日期的 GeoCLIP。队友的 [T0 检索实验](https://github.com/mia-san-king/ML_project_1/blob/f019e23583dc236a80ea28dcbdb1b2584d561a19/scripts/run_knn_time.py) 按视觉相似度取前 50 张训练照片，再按年份差重排。小组报告中可分别标为“无时间 GeoCLIP”和“图像近邻＋年份重排”。
 
+本分支的 **T3（Yang_Zhang）** 冻结 T0 的图片编码器，从训练照片中检索视觉上最像的 50 张，按拍摄年份重排后输出胜出照片的坐标。跨分支汇报时用分支名区分同名实验。`project_2_Yijun_Liu` 的 T3 在查询图片侧加入日期残差，并微调图片投影和位置编码器。[本分支 T3 运行说明](../models/geoclip_time/README.md) · [队友的 T3 配置](https://github.com/mia-san-king/ML_project_1/blob/f019e23583dc236a80ea28dcbdb1b2584d561a19/configs/T3.yaml)
+
 T2 图像侧把三个日期特征拼到 768 维 CLIP 特征之后。位置侧在每个尺度的 512 维空间 Fourier 特征之后拼入同一个查询日期。两个输入层都复制 GeoCLIP 的预训练权重，并把新增日期输入的权重置零，随后联合训练。推理时，日期向量完全相同的照片共享该日期下的候选位置向量。T1 和 T2 的参数量不同，结果比较反映两套完整结构的表现。
 
 GPU 使用前按实验室规则检查 `df -h /rcp-scratch` 和 `nvidia-smi`，选择空闲卡，不用 GPU 3，最多两块卡。设置 `CUDA_VISIBLE_DEVICES` 后，训练命令里的 `cuda` 指该可见设备。长任务放进 `screen`，缓存仍放在 scratch：
@@ -99,6 +101,29 @@ python models/geoclip_time/scripts/predict_time.py \
 默认 batch 和负样本数低于旧 A3/A4 实验，便于先跑通新增的时间分支。因此应该先比较本目录的 T0 与 T1，不能把差异直接全部归因于时间、再与旧 A3/A4 数字比较。正式报告还应检查不同年代、日期缺失与不同留出区域的表现，并增加“只看年代”的对照，区分地理先验与视觉判别的贡献。
 
 T1 同时增加了时间输入和融合层容量。若要单独归因于年代信息，还应在相同 T1 结构上增加打乱年代或屏蔽年代的对照；这轮代码尚未提供该实验配置。
+
+## T4：已知拍摄日期，直接回归坐标
+
+T4 和 T1 读取同一份冻结的 768 维 CLIP 图片特征，以及查询照片的三个日期特征（年份中点、区间半宽、日期有效标记）。T4 将它们拼成 771 维向量，通过一个带偏置的线性层输出两个坐标。日期缺失时三个日期特征均为零，照片仍参与训练和评估。
+
+线性层可以写作 `W_image × 图片特征 + W_date × 日期特征 + b`。因此，在国界投影之前，把同样的日期改动应用于两张不同的图片，两张预测坐标会移动相同的向量。
+
+坐标使用瑞士 LV95 投影。网络输出相对 LV95 原点 (2,600,000 m, 1,200,000 m) 的东向和北向偏移，单位为千米。在所有有缓存的 `train` 照片上，用最小二乘法直接求解线性层的 1,544 个参数。平方损失在两个方向上按相同的距离尺度计算。预测落在瑞士国界外时，取国界上最近的一点，再转为经纬度计算大圆距离误差。
+
+从仓库根目录运行，输出位置选用新目录。最后一条命令按照片 ID 与原始 T1 网格检索结果配对。
+
+```bash
+python models/clip_regression/scripts/train.py --data-root "$P2_DATA" --output "$RUN/T4"
+python models/clip_regression/scripts/compare_t1.py --t4 "$RUN/T4/predictions.parquet" \
+  --t1 "$P2_DATA/results/preds/zhang7_T1_dual_time_available_s0_20261118.parquet" \
+  --output "$RUN/T4/comparison.json"
+```
+
+## 扩散增强实验的训练数据
+
+本实验在真实 `train` 照片中抽取原图，用 SDXL 图生图生成同一视角的变体。每个合成样本在独立目录的 `synthetic.sqlite` 中有一条记录，图像文件在同目录的 `images/` 下。可按 `is_diffusion = 1 AND status = 'accepted'` 取出通过结构筛查的变体。表中的 `parent_id` 指向真实训练照片，`synthetic_id` 是该 ID 的相反数。变体继承原图的坐标和日期区间，表中同时记录生成模型版本、参数、种子和文件指纹。
+
+`scripts/augmentation/generate.py` 写入独立图库。`build_dataset.py` 用原版 CLIP 提取合成图特征，并把合成行追加到一个新的训练视图。原验证和测试照片继续按原 ID 评估。`train_models.py` 复用各模型的训练设置。T3 重新训练 T0 图片编码器，再对每个原图 ID 取原图与变体的最高相似度，从不同的原图中选 50 个候选并按年份重排。T1 仍然检索瑞士网格，T4 仍然直接回归坐标。
 
 ## 本地验证
 

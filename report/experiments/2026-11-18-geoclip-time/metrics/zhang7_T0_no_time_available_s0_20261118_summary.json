@@ -1,0 +1,187 @@
+{
+  "splits": [
+    {
+      "split": "val",
+      "view_type": "all",
+      "n": 29529,
+      "median_km": 29.84873378125053,
+      "mean_km": 51.793000220289876,
+      "p90_km": 144.0077211410447,
+      "acc@1km": 1.2834840326458736,
+      "acc@5km": 12.15415354397372,
+      "acc@10km": 24.13220901486674,
+      "acc@25km": 44.45460394866064,
+      "acc@50km": 65.84036032374954,
+      "acc@200km": 96.40692200887263,
+      "acc@750km": 100.0,
+      "acc@2500km": 100.0
+    },
+    {
+      "split": "test_in",
+      "view_type": "all",
+      "n": 47593,
+      "median_km": 35.23385931665273,
+      "mean_km": 53.392256181232646,
+      "p90_km": 136.6882262014456,
+      "acc@1km": 0.6933792784653205,
+      "acc@5km": 9.070661651923603,
+      "acc@10km": 20.332822053663353,
+      "acc@25km": 40.40300044124136,
+      "acc@50km": 61.597293719664655,
+      "acc@200km": 97.9387725085622,
+      "acc@750km": 100.0,
+      "acc@2500km": 100.0
+    },
+    {
+      "split": "test_city",
+      "view_type": "all",
+      "n": 3377,
+      "median_km": 87.80711342609237,
+      "mean_km": 79.97062418352816,
+      "p90_km": 121.04145819867263,
+      "acc@1km": 0.0,
+      "acc@5km": 0.0,
+      "acc@10km": 0.0,
+      "acc@25km": 8.02487414865265,
+      "acc@50km": 23.156647912348237,
+      "acc@200km": 99.97038791827066,
+      "acc@750km": 100.0,
+      "acc@2500km": 100.0
+    },
+    {
+      "split": "test_region",
+      "view_type": "all",
+      "n": 13039,
+      "median_km": 91.91023361565689,
+      "mean_km": 95.73251112143019,
+      "p90_km": 157.81441226561088,
+      "acc@1km": 0.0,
+      "acc@5km": 0.0,
+      "acc@10km": 0.0,
+      "acc@25km": 3.466523506403865,
+      "acc@50km": 15.507324181302248,
+      "acc@200km": 99.07968402484853,
+      "acc@750km": 100.0,
+      "acc@2500km": 100.0
+    }
+  ],
+  "val": {
+    "split": "val",
+    "view_type": "all",
+    "n": 29529,
+    "median_km": 29.84873378125053,
+    "mean_km": 51.793000220289876,
+    "p90_km": 144.0077211410447,
+    "acc@1km": 1.2834840326458736,
+    "acc@5km": 12.15415354397372,
+    "acc@10km": 24.13220901486674,
+    "acc@25km": 44.45460394866064,
+    "acc@50km": 65.84036032374954,
+    "acc@200km": 96.40692200887263,
+    "acc@750km": 100.0,
+    "acc@2500km": 100.0
+  },
+  "audit": {
+    "coverage": {
+      "train": {
+        "expected": 176538,
+        "available": 176308,
+        "missing": 230
+      },
+      "test_in": {
+        "expected": 47609,
+        "available": 47593,
+        "missing": 16
+      },
+      "outside": {
+        "expected": 31138,
+        "available": 0,
+        "missing": 31138
+      },
+      "val": {
+        "expected": 29532,
+        "available": 29529,
+        "missing": 3
+      },
+      "nadir_train": {
+        "expected": 25503,
+        "available": 25479,
+        "missing": 24
+      },
+      "buffer": {
+        "expected": 13515,
+        "available": 0,
+        "missing": 13515
+      },
+      "test_region": {
+        "expected": 13040,
+        "available": 13039,
+        "missing": 1
+      },
+      "nadir_test_in": {
+        "expected": 7119,
+        "available": 7119,
+        "missing": 0
+      },
+      "nadir_val": {
+        "expected": 4195,
+        "available": 4195,
+        "missing": 0
+      },
+      "test_city": {
+        "expected": 3378,
+        "available": 3377,
+        "missing": 1
+      },
+      "nadir_test_region": {
+        "expected": 1427,
+        "available": 1427,
+        "missing": 0
+      },
+      "nadir_buffer": {
+        "expected": 1407,
+        "available": 0,
+        "missing": 1407
+      },
+      "nadir_test_city": {
+        "expected": 606,
+        "available": 606,
+        "missing": 0
+      },
+      "nadir_outside": {
+        "expected": 274,
+        "available": 0,
+        "missing": 274
+      }
+    },
+    "dates": {
+      "total": 308672,
+      "valid": 289359,
+      "invalid": 19313,
+      "reasons": {
+        "missing": 226,
+        "one_sided": 17834,
+        "malformed": 3,
+        "reversed": 245,
+        "out_of_range": 1005
+      },
+      "config": {
+        "year_center": 1950.0,
+        "year_scale": 100.0,
+        "min_year": 1800.0,
+        "max_year": 2026.0
+      }
+    },
+    "feature_rows": 308672,
+    "feature_dim": 768,
+    "metadata_rows": 355281,
+    "split_rows": 355281
+  },
+  "checkpoint": "/rcp-scratch/students/zhang7/ml-project2/data/ckpt/zhang7_T0_no_time_available_s0_20261118.pt",
+  "time_config": {
+    "year_center": 1950.0,
+    "year_scale": 100.0,
+    "min_year": 1800,
+    "max_year": 2026
+  }
+}

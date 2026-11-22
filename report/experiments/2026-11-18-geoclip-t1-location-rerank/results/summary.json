@@ -1,0 +1,322 @@
+{
+  "experiment": "trained T1 query-time location retrieval with validation-selected archive-year reranking",
+  "device": "cuda",
+  "threads": 2,
+  "query_chunk": 128,
+  "reference_chunk": 8192,
+  "top_k_requested": 50,
+  "top_k_effective": 50,
+  "selected_gamma": 1.0,
+  "gammas": [
+    0.0,
+    0.05,
+    0.1,
+    0.2,
+    0.35,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "selection_split": "full available val",
+  "test_gamma_search": false,
+  "retrieval_passes": 1,
+  "unique_query_times": 789,
+  "first_stage": "unscaled cosine between frozen T1 image(query features,query time) and location(reference GPS,query time)",
+  "score": "spatial_cosine - gamma * min(abs(query_year-reference_year)/50, 1); zero penalty if either archive year missing",
+  "spatial_ties": "smaller reference index in feature-cache order; reranked ties keep spatial rank",
+  "date_policy": {
+    "source": "f019e23:lib/time_feats.py:dates_to_features (same as T3)",
+    "parser": "scalar pandas.to_datetime(errors=coerce, utc=True) for each endpoint",
+    "year": "midpoint.year + (midpoint.dayofyear-1)/366",
+    "valid_midpoint_year_range": [
+      1800,
+      2030
+    ],
+    "both_endpoints_required": true,
+    "reject_reversed_intervals": false,
+    "first_stage_time": "checkpoint time_config normalized midpoint, half-width, known mask; distinct from archive-year penalty"
+  },
+  "checkpoint": {
+    "path": "/rcp-scratch/students/zhang7/ml-project2/data/ckpt/zhang7_T1_dual_time_available_s0_20261118.pt",
+    "sha256": "9789dc6a862b355e7d35ef03709d4c4f844c15f58bfa2907f9b2244941be7578",
+    "run_name": "zhang7_T1_dual_time_available_s0_20261118",
+    "epoch": 12,
+    "architecture": {
+      "backbone": "geoclip",
+      "feature_dim": 768,
+      "embed_dim": 512,
+      "time_dim": 3,
+      "hidden_dim": 128,
+      "mode": "both",
+      "sigma": [
+        1,
+        16,
+        256
+      ]
+    },
+    "training_time_config": {
+      "year_center": 1950.0,
+      "year_scale": 100.0,
+      "min_year": 1800,
+      "max_year": 2026
+    },
+    "training_validation_n": 256,
+    "training_validation_ids_sha256": "0293d793464e1499a35d4230314b5e4effdce1797f659bb2d19cae6c79c50f1b"
+  },
+  "inputs": {
+    "metadata": {
+      "path": "/rcp-scratch/students/zhang7/ml-project2/data/meta/smapshot.parquet",
+      "bytes": 16892797
+    },
+    "split": {
+      "path": "/rcp-scratch/students/zhang7/ml-project2/ML_project_1/data/splits/main.csv.gz",
+      "bytes": 1440433
+    },
+    "features": {
+      "path": "/rcp-scratch/students/zhang7/ml-project2/data/features/clip_vitl14.npy",
+      "bytes": 474120320
+    },
+    "feature_ids": {
+      "path": "/rcp-scratch/students/zhang7/ml-project2/data/features/clip_vitl14_ids.npy",
+      "bytes": 2469504
+    }
+  },
+  "input_alignment": {
+    "checkpoint_audit_match": true,
+    "checkpoint_time_config_match": true,
+    "full_input_sha256_verification": "required separately from experiment launcher; not checked by this CLI"
+  },
+  "id_hash_encoding": "ordered little-endian signed int64 bytes, SHA256",
+  "references": {
+    "split": "train",
+    "n": 176308,
+    "ordered_ids_sha256": "e704cdc01a645a4056fa4fc065cfcbed2b56018102ec39dbfb052ccda7bad182",
+    "known_dates": 163669,
+    "duplicate_gps_retained": true
+  },
+  "queries": {
+    "val": {
+      "n": 29529,
+      "ordered_ids_sha256": "57a6f00700fba48b1cd6a7280493714bb7d54f9ae9a8e93b922e65222dcc37a2",
+      "known_dates": 27597,
+      "known_T1_times": 27574
+    },
+    "test_in": {
+      "n": 47593,
+      "ordered_ids_sha256": "c41c4f278f5859f1c20d5d6af91b72d45ebd327c8b4f34273d77826cb66c9a5e",
+      "known_dates": 43616,
+      "known_T1_times": 43490
+    },
+    "test_city": {
+      "n": 3377,
+      "ordered_ids_sha256": "80c0b680333468223393c82adf46dcb150aa48d39525b07f68e360ad9c180ab2",
+      "known_dates": 3170,
+      "known_T1_times": 3161
+    },
+    "test_region": {
+      "n": 13039,
+      "ordered_ids_sha256": "c1afb9409f02b7716685e98433bd735d47062d73824d98ffc36fc3229123a44e",
+      "known_dates": 12835,
+      "known_T1_times": 12835
+    }
+  },
+  "audit": {
+    "coverage": {
+      "train": {
+        "expected": 176538,
+        "available": 176308,
+        "missing": 230
+      },
+      "test_in": {
+        "expected": 47609,
+        "available": 47593,
+        "missing": 16
+      },
+      "outside": {
+        "expected": 31138,
+        "available": 0,
+        "missing": 31138
+      },
+      "val": {
+        "expected": 29532,
+        "available": 29529,
+        "missing": 3
+      },
+      "nadir_train": {
+        "expected": 25503,
+        "available": 25479,
+        "missing": 24
+      },
+      "buffer": {
+        "expected": 13515,
+        "available": 0,
+        "missing": 13515
+      },
+      "test_region": {
+        "expected": 13040,
+        "available": 13039,
+        "missing": 1
+      },
+      "nadir_test_in": {
+        "expected": 7119,
+        "available": 7119,
+        "missing": 0
+      },
+      "nadir_val": {
+        "expected": 4195,
+        "available": 4195,
+        "missing": 0
+      },
+      "test_city": {
+        "expected": 3378,
+        "available": 3377,
+        "missing": 1
+      },
+      "nadir_test_region": {
+        "expected": 1427,
+        "available": 1427,
+        "missing": 0
+      },
+      "nadir_buffer": {
+        "expected": 1407,
+        "available": 0,
+        "missing": 1407
+      },
+      "nadir_test_city": {
+        "expected": 606,
+        "available": 606,
+        "missing": 0
+      },
+      "nadir_outside": {
+        "expected": 274,
+        "available": 0,
+        "missing": 274
+      }
+    },
+    "dates": {
+      "total": 308672,
+      "valid": 289359,
+      "invalid": 19313,
+      "reasons": {
+        "missing": 226,
+        "one_sided": 17834,
+        "malformed": 3,
+        "reversed": 245,
+        "out_of_range": 1005
+      },
+      "config": {
+        "year_center": 1950.0,
+        "year_scale": 100.0,
+        "min_year": 1800.0,
+        "max_year": 2026.0
+      }
+    },
+    "feature_rows": 308672,
+    "feature_dim": 768,
+    "metadata_rows": 355281,
+    "split_rows": 355281
+  },
+  "metrics": [
+    {
+      "split": "val",
+      "method": "location",
+      "gamma": 0.0,
+      "n": 29529,
+      "median_km": 28.3389733468531,
+      "mean_km": 49.55685629749367,
+      "acc@25km": 46.72694639168275
+    },
+    {
+      "split": "val",
+      "method": "year",
+      "gamma": 1.0,
+      "n": 29529,
+      "median_km": 26.672075779221185,
+      "mean_km": 47.90825948371904,
+      "acc@25km": 48.18314199600393
+    },
+    {
+      "split": "test_in",
+      "method": "location",
+      "gamma": 0.0,
+      "n": 47593,
+      "median_km": 33.56539127919635,
+      "mean_km": 51.27407655439325,
+      "acc@25km": 42.0460992162713
+    },
+    {
+      "split": "test_in",
+      "method": "year",
+      "gamma": 1.0,
+      "n": 47593,
+      "median_km": 32.036808705957455,
+      "mean_km": 49.87584247729922,
+      "acc@25km": 43.466476162460864
+    },
+    {
+      "split": "test_city",
+      "method": "location",
+      "gamma": 0.0,
+      "n": 3377,
+      "median_km": 91.82395848692758,
+      "mean_km": 82.38073783077685,
+      "acc@25km": 8.972460763991709
+    },
+    {
+      "split": "test_city",
+      "method": "year",
+      "gamma": 1.0,
+      "n": 3377,
+      "median_km": 91.99834360873209,
+      "mean_km": 82.80774446213078,
+      "acc@25km": 8.913236600533017
+    },
+    {
+      "split": "test_region",
+      "method": "location",
+      "gamma": 0.0,
+      "n": 13039,
+      "median_km": 86.69618188114767,
+      "mean_km": 96.15277030560821,
+      "acc@25km": 2.0630416442978756
+    },
+    {
+      "split": "test_region",
+      "method": "year",
+      "gamma": 1.0,
+      "n": 13039,
+      "median_km": 83.19784194404194,
+      "mean_km": 94.37916764843914,
+      "acc@25km": 2.3084592376716007
+    }
+  ],
+  "candidate_spread": {
+    "val": {
+      "n": 29529,
+      "candidate_radius_median_km": 2.124789311914662,
+      "candidate_radius_le5km_percent": 63.16502421348504
+    },
+    "test_in": {
+      "n": 47593,
+      "candidate_radius_median_km": 2.497203358168546,
+      "candidate_radius_le5km_percent": 59.76929380371063
+    },
+    "test_city": {
+      "n": 3377,
+      "candidate_radius_median_km": 0.988167589448338,
+      "candidate_radius_le5km_percent": 77.28753331359195
+    },
+    "test_region": {
+      "n": 13039,
+      "candidate_radius_median_km": 4.097129945156337,
+      "candidate_radius_le5km_percent": 52.55004218114886
+    }
+  },
+  "candidate_spread_definition": "maximum Haversine distance from top-1 candidate GPS to any top-K candidate GPS per query; all available queries, evaluated after gamma selection",
+  "outputs": {
+    "predictions": "predictions.parquet",
+    "validation_curve": "val_gamma_search.json"
+  },
+  "source_sha256": "c08fc34fbf2f359d6aca0368e6e9564c3f0b27fe6f7101bf05bcad7ead38c685",
+  "elapsed_seconds": 309.66994672990404
+}
