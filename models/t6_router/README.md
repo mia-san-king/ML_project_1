@@ -27,6 +27,15 @@ python -m models.t6_router.evaluate --model data/local_runs/t6_aug8192/bundle_v2
 
 打包会核验已发布选择器和配套 T4、T5 权重及校准器的 SHA-256。需要从源数据重建图库时，用 `--data-root <增强图库>` 替换 `--from-bundle …`。批量评估按照片 ID 对齐已冻结的专家预测和真实坐标，在普通、伯尔尼、提契诺三个留出集分别报告结果。默认输出目录为 `data/local_runs/t6_aug8192/evaluation_v2`，其中 `predictions.parquet` 保存逐图结果，`metrics.csv` 保存各距离阈值的命中率和误差统计，`routing.csv` 保存相对 T5 救回或丢失的照片数。再次评估时请用 `--output-dir` 指向新目录。
 
+## 与 T1、T3 的测试集比较
+
+合并三组测试照片时，每张照片各计一次。按 25 公里分箱，最后一箱收录所有超过 250 公里的预测。[误差分布图及结果](../../report/experiments/2026-11-22-local-models/README.md#当前-t6-与-t1t3-的测试误差)
+
+```sh
+python -m models.t6_router.heldout_histogram evaluate --workspace . --model data/local_runs/t6_aug8192/bundle_v2/T6.json --output heldout_histogram.json
+python -m models.t6_router.heldout_histogram plot --summary heldout_histogram.json --output heldout_histogram.png
+```
+
 ## 选择器的地理块验证
 
 以下命令复现选择器训练和五折验证。每张外折验证照片的置信度都由其他地理块拟合的校准器估算。去掉预测坐标的对照保留两个置信度和相同的树模型。部署用的选择器由所有验证照片中的单边命中样本拟合，以折外置信度作为训练输入。T5 此前用过本验证集选择重排权重，所以这些指标属于开发验证结果。
