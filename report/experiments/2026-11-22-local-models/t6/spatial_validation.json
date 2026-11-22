@@ -1,0 +1,273 @@
+{
+  "n": 29529,
+  "n_blocks": 47,
+  "radius_km": 25.0,
+  "design": {
+    "outer_folds": 5,
+    "splitter": "GroupKFold, no shuffle, spatial block",
+    "tree_max_depth": 2,
+    "tree_min_samples_leaf": 250,
+    "seed": 42,
+    "target": "I(T4 error <= 25) - I(T5 error <= 25)",
+    "choose_T4_when": "predicted gain > 0",
+    "bootstrap": "3,000 paired whole-block resamples of fixed out-of-fold predictions, photo-weighted"
+  },
+  "methods": {
+    "candidate": {
+      "choose_T4": 0,
+      "hits": 15661,
+      "hit_pct": 53.03599850993939
+    },
+    "archived_T6": {
+      "choose_T4": 149,
+      "hits": 15703,
+      "hit_pct": 53.178231568966105
+    },
+    "block_refit_T6": {
+      "choose_T4": 1852,
+      "hits": 15335,
+      "hit_pct": 51.93199905177961
+    },
+    "always_T5": {
+      "choose_T4": 0,
+      "hits": 15661,
+      "hit_pct": 53.03599850993939
+    },
+    "always_T4": {
+      "choose_T4": 29529,
+      "hits": 7660,
+      "hit_pct": 25.94060076534932
+    }
+  },
+  "opportunities": {
+    "only_T4_hits": 2922,
+    "only_T5_hits": 10923,
+    "both_hit": 4738,
+    "neither_hits": 10946,
+    "oracle_hits": 18583
+  },
+  "comparisons": {
+    "vs_archived_T6": {
+      "baseline_hits": 15703,
+      "candidate_hits": 15661,
+      "rescued": 11,
+      "lost": 53,
+      "net": -42,
+      "delta_pp": -0.1422330590267195,
+      "block_ci95_pp": [
+        -0.3214086546410683,
+        0.039631817862941864
+      ],
+      "blocks_improved": 4,
+      "blocks_worse": 3,
+      "blocks_tied": 40
+    },
+    "vs_block_refit_T6": {
+      "baseline_hits": 15335,
+      "candidate_hits": 15661,
+      "rescued": 491,
+      "lost": 165,
+      "net": 326,
+      "delta_pp": 1.1039994581597752,
+      "block_ci95_pp": [
+        0.31717989471369185,
+        2.383160315438007
+      ],
+      "blocks_improved": 21,
+      "blocks_worse": 5,
+      "blocks_tied": 21
+    },
+    "vs_always_T5": {
+      "baseline_hits": 15661,
+      "candidate_hits": 15661,
+      "rescued": 0,
+      "lost": 0,
+      "net": 0,
+      "delta_pp": 0.0,
+      "block_ci95_pp": [
+        0.0,
+        0.0
+      ],
+      "blocks_improved": 0,
+      "blocks_worse": 0,
+      "blocks_tied": 47
+    }
+  },
+  "folds": [
+    {
+      "fold": 1,
+      "n_train": 23187,
+      "n_held": 6342,
+      "held_blocks": [
+        "26800125"
+      ],
+      "choose_T4": 0,
+      "all_held_choose_T5": true,
+      "positive_training_leaves": 0,
+      "rule": "|--- expert_gap_km <= 24.25026\n|   |--- expert_gap_km <= 17.79022\n|   |   |--- value: [-0.01335]\n|   |--- expert_gap_km >  17.79022\n|   |   |--- value: [-0.10552]\n|--- expert_gap_km >  24.25026\n|   |--- candidate_spread_km <= 24.05350\n|   |   |--- value: [-0.62999]\n|   |--- candidate_spread_km >  24.05350\n|   |   |--- value: [-0.31468]\n",
+      "vs_archived_T6": {
+        "rescued": 2,
+        "lost": 43
+      },
+      "vs_block_refit_T6": {
+        "rescued": 4,
+        "lost": 24
+      },
+      "vs_always_T5": {
+        "rescued": 0,
+        "lost": 0
+      }
+    },
+    {
+      "fold": 2,
+      "n_train": 23744,
+      "n_held": 5785,
+      "held_blocks": [
+        "25100116",
+        "25800116",
+        "25900113",
+        "26100115",
+        "26100125",
+        "26400119",
+        "26700124",
+        "28200120"
+      ],
+      "choose_T4": 0,
+      "all_held_choose_T5": true,
+      "positive_training_leaves": 0,
+      "rule": "|--- expert_gap_km <= 25.15947\n|   |--- expert_gap_km <= 19.03670\n|   |   |--- value: [-0.01845]\n|   |--- expert_gap_km >  19.03670\n|   |   |--- value: [-0.12406]\n|--- expert_gap_km >  25.15947\n|   |--- candidate_spread_km <= 33.12222\n|   |   |--- value: [-0.49968]\n|   |--- candidate_spread_km >  33.12222\n|   |   |--- value: [-0.27543]\n",
+      "vs_archived_T6": {
+        "rescued": 3,
+        "lost": 8
+      },
+      "vs_block_refit_T6": {
+        "rescued": 0,
+        "lost": 0
+      },
+      "vs_always_T5": {
+        "rescued": 0,
+        "lost": 0
+      }
+    },
+    {
+      "fold": 3,
+      "n_train": 23745,
+      "n_held": 5784,
+      "held_blocks": [
+        "24800111",
+        "25300114",
+        "25400113",
+        "25800113",
+        "26100127",
+        "26200124",
+        "26500111",
+        "26600116",
+        "26700121",
+        "27200121",
+        "27400115",
+        "27600119",
+        "27800118",
+        "27800120"
+      ],
+      "choose_T4": 0,
+      "all_held_choose_T5": true,
+      "positive_training_leaves": 0,
+      "rule": "|--- expert_gap_km <= 23.12310\n|   |--- expert_gap_km <= 17.76380\n|   |   |--- value: [-0.00971]\n|   |--- expert_gap_km >  17.76380\n|   |   |--- value: [-0.08902]\n|--- expert_gap_km >  23.12310\n|   |--- candidate_spread_km <= 29.03248\n|   |   |--- value: [-0.54112]\n|   |--- candidate_spread_km >  29.03248\n|   |   |--- value: [-0.26037]\n",
+      "vs_archived_T6": {
+        "rescued": 2,
+        "lost": 1
+      },
+      "vs_block_refit_T6": {
+        "rescued": 134,
+        "lost": 80
+      },
+      "vs_always_T5": {
+        "rescued": 0,
+        "lost": 0
+      }
+    },
+    {
+      "fold": 4,
+      "n_train": 23726,
+      "n_held": 5803,
+      "held_blocks": [
+        "25000113",
+        "25900121",
+        "26000124",
+        "26200110",
+        "26200122",
+        "26400115",
+        "26700128",
+        "26900121",
+        "27400118",
+        "27500124",
+        "27700119",
+        "27900118"
+      ],
+      "choose_T4": 0,
+      "all_held_choose_T5": true,
+      "positive_training_leaves": 0,
+      "rule": "|--- expert_gap_km <= 23.27235\n|   |--- expert_gap_km <= 16.11722\n|   |   |--- value: [-0.00234]\n|   |--- expert_gap_km >  16.11722\n|   |   |--- value: [-0.06948]\n|--- expert_gap_km >  23.27235\n|   |--- candidate_spread_km <= 29.01585\n|   |   |--- value: [-0.51988]\n|   |--- candidate_spread_km >  29.01585\n|   |   |--- value: [-0.24145]\n",
+      "vs_archived_T6": {
+        "rescued": 0,
+        "lost": 1
+      },
+      "vs_block_refit_T6": {
+        "rescued": 60,
+        "lost": 13
+      },
+      "vs_always_T5": {
+        "rescued": 0,
+        "lost": 0
+      }
+    },
+    {
+      "fold": 5,
+      "n_train": 23714,
+      "n_held": 5815,
+      "held_blocks": [
+        "25300118",
+        "25500110",
+        "25500116",
+        "25800108",
+        "25800115",
+        "26100122",
+        "26300121",
+        "26400122",
+        "26600115",
+        "26900128",
+        "27300115",
+        "27300124"
+      ],
+      "choose_T4": 0,
+      "all_held_choose_T5": true,
+      "positive_training_leaves": 0,
+      "rule": "|--- expert_gap_km <= 23.09866\n|   |--- expert_gap_km <= 16.43678\n|   |   |--- value: [-0.00587]\n|   |--- expert_gap_km >  16.43678\n|   |   |--- value: [-0.08648]\n|--- expert_gap_km >  23.09866\n|   |--- candidate_spread_km <= 25.51131\n|   |   |--- value: [-0.52983]\n|   |--- candidate_spread_km >  25.51131\n|   |   |--- value: [-0.29000]\n",
+      "vs_archived_T6": {
+        "rescued": 4,
+        "lost": 0
+      },
+      "vs_block_refit_T6": {
+        "rescued": 293,
+        "lost": 48
+      },
+      "vs_always_T5": {
+        "rescued": 0,
+        "lost": 0
+      }
+    }
+  ],
+  "input_sha256": {
+    "data/local_runs/t5_aug8192/candidates/val.npz": "d9f8e779d724fdeee85333d1d61ef35b17055047ef84fbaf1883323c43a54da0",
+    "data/local_runs/confidence_models/inputs.parquet": "0d6fe29f5e468acab78330901d7fd5fd41c806cf135d817640e663c98486100f",
+    "data/local_runs/confidence_models/predictions.parquet": "0e8948b1b89913dcca677720356ebc5717468bd23511e30fa6954b7ad1f977a4",
+    "data/t1_original/meta/smapshot.parquet": "0b80fdc41eb452c08b319bddcb46f492963f6993dc9567dd5e9f445889aa5650",
+    "data/splits/main.csv.gz": "67d2a56bcad5ba826d73a63174315779827456fd9011e40583f743021e72a0a3",
+    "data/t1_original/features/clip_vitl14_ids.npy": "9bd4e88dfeacb6a18f0620d7c006e324ad0d14828a543097d187371e34302a98"
+  },
+  "sklearn_version": "1.7.2",
+  "distance_km": "Great-circle distance between the frozen T4 and T5 predictions.",
+  "spread_km": "Median of the 1,225 pairwise great-circle distances between 50 distinct real parent photos. Co-located parents retain their zero distance.",
+  "scope": "Validation only. Expert weights and T5 reranking weight are fixed; T5 previously used this validation set to select its weight.",
+  "decisions_sha256": "ed2f339c9896a8604f33d569c0263fd31b3d0efff919ab40d20e3c5bc56e4463"
+}
