@@ -1,0 +1,15 @@
+{
+  "database": "DATA_ROOT/aug8192/records.sqlite",
+  "archived_accepted": 512,
+  "target_new_accepted": 7680,
+  "complete": true,
+  "accepted": 7680,
+  "rejected": 0,
+  "source_unavailable": 0,
+  "pending": 0,
+  "error": 0,
+  "new_accepted_per_second_this_invocation": 0.9553567013384403,
+  "eta_seconds": 0.0,
+  "reason": "target reached",
+  "updated_at": "2026-11-22T14:04:11.177270+00:00"
+}

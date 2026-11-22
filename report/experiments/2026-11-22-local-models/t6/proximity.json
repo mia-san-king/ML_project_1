@@ -1,0 +1,345 @@
+{
+  "gallery_size": 176308,
+  "distance_definition": "Great-circle distance from true test GPS to nearest real training photo; evaluation only.",
+  "p5_quartiles": {
+    "reference": "val calibration blocks, without hit labels",
+    "n": 5966,
+    "q25": 0.3986673633396805,
+    "q75": 0.558522316728185
+  },
+  "splits": {
+    "test_in": {
+      "all": {
+        "n": 47593,
+        "T4": {
+          "hits_25km": 10053,
+          "hit_rate_25km": 0.2112285420124808,
+          "median_km": 48.316762826556186
+        },
+        "T5": {
+          "hits_25km": 22949,
+          "hit_rate_25km": 0.48219275943941337,
+          "median_km": 26.70048256607333
+        },
+        "mean_t5_confidence": 0.5223833521902796,
+        "median_true_gallery_distance_km": 2.3876643695690394
+      },
+      "true_gallery_distance": {
+        "0_to_5km": {
+          "n": 44476,
+          "T4": {
+            "hits_25km": 9405,
+            "hit_rate_25km": 0.21146236172317653,
+            "median_km": 48.78259404141792
+          },
+          "T5": {
+            "hits_25km": 21765,
+            "hit_rate_25km": 0.4893650508139221,
+            "median_km": 25.98243353193738
+          },
+          "mean_t5_confidence": 0.5232480261452515,
+          "median_true_gallery_distance_km": 2.2137133015787076
+        },
+        "over_5_to_25km": {
+          "n": 3117,
+          "T4": {
+            "hits_25km": 648,
+            "hit_rate_25km": 0.2078922040423484,
+            "median_km": 43.747872012915686
+          },
+          "T5": {
+            "hits_25km": 1184,
+            "hit_rate_25km": 0.37985242220083415,
+            "median_km": 41.012723785326074
+          },
+          "mean_t5_confidence": 0.5100454507397414,
+          "median_true_gallery_distance_km": 5.506847129549167
+        },
+        "over_25km": {
+          "n": 0,
+          "T4": {
+            "hits_25km": 0,
+            "hit_rate_25km": null,
+            "median_km": null
+          },
+          "T5": {
+            "hits_25km": 0,
+            "hit_rate_25km": null,
+            "median_km": null
+          },
+          "mean_t5_confidence": null,
+          "median_true_gallery_distance_km": null
+        }
+      },
+      "deployable_t5_confidence": {
+        "lower_quartile": {
+          "n": 9766,
+          "T4": {
+            "hits_25km": 1643,
+            "hit_rate_25km": 0.16823673970919517,
+            "median_km": 53.643157421188036
+          },
+          "T5": {
+            "hits_25km": 3241,
+            "hit_rate_25km": 0.33186565635879584,
+            "median_km": 43.23393577417985
+          },
+          "mean_t5_confidence": 0.3557571164955205,
+          "median_true_gallery_distance_km": 2.448090510411034
+        },
+        "middle_half": {
+          "n": 23275,
+          "T4": {
+            "hits_25km": 4631,
+            "hit_rate_25km": 0.198968850698174,
+            "median_km": 49.34114005418786
+          },
+          "T5": {
+            "hits_25km": 10337,
+            "hit_rate_25km": 0.44412459720730396,
+            "median_km": 30.255672066235775
+          },
+          "mean_t5_confidence": 0.4766637930300688,
+          "median_true_gallery_distance_km": 2.4444363455718183
+        },
+        "upper_quartile": {
+          "n": 14552,
+          "T4": {
+            "hits_25km": 3779,
+            "hit_rate_25km": 0.25968938977460143,
+            "median_km": 43.18572057077972
+          },
+          "T5": {
+            "hits_25km": 9371,
+            "hit_rate_25km": 0.6439664650907092,
+            "median_km": 13.801013080957532
+          },
+          "mean_t5_confidence": 0.7073335004344332,
+          "median_true_gallery_distance_km": 2.250952789492332
+        }
+      }
+    },
+    "test_city": {
+      "all": {
+        "n": 3377,
+        "T4": {
+          "hits_25km": 337,
+          "hit_rate_25km": 0.09979271542789458,
+          "median_km": 61.28215851728474
+        },
+        "T5": {
+          "hits_25km": 235,
+          "hit_rate_25km": 0.0695883920639621,
+          "median_km": 93.49256443089172
+        },
+        "mean_t5_confidence": 0.4843886696310889,
+        "median_true_gallery_distance_km": 17.268403254747657
+      },
+      "true_gallery_distance": {
+        "0_to_5km": {
+          "n": 0,
+          "T4": {
+            "hits_25km": 0,
+            "hit_rate_25km": null,
+            "median_km": null
+          },
+          "T5": {
+            "hits_25km": 0,
+            "hit_rate_25km": null,
+            "median_km": null
+          },
+          "mean_t5_confidence": null,
+          "median_true_gallery_distance_km": null
+        },
+        "over_5_to_25km": {
+          "n": 3377,
+          "T4": {
+            "hits_25km": 337,
+            "hit_rate_25km": 0.09979271542789458,
+            "median_km": 61.28215851728474
+          },
+          "T5": {
+            "hits_25km": 235,
+            "hit_rate_25km": 0.0695883920639621,
+            "median_km": 93.49256443089172
+          },
+          "mean_t5_confidence": 0.4843886696310889,
+          "median_true_gallery_distance_km": 17.268403254747657
+        },
+        "over_25km": {
+          "n": 0,
+          "T4": {
+            "hits_25km": 0,
+            "hit_rate_25km": null,
+            "median_km": null
+          },
+          "T5": {
+            "hits_25km": 0,
+            "hit_rate_25km": null,
+            "median_km": null
+          },
+          "mean_t5_confidence": null,
+          "median_true_gallery_distance_km": null
+        }
+      },
+      "deployable_t5_confidence": {
+        "lower_quartile": {
+          "n": 917,
+          "T4": {
+            "hits_25km": 90,
+            "hit_rate_25km": 0.09814612868047982,
+            "median_km": 63.77827720553799
+          },
+          "T5": {
+            "hits_25km": 63,
+            "hit_rate_25km": 0.06870229007633588,
+            "median_km": 94.40618395707207
+          },
+          "mean_t5_confidence": 0.34951663988862636,
+          "median_true_gallery_distance_km": 17.194267051871186
+        },
+        "middle_half": {
+          "n": 1717,
+          "T4": {
+            "hits_25km": 179,
+            "hit_rate_25km": 0.10425160163075131,
+            "median_km": 60.08705571957324
+          },
+          "T5": {
+            "hits_25km": 108,
+            "hit_rate_25km": 0.0629004076878276,
+            "median_km": 93.63141894086311
+          },
+          "mean_t5_confidence": 0.4732470658774737,
+          "median_true_gallery_distance_km": 17.212468329093607
+        },
+        "upper_quartile": {
+          "n": 743,
+          "T4": {
+            "hits_25km": 68,
+            "hit_rate_25km": 0.09152086137281291,
+            "median_km": 61.595387988921225
+          },
+          "T5": {
+            "hits_25km": 64,
+            "hit_rate_25km": 0.08613728129205922,
+            "median_km": 89.70562953801975
+          },
+          "mean_t5_confidence": 0.6765929561974354,
+          "median_true_gallery_distance_km": 17.518652671808095
+        }
+      }
+    },
+    "test_region": {
+      "all": {
+        "n": 13039,
+        "T4": {
+          "hits_25km": 2693,
+          "hit_rate_25km": 0.20653424342357543,
+          "median_km": 47.16883249517274
+        },
+        "T5": {
+          "hits_25km": 387,
+          "hit_rate_25km": 0.029680190198634864,
+          "median_km": 85.58810314892641
+        },
+        "mean_t5_confidence": 0.4820477318908937,
+        "median_true_gallery_distance_km": 24.25923637352691
+      },
+      "true_gallery_distance": {
+        "0_to_5km": {
+          "n": 0,
+          "T4": {
+            "hits_25km": 0,
+            "hit_rate_25km": null,
+            "median_km": null
+          },
+          "T5": {
+            "hits_25km": 0,
+            "hit_rate_25km": null,
+            "median_km": null
+          },
+          "mean_t5_confidence": null,
+          "median_true_gallery_distance_km": null
+        },
+        "over_5_to_25km": {
+          "n": 6858,
+          "T4": {
+            "hits_25km": 2130,
+            "hit_rate_25km": 0.310586176727909,
+            "median_km": 35.156889303927855
+          },
+          "T5": {
+            "hits_25km": 387,
+            "hit_rate_25km": 0.05643044619422572,
+            "median_km": 68.99416734943463
+          },
+          "mean_t5_confidence": 0.4741594938743131,
+          "median_true_gallery_distance_km": 16.683073773076337
+        },
+        "over_25km": {
+          "n": 6181,
+          "T4": {
+            "hits_25km": 563,
+            "hit_rate_25km": 0.09108558485681928,
+            "median_km": 76.91051508165033
+          },
+          "T5": {
+            "hits_25km": 0,
+            "hit_rate_25km": 0.0,
+            "median_km": 119.97256313488869
+          },
+          "mean_t5_confidence": 0.4907999623257277,
+          "median_true_gallery_distance_km": 36.152621269630615
+        }
+      },
+      "deployable_t5_confidence": {
+        "lower_quartile": {
+          "n": 3457,
+          "T4": {
+            "hits_25km": 568,
+            "hit_rate_25km": 0.16430431009545848,
+            "median_km": 58.07658676759688
+          },
+          "T5": {
+            "hits_25km": 119,
+            "hit_rate_25km": 0.03442291003760486,
+            "median_km": 91.5271890417402
+          },
+          "mean_t5_confidence": 0.3507784801048798,
+          "median_true_gallery_distance_km": 22.080070308911473
+        },
+        "middle_half": {
+          "n": 7014,
+          "T4": {
+            "hits_25km": 1427,
+            "hit_rate_25km": 0.20345024237239806,
+            "median_km": 46.16312585081292
+          },
+          "T5": {
+            "hits_25km": 200,
+            "hit_rate_25km": 0.028514399771884802,
+            "median_km": 87.05813760007261
+          },
+          "mean_t5_confidence": 0.4832278269621653,
+          "median_true_gallery_distance_km": 24.198992125477577
+        },
+        "upper_quartile": {
+          "n": 2568,
+          "T4": {
+            "hits_25km": 698,
+            "hit_rate_25km": 0.2718068535825545,
+            "median_km": 38.1820684440942
+          },
+          "T5": {
+            "hits_25km": 68,
+            "hit_rate_25km": 0.0264797507788162,
+            "median_km": 74.79251034756159
+          },
+          "mean_t5_confidence": 0.6555370685709367,
+          "median_true_gallery_distance_km": 25.946041323463085
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,2318 @@
+{
+  "event": "Great-circle prediction error <= 25 km",
+  "estimators": "One confidence estimator per frozen geolocator with 8,192 diffusion training images.",
+  "splits": {
+    "val": "Confidence fit/calibration only",
+    "test_in": "In-country held-out blocks",
+    "test_city": "Held-out city of Bern",
+    "test_region": "Held-out region of Ticino"
+  },
+  "fit_procedure": "Seed 42. GroupShuffleSplit on the sorted unique validation block IDs; 30% of blocks held for calibration. Identical partition for every model.",
+  "fit_blocks": [
+    "24800111",
+    "25000113",
+    "25100116",
+    "25400113",
+    "25500116",
+    "25800113",
+    "25800115",
+    "25800116",
+    "25900121",
+    "26000124",
+    "26100115",
+    "26100122",
+    "26100125",
+    "26100127",
+    "26200122",
+    "26200124",
+    "26300121",
+    "26400115",
+    "26600116",
+    "26700121",
+    "26700124",
+    "26700128",
+    "26800125",
+    "26900128",
+    "27200121",
+    "27300124",
+    "27400115",
+    "27600119",
+    "27700119",
+    "27800120",
+    "27900118",
+    "28200120"
+  ],
+  "calibration_blocks": [
+    "25300114",
+    "25300118",
+    "25500110",
+    "25800108",
+    "25900113",
+    "26200110",
+    "26400119",
+    "26400122",
+    "26500111",
+    "26600115",
+    "26900121",
+    "27300115",
+    "27400118",
+    "27500124",
+    "27800118"
+  ],
+  "baseline": "Model-specific hit rate on the estimator-fitting portion of validation, assigned to all queries.",
+  "ece": "Sample-weighted absolute predicted vs observed hit-rate gaps, using 10 fixed probability bins. Intervals are left-closed, right-open, except [0.9, 1.0].",
+  "limitations": [
+    "The geolocators were frozen before this confidence experiment. Their original development used validation data, so only the three test splits evaluate the confidence layer.",
+    "The held-out city and region represent geographic shifts. Calibration fitted on validation blocks does not guarantee matching hit rates in these areas.",
+    "Metrics weight each query equally; photographs in the same block may be correlated. Rows for different models refer to the same query IDs."
+  ],
+  "input": {
+    "file": "inputs.parquet",
+    "sha256": "0d6fe29f5e468acab78330901d7fd5fd41c806cf135d817640e663c98486100f"
+  },
+  "reference_files": {
+    "main.csv.gz": "67d2a56bcad5ba826d73a63174315779827456fd9011e40583f743021e72a0a3",
+    "clip_vitl14_ids.npy": "9bd4e88dfeacb6a18f0620d7c006e324ad0d14828a543097d187371e34302a98"
+  },
+  "block_overlap_counts": {
+    "val/test_in": 0,
+    "val/test_city": 0,
+    "val/test_region": 0,
+    "test_in/test_city": 1,
+    "test_in/test_region": 0,
+    "test_city/test_region": 0
+  },
+  "unique_queries_per_split": {
+    "val": 29529,
+    "test_in": 47593,
+    "test_city": 3377,
+    "test_region": 13039
+  },
+  "sklearn_version": "1.7.2",
+  "artifacts": {
+    "T1": {
+      "file": "T1.joblib",
+      "sha256": "d9ac8b01d2b7d849701aa8abd8752403b518282cab20e669332bb28df349849d",
+      "features": [
+        "nearest_train_km",
+        "log1p_train_5km",
+        "log1p_train_25km",
+        "has_date"
+      ],
+      "n_fit": 23563,
+      "n_calibration": 5966,
+      "baseline_fit_hit_rate": 0.48037176929932524,
+      "reload_exact": true
+    },
+    "T3": {
+      "file": "T3.joblib",
+      "sha256": "e97998ffef32500f006cec232a1393394a6100054ad89b41dd87495e51c77efd",
+      "features": [
+        "t3_visual_score",
+        "t3_year_penalty",
+        "has_date"
+      ],
+      "n_fit": 23563,
+      "n_calibration": 5966,
+      "baseline_fit_hit_rate": 0.5044349191529092,
+      "reload_exact": true
+    },
+    "T4": {
+      "file": "T4.joblib",
+      "sha256": "25fdda8baf0bcd50f686ea4c9bce842c16df9eee8c0cb7fd6c8354222b8fa2c7",
+      "features": [
+        "t4_was_projected",
+        "nearest_train_km",
+        "log1p_train_5km",
+        "log1p_train_25km",
+        "has_date"
+      ],
+      "n_fit": 23563,
+      "n_calibration": 5966,
+      "baseline_fit_hit_rate": 0.2767898824428129,
+      "reload_exact": true
+    },
+    "T5": {
+      "file": "T5.joblib",
+      "sha256": "64107184a1340f7afa7402a71cb96c2711b20536e5e99abd14326abfcae6e734",
+      "features": [
+        "t5_visual_rank",
+        "t5_t3_score",
+        "t5_location_cosine"
+      ],
+      "n_fit": 23563,
+      "n_calibration": 5966,
+      "baseline_fit_hit_rate": 0.5375376649832364,
+      "reload_exact": true
+    }
+  },
+  "metrics": [
+    {
+      "model": "T1",
+      "split": "test_in",
+      "method": "per_model",
+      "n_blocks": 93,
+      "n": 47593,
+      "hits": 20198,
+      "mean_probability": 0.4231229097652389,
+      "hit_rate": 0.4243901414073498,
+      "ece_10": 0.06884988531438907,
+      "brier": 0.2515128513541823,
+      "auroc": 0.4320666811235315
+    },
+    {
+      "model": "T1",
+      "split": "test_in",
+      "method": "constant",
+      "n_blocks": 93,
+      "n": 47593,
+      "hits": 20198,
+      "mean_probability": 0.4803717692993254,
+      "hit_rate": 0.4243901414073498,
+      "ece_10": 0.05598162789197558,
+      "brier": 0.2474170919450351,
+      "auroc": 0.5
+    },
+    {
+      "model": "T1",
+      "split": "test_city",
+      "method": "per_model",
+      "n_blocks": 7,
+      "n": 3377,
+      "hits": 288,
+      "mean_probability": 0.39493118981036945,
+      "hit_rate": 0.08528279538051525,
+      "ece_10": 0.30964839442985415,
+      "brier": 0.17069422464839556,
+      "auroc": 0.7090639725189741
+    },
+    {
+      "model": "T1",
+      "split": "test_city",
+      "method": "constant",
+      "n_blocks": 7,
+      "n": 3377,
+      "hits": 288,
+      "mean_probability": 0.4803717692993254,
+      "hit_rate": 0.08528279538051525,
+      "ece_10": 0.39508897391881015,
+      "brier": 0.23410493750481856,
+      "auroc": 0.5
+    },
+    {
+      "model": "T1",
+      "split": "test_region",
+      "method": "per_model",
+      "n_blocks": 42,
+      "n": 13039,
+      "hits": 377,
+      "mean_probability": 0.43076254173756123,
+      "hit_rate": 0.028913260219341975,
+      "ece_10": 0.40184928151821925,
+      "brier": 0.18975601989470883,
+      "auroc": 0.6315653638133608
+    },
+    {
+      "model": "T1",
+      "split": "test_region",
+      "method": "constant",
+      "n_blocks": 42,
+      "n": 13039,
+      "hits": 377,
+      "mean_probability": 0.48037176929932535,
+      "hit_rate": 0.028913260219341975,
+      "ece_10": 0.45145850907998336,
+      "brier": 0.23189206902355197,
+      "auroc": 0.5
+    },
+    {
+      "model": "T3",
+      "split": "test_in",
+      "method": "per_model",
+      "n_blocks": 93,
+      "n": 47593,
+      "hits": 21600,
+      "mean_probability": 0.4789442959040077,
+      "hit_rate": 0.45384825499548254,
+      "ece_10": 0.03532530538562155,
+      "brier": 0.22084639340785797,
+      "auroc": 0.6906101722899756
+    },
+    {
+      "model": "T3",
+      "split": "test_in",
+      "method": "constant",
+      "n_blocks": 93,
+      "n": 47593,
+      "hits": 21600,
+      "mean_probability": 0.5044349191529092,
+      "hit_rate": 0.45384825499548254,
+      "ece_10": 0.05058666415742663,
+      "brier": 0.2504290270236144,
+      "auroc": 0.5
+    },
+    {
+      "model": "T3",
+      "split": "test_city",
+      "method": "per_model",
+      "n_blocks": 7,
+      "n": 3377,
+      "hits": 185,
+      "mean_probability": 0.41040311291385767,
+      "hit_rate": 0.05478235119928931,
+      "ece_10": 0.35562076171456836,
+      "brier": 0.1907754939965804,
+      "auroc": 0.6329954954954955
+    },
+    {
+      "model": "T3",
+      "split": "test_city",
+      "method": "constant",
+      "n_blocks": 7,
+      "n": 3377,
+      "hits": 185,
+      "mean_probability": 0.5044349191529092,
+      "hit_rate": 0.05478235119928931,
+      "ece_10": 0.4496525679536198,
+      "brier": 0.25396867706365184,
+      "auroc": 0.5
+    },
+    {
+      "model": "T3",
+      "split": "test_region",
+      "method": "per_model",
+      "n_blocks": 42,
+      "n": 13039,
+      "hits": 407,
+      "mean_probability": 0.3610706258822431,
+      "hit_rate": 0.031214050157220646,
+      "ece_10": 0.32985657572502236,
+      "brier": 0.1481826998035006,
+      "auroc": 0.5020436767586863
+    },
+    {
+      "model": "T3",
+      "split": "test_region",
+      "method": "constant",
+      "n_blocks": 42,
+      "n": 13039,
+      "hits": 407,
+      "mean_probability": 0.5044349191529092,
+      "hit_rate": 0.031214050157220646,
+      "ece_10": 0.4732208689956885,
+      "brier": 0.25417772408303785,
+      "auroc": 0.5
+    },
+    {
+      "model": "T4",
+      "split": "test_in",
+      "method": "per_model",
+      "n_blocks": 93,
+      "n": 47593,
+      "hits": 10053,
+      "mean_probability": 0.21346958737307675,
+      "hit_rate": 0.2112285420124808,
+      "ece_10": 0.049114544621369674,
+      "brier": 0.15508360446544472,
+      "auroc": 0.7048485581028965
+    },
+    {
+      "model": "T4",
+      "split": "test_in",
+      "method": "constant",
+      "n_blocks": 93,
+      "n": 47593,
+      "hits": 10053,
+      "mean_probability": 0.27678988244281294,
+      "hit_rate": 0.2112285420124808,
+      "ece_10": 0.06556134043033213,
+      "brier": 0.17090933441078437,
+      "auroc": 0.5
+    },
+    {
+      "model": "T4",
+      "split": "test_city",
+      "method": "per_model",
+      "n_blocks": 7,
+      "n": 3377,
+      "hits": 337,
+      "mean_probability": 0.23168015366866335,
+      "hit_rate": 0.09979271542789458,
+      "ece_10": 0.1469846112534147,
+      "brier": 0.12053002192853902,
+      "auroc": 0.15683224660315476
+    },
+    {
+      "model": "T4",
+      "split": "test_city",
+      "method": "constant",
+      "n_blocks": 7,
+      "n": 3377,
+      "hits": 337,
+      "mean_probability": 0.27678988244281294,
+      "hit_rate": 0.09979271542789458,
+      "ece_10": 0.17699716701491836,
+      "brier": 0.12116212650672875,
+      "auroc": 0.5
+    },
+    {
+      "model": "T4",
+      "split": "test_region",
+      "method": "per_model",
+      "n_blocks": 42,
+      "n": 13039,
+      "hits": 2693,
+      "mean_probability": 0.1735513537579296,
+      "hit_rate": 0.20653424342357543,
+      "ece_10": 0.1626450671426685,
+      "brier": 0.18768778067534087,
+      "auroc": 0.14224921324116502
+    },
+    {
+      "model": "T4",
+      "split": "test_region",
+      "method": "constant",
+      "n_blocks": 42,
+      "n": 13039,
+      "hits": 2693,
+      "mean_probability": 0.27678988244281294,
+      "hit_rate": 0.20653424342357543,
+      "ece_10": 0.07025563901923751,
+      "brier": 0.16881370453102815,
+      "auroc": 0.5
+    },
+    {
+      "model": "T5",
+      "split": "test_in",
+      "method": "per_model",
+      "n_blocks": 93,
+      "n": 47593,
+      "hits": 22949,
+      "mean_probability": 0.5223833521902796,
+      "hit_rate": 0.48219275943941337,
+      "ece_10": 0.04057033719619226,
+      "brier": 0.23427138213211107,
+      "auroc": 0.6459593986974456
+    },
+    {
+      "model": "T5",
+      "split": "test_in",
+      "method": "constant",
+      "n_blocks": 93,
+      "n": 47593,
+      "hits": 22949,
+      "mean_probability": 0.5375376649832366,
+      "hit_rate": 0.48219275943941337,
+      "ece_10": 0.055344905543823264,
+      "brier": 0.25274596075327205,
+      "auroc": 0.5
+    },
+    {
+      "model": "T5",
+      "split": "test_city",
+      "method": "per_model",
+      "n_blocks": 7,
+      "n": 3377,
+      "hits": 235,
+      "mean_probability": 0.4843886696310889,
+      "hit_rate": 0.0695883920639621,
+      "ece_10": 0.4148002775671268,
+      "brier": 0.2524865368059644,
+      "auroc": 0.5128370600105638
+    },
+    {
+      "model": "T5",
+      "split": "test_city",
+      "method": "constant",
+      "n_blocks": 7,
+      "n": 3377,
+      "hits": 235,
+      "mean_probability": 0.5375376649832365,
+      "hit_rate": 0.0695883920639621,
+      "ece_10": 0.4679492729192744,
+      "brier": 0.28372236977959175,
+      "auroc": 0.5
+    },
+    {
+      "model": "T5",
+      "split": "test_region",
+      "method": "per_model",
+      "n_blocks": 42,
+      "n": 13039,
+      "hits": 387,
+      "mean_probability": 0.4820477318908937,
+      "hit_rate": 0.029680190198634864,
+      "ece_10": 0.4523675416922588,
+      "brier": 0.24794941254581362,
+      "auroc": 0.46199904254702107
+    },
+    {
+      "model": "T5",
+      "split": "test_region",
+      "method": "constant",
+      "n_blocks": 42,
+      "n": 13039,
+      "hits": 387,
+      "mean_probability": 0.5375376649832365,
+      "hit_rate": 0.029680190198634864,
+      "ece_10": 0.5078574747846016,
+      "brier": 0.28671849120299986,
+      "auroc": 0.5
+    }
+  ],
+  "reliability_bins": [
+    {
+      "model": "T1",
+      "split": "test_in",
+      "method": "per_model",
+      "bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 1675,
+          "mean_probability": 0.273642968943609,
+          "hit_rate": 0.3808955223880597
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 7955,
+          "mean_probability": 0.36644953530661256,
+          "hit_rate": 0.5536140791954746
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 36131,
+          "mean_probability": 0.43736837090469116,
+          "hit_rate": 0.4088732667238659
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 1830,
+          "mean_probability": 0.5248427438515313,
+          "hit_rate": 0.20928961748633879
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 2,
+          "mean_probability": 0.6058938533340912,
+          "hit_rate": 0.0
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        }
+      ]
+    },
+    {
+      "model": "T1",
+      "split": "test_in",
+      "method": "constant",
+      "bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 47593,
+          "mean_probability": 0.4803717692993254,
+          "hit_rate": 0.4243901414073498
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        }
+      ]
+    },
+    {
+      "model": "T1",
+      "split": "test_city",
+      "method": "per_model",
+      "bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 787,
+          "mean_probability": 0.2685391112503036,
+          "hit_rate": 0.0
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 661,
+          "mean_probability": 0.34556310033190646,
+          "hit_rate": 0.02118003025718608
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 1610,
+          "mean_probability": 0.4496850813312102,
+          "hit_rate": 0.13229813664596274
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 318,
+          "mean_probability": 0.5324725261624402,
+          "hit_rate": 0.1918238993710692
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 1,
+          "mean_probability": 0.6058938533340912,
+          "hit_rate": 0.0
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        }
+      ]
+    },
+    {
+      "model": "T1",
+      "split": "test_city",
+      "method": "constant",
+      "bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 3377,
+          "mean_probability": 0.4803717692993254,
+          "hit_rate": 0.08528279538051525
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        }
+      ]
+    },
+    {
+      "model": "T1",
+      "split": "test_region",
+      "method": "per_model",
+      "bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 49,
+          "mean_probability": 0.2710335885098413,
+          "hit_rate": 0.0
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 1032,
+          "mean_probability": 0.3848090033603761,
+          "hit_rate": 0.01065891472868217
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 11741,
+          "mean_probability": 0.4336659494538641,
+          "hit_rate": 0.030235925389660166
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 215,
+          "mean_probability": 0.5275606705427142,
+          "hit_rate": 0.05116279069767442
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 2,
+          "mean_probability": 0.6058938533340912,
+          "hit_rate": 0.0
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        }
+      ]
+    },
+    {
+      "model": "T1",
+      "split": "test_region",
+      "method": "constant",
+      "bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 13039,
+          "mean_probability": 0.48037176929932535,
+          "hit_rate": 0.028913260219341975
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        }
+      ]
+    },
+    {
+      "model": "T3",
+      "split": "test_in",
+      "method": "per_model",
+      "bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 138,
+          "mean_probability": 0.17260915916189148,
+          "hit_rate": 0.21739130434782608
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 5410,
+          "mean_probability": 0.28116207734634535,
+          "hit_rate": 0.25748613678373383
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 15673,
+          "mean_probability": 0.3473543127502975,
+          "hit_rate": 0.30670579978306645
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 8513,
+          "mean_probability": 0.450482550172769,
+          "hit_rate": 0.47832726418418886
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 4935,
+          "mean_probability": 0.553600319791894,
+          "hit_rate": 0.5432624113475177
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 4271,
+          "mean_probability": 0.6336719425032445,
+          "hit_rate": 0.5820650901428237
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 7024,
+          "mean_probability": 0.7227864478547353,
+          "hit_rate": 0.6677107061503417
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 863,
+          "mean_probability": 0.8497834653227183,
+          "hit_rate": 0.8331402085747392
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 766,
+          "mean_probability": 0.9422993397985006,
+          "hit_rate": 0.9425587467362925
+        }
+      ]
+    },
+    {
+      "model": "T3",
+      "split": "test_in",
+      "method": "constant",
+      "bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 47593,
+          "mean_probability": 0.5044349191529092,
+          "hit_rate": 0.45384825499548254
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        }
+      ]
+    },
+    {
+      "model": "T3",
+      "split": "test_city",
+      "method": "per_model",
+      "bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 27,
+          "mean_probability": 0.16507630479835186,
+          "hit_rate": 0.1111111111111111
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 797,
+          "mean_probability": 0.27516964010925354,
+          "hit_rate": 0.030112923462986198
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 1226,
+          "mean_probability": 0.34482416007648947,
+          "hit_rate": 0.0399673735725938
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 550,
+          "mean_probability": 0.4477178526417399,
+          "hit_rate": 0.05272727272727273
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 305,
+          "mean_probability": 0.5525226605191144,
+          "hit_rate": 0.08524590163934426
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 204,
+          "mean_probability": 0.6307853204886812,
+          "hit_rate": 0.09803921568627451
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 247,
+          "mean_probability": 0.7209107780170776,
+          "hit_rate": 0.13360323886639677
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 18,
+          "mean_probability": 0.8385827108313466,
+          "hit_rate": 0.05555555555555555
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 3,
+          "mean_probability": 0.9352473011768628,
+          "hit_rate": 0.0
+        }
+      ]
+    },
+    {
+      "model": "T3",
+      "split": "test_city",
+      "method": "constant",
+      "bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 3377,
+          "mean_probability": 0.5044349191529092,
+          "hit_rate": 0.05478235119928931
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        }
+      ]
+    },
+    {
+      "model": "T3",
+      "split": "test_region",
+      "method": "per_model",
+      "bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 60,
+          "mean_probability": 0.16976789984297072,
+          "hit_rate": 0.016666666666666666
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 3404,
+          "mean_probability": 0.28120519193091653,
+          "hit_rate": 0.03202115158636898
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 6723,
+          "mean_probability": 0.34005076302813736,
+          "hit_rate": 0.03064108284991819
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 1729,
+          "mean_probability": 0.44647578233560875,
+          "hit_rate": 0.029496818970503182
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 587,
+          "mean_probability": 0.5485589354616669,
+          "hit_rate": 0.022146507666098807
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 279,
+          "mean_probability": 0.6292164365120186,
+          "hit_rate": 0.05017921146953405
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 252,
+          "mean_probability": 0.7169053087076028,
+          "hit_rate": 0.051587301587301584
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 5,
+          "mean_probability": 0.8515634723092077,
+          "hit_rate": 0.0
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        }
+      ]
+    },
+    {
+      "model": "T3",
+      "split": "test_region",
+      "method": "constant",
+      "bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 13039,
+          "mean_probability": 0.5044349191529092,
+          "hit_rate": 0.031214050157220646
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        }
+      ]
+    },
+    {
+      "model": "T4",
+      "split": "test_in",
+      "method": "per_model",
+      "bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 2311,
+          "mean_probability": 0.06716069495105999,
+          "hit_rate": 0.006490696668109044
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 20515,
+          "mean_probability": 0.18273823694730412,
+          "hit_rate": 0.13000243724104313
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 17864,
+          "mean_probability": 0.2213184298016232,
+          "hit_rate": 0.24244290192566054
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 6899,
+          "mean_probability": 0.33343038462561064,
+          "hit_rate": 0.44006377735903757
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 4,
+          "mean_probability": 0.4015303331782528,
+          "hit_rate": 1.0
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        }
+      ]
+    },
+    {
+      "model": "T4",
+      "split": "test_in",
+      "method": "constant",
+      "bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 47593,
+          "mean_probability": 0.27678988244281294,
+          "hit_rate": 0.2112285420124808
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        }
+      ]
+    },
+    {
+      "model": "T4",
+      "split": "test_city",
+      "method": "per_model",
+      "bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 1500,
+          "mean_probability": 0.1863389489120982,
+          "hit_rate": 0.20333333333333334
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 1160,
+          "mean_probability": 0.22992153068084828,
+          "hit_rate": 0.027586206896551724
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 717,
+          "mean_probability": 0.3293814225678448,
+          "hit_rate": 0.0
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        }
+      ]
+    },
+    {
+      "model": "T4",
+      "split": "test_city",
+      "method": "constant",
+      "bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 3377,
+          "mean_probability": 0.27678988244281294,
+          "hit_rate": 0.09979271542789458
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        }
+      ]
+    },
+    {
+      "model": "T4",
+      "split": "test_region",
+      "method": "per_model",
+      "bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 1685,
+          "mean_probability": 0.06607268178274062,
+          "hit_rate": 0.6581602373887241
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 7169,
+          "mean_probability": 0.1764919886712619,
+          "hit_rate": 0.21523224996512763
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 4082,
+          "mean_probability": 0.2088563331999085,
+          "hit_rate": 0.010044096031357178
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 103,
+          "mean_probability": 0.32797100912061017,
+          "hit_rate": 0.0
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        }
+      ]
+    },
+    {
+      "model": "T4",
+      "split": "test_region",
+      "method": "constant",
+      "bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 13039,
+          "mean_probability": 0.27678988244281294,
+          "hit_rate": 0.20653424342357543
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        }
+      ]
+    },
+    {
+      "model": "T5",
+      "split": "test_in",
+      "method": "per_model",
+      "bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 6,
+          "mean_probability": 0.18145954935017442,
+          "hit_rate": 0.3333333333333333
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 880,
+          "mean_probability": 0.27826665228488157,
+          "hit_rate": 0.2875
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 9113,
+          "mean_probability": 0.3644795245553113,
+          "hit_rate": 0.3349061779874904
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 15189,
+          "mean_probability": 0.4501025587453816,
+          "hit_rate": 0.4224109552965962
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 10590,
+          "mean_probability": 0.5418121816031545,
+          "hit_rate": 0.5016052880075543
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 5530,
+          "mean_probability": 0.6466881445225714,
+          "hit_rate": 0.5952983725135624
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 2892,
+          "mean_probability": 0.7497467451107334,
+          "hit_rate": 0.6739280774550485
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 2094,
+          "mean_probability": 0.837118758186439,
+          "hit_rate": 0.7621776504297995
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 1299,
+          "mean_probability": 0.9411447948723277,
+          "hit_rate": 0.8290993071593533
+        }
+      ]
+    },
+    {
+      "model": "T5",
+      "split": "test_in",
+      "method": "constant",
+      "bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 47593,
+          "mean_probability": 0.5375376649832366,
+          "hit_rate": 0.48219275943941337
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        }
+      ]
+    },
+    {
+      "model": "T5",
+      "split": "test_city",
+      "method": "per_model",
+      "bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 116,
+          "mean_probability": 0.27629719355076576,
+          "hit_rate": 0.08620689655172414
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 823,
+          "mean_probability": 0.36117932589238255,
+          "hit_rate": 0.06439854191980558
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 1163,
+          "mean_probability": 0.4488491679397594,
+          "hit_rate": 0.06964746345657781
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 708,
+          "mean_probability": 0.5411268653290952,
+          "hit_rate": 0.05367231638418079
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 327,
+          "mean_probability": 0.6432882161122612,
+          "hit_rate": 0.09785932721712538
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 131,
+          "mean_probability": 0.7415843055255198,
+          "hit_rate": 0.12213740458015267
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 83,
+          "mean_probability": 0.8349035220455983,
+          "hit_rate": 0.04819277108433735
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 26,
+          "mean_probability": 0.9442419882150368,
+          "hit_rate": 0.038461538461538464
+        }
+      ]
+    },
+    {
+      "model": "T5",
+      "split": "test_city",
+      "method": "constant",
+      "bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 3377,
+          "mean_probability": 0.5375376649832365,
+          "hit_rate": 0.0695883920639621
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        }
+      ]
+    },
+    {
+      "model": "T5",
+      "split": "test_region",
+      "method": "per_model",
+      "bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 10,
+          "mean_probability": 0.1738893540057334,
+          "hit_rate": 0.0
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 386,
+          "mean_probability": 0.27595831449132446,
+          "hit_rate": 0.04922279792746114
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 3126,
+          "mean_probability": 0.36160102312283665,
+          "hit_rate": 0.03262955854126679
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 3933,
+          "mean_probability": 0.44998521744249903,
+          "hit_rate": 0.028985507246376812
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 3784,
+          "mean_probability": 0.537616709692246,
+          "hit_rate": 0.030126849894291756
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 1173,
+          "mean_probability": 0.6390508204342474,
+          "hit_rate": 0.0196078431372549
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 393,
+          "mean_probability": 0.7486709900631079,
+          "hit_rate": 0.03307888040712468
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 185,
+          "mean_probability": 0.8252906890985547,
+          "hit_rate": 0.005405405405405406
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 49,
+          "mean_probability": 0.9418407405194461,
+          "hit_rate": 0.02040816326530612
+        }
+      ]
+    },
+    {
+      "model": "T5",
+      "split": "test_region",
+      "method": "constant",
+      "bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 13039,
+          "mean_probability": 0.5375376649832365,
+          "hit_rate": 0.029680190198634864
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "mean_probability": null,
+          "hit_rate": null
+        }
+      ]
+    }
+  ],
+  "predictions": {
+    "file": "predictions.parquet",
+    "rows": 374152,
+    "sha256": "0e8948b1b89913dcca677720356ebc5717468bd23511e30fa6954b7ad1f977a4"
+  }
+}

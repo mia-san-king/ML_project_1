@@ -1,0 +1,998 @@
+{
+  "metric": "Counts of real T3 reference photos within spherical 5 or 25 km of TRUE query GPS (6371.0088 km). A train label can serve only when a real parent is within the hit radius. Numbers after 8192 variants use the same real parents. coordinates_25 deduplicates exactly identical latitude/longitude tuples.",
+  "training_real_photo_ids": 176308,
+  "unique_gps_exact": 156064,
+  "sources": {
+    "main.csv.gz": {
+      "path": "data/splits/main.csv.gz",
+      "sha256": "67d2a56bcad5ba826d73a63174315779827456fd9011e40583f743021e72a0a3"
+    },
+    "smapshot.parquet": {
+      "path": "data/t1_original/meta/smapshot.parquet",
+      "sha256": "0b80fdc41eb452c08b319bddcb46f492963f6993dc9567dd5e9f445889aa5650"
+    },
+    "clip_vitl14_ids.npy": {
+      "path": "data/t1_original/features/clip_vitl14_ids.npy",
+      "sha256": "9bd4e88dfeacb6a18f0620d7c006e324ad0d14828a543097d187371e34302a98"
+    },
+    "t3_original": {
+      "path": "data/local_runs/t3_t4_8192/original/T3/predictions.parquet",
+      "sha256": "eb533910522dd79c1384bc43ebfe0e85138a70d0ca0762218b0f356e9a4d4c87"
+    },
+    "t3_aug8192": {
+      "path": "data/local_runs/t3_t4_8192/augmented/T3/predictions.parquet",
+      "sha256": "e8c96207efb50cdada34217ca0d1f69d8ff492ddbc252887276548944a372371"
+    },
+    "t1_original": {
+      "path": "data/local_runs/t1_full_20261122T111311_449581Z/results/preds/zhang7_T1_dual_time_available_s0_20261118.parquet",
+      "sha256": "a48cc5c721ca96ea23fa94aa619ddeb7928f2d271ef64fd9cc59fc442dfe2f5a"
+    },
+    "t1_aug8192": {
+      "path": "DATA_ROOT/aug8192/t1_runs/aug_20261122T140802_053796Z/results/preds/T1_aug8192_s0.parquet",
+      "sha256": "9bad1af77a8224f77f87ab3fdd6138f3418c7be4a32662e8a629673cb29a43e2"
+    }
+  },
+  "splits": {
+    "val": {
+      "all": {
+        "n": 29529,
+        "distinct_blocks": 47,
+        "median_nearest_km": 2.0706867854262034,
+        "median_train_counts": {
+          "count_5": 161.0,
+          "count_25": 8689.0,
+          "coordinates_25": 8165.0
+        },
+        "max_train_counts": {
+          "count_5": 14995,
+          "count_25": 40723
+        },
+        "oracle_hit_rate_pct": {
+          "5": 96.40692200887263,
+          "25": 100.0
+        },
+        "models": {
+          "t3_original": {
+            "hit_25_n": 14728,
+            "hit_25_pct": 49.87639269870297,
+            "median_km": 25.119504140994056
+          },
+          "t3_aug8192": {
+            "hit_25_n": 14674,
+            "hit_25_pct": 49.693521622811474,
+            "median_km": 25.360291751560204
+          },
+          "t1_original": {
+            "hit_25_n": 12934,
+            "hit_25_pct": 43.80100917741881,
+            "median_km": 30.70819989802055
+          },
+          "t1_aug8192": {
+            "hit_25_n": 13893,
+            "hit_25_pct": 47.04866402519557,
+            "median_km": 27.880454038809194
+          }
+        }
+      },
+      "train_photos_within_25km_bins": {
+        "0-0": {
+          "n": 0
+        },
+        "1-99": {
+          "n": 0
+        },
+        "100-999": {
+          "n": 104,
+          "distinct_blocks": 1,
+          "median_nearest_km": 4.792367527351178,
+          "median_train_counts": {
+            "count_5": 7.0,
+            "count_25": 937.0,
+            "coordinates_25": 337.0
+          },
+          "max_train_counts": {
+            "count_5": 56,
+            "count_25": 976
+          },
+          "oracle_hit_rate_pct": {
+            "5": 51.92307692307693,
+            "25": 100.0
+          },
+          "models": {
+            "t3_original": {
+              "hit_25_n": 33,
+              "hit_25_pct": 31.73076923076923,
+              "median_km": 40.226634899522466
+            },
+            "t3_aug8192": {
+              "hit_25_n": 34,
+              "hit_25_pct": 32.69230769230769,
+              "median_km": 41.233308291734986
+            },
+            "t1_original": {
+              "hit_25_n": 36,
+              "hit_25_pct": 34.61538461538461,
+              "median_km": 42.09040481021944
+            },
+            "t1_aug8192": {
+              "hit_25_n": 10,
+              "hit_25_pct": 9.615384615384617,
+              "median_km": 44.55058237561258
+            }
+          }
+        },
+        "1000-4999": {
+          "n": 6576,
+          "distinct_blocks": 27,
+          "median_nearest_km": 2.358321354729985,
+          "median_train_counts": {
+            "count_5": 66.0,
+            "count_25": 3712.0,
+            "coordinates_25": 2682.0
+          },
+          "max_train_counts": {
+            "count_5": 795,
+            "count_25": 4999
+          },
+          "oracle_hit_rate_pct": {
+            "5": 91.37773722627736,
+            "25": 100.0
+          },
+          "models": {
+            "t3_original": {
+              "hit_25_n": 2696,
+              "hit_25_pct": 40.99756690997567,
+              "median_km": 36.09016679395464
+            },
+            "t3_aug8192": {
+              "hit_25_n": 2578,
+              "hit_25_pct": 39.20316301703163,
+              "median_km": 37.85966197803482
+            },
+            "t1_original": {
+              "hit_25_n": 1972,
+              "hit_25_pct": 29.987834549878343,
+              "median_km": 42.884023599260736
+            },
+            "t1_aug8192": {
+              "hit_25_n": 2162,
+              "hit_25_pct": 32.87712895377129,
+              "median_km": 44.5300348480332
+            }
+          }
+        },
+        "5000-9999": {
+          "n": 9442,
+          "distinct_blocks": 31,
+          "median_nearest_km": 2.041383905044384,
+          "median_train_counts": {
+            "count_5": 125.0,
+            "count_25": 6600.0,
+            "coordinates_25": 5859.0
+          },
+          "max_train_counts": {
+            "count_5": 1470,
+            "count_25": 9998
+          },
+          "oracle_hit_rate_pct": {
+            "5": 96.72738826519806,
+            "25": 100.0
+          },
+          "models": {
+            "t3_original": {
+              "hit_25_n": 4333,
+              "hit_25_pct": 45.890701122643506,
+              "median_km": 29.733672456283173
+            },
+            "t3_aug8192": {
+              "hit_25_n": 4385,
+              "hit_25_pct": 46.44143190002118,
+              "median_km": 29.035376280962502
+            },
+            "t1_original": {
+              "hit_25_n": 3556,
+              "hit_25_pct": 37.66151239144249,
+              "median_km": 36.567718331222366
+            },
+            "t1_aug8192": {
+              "hit_25_n": 4191,
+              "hit_25_pct": 44.38678246134294,
+              "median_km": 30.719851551100874
+            }
+          }
+        },
+        "10000+": {
+          "n": 13407,
+          "distinct_blocks": 9,
+          "median_nearest_km": 1.9391141610190474,
+          "median_train_counts": {
+            "count_5": 464.0,
+            "count_25": 37600.0,
+            "coordinates_25": 37479.0
+          },
+          "max_train_counts": {
+            "count_5": 14995,
+            "count_25": 40723
+          },
+          "oracle_hit_rate_pct": {
+            "5": 98.99306332512866,
+            "25": 100.0
+          },
+          "models": {
+            "t3_original": {
+              "hit_25_n": 7666,
+              "hit_25_pct": 57.179085552323414,
+              "median_km": 19.449656440087075
+            },
+            "t3_aug8192": {
+              "hit_25_n": 7677,
+              "hit_25_pct": 57.261132244349966,
+              "median_km": 19.503789332787438
+            },
+            "t1_original": {
+              "hit_25_n": 7370,
+              "hit_25_pct": 54.97128365779071,
+              "median_km": 21.339704184283637
+            },
+            "t1_aug8192": {
+              "hit_25_n": 7530,
+              "hit_25_pct": 56.16469008726784,
+              "median_km": 20.53689872201254
+            }
+          }
+        }
+      },
+      "within_25km_possible": {
+        "n": 29529,
+        "distinct_blocks": 47,
+        "median_nearest_km": 2.0706867854262034,
+        "median_train_counts": {
+          "count_5": 161.0,
+          "count_25": 8689.0,
+          "coordinates_25": 8165.0
+        },
+        "max_train_counts": {
+          "count_5": 14995,
+          "count_25": 40723
+        },
+        "oracle_hit_rate_pct": {
+          "5": 96.40692200887263,
+          "25": 100.0
+        },
+        "models": {
+          "t3_original": {
+            "hit_25_n": 14728,
+            "hit_25_pct": 49.87639269870297,
+            "median_km": 25.119504140994056
+          },
+          "t3_aug8192": {
+            "hit_25_n": 14674,
+            "hit_25_pct": 49.693521622811474,
+            "median_km": 25.360291751560204
+          },
+          "t1_original": {
+            "hit_25_n": 12934,
+            "hit_25_pct": 43.80100917741881,
+            "median_km": 30.70819989802055
+          },
+          "t1_aug8192": {
+            "hit_25_n": 13893,
+            "hit_25_pct": 47.04866402519557,
+            "median_km": 27.880454038809194
+          }
+        }
+      },
+      "within_25km_impossible": {
+        "n": 0
+      }
+    },
+    "test_in": {
+      "all": {
+        "n": 47593,
+        "distinct_blocks": 93,
+        "median_nearest_km": 2.3876643695690394,
+        "median_train_counts": {
+          "count_5": 118.0,
+          "count_25": 6730.0,
+          "coordinates_25": 5493.0
+        },
+        "max_train_counts": {
+          "count_5": 10973,
+          "count_25": 39671
+        },
+        "oracle_hit_rate_pct": {
+          "5": 93.45071754249574,
+          "25": 100.0
+        },
+        "models": {
+          "t3_original": {
+            "hit_25_n": 21339,
+            "hit_25_pct": 44.83642552476205,
+            "median_km": 30.213158468471292
+          },
+          "t3_aug8192": {
+            "hit_25_n": 21600,
+            "hit_25_pct": 45.384825499548256,
+            "median_km": 29.43252717929069
+          },
+          "t1_original": {
+            "hit_25_n": 19243,
+            "hit_25_pct": 40.43241653184292,
+            "median_km": 35.24482469910346
+          },
+          "t1_aug8192": {
+            "hit_25_n": 20198,
+            "hit_25_pct": 42.43901414073498,
+            "median_km": 32.86321747589864
+          }
+        }
+      },
+      "train_photos_within_25km_bins": {
+        "0-0": {
+          "n": 0
+        },
+        "1-99": {
+          "n": 0
+        },
+        "100-999": {
+          "n": 154,
+          "distinct_blocks": 3,
+          "median_nearest_km": 4.285112295811031,
+          "median_train_counts": {
+            "count_5": 22.0,
+            "count_25": 644.0,
+            "coordinates_25": 332.0
+          },
+          "max_train_counts": {
+            "count_5": 69,
+            "count_25": 969
+          },
+          "oracle_hit_rate_pct": {
+            "5": 75.97402597402598,
+            "25": 100.0
+          },
+          "models": {
+            "t3_original": {
+              "hit_25_n": 83,
+              "hit_25_pct": 53.896103896103895,
+              "median_km": 18.145288684434043
+            },
+            "t3_aug8192": {
+              "hit_25_n": 91,
+              "hit_25_pct": 59.09090909090909,
+              "median_km": 12.625167270957077
+            },
+            "t1_original": {
+              "hit_25_n": 54,
+              "hit_25_pct": 35.064935064935064,
+              "median_km": 64.4183479175872
+            },
+            "t1_aug8192": {
+              "hit_25_n": 61,
+              "hit_25_pct": 39.61038961038961,
+              "median_km": 60.49500873954544
+            }
+          }
+        },
+        "1000-4999": {
+          "n": 10070,
+          "distinct_blocks": 51,
+          "median_nearest_km": 2.8459756615112366,
+          "median_train_counts": {
+            "count_5": 44.0,
+            "count_25": 3541.5,
+            "coordinates_25": 2815.0
+          },
+          "max_train_counts": {
+            "count_5": 548,
+            "count_25": 4999
+          },
+          "oracle_hit_rate_pct": {
+            "5": 90.28798411122145,
+            "25": 100.0
+          },
+          "models": {
+            "t3_original": {
+              "hit_25_n": 3822,
+              "hit_25_pct": 37.95431976166832,
+              "median_km": 41.79331202454618
+            },
+            "t3_aug8192": {
+              "hit_25_n": 3790,
+              "hit_25_pct": 37.63654419066535,
+              "median_km": 41.53606023151397
+            },
+            "t1_original": {
+              "hit_25_n": 3010,
+              "hit_25_pct": 29.890764647467726,
+              "median_km": 52.53463031816745
+            },
+            "t1_aug8192": {
+              "hit_25_n": 3352,
+              "hit_25_pct": 33.286991062562066,
+              "median_km": 46.30631933126922
+            }
+          }
+        },
+        "5000-9999": {
+          "n": 23842,
+          "distinct_blocks": 60,
+          "median_nearest_km": 2.365175304940683,
+          "median_train_counts": {
+            "count_5": 103.0,
+            "count_25": 6393.0,
+            "coordinates_25": 5213.0
+          },
+          "max_train_counts": {
+            "count_5": 867,
+            "count_25": 9997
+          },
+          "oracle_hit_rate_pct": {
+            "5": 92.65581746497777,
+            "25": 100.0
+          },
+          "models": {
+            "t3_original": {
+              "hit_25_n": 10384,
+              "hit_25_pct": 43.553393171713786,
+              "median_km": 33.08669877348863
+            },
+            "t3_aug8192": {
+              "hit_25_n": 10593,
+              "hit_25_pct": 44.4299974834326,
+              "median_km": 31.621640460369015
+            },
+            "t1_original": {
+              "hit_25_n": 9564,
+              "hit_25_pct": 40.11408438889355,
+              "median_km": 37.297988972615755
+            },
+            "t1_aug8192": {
+              "hit_25_n": 9717,
+              "hit_25_pct": 40.755809076419766,
+              "median_km": 37.55074994459177
+            }
+          }
+        },
+        "10000+": {
+          "n": 13527,
+          "distinct_blocks": 13,
+          "median_nearest_km": 2.019088754147613,
+          "median_train_counts": {
+            "count_5": 374.0,
+            "count_25": 32850.0,
+            "coordinates_25": 32727.0
+          },
+          "max_train_counts": {
+            "count_5": 10973,
+            "count_25": 39671
+          },
+          "oracle_hit_rate_pct": {
+            "5": 97.40518962075848,
+            "25": 100.0
+          },
+          "models": {
+            "t3_original": {
+              "hit_25_n": 7050,
+              "hit_25_pct": 52.11798624972278,
+              "median_km": 23.755329850259898
+            },
+            "t3_aug8192": {
+              "hit_25_n": 7126,
+              "hit_25_pct": 52.67982553411695,
+              "median_km": 23.43743061504394
+            },
+            "t1_original": {
+              "hit_25_n": 6615,
+              "hit_25_pct": 48.902195608782435,
+              "median_km": 25.59746382178662
+            },
+            "t1_aug8192": {
+              "hit_25_n": 7068,
+              "hit_25_pct": 52.25105344865823,
+              "median_km": 23.61702748965858
+            }
+          }
+        }
+      },
+      "within_25km_possible": {
+        "n": 47593,
+        "distinct_blocks": 93,
+        "median_nearest_km": 2.3876643695690394,
+        "median_train_counts": {
+          "count_5": 118.0,
+          "count_25": 6730.0,
+          "coordinates_25": 5493.0
+        },
+        "max_train_counts": {
+          "count_5": 10973,
+          "count_25": 39671
+        },
+        "oracle_hit_rate_pct": {
+          "5": 93.45071754249574,
+          "25": 100.0
+        },
+        "models": {
+          "t3_original": {
+            "hit_25_n": 21339,
+            "hit_25_pct": 44.83642552476205,
+            "median_km": 30.213158468471292
+          },
+          "t3_aug8192": {
+            "hit_25_n": 21600,
+            "hit_25_pct": 45.384825499548256,
+            "median_km": 29.43252717929069
+          },
+          "t1_original": {
+            "hit_25_n": 19243,
+            "hit_25_pct": 40.43241653184292,
+            "median_km": 35.24482469910346
+          },
+          "t1_aug8192": {
+            "hit_25_n": 20198,
+            "hit_25_pct": 42.43901414073498,
+            "median_km": 32.86321747589864
+          }
+        }
+      },
+      "within_25km_impossible": {
+        "n": 0
+      },
+      "observed_spearman": {
+        "count_5": {
+          "individual_n": 47593,
+          "block_n": 93,
+          "rho_density_error_per_photo": -0.21155274970285273,
+          "rho_block_density_vs_block_error": -0.31473281767866096,
+          "rho_block_density_vs_block_hit_pct": 0.3535430782250359
+        },
+        "count_25": {
+          "individual_n": 47593,
+          "block_n": 93,
+          "rho_density_error_per_photo": -0.1657283588419556,
+          "rho_block_density_vs_block_error": -0.1139928456068836,
+          "rho_block_density_vs_block_hit_pct": 0.07121648438747297
+        },
+        "coordinates_25": {
+          "individual_n": 47593,
+          "block_n": 93,
+          "rho_density_error_per_photo": -0.1341262415513812,
+          "rho_block_density_vs_block_error": -0.05022231506072633,
+          "rho_block_density_vs_block_hit_pct": -0.0013801592779273998
+        }
+      }
+    },
+    "test_city": {
+      "all": {
+        "n": 3377,
+        "distinct_blocks": 7,
+        "median_nearest_km": 17.268403254747657,
+        "median_train_counts": {
+          "count_5": 0.0,
+          "count_25": 2944.0,
+          "coordinates_25": 2940.0
+        },
+        "max_train_counts": {
+          "count_5": 0,
+          "count_25": 4662
+        },
+        "oracle_hit_rate_pct": {
+          "5": 0.0,
+          "25": 100.0
+        },
+        "models": {
+          "t3_original": {
+            "hit_25_n": 213,
+            "hit_25_pct": 6.307373408350607,
+            "median_km": 92.72914884341387
+          },
+          "t3_aug8192": {
+            "hit_25_n": 185,
+            "hit_25_pct": 5.4782351199289305,
+            "median_km": 93.59621920099539
+          },
+          "t1_original": {
+            "hit_25_n": 287,
+            "hit_25_pct": 8.49866745632218,
+            "median_km": 87.28008562416355
+          },
+          "t1_aug8192": {
+            "hit_25_n": 288,
+            "hit_25_pct": 8.528279538051525,
+            "median_km": 89.04582003550688
+          }
+        }
+      },
+      "train_photos_within_25km_bins": {
+        "0-0": {
+          "n": 0
+        },
+        "1-99": {
+          "n": 0
+        },
+        "100-999": {
+          "n": 0
+        },
+        "1000-4999": {
+          "n": 3377,
+          "distinct_blocks": 7,
+          "median_nearest_km": 17.268403254747657,
+          "median_train_counts": {
+            "count_5": 0.0,
+            "count_25": 2944.0,
+            "coordinates_25": 2940.0
+          },
+          "max_train_counts": {
+            "count_5": 0,
+            "count_25": 4662
+          },
+          "oracle_hit_rate_pct": {
+            "5": 0.0,
+            "25": 100.0
+          },
+          "models": {
+            "t3_original": {
+              "hit_25_n": 213,
+              "hit_25_pct": 6.307373408350607,
+              "median_km": 92.72914884341387
+            },
+            "t3_aug8192": {
+              "hit_25_n": 185,
+              "hit_25_pct": 5.4782351199289305,
+              "median_km": 93.59621920099539
+            },
+            "t1_original": {
+              "hit_25_n": 287,
+              "hit_25_pct": 8.49866745632218,
+              "median_km": 87.28008562416355
+            },
+            "t1_aug8192": {
+              "hit_25_n": 288,
+              "hit_25_pct": 8.528279538051525,
+              "median_km": 89.04582003550688
+            }
+          }
+        },
+        "5000-9999": {
+          "n": 0
+        },
+        "10000+": {
+          "n": 0
+        }
+      },
+      "within_25km_possible": {
+        "n": 3377,
+        "distinct_blocks": 7,
+        "median_nearest_km": 17.268403254747657,
+        "median_train_counts": {
+          "count_5": 0.0,
+          "count_25": 2944.0,
+          "coordinates_25": 2940.0
+        },
+        "max_train_counts": {
+          "count_5": 0,
+          "count_25": 4662
+        },
+        "oracle_hit_rate_pct": {
+          "5": 0.0,
+          "25": 100.0
+        },
+        "models": {
+          "t3_original": {
+            "hit_25_n": 213,
+            "hit_25_pct": 6.307373408350607,
+            "median_km": 92.72914884341387
+          },
+          "t3_aug8192": {
+            "hit_25_n": 185,
+            "hit_25_pct": 5.4782351199289305,
+            "median_km": 93.59621920099539
+          },
+          "t1_original": {
+            "hit_25_n": 287,
+            "hit_25_pct": 8.49866745632218,
+            "median_km": 87.28008562416355
+          },
+          "t1_aug8192": {
+            "hit_25_n": 288,
+            "hit_25_pct": 8.528279538051525,
+            "median_km": 89.04582003550688
+          }
+        }
+      },
+      "within_25km_impossible": {
+        "n": 0
+      }
+    },
+    "test_region": {
+      "all": {
+        "n": 13039,
+        "distinct_blocks": 42,
+        "median_nearest_km": 24.25923637352691,
+        "median_train_counts": {
+          "count_5": 0.0,
+          "count_25": 14.0,
+          "coordinates_25": 6.0
+        },
+        "max_train_counts": {
+          "count_5": 0,
+          "count_25": 2883
+        },
+        "oracle_hit_rate_pct": {
+          "5": 0.0,
+          "25": 52.59605797990643
+        },
+        "models": {
+          "t3_original": {
+            "hit_25_n": 503,
+            "hit_25_pct": 3.85765779584324,
+            "median_km": 81.9074857925272
+          },
+          "t3_aug8192": {
+            "hit_25_n": 407,
+            "hit_25_pct": 3.1214050157220647,
+            "median_km": 84.28399815901868
+          },
+          "t1_original": {
+            "hit_25_n": 310,
+            "hit_25_pct": 2.377482935807961,
+            "median_km": 98.16717878890356
+          },
+          "t1_aug8192": {
+            "hit_25_n": 377,
+            "hit_25_pct": 2.8913260219341974,
+            "median_km": 90.81371528982747
+          }
+        }
+      },
+      "train_photos_within_25km_bins": {
+        "0-0": {
+          "n": 6181,
+          "distinct_blocks": 26,
+          "median_nearest_km": 36.152621269630615,
+          "median_train_counts": {
+            "count_5": 0.0,
+            "count_25": 0.0,
+            "coordinates_25": 0.0
+          },
+          "max_train_counts": {
+            "count_5": 0,
+            "count_25": 0
+          },
+          "oracle_hit_rate_pct": {
+            "5": 0.0,
+            "25": 0.0
+          },
+          "models": {
+            "t3_original": {
+              "hit_25_n": 0,
+              "hit_25_pct": 0.0,
+              "median_km": 119.45046363802861
+            },
+            "t3_aug8192": {
+              "hit_25_n": 0,
+              "hit_25_pct": 0.0,
+              "median_km": 118.78669109477359
+            },
+            "t1_original": {
+              "hit_25_n": 0,
+              "hit_25_pct": 0.0,
+              "median_km": 118.00138560754293
+            },
+            "t1_aug8192": {
+              "hit_25_n": 0,
+              "hit_25_pct": 0.0,
+              "median_km": 122.07877432168355
+            }
+          }
+        },
+        "1-99": {
+          "n": 1015,
+          "distinct_blocks": 14,
+          "median_nearest_km": 23.787864756587965,
+          "median_train_counts": {
+            "count_5": 0.0,
+            "count_25": 27.0,
+            "coordinates_25": 9.0
+          },
+          "max_train_counts": {
+            "count_5": 0,
+            "count_25": 98
+          },
+          "oracle_hit_rate_pct": {
+            "5": 0.0,
+            "25": 100.0
+          },
+          "models": {
+            "t3_original": {
+              "hit_25_n": 1,
+              "hit_25_pct": 0.09852216748768472,
+              "median_km": 74.58991257742541
+            },
+            "t3_aug8192": {
+              "hit_25_n": 2,
+              "hit_25_pct": 0.19704433497536944,
+              "median_km": 77.3555101104467
+            },
+            "t1_original": {
+              "hit_25_n": 1,
+              "hit_25_pct": 0.09852216748768472,
+              "median_km": 85.78756076268978
+            },
+            "t1_aug8192": {
+              "hit_25_n": 13,
+              "hit_25_pct": 1.2807881773399015,
+              "median_km": 82.83009986074778
+            }
+          }
+        },
+        "100-999": {
+          "n": 3738,
+          "distinct_blocks": 20,
+          "median_nearest_km": 17.626390358735534,
+          "median_train_counts": {
+            "count_5": 0.0,
+            "count_25": 334.5,
+            "coordinates_25": 120.5
+          },
+          "max_train_counts": {
+            "count_5": 0,
+            "count_25": 999
+          },
+          "oracle_hit_rate_pct": {
+            "5": 0.0,
+            "25": 100.0
+          },
+          "models": {
+            "t3_original": {
+              "hit_25_n": 86,
+              "hit_25_pct": 2.3006955591225253,
+              "median_km": 68.60341578195448
+            },
+            "t3_aug8192": {
+              "hit_25_n": 84,
+              "hit_25_pct": 2.247191011235955,
+              "median_km": 69.65265119635275
+            },
+            "t1_original": {
+              "hit_25_n": 73,
+              "hit_25_pct": 1.9529159978598183,
+              "median_km": 78.8884826602054
+            },
+            "t1_aug8192": {
+              "hit_25_n": 82,
+              "hit_25_pct": 2.1936864633493847,
+              "median_km": 75.85635867479657
+            }
+          }
+        },
+        "1000-4999": {
+          "n": 2105,
+          "distinct_blocks": 10,
+          "median_nearest_km": 12.83365435477772,
+          "median_train_counts": {
+            "count_5": 0.0,
+            "count_25": 1616.0,
+            "coordinates_25": 1030.0
+          },
+          "max_train_counts": {
+            "count_5": 0,
+            "count_25": 2883
+          },
+          "oracle_hit_rate_pct": {
+            "5": 0.0,
+            "25": 100.0
+          },
+          "models": {
+            "t3_original": {
+              "hit_25_n": 416,
+              "hit_25_pct": 19.7624703087886,
+              "median_km": 54.48271558759468
+            },
+            "t3_aug8192": {
+              "hit_25_n": 321,
+              "hit_25_pct": 15.24940617577197,
+              "median_km": 57.370273759345935
+            },
+            "t1_original": {
+              "hit_25_n": 236,
+              "hit_25_pct": 11.211401425178147,
+              "median_km": 72.17859548258158
+            },
+            "t1_aug8192": {
+              "hit_25_n": 282,
+              "hit_25_pct": 13.39667458432304,
+              "median_km": 65.64499331470292
+            }
+          }
+        },
+        "5000-9999": {
+          "n": 0
+        },
+        "10000+": {
+          "n": 0
+        }
+      },
+      "within_25km_possible": {
+        "n": 6858,
+        "distinct_blocks": 27,
+        "median_nearest_km": 16.683073773076337,
+        "median_train_counts": {
+          "count_5": 0.0,
+          "count_25": 432.0,
+          "coordinates_25": 238.0
+        },
+        "max_train_counts": {
+          "count_5": 0,
+          "count_25": 2883
+        },
+        "oracle_hit_rate_pct": {
+          "5": 0.0,
+          "25": 100.0
+        },
+        "models": {
+          "t3_original": {
+            "hit_25_n": 503,
+            "hit_25_pct": 7.334499854184894,
+            "median_km": 66.2643315590247
+          },
+          "t3_aug8192": {
+            "hit_25_n": 407,
+            "hit_25_pct": 5.934674832312627,
+            "median_km": 68.05949583759329
+          },
+          "t1_original": {
+            "hit_25_n": 310,
+            "hit_25_pct": 4.520268299795859,
+            "median_km": 78.50906482183642
+          },
+          "t1_aug8192": {
+            "hit_25_n": 377,
+            "hit_25_pct": 5.497229512977545,
+            "median_km": 74.01169621431063
+          }
+        }
+      },
+      "within_25km_impossible": {
+        "n": 6181,
+        "distinct_blocks": 26,
+        "median_nearest_km": 36.152621269630615,
+        "median_train_counts": {
+          "count_5": 0.0,
+          "count_25": 0.0,
+          "coordinates_25": 0.0
+        },
+        "max_train_counts": {
+          "count_5": 0,
+          "count_25": 0
+        },
+        "oracle_hit_rate_pct": {
+          "5": 0.0,
+          "25": 0.0
+        },
+        "models": {
+          "t3_original": {
+            "hit_25_n": 0,
+            "hit_25_pct": 0.0,
+            "median_km": 119.45046363802861
+          },
+          "t3_aug8192": {
+            "hit_25_n": 0,
+            "hit_25_pct": 0.0,
+            "median_km": 118.78669109477359
+          },
+          "t1_original": {
+            "hit_25_n": 0,
+            "hit_25_pct": 0.0,
+            "median_km": 118.00138560754293
+          },
+          "t1_aug8192": {
+            "hit_25_n": 0,
+            "hit_25_pct": 0.0,
+            "median_km": 122.07877432168355
+          }
+        }
+      }
+    }
+  }
+}

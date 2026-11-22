@@ -1,0 +1,133 @@
+{
+  "boundary": {
+    "source": "https://naciscdn.org/naturalearth/10m/cultural/ne_10m_admin_0_countries.zip",
+    "source_sha256": "ce1ac7036499a0edd641fbc093cd209a98f96a49d2eca8480aaacad35138a7f6",
+    "filter": "ADM0_A3 == CHE",
+    "grid_shape": [
+      48554,
+      2
+    ],
+    "grid_bitwise_equal": true,
+    "grid_max_abs_deg": 0.0,
+    "archived_grid_sha256": "e851e30246445e062d4f768194a3cf690a01ad1dd20a74f007e9906d5df78489",
+    "boundary_geometry_wgb_sha256": "10bbe4f9354dbc12623d81721ac107204f3c29150a3492763827a2b8c5048fa8"
+  },
+  "original": {
+    "device": "cpu",
+    "threads": 2,
+    "torch": "2.9.1+cu128",
+    "fit_seconds": 11.505314800000633,
+    "fit_and_predict_seconds": 15.843298499999946,
+    "summary": "data/local_runs/t3_t4_8192/original/T4/summary.json",
+    "train_n": 176308,
+    "local_minus_archived_metrics": {
+      "val": {
+        "n": 0,
+        "median_km": 3.126388037344441e-13,
+        "mean_km": 2.8421709430404007e-13,
+        "p90_km": -3.751665644813329e-12,
+        "acc@1km": 0.0,
+        "acc@5km": 0.0,
+        "acc@10km": 0.0,
+        "acc@25km": 0.0,
+        "acc@50km": 0.0,
+        "acc@200km": 0.0,
+        "acc@750km": 0.0,
+        "acc@2500km": 0.0,
+        "projected": 0
+      },
+      "test_in": {
+        "n": 0,
+        "median_km": 6.373568339768099e-12,
+        "mean_km": -1.4210854715202004e-14,
+        "p90_km": -1.7621459846850485e-12,
+        "acc@1km": 0.0,
+        "acc@5km": 0.0,
+        "acc@10km": 0.0,
+        "acc@25km": 0.0,
+        "acc@50km": 0.0,
+        "acc@200km": 0.0,
+        "acc@750km": 0.0,
+        "acc@2500km": 0.0,
+        "projected": 0
+      },
+      "test_city": {
+        "n": 0,
+        "median_km": -8.952838470577262e-13,
+        "mean_km": -1.6910917111090384e-12,
+        "p90_km": -4.405364961712621e-13,
+        "acc@1km": 0.0,
+        "acc@5km": 0.0,
+        "acc@10km": 0.0,
+        "acc@25km": 0.0,
+        "acc@50km": 0.0,
+        "acc@200km": 0.0,
+        "acc@750km": 0.0,
+        "acc@2500km": 0.0,
+        "projected": 0
+      },
+      "test_region": {
+        "n": 0,
+        "median_km": 3.581135388230905e-12,
+        "mean_km": -9.450218385609332e-13,
+        "p90_km": -1.4637180356658064e-12,
+        "acc@1km": 0.0,
+        "acc@5km": 0.0,
+        "acc@10km": 0.0,
+        "acc@25km": 0.0,
+        "acc@50km": 0.0,
+        "acc@200km": 0.0,
+        "acc@750km": 0.0,
+        "acc@2500km": 0.0,
+        "projected": 0
+      }
+    }
+  },
+  "augmented": {
+    "device": "cpu",
+    "threads": 2,
+    "torch": "2.9.1+cu128",
+    "fit_seconds": 12.075514799998928,
+    "fit_and_predict_seconds": 16.59635260000141,
+    "summary": "data/local_runs/t3_t4_8192/augmented/T4/summary.json",
+    "train_n": 184500
+  },
+  "paired_metrics": {
+    "test_city": {
+      "n": 3377,
+      "original_median_km": 61.08437084109878,
+      "augmented_median_km": 61.28215851728474,
+      "median_gain_km": -0.1977876761859605,
+      "original_acc25_pct": 10.541901095647024,
+      "augmented_acc25_pct": 9.979271542789458,
+      "net_hits_25km": -19
+    },
+    "test_in": {
+      "n": 47593,
+      "original_median_km": 48.29563606878056,
+      "augmented_median_km": 48.316762826556186,
+      "median_gain_km": -0.021126757775626004,
+      "original_acc25_pct": 21.038808228100773,
+      "augmented_acc25_pct": 21.12285420124808,
+      "net_hits_25km": 40
+    },
+    "test_region": {
+      "n": 13039,
+      "original_median_km": 47.45018456637907,
+      "augmented_median_km": 47.16883249517274,
+      "median_gain_km": 0.2813520712063351,
+      "original_acc25_pct": 20.40033744919089,
+      "augmented_acc25_pct": 20.653424342357543,
+      "net_hits_25km": 33
+    },
+    "val": {
+      "n": 29529,
+      "original_median_km": 43.49719221575404,
+      "augmented_median_km": 43.52279112196654,
+      "median_gain_km": -0.02559890621250105,
+      "original_acc25_pct": 25.86948423583596,
+      "augmented_acc25_pct": 25.94060076534932,
+      "net_hits_25km": 21
+    }
+  }
+}

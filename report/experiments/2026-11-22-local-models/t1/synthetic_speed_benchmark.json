@@ -1,0 +1,44 @@
+{
+  "purpose": "Local T1 throughput benchmark on synthetic features, dates and coordinates. No comparable local accuracy is measured.",
+  "gpu": "NVIDIA GeForce RTX 5070",
+  "torch": "2.9.1+cu128",
+  "cuda": "12.8",
+  "configuration_source": "report/experiments/2026-11-18-geoclip-time/run/T1_dual_time_full.yaml",
+  "seed_model": 0,
+  "seed_synthetic_data": 433,
+  "train_count_per_epoch": 16384,
+  "val_count_per_epoch": 256,
+  "evaluation_count": 2048,
+  "grid_count": 48554,
+  "epochs": 3,
+  "batch_size": 32,
+  "negatives": 128,
+  "cpu_threads": 4,
+  "query_chunk": 64,
+  "gallery_chunk": 2048,
+  "train_step_loop_seconds_by_epoch": [
+    5.320984299999964,
+    4.682776800000056,
+    4.770134399999961
+  ],
+  "validation_grid_seconds_by_epoch": [
+    0.8887472000001253,
+    0.6595766999998887,
+    0.6534514999998464
+  ],
+  "train_timing_definition": "From first loss call through end of training updates each epoch, synchronized before validation; includes all later batch assembly and copies.",
+  "training_wall_seconds": 19.29394339999999,
+  "training_peak_allocated_MiB": 1018.53564453125,
+  "evaluation_wall_seconds": 4.636031799999955,
+  "evaluation_timing_definition": "Separate prediction entry including load, checkpoint restoration, search, and output.",
+  "steady_train_images_per_second": [
+    3498.77875879111,
+    3434.70406200717
+  ],
+  "estimated_full_15_epoch_core_plus_validation_seconds": 772.8194992734368,
+  "estimated_time_note": "Linear extrapolation from the last two synthetic epochs, excluding one-time data loading and saving, measured with a smaller feature cache.",
+  "remote_full_train_count": 176308,
+  "remote_full_eval_count": 93538,
+  "remote_full_training_seconds": 1853.6165334780235,
+  "remote_full_evaluation_seconds": 247.2412836109288
+}

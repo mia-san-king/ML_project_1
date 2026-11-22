@@ -1,0 +1,94 @@
+{
+  "format": "root, path, bytes, sha256; UTF-8 TSV with LF and header",
+  "uncompressed_tsv_sha256": "29f3a2efcadf364966d7c3798b47bc78872e25a0c26093b23bd57127d0190955",
+  "counts_by_input_group": {
+    "store/aug8192/(records)": {
+      "paths": 6,
+      "bytes": 34265855
+    },
+    "store/aug8192/images": {
+      "paths": 7680,
+      "bytes": 2876927946
+    },
+    "store/aug8192/t1_dataset": {
+      "paths": 6,
+      "bytes": 508267760
+    },
+    "store/aug8192/t1_runs": {
+      "paths": 12,
+      "bytes": 552109598
+    },
+    "store/public-assets/(records)": {
+      "paths": 3,
+      "bytes": 4431450
+    },
+    "store/public-assets/clip": {
+      "paths": 8,
+      "bytes": 1714256474
+    },
+    "store/public-assets/images": {
+      "paths": 8320,
+      "bytes": 209665396
+    },
+    "store/public-assets/sdxl-fp16": {
+      "paths": 18,
+      "bytes": 6941187536
+    },
+    "store/t4_geo4096/(records)": {
+      "paths": 8,
+      "bytes": 7403654
+    },
+    "store/t4_geo4096/images": {
+      "paths": 3904,
+      "bytes": 1359816514
+    },
+    "store/t4_geo4096/parents": {
+      "paths": 4274,
+      "bytes": 89484184
+    },
+    "workspace/data/local_runs/clip_variants": {
+      "paths": 4,
+      "bytes": 1019743
+    },
+    "workspace/data/local_runs/confidence_models": {
+      "paths": 9,
+      "bytes": 26367595
+    },
+    "workspace/data/local_runs/t1_full_20261122T111311_449581Z": {
+      "paths": 10,
+      "bytes": 537727685
+    },
+    "workspace/data/local_runs/t1_speed_20261122_012033": {
+      "paths": 1,
+      "bytes": 1831
+    },
+    "workspace/data/local_runs/t3_refine_analysis": {
+      "paths": 5,
+      "bytes": 21901448
+    },
+    "workspace/data/local_runs/t3_t4_8192": {
+      "paths": 45,
+      "bytes": 2117935889
+    },
+    "workspace/data/local_runs/t4_geo4096": {
+      "paths": 26,
+      "bytes": 35428312
+    },
+    "workspace/data/local_runs/t5_aug8192": {
+      "paths": 11,
+      "bytes": 145308429
+    },
+    "workspace/data/local_runs/t6_aug8192": {
+      "paths": 14,
+      "bytes": 912243672
+    },
+    "workspace/data/splits": {
+      "paths": 1,
+      "bytes": 1440433
+    },
+    "workspace/data/t1_original": {
+      "paths": 4,
+      "bytes": 493871181
+    }
+  }
+}

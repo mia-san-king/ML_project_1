@@ -1,0 +1,13 @@
+{
+  "model": "T5",
+  "weight": 1.0,
+  "gamma": 1.0,
+  "device": "cuda",
+  "hardware": "NVIDIA GeForce RTX 5070",
+  "torch": "2.9.1+cu128",
+  "fit_and_predict_seconds": 7.99929659999907,
+  "candidates_sha256": "da6187ac46fbe5388336ddc6747111937dd211f5bf67cff8886106220e20b0fe",
+  "checkpoint_sha256": "9893ec3dd6419378853eadf9fa8856e7ab0a56da6789d255d9f41371c890e286",
+  "predictions_sha256": "3b497c25f3856bee22e553cbc0d9df8aec44f9927a0603e3a8f59a4005a84196",
+  "query_count": 93538
+}

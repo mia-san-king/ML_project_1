@@ -1,0 +1,51 @@
+{
+  "experiment": "Local T3 with 8192 diffusion variants, unique-parent top-50 coverage",
+  "radius_km": 25,
+  "k": 50,
+  "gamma": 1.0,
+  "reference_embeddings": 184500,
+  "reference_parents": 176308,
+  "checkpoint_sha256": "839c782e4eb698c4ad7ab1dec89dd895b721ed71cb2b90cd46a0a945cd93aa81",
+  "archived_local_predictions_sha256": "e8c96207efb50cdada34217ca0d1f69d8ff492ddbc252887276548944a372371",
+  "splits": {
+    "test_city": {
+      "n": 3377,
+      "top50_hits": 1629,
+      "top50_hit_pct": 48.23808113710394,
+      "visual_top1_hits": 227,
+      "year_top1_hits": 185,
+      "year_top1_hit_pct": 5.4782351199289305,
+      "no_top50_hit": 1748,
+      "top50_hit_year_miss": 1444,
+      "year_winner_hit_pct_given_top50_hit": 11.356660527931247,
+      "candidate_list_unique_parents": true,
+      "both_winner_ids_and_distances_verified": true
+    },
+    "test_region": {
+      "n": 13039,
+      "top50_hits": 2828,
+      "top50_hit_pct": 21.688779814402945,
+      "visual_top1_hits": 313,
+      "year_top1_hits": 407,
+      "year_top1_hit_pct": 3.1214050157220647,
+      "no_top50_hit": 10211,
+      "top50_hit_year_miss": 2421,
+      "year_winner_hit_pct_given_top50_hit": 14.391796322489391,
+      "candidate_list_unique_parents": true,
+      "both_winner_ids_and_distances_verified": true
+    },
+    "test_in": {
+      "n": 47593,
+      "top50_hits": 43804,
+      "top50_hit_pct": 92.03874519362091,
+      "visual_top1_hits": 18718,
+      "year_top1_hits": 21600,
+      "year_top1_hit_pct": 45.384825499548256,
+      "no_top50_hit": 3789,
+      "top50_hit_year_miss": 22204,
+      "year_winner_hit_pct_given_top50_hit": 49.310565245183085,
+      "candidate_list_unique_parents": true,
+      "both_winner_ids_and_distances_verified": true
+    }
+  }
+}

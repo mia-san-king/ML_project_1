@@ -1,0 +1,200 @@
+{
+  "model": "T5",
+  "paired_baseline": "T3 year-winner",
+  "grid_baseline": "T1",
+  "positive_change": "Median T3 minus T5 (km), hit rate T5 minus T3 (percentage points)",
+  "earth_radius_km": 6371.0088,
+  "hit_threshold_km": 25,
+  "evaluation_queries": 93538,
+  "training_references": 176308,
+  "sorted_query_ids_le64_sha256": "7480a4f2ca2fa810fc158d549351349f090244bf88ca61c1ea4ecc3d37d7757c",
+  "splits": {
+    "val": {
+      "n": 29529,
+      "T3": {
+        "median_km": 25.360291751560204,
+        "mean_km": 45.90977632217864,
+        "acc@25km": 49.693521622811474,
+        "hits@25km": 14674
+      },
+      "T5": {
+        "median_km": 22.12953315603566,
+        "mean_km": 41.8454814041786,
+        "acc@25km": 53.03599850993939,
+        "hits@25km": 15661
+      },
+      "T1": {
+        "median_km": 27.880454038809194,
+        "mean_km": 47.21086736322503,
+        "acc@25km": 47.04866402519557,
+        "hits@25km": 13893
+      },
+      "median_reduction_km": 3.230758595524545,
+      "acc25_gain_pp": 3.3424768871279156,
+      "gained_hits": 2894,
+      "lost_hits": 1907,
+      "net_hits": 987,
+      "changed_winner": 13340,
+      "shortlist": {
+        "queries_with_candidate_within_25km": 27837,
+        "pct_with_candidate_within_25km": 94.27003962206645,
+        "t3_pct_hits_given_near_candidate": 52.71401372274311,
+        "t5_pct_hits_given_near_candidate": 56.25965441678342
+      }
+    },
+    "test_in": {
+      "n": 47593,
+      "T3": {
+        "median_km": 29.43252717929069,
+        "mean_km": 48.00250475815439,
+        "acc@25km": 45.384825499548256,
+        "hits@25km": 21600
+      },
+      "T5": {
+        "median_km": 26.70048256607333,
+        "mean_km": 45.52137422416697,
+        "acc@25km": 48.219275943941334,
+        "hits@25km": 22949
+      },
+      "T1": {
+        "median_km": 32.86321747589864,
+        "mean_km": 51.96053441919106,
+        "acc@25km": 42.43901414073498,
+        "hits@25km": 20198
+      },
+      "median_reduction_km": 2.7320446132173615,
+      "acc25_gain_pp": 2.8344504443930774,
+      "gained_hits": 4343,
+      "lost_hits": 2994,
+      "net_hits": 1349,
+      "changed_winner": 21642,
+      "shortlist": {
+        "queries_with_candidate_within_25km": 43804,
+        "pct_with_candidate_within_25km": 92.03874519362091,
+        "t3_pct_hits_given_near_candidate": 49.310565245183085,
+        "t5_pct_hits_given_near_candidate": 52.390192676467905
+      },
+      "paired_block_bootstrap": {
+        "seed": 0,
+        "repetitions": 1000,
+        "blocks": 93,
+        "median_reduction_km_ci95": [
+          1.9868406775262712,
+          3.707254911572203
+        ],
+        "acc25_gain_pp_ci95": [
+          2.008715657463309,
+          3.635273507104588
+        ]
+      }
+    },
+    "test_city": {
+      "n": 3377,
+      "T3": {
+        "median_km": 93.59621920099539,
+        "mean_km": 84.99889947952627,
+        "acc@25km": 5.4782351199289305,
+        "hits@25km": 185
+      },
+      "T5": {
+        "median_km": 93.49256443089172,
+        "mean_km": 83.57697220214156,
+        "acc@25km": 6.95883920639621,
+        "hits@25km": 235
+      },
+      "T1": {
+        "median_km": 89.04582003550688,
+        "mean_km": 79.60292780836814,
+        "acc@25km": 8.528279538051525,
+        "hits@25km": 288
+      },
+      "median_reduction_km": 0.10365477010367385,
+      "acc25_gain_pp": 1.4806040864672791,
+      "gained_hits": 98,
+      "lost_hits": 48,
+      "net_hits": 50,
+      "changed_winner": 1590,
+      "shortlist": {
+        "queries_with_candidate_within_25km": 1629,
+        "pct_with_candidate_within_25km": 48.23808113710394,
+        "t3_pct_hits_given_near_candidate": 11.356660527931247,
+        "t5_pct_hits_given_near_candidate": 14.426028238182933
+      }
+    },
+    "test_region": {
+      "n": 13039,
+      "T3": {
+        "median_km": 84.28399815901868,
+        "mean_km": 94.54925948426005,
+        "acc@25km": 3.1214050157220647,
+        "hits@25km": 407
+      },
+      "T5": {
+        "median_km": 85.58810314892641,
+        "mean_km": 96.09612359025745,
+        "acc@25km": 2.9680190198634864,
+        "hits@25km": 387
+      },
+      "T1": {
+        "median_km": 90.81371528982747,
+        "mean_km": 99.29441253337042,
+        "acc@25km": 2.8913260219341974,
+        "hits@25km": 377
+      },
+      "median_reduction_km": -1.304104989907728,
+      "acc25_gain_pp": -0.15338599585857837,
+      "gained_hits": 129,
+      "lost_hits": 149,
+      "net_hits": -20,
+      "changed_winner": 6512,
+      "shortlist": {
+        "queries_with_candidate_within_25km": 2828,
+        "pct_with_candidate_within_25km": 21.688779814402945,
+        "t3_pct_hits_given_near_candidate": 14.391796322489391,
+        "t5_pct_hits_given_near_candidate": 13.684582743988685
+      }
+    }
+  },
+  "inputs": {
+    "metadata": {
+      "path": "data/t1_original/meta/smapshot.parquet",
+      "sha256": "0b80fdc41eb452c08b319bddcb46f492963f6993dc9567dd5e9f445889aa5650"
+    },
+    "feature_ids": {
+      "path": "data/t1_original/features/clip_vitl14_ids.npy",
+      "sha256": "9bd4e88dfeacb6a18f0620d7c006e324ad0d14828a543097d187371e34302a98"
+    },
+    "split": {
+      "path": "data/splits/main.csv.gz",
+      "sha256": "67d2a56bcad5ba826d73a63174315779827456fd9011e40583f743021e72a0a3"
+    },
+    "T5": {
+      "path": "data/local_runs/t5_aug8192/results/predictions.parquet",
+      "sha256": "3b497c25f3856bee22e553cbc0d9df8aec44f9927a0603e3a8f59a4005a84196"
+    },
+    "T3": {
+      "path": "data/local_runs/t3_t4_8192/augmented/T3/predictions.parquet",
+      "sha256": "e8c96207efb50cdada34217ca0d1f69d8ff492ddbc252887276548944a372371"
+    },
+    "T1": {
+      "path": "DATA_ROOT/aug8192/t1_runs/aug_20261122T140802_053796Z/results/preds/T1_aug8192_s0.parquet",
+      "sha256": "9bad1af77a8224f77f87ab3fdd6138f3418c7be4a32662e8a629673cb29a43e2"
+    },
+    "val_candidates": {
+      "path": "data/local_runs/t5_aug8192/candidates/val.npz",
+      "sha256": "d9f8e779d724fdeee85333d1d61ef35b17055047ef84fbaf1883323c43a54da0"
+    },
+    "test_in_candidates": {
+      "path": "data/local_runs/t5_aug8192/candidates/test_in.npz",
+      "sha256": "46195c966ff0c5f8ba6a16b53a50ef91897bff0055c1658582cbec60a576e87f"
+    },
+    "test_city_candidates": {
+      "path": "data/local_runs/t5_aug8192/candidates/test_city.npz",
+      "sha256": "c372f7823a26acb6cbb0a5128c0dfabff58992b4f8961361d990275d33f6626e"
+    },
+    "test_region_candidates": {
+      "path": "data/local_runs/t5_aug8192/candidates/test_region.npz",
+      "sha256": "4a126020d987a3ff01d5e4f1f84a8e881b4350594ca5b981024b7007e6c56f43"
+    }
+  }
+}

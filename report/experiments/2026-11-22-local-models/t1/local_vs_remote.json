@@ -1,0 +1,61 @@
+{
+  "gpu": "NVIDIA GeForce RTX 5070",
+  "torch": "2.9.1+cu128",
+  "cuda": "12.8",
+  "code_commit": "cb37c6cac3493b07abbfb655c0f7613862b77f44",
+  "remote_code_commit": "c2e7870c4ca07b7eccc60559dbe766c6fdce5d9e",
+  "all_inputs_sha256_match": true,
+  "train_examples_per_epoch": 176308,
+  "epochs": 15,
+  "selected_validation_ids_match": true,
+  "best_epoch": 8,
+  "remote_best_epoch": 12,
+  "training_seconds": 738.6648986,
+  "remote_training_seconds": 1853.6165334780235,
+  "evaluation_seconds": 186.45806919999995,
+  "remote_evaluation_seconds": 247.2412836109288,
+  "training_peak_mib": 1018.50048828125,
+  "remote_training_peak_mib": 1001.37548828125,
+  "splits": {
+    "val": {
+      "n": 29529,
+      "remote_n": 29529,
+      "median_km": 30.70819989802055,
+      "remote_median_km": 28.449455250075683,
+      "delta_median_km": 2.258744647944866,
+      "acc25_percent": 43.80100917741881,
+      "remote_acc25_percent": 46.58471333265603,
+      "delta_acc25_pp": -2.783704155237217
+    },
+    "test_in": {
+      "n": 47593,
+      "remote_n": 47593,
+      "median_km": 35.24482469910346,
+      "remote_median_km": 33.608863570640494,
+      "delta_median_km": 1.6359611284629665,
+      "acc25_percent": 40.43241653184292,
+      "remote_acc25_percent": 42.001975080368965,
+      "delta_acc25_pp": -1.5695585485260466
+    },
+    "test_city": {
+      "n": 3377,
+      "remote_n": 3377,
+      "median_km": 87.28008562416355,
+      "remote_median_km": 91.62815717937401,
+      "delta_median_km": -4.348071555210467,
+      "acc25_percent": 8.49866745632218,
+      "remote_acc25_percent": 9.268581581285163,
+      "delta_acc25_pp": -0.769914124962984
+    },
+    "test_region": {
+      "n": 13039,
+      "remote_n": 13039,
+      "median_km": 98.16717878890356,
+      "remote_median_km": 86.63288406719317,
+      "delta_median_km": 11.534294721710381,
+      "acc25_percent": 2.377482935807961,
+      "remote_acc25_percent": 2.10138814326252,
+      "delta_acc25_pp": 0.2760947925454409
+    }
+  }
+}

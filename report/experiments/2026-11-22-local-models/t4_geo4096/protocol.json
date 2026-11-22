@@ -1,0 +1,60 @@
+{
+  "fixed_utc": "2026-11-22T18:22:12.974388+00:00",
+  "train_photos": 176308,
+  "train_blocks": 325,
+  "block_system": "project 10 km LV95 spatial grid",
+  "budget_per_arm": 4096,
+  "reserves": 384,
+  "random": "Uniform permutation of all real cached train IDs sorted ascending, NumPy default_rng(0), first 4096",
+  "sparse": "Group the same sorted real training IDs by sorted block, shuffle each block's queue using NumPy default_rng(0), take one from every nonempty block per round in shuffled block order, stop after 4096 accepted",
+  "replacement": "Ignore permanent source failures and QA rejects, taking the following predetermined parent until target",
+  "generator": "Same existing frozen SDXL img2img recipe, one image per distinct parent, same parent-specific seed, reuse verified features on overlap",
+  "trainer": "Official frozen-CLIP/date T4, double-precision pivoted QR with border projection. All 176308 real training images used in both arms.",
+  "primary": "Difference in <=25 km hit rate in percentage points, sparse minus random, on all cached eval photos of the existing validation spatial blocks",
+  "secondary": "Unweighted mean within-block hit-rate differences; independent test_in spatial blocks; Bern and Ticino regional results are descriptive",
+  "interval": "Paired bootstrap of geographic blocks; interpretations conditional on the chosen training sets",
+  "train_block_count_q25": 171.0,
+  "random_ids_sha256": "e1d107c843eb8fbd0224eeecb2c05422daa365eadd1537d5196ec8f3e1a2efb7",
+  "sparse_priority_ids_sha256": "b3e6c36b49e63b5ded2f47dd22babb0cae0e92d3244ca9ff208fb90e86913f9c",
+  "endpoints": {
+    "val": {
+      "n": 29529,
+      "blocks": 47,
+      "block_ids_shared_with_train": 0,
+      "sorted_query_ids_sha256": "57a6f00700fba48b1cd6a7280493714bb7d54f9ae9a8e93b922e65222dcc37a2"
+    },
+    "test_in": {
+      "n": 47593,
+      "blocks": 93,
+      "block_ids_shared_with_train": 0,
+      "sorted_query_ids_sha256": "c41c4f278f5859f1c20d5d6af91b72d45ebd327c8b4f34273d77826cb66c9a5e"
+    },
+    "test_city": {
+      "n": 3377,
+      "blocks": 7,
+      "block_ids_shared_with_train": 2,
+      "sorted_query_ids_sha256": "80c0b680333468223393c82adf46dcb150aa48d39525b07f68e360ad9c180ab2"
+    },
+    "test_region": {
+      "n": 13039,
+      "blocks": 42,
+      "block_ids_shared_with_train": 1,
+      "sorted_query_ids_sha256": "c1afb9409f02b7716685e98433bd735d47062d73824d98ffc36fc3229123a44e"
+    }
+  },
+  "planned": {
+    "random": {
+      "blocks_with_parents": 289,
+      "largest_allocation": 430,
+      "at_or_below_training_block_count_q25": 108,
+      "min_photos_in_selected_block": 6
+    },
+    "sparse": {
+      "blocks_with_parents": 325,
+      "largest_allocation": 14,
+      "at_or_below_training_block_count_q25": 902,
+      "min_photos_in_selected_block": 1
+    },
+    "overlap": 89
+  }
+}
