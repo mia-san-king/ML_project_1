@@ -4,6 +4,8 @@
 
 换电脑后可从[中文项目交接](doc/project2_handoff.md)继续。各模型指标见[实验报告](report/geoclip_time_baselines.md)，原版 T3 的前 50 名统计、运行配置和复算脚本在[实验归档](report/experiments/)。
 
+[Mac 开发与 RTX 5070 训练](infrastructure/rtx5070/README.md)说明如何把本地测试过的提交从 GitHub 交给 Windows 台式机，并查看原版 T1 的训练日志。
+
 ## 先按模型找文件
 
 ```text
