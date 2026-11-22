@@ -10,6 +10,7 @@
 
 ```text
 models/
+├── t5_reranker/        # T5：用 T1 的位置分重排 T3 的前 50 张训练照片
 ├── clip_regression/    # T4：冻结的 CLIP 特征和日期直接回归瑞士坐标
 ├── baselines/          # 常数预测 B0、图片近邻检索 B2
 │   ├── lib/
@@ -27,6 +28,8 @@ models/
 
 | 模型目录 | 入口说明 | 方法说明 |
 | --- | --- | --- |
+| [`models/t6_router/`](models/t6_router/) | T4 与 T5 的逐照片置信度选择、模型打包及独立推断 | [T6 运行方式与留出区结果](models/t6_router/README.md) |
+| [`models/t5_reranker/`](models/t5_reranker/) | T5 权重拟合、单图预测及逐图评估 | [T5 使用说明](models/t5_reranker/README.md) |
 | [`models/clip_regression/`](models/clip_regression/) | T4 单层回归训练与 T1 逐图比较 | [T4 实验说明](doc/time_geoclip.md#t4已知拍摄日期直接回归坐标) |
 | [`models/baselines/`](models/baselines/) | 常数预测和 kNN 的运行命令 | [`doc/tutorial.md`](doc/tutorial.md) S8 |
 | [`models/geoclip/`](models/geoclip/) | 原有 B1/B3、A1、A3/A4 实验 | [`doc/method_notes.md`](doc/method_notes.md) |
@@ -35,6 +38,8 @@ models/
 每种模型自己的 `lib/` 放具体算法，`configs/` 放参数，`scripts/` 放运行入口，`tests/` 放该模型的检查。小基线没有配置或测试文件时，不创建空目录。原来的 B1/B2/B3 批量运行入口保留在 GeoCLIP 目录，其中 B2 调用 baselines 的实现。
 
 ## 所有模型共用的部分
+
+逐张照片的 25 公里命中概率可用 [定位置信度库](doc/geolocation_confidence.md) 估计。T1、T3、T4 和 T5 各有自己的输入特征、校准参数和分地区评估结果。
 
 | 顶层目录／文件 | 用途 |
 | --- | --- |
