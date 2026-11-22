@@ -179,13 +179,14 @@ def load_temporal_checkpoint(path, *, device="cpu", model_factory=build_temporal
     return model.to(device).eval(), payload
 
 
-def run_training(cfg, *, data_root=None, split_csv=None, device="cpu", overwrite=False, model_factory=build_temporal_model):
+def run_training(cfg, *, data_root=None, split_csv=None, output_root=None, device="cpu", overwrite=False, model_factory=build_temporal_model):
     """Train on train only; select and save the best exact-val checkpoint."""
     cfg = _configuration(cfg)
     root, split = _paths(cfg, data_root, split_csv)
     cfg["data_root"], cfg["split_csv"] = str(root), str(split)
-    checkpoint_path = root / "ckpt" / f"{cfg['run_name']}.pt"
-    log_path = root / "results/metrics" / f"{cfg['run_name']}_train_log.json"
+    destination = root if output_root is None else Path(output_root)
+    checkpoint_path = destination / "ckpt" / f"{cfg['run_name']}.pt"
+    log_path = destination / "results/metrics" / f"{cfg['run_name']}_train_log.json"
     _assert_outputs_available((checkpoint_path, log_path), overwrite)
     data = _load_training_data(cfg, root, split)
     grid = _gallery(root, cfg)
