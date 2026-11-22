@@ -56,10 +56,11 @@ def candidate_spreads(path, ids, train, winner_gps):
     return spread
 
 
-def load_validation(workspace):
-    files = [CANDIDATES, f"{CONFIDENCE}/inputs.parquet", f"{CONFIDENCE}/predictions.parquet",
+def load_expert_validation(workspace, *, extra_paths=()):
+    """Return frozen predictions, geography, and raw inputs for cross-fitting their confidence."""
+    files = [f"{CONFIDENCE}/inputs.parquet", f"{CONFIDENCE}/predictions.parquet",
              "data/t1_original/meta/smapshot.parquet", "data/splits/main.csv.gz",
-             "data/t1_original/features/clip_vitl14_ids.npy"]
+             "data/t1_original/features/clip_vitl14_ids.npy", *extra_paths]
     archive = pd.read_csv(ARCHIVE, sep="\t").query("root == 'workspace'").set_index("path")
     hashes = {}
     for rel in files:
@@ -85,14 +86,20 @@ def load_validation(workspace):
             if not source.index.equals(truth.index) or not source.block.eq(truth.block).all():
                 raise ValueError(f"{model}: validation IDs or blocks differ")
         coords[model] = preds[list(PREDICTED)].to_numpy(dtype=float)
+        frame[[f"{model}_{col}" for col in PREDICTED]] = coords[model]
         errors = _errors(truth[list(GPS)].to_numpy(dtype=float), coords[model])
         np.testing.assert_allclose(errors, preds.error_km, atol=ERROR_ATOL_KM, rtol=0)
         frame[FEATURES[model]] = features[FEATURES[model]]
         frame[f"{model}_error_km"] = errors
         frame[f"{model}_p25"] = preds.p_within_25km
+    return frame.reset_index(), train, coords, hashes
+
+
+def load_validation(workspace):
+    frame, train, coords, hashes = load_expert_validation(workspace, extra_paths=(CANDIDATES,))
     gaps = _errors(coords["T4"], coords["T5"])
-    spreads = candidate_spreads(workspace / CANDIDATES, truth.index.to_numpy(), train, coords["T5"])
-    return frame.reset_index(), gaps, spreads, hashes
+    spreads = candidate_spreads(workspace / CANDIDATES, frame.id.to_numpy(), train, coords["T5"])
+    return frame, gaps, spreads, hashes
 
 
 def main():

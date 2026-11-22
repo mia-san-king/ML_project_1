@@ -44,7 +44,7 @@ def _predict_t4(checkpoint, feature_path, border_path, date_min, date_max):
             "has_date": bool(times[0, 2]), "was_projected": bool(np.any(raw != xy))}
 
 
-def predict_photo(*, model_path, feature, date_min=None, date_max=None, device="cpu"):
+def predict_photo(*, model_path, feature, date_min=None, date_max=None, device="cpu", gate_path=None):
     """Return the selected GPS, each branch's 25 km probability, and its own GPS."""
     files = load_bundle(model_path)
     t4_cal = GeoConfidence.load(files["t4_confidence"])
@@ -61,11 +61,23 @@ def predict_photo(*, model_path, feature, date_min=None, date_max=None, device="
     t5_features = pd.DataFrame([{"t5_visual_rank": t5["visual_rank"], "t5_t3_score": t5["t3_score"],
                                  "t5_location_cosine": t5["location_cosine"]}])
     p4, p5 = t4_cal.predict_proba(t4_features), t5_cal.predict_proba(t5_features)
-    name = "T4" if choose_t4(p4, p5)[0] else "T5"
+    gate_info = {}
+    if gate_path is None:
+        use_t4 = choose_t4(p4, p5)[0]
+    else:
+        import joblib
+
+        inputs = pd.DataFrame([{"T4_lat_pred": t4["lat_pred"], "T4_lon_pred": t4["lon_pred"],
+                                "T5_lat_pred": t5["lat_pred"], "T5_lon_pred": t5["lon_pred"],
+                                "T4_p25": p4[0], "T5_p25": p5[0]}])
+        probability = float(joblib.load(gate_path).predict_t4_probability(inputs)[0])
+        use_t4 = probability > 0.5
+        gate_info["gate_p_T4_given_one_hit"] = probability
+    name = "T4" if use_t4 else "T5"
     branches = {"T4": {**t4, "p_within_25km": float(p4[0])}, "T5": {**t5, "p_within_25km": float(p5[0])}}
     selected = branches[name]
     return {"selected_model": name, "lat_pred": selected["lat_pred"], "lon_pred": selected["lon_pred"],
-            "selected_branch_p_within_25km": selected["p_within_25km"], "branches": branches}
+            "selected_branch_p_within_25km": selected["p_within_25km"], "branches": branches, **gate_info}
 
 
 def main():
@@ -75,6 +87,7 @@ def main():
     parser.add_argument("--date-min", help="Lower endpoint of the capture interval (ISO date or year)")
     parser.add_argument("--date-max", help="Upper endpoint of the capture interval (ISO date or year)")
     parser.add_argument("--device", default="cpu", help="T5 location scoring device, e.g. cuda or cpu")
+    parser.add_argument("--gate", dest="gate_path", type=Path, help="Joint six-input gate.joblib from train_geographic_gate")
     args = parser.parse_args()
     torch.set_num_threads(4)
     print(json.dumps(predict_photo(**vars(args)), allow_nan=False, indent=2))

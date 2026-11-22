@@ -12,7 +12,20 @@ python -m models.t6_router.predict_photo --model data/local_runs/t6_aug8192/bund
 
 拍摄日期未知时可省略两个日期参数，CPU 推断可省略设备参数。解压独立分发包后，从解压目录运行同一命令，将 `--model` 的值改为 `bundle/T6.json`。输出包含两组坐标与概率、最终选择的模型和坐标。`selected_branch_p_within_25km` 是该分支自身报告的概率，尚未对“选择概率较高的分支”这一步重新校准。
 
-## 本地留出测试
+## 六输入选择器实验
+
+新的选择器把 T4 的预测经纬度、T5 的预测经纬度和两者各自的 25 公里置信度一起输入梯度提升树。训练标签来自恰好一个模型命中的照片。按地理块交叉验证时，每张照片的两个置信度都由在其他块上拟合的校准器给出。移除坐标的对照使用相同模型，仅保留两个置信度。
+
+在仓库根目录，使用上次地理块实验导出的逐图文件训练并评估。每次选择新的输出目录。
+
+```text
+python -m models.t6_router.train_geographic_gate --workspace <Windows数据工作区> --previous-decisions <上轮空间验证目录>/decisions.parquet --output-dir <新目录>
+python -m models.t6_router.predict_photo --model <T6.json> --feature <照片特征.npy> --gate <新目录>/gate.joblib
+```
+
+带 `--gate` 的输出包含 `gate_p_T4_given_one_hit`，表示在恰有一个模型命中的条件下，选择器估计 T4 命中的概率。默认 T6 和各专家仍可单独运行。
+
+## 原版 T6 的本地留出测试
 
 每张照片分别比较 T4、T5 和 T6 的真实误差，25 公里以内计为命中。最后一列用真实坐标事后计算，表示两者至少有一个命中的比例。
 

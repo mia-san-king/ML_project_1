@@ -4,8 +4,11 @@ import pytest
 from models.t6_router import predict_photo as inference
 
 
-@pytest.mark.parametrize(("p4", "p5", "expected"), [(0.6, 0.4, "T4"), (0.2, 0.7, "T5"), (0.5, 0.5, "T5")])
-def test_photo_uses_own_branch_evidence_and_returns_its_coordinates(tmp_path, monkeypatch, p4, p5, expected):
+@pytest.mark.parametrize(("p4", "p5", "gate_score", "expected"), [
+    (0.6, 0.4, None, "T4"), (0.2, 0.7, None, "T5"), (0.5, 0.5, None, "T5"),
+    (0.2, 0.7, 0.8, "T4"), (0.8, 0.2, 0.5, "T5"),
+])
+def test_photo_uses_own_branch_evidence_and_returns_its_coordinates(tmp_path, monkeypatch, p4, p5, gate_score, expected):
     gallery = tmp_path / "gallery.npy"
     np.save(gallery, [[46., 7.], [46., 7.]])
     files = dict(t4="t4.pt", t5="t5.pt", t4_confidence="t4.joblib", t5_confidence="t5.joblib",
@@ -33,9 +36,23 @@ def test_photo_uses_own_branch_evidence_and_returns_its_coordinates(tmp_path, mo
             return np.array([p5])
 
     monkeypatch.setattr(inference.GeoConfidence, "load", CheckInputs)
-    result = inference.predict_photo(model_path="T6.json", feature="x.npy")
+    gate_options = {}
+    if gate_score is not None:
+        import joblib
+
+        class Gate:
+            def predict_t4_probability(self, frame):
+                assert frame.iloc[0].to_dict() == {
+                    "T4_lat_pred": 46., "T4_lon_pred": 7., "T5_lat_pred": 47., "T5_lon_pred": 8.,
+                    "T4_p25": p4, "T5_p25": p5,
+                }
+                return np.array([gate_score])
+
+        gate_options["gate_path"] = "gate.joblib"
+        monkeypatch.setattr(joblib, "load", lambda _: Gate())
+    result = inference.predict_photo(model_path="T6.json", feature="x.npy", **gate_options)
     assert result["selected_model"] == expected
     assert (result["lat_pred"], result["lon_pred"]) == ((46., 7.) if expected == "T4" else (47., 8.))
     assert result["branches"]["T4"]["p_within_25km"] == p4
     assert result["branches"]["T5"]["p_within_25km"] == p5
-    assert result["selected_branch_p_within_25km"] == max(p4, p5)
+    assert result["selected_branch_p_within_25km"] == (p4 if expected == "T4" else p5)
