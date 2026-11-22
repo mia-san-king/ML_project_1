@@ -1,0 +1,363 @@
+{
+  "n": 29529,
+  "n_blocks": 47,
+  "radius_km": 25.0,
+  "design": {
+    "features": [
+      "T4_lat_pred",
+      "T4_lon_pred",
+      "T5_lat_pred",
+      "T5_lon_pred",
+      "T4_p25",
+      "T5_p25"
+    ],
+    "ablation_features": [
+      "T4_p25",
+      "T5_p25"
+    ],
+    "outer_folds": 5,
+    "inner_confidence_folds": 4,
+    "estimator": "HistGradientBoostingClassifier",
+    "parameters": {
+      "max_iter": 80,
+      "max_leaf_nodes": 7,
+      "min_samples_leaf": 100,
+      "learning_rate": 0.08,
+      "l2_regularization": 1.0,
+      "early_stopping": false,
+      "random_state": 42
+    },
+    "target": "T4 hit conditional on exactly one expert hitting",
+    "select_T4_when": "conditional T4 probability > 0.5",
+    "bootstrap": "3,000 paired spatial block resamples of fixed outer-fold predictions"
+  },
+  "opportunities": {
+    "only_T4_hits": 2922,
+    "only_T5_hits": 10923,
+    "both_hit": 4738,
+    "neither_hit": 10946,
+    "oracle_hits": 18583
+  },
+  "methods": {
+    "archived_T6": {
+      "choose_T4": 149,
+      "hits": 15703,
+      "hit_pct": 53.178231568966105,
+      "median_km": 22.03252259643191
+    },
+    "block_refit_T6": {
+      "choose_T4": 1852,
+      "hits": 15335,
+      "hit_pct": 51.93199905177961,
+      "median_km": 23.04386394590148
+    },
+    "always_T5": {
+      "choose_T4": 0,
+      "hits": 15661,
+      "hit_pct": 53.03599850993939,
+      "median_km": 22.12953315603566
+    },
+    "always_T4": {
+      "choose_T4": 29529,
+      "hits": 7660,
+      "hit_pct": 25.94060076534932,
+      "median_km": 43.52279112196654
+    },
+    "geographic_gate": {
+      "choose_T4": 2147,
+      "hits": 15414,
+      "hit_pct": 52.19953266280606,
+      "median_km": 22.75752219176182
+    },
+    "without_position": {
+      "choose_T4": 2478,
+      "hits": 15132,
+      "hit_pct": 51.24453926648379,
+      "median_km": 23.721867526697736
+    }
+  },
+  "comparisons": {
+    "vs_archived_T6": {
+      "baseline_hits": 15703,
+      "candidate_hits": 15414,
+      "rescued": 318,
+      "lost": 607,
+      "net": -289,
+      "delta_pp": -0.9786989061600461,
+      "block_ci95_pp": [
+        -2.2996644420813737,
+        -0.12356698282007524
+      ],
+      "blocks_improved": 9,
+      "blocks_worse": 25,
+      "blocks_tied": 13
+    },
+    "vs_block_refit_T6": {
+      "baseline_hits": 15335,
+      "candidate_hits": 15414,
+      "rescued": 588,
+      "lost": 509,
+      "net": 79,
+      "delta_pp": 0.26753361102644857,
+      "block_ci95_pp": [
+        -0.9648292859894811,
+        1.523100536194717
+      ],
+      "blocks_improved": 12,
+      "blocks_worse": 20,
+      "blocks_tied": 15
+    },
+    "vs_always_T5": {
+      "baseline_hits": 15661,
+      "candidate_hits": 15414,
+      "rescued": 319,
+      "lost": 566,
+      "net": -247,
+      "delta_pp": -0.8364658471333266,
+      "block_ci95_pp": [
+        -2.2671208040944695,
+        0.04187646432385004
+      ],
+      "blocks_improved": 10,
+      "blocks_worse": 24,
+      "blocks_tied": 13
+    },
+    "vs_without_position": {
+      "baseline_hits": 15132,
+      "candidate_hits": 15414,
+      "rescued": 861,
+      "lost": 579,
+      "net": 282,
+      "delta_pp": 0.9549933963222595,
+      "block_ci95_pp": [
+        -0.29548291642515784,
+        2.398982234051079
+      ],
+      "blocks_improved": 20,
+      "blocks_worse": 17,
+      "blocks_tied": 10
+    }
+  },
+  "folds": [
+    {
+      "fold": 1,
+      "n_train": 23187,
+      "n_held": 6342,
+      "n_train_discordant": 11234,
+      "held_blocks": [
+        "26800125"
+      ],
+      "choose_T4": 351,
+      "hits": 3553,
+      "comparisons": {
+        "vs_archived_T6": {
+          "rescued": 84,
+          "lost": 105,
+          "net": -21
+        },
+        "vs_block_refit_T6": {
+          "rescued": 90,
+          "lost": 90,
+          "net": 0
+        },
+        "vs_always_T5": {
+          "rescued": 89,
+          "lost": 69,
+          "net": 20
+        },
+        "vs_without_position": {
+          "rescued": 89,
+          "lost": 69,
+          "net": 20
+        }
+      }
+    },
+    {
+      "fold": 2,
+      "n_train": 23744,
+      "n_held": 5785,
+      "n_train_discordant": 11168,
+      "held_blocks": [
+        "25100116",
+        "25800116",
+        "25900113",
+        "26100115",
+        "26100125",
+        "26400119",
+        "26700124",
+        "28200120"
+      ],
+      "choose_T4": 190,
+      "hits": 3622,
+      "comparisons": {
+        "vs_archived_T6": {
+          "rescued": 41,
+          "lost": 66,
+          "net": -25
+        },
+        "vs_block_refit_T6": {
+          "rescued": 39,
+          "lost": 59,
+          "net": -20
+        },
+        "vs_always_T5": {
+          "rescued": 39,
+          "lost": 59,
+          "net": -20
+        },
+        "vs_without_position": {
+          "rescued": 39,
+          "lost": 59,
+          "net": -20
+        }
+      }
+    },
+    {
+      "fold": 3,
+      "n_train": 23745,
+      "n_held": 5784,
+      "n_train_discordant": 11150,
+      "held_blocks": [
+        "24800111",
+        "25300114",
+        "25400113",
+        "25800113",
+        "26100127",
+        "26200124",
+        "26500111",
+        "26600116",
+        "26700121",
+        "27200121",
+        "27400115",
+        "27600119",
+        "27800118",
+        "27800120"
+      ],
+      "choose_T4": 466,
+      "hits": 2661,
+      "comparisons": {
+        "vs_archived_T6": {
+          "rescued": 70,
+          "lost": 100,
+          "net": -30
+        },
+        "vs_block_refit_T6": {
+          "rescued": 77,
+          "lost": 54,
+          "net": 23
+        },
+        "vs_always_T5": {
+          "rescued": 70,
+          "lost": 101,
+          "net": -31
+        },
+        "vs_without_position": {
+          "rescued": 57,
+          "lost": 64,
+          "net": -7
+        }
+      }
+    },
+    {
+      "fold": 4,
+      "n_train": 23726,
+      "n_held": 5803,
+      "n_train_discordant": 10874,
+      "held_blocks": [
+        "25000113",
+        "25900121",
+        "26000124",
+        "26200110",
+        "26200122",
+        "26400115",
+        "26700128",
+        "26900121",
+        "27400118",
+        "27500124",
+        "27700119",
+        "27900118"
+      ],
+      "choose_T4": 667,
+      "hits": 2939,
+      "comparisons": {
+        "vs_archived_T6": {
+          "rescued": 37,
+          "lost": 214,
+          "net": -177
+        },
+        "vs_block_refit_T6": {
+          "rescued": 49,
+          "lost": 178,
+          "net": -129
+        },
+        "vs_always_T5": {
+          "rescued": 38,
+          "lost": 214,
+          "net": -176
+        },
+        "vs_without_position": {
+          "rescued": 579,
+          "lost": 258,
+          "net": 321
+        }
+      }
+    },
+    {
+      "fold": 5,
+      "n_train": 23714,
+      "n_held": 5815,
+      "n_train_discordant": 10954,
+      "held_blocks": [
+        "25300118",
+        "25500110",
+        "25500116",
+        "25800108",
+        "25800115",
+        "26100122",
+        "26300121",
+        "26400122",
+        "26600115",
+        "26900128",
+        "27300115",
+        "27300124"
+      ],
+      "choose_T4": 473,
+      "hits": 2639,
+      "comparisons": {
+        "vs_archived_T6": {
+          "rescued": 86,
+          "lost": 122,
+          "net": -36
+        },
+        "vs_block_refit_T6": {
+          "rescued": 333,
+          "lost": 128,
+          "net": 205
+        },
+        "vs_always_T5": {
+          "rescued": 83,
+          "lost": 123,
+          "net": -40
+        },
+        "vs_without_position": {
+          "rescued": 97,
+          "lost": 129,
+          "net": -32
+        }
+      }
+    }
+  ],
+  "input_sha256": {
+    "data/local_runs/confidence_models/inputs.parquet": "0d6fe29f5e468acab78330901d7fd5fd41c806cf135d817640e663c98486100f",
+    "data/local_runs/confidence_models/predictions.parquet": "0e8948b1b89913dcca677720356ebc5717468bd23511e30fa6954b7ad1f977a4",
+    "data/t1_original/meta/smapshot.parquet": "0b80fdc41eb452c08b319bddcb46f492963f6993dc9567dd5e9f445889aa5650",
+    "data/splits/main.csv.gz": "67d2a56bcad5ba826d73a63174315779827456fd9011e40583f743021e72a0a3",
+    "data/t1_original/features/clip_vitl14_ids.npy": "9bd4e88dfeacb6a18f0620d7c006e324ad0d14828a543097d187371e34302a98"
+  },
+  "previous_decisions_sha256": "ed2f339c9896a8604f33d569c0263fd31b3d0efff919ab40d20e3c5bc56e4463",
+  "sklearn_version": "1.7.2",
+  "gate_sha256": "9c083b4d4d1ae2b3a1ddd2dae413f3090d6111285322d41b67911a2ffb24bfd3",
+  "decisions_sha256": "fc5ff5e237dba8f1ec7697d164c865ff09ae5906edaa0df853bd53dd587677e8",
+  "final_fit": "All validation photos with exactly one hit, using out-of-fold branch confidences; deploy with the frozen T4/T5 confidence models.",
+  "scope": "Development validation only. T5 previously used this validation set to select its reranking weight."
+}
