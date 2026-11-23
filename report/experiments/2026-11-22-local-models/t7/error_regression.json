@@ -1,0 +1,959 @@
+{
+  "training": {
+    "n": 46235,
+    "photos_by_region": {
+      "dev1": 17755,
+      "dev2": 8225,
+      "dev3": 7294,
+      "dev4": 4027,
+      "dev5": 3803,
+      "dev6": 3077,
+      "dev7": 2054
+    },
+    "input_columns": [
+      "T4_lat_pred",
+      "T4_lon_pred",
+      "T5_lat_pred",
+      "T5_lon_pred",
+      "t4_was_projected",
+      "nearest_train_km",
+      "log1p_train_5km",
+      "log1p_train_25km",
+      "has_date",
+      "t5_visual_rank",
+      "t5_t3_score",
+      "t5_location_cosine"
+    ],
+    "regressor_parameters": {
+      "max_iter": 80,
+      "max_leaf_nodes": 7,
+      "min_samples_leaf": 100,
+      "learning_rate": 0.08,
+      "l2_regularization": 1.0,
+      "early_stopping": false,
+      "random_state": 42,
+      "loss": "squared_error"
+    }
+  },
+  "protocol": "Two error regressors fit on the original seven-region T6 development sample. The reserved region and official tests are evaluated separately against their archived T6 choices.",
+  "new_final": {
+    "n": 4664,
+    "methods": {
+      "T7": {
+        "n": 4664,
+        "n_non_ties": 4664,
+        "n_ties": 0,
+        "correct_non_ties": 2048,
+        "accuracy_non_ties_pct": 43.910806174957116,
+        "choose_T4": 2923,
+        "mean_km": 104.02051464772553,
+        "median_km": 104.68585155887556,
+        "mean_oracle_regret_km": 31.73760304551149,
+        "hits_25km": 70,
+        "hit_25km_pct": 1.5008576329331047
+      },
+      "T6": {
+        "n": 4664,
+        "n_non_ties": 4664,
+        "n_ties": 0,
+        "correct_non_ties": 1691,
+        "accuracy_non_ties_pct": 36.25643224699829,
+        "choose_T4": 3846,
+        "mean_km": 107.93748765842477,
+        "median_km": 111.1550135539288,
+        "mean_oracle_regret_km": 35.65457605621075,
+        "hits_25km": 59,
+        "hit_25km_pct": 1.265008576329331
+      },
+      "always_T4": {
+        "n": 4664,
+        "n_non_ties": 4664,
+        "n_ties": 0,
+        "correct_non_ties": 1655,
+        "accuracy_non_ties_pct": 35.48456260720412,
+        "choose_T4": 4664,
+        "mean_km": 109.86635271013566,
+        "median_km": 110.91684707002288,
+        "mean_oracle_regret_km": 37.58344110792163,
+        "hits_25km": 11,
+        "hit_25km_pct": 0.2358490566037736
+      },
+      "always_T5": {
+        "n": 4664,
+        "n_non_ties": 4664,
+        "n_ties": 0,
+        "correct_non_ties": 3009,
+        "accuracy_non_ties_pct": 64.51543739279589,
+        "choose_T4": 0,
+        "mean_km": 90.23308439059764,
+        "median_km": 67.53283240548971,
+        "mean_oracle_regret_km": 17.95017278838361,
+        "hits_25km": 369,
+        "hit_25km_pct": 7.911663807890223
+      }
+    },
+    "expected_km": {
+      "T4": {
+        "mae_km": 35.4587897077442,
+        "mean_predicted_km": 79.74707647053506,
+        "mean_observed_km": 109.86635271013566,
+        "calibration_bins": [
+          {
+            "bin": "0-10",
+            "lower_km": 0.0,
+            "upper_km": 10.0,
+            "count": 0,
+            "mean_predicted_km": null,
+            "mean_observed_km": null
+          },
+          {
+            "bin": "10-25",
+            "lower_km": 10.0,
+            "upper_km": 25.0,
+            "count": 0,
+            "mean_predicted_km": null,
+            "mean_observed_km": null
+          },
+          {
+            "bin": "25-50",
+            "lower_km": 25.0,
+            "upper_km": 50.0,
+            "count": 8,
+            "mean_predicted_km": 44.07152019815527,
+            "mean_observed_km": 147.9015838717424
+          },
+          {
+            "bin": "50-100",
+            "lower_km": 50.0,
+            "upper_km": 100.0,
+            "count": 4258,
+            "mean_predicted_km": 77.17871843638369,
+            "mean_observed_km": 108.05845890393836
+          },
+          {
+            "bin": "100+",
+            "lower_km": 100.0,
+            "upper_km": null,
+            "count": 398,
+            "mean_predicted_km": 107.94173214791094,
+            "mean_observed_km": 128.44356370886754
+          }
+        ]
+      },
+      "T5": {
+        "mae_km": 61.01437341121699,
+        "mean_predicted_km": 92.82344590144946,
+        "mean_observed_km": 90.23308439059764,
+        "calibration_bins": [
+          {
+            "bin": "0-10",
+            "lower_km": 0.0,
+            "upper_km": 10.0,
+            "count": 0,
+            "mean_predicted_km": null,
+            "mean_observed_km": null
+          },
+          {
+            "bin": "10-25",
+            "lower_km": 10.0,
+            "upper_km": 25.0,
+            "count": 0,
+            "mean_predicted_km": null,
+            "mean_observed_km": null
+          },
+          {
+            "bin": "25-50",
+            "lower_km": 25.0,
+            "upper_km": 50.0,
+            "count": 90,
+            "mean_predicted_km": 43.81202367104425,
+            "mean_observed_km": 142.07523580540897
+          },
+          {
+            "bin": "50-100",
+            "lower_km": 50.0,
+            "upper_km": 100.0,
+            "count": 3183,
+            "mean_predicted_km": 77.45662414312507,
+            "mean_observed_km": 97.11299301074342
+          },
+          {
+            "bin": "100+",
+            "lower_km": 100.0,
+            "upper_km": null,
+            "count": 1391,
+            "mean_predicted_km": 131.1581846918758,
+            "mean_observed_km": 71.13564171248332
+          }
+        ]
+      }
+    },
+    "paired_vs_T6": {
+      "switches": 1543,
+      "T5_to_T4": 310,
+      "T4_to_T5": 1233,
+      "improved": 950,
+      "worsened": 593,
+      "T4_closer_newly_correct": 100,
+      "T4_closer_previously_correct_lost": 383,
+      "T5_closer_newly_correct": 850,
+      "T5_closer_previously_correct_lost": 210,
+      "equal_after_switch": 0,
+      "saved_km": 49084.20180687023,
+      "added_km": 30815.439684968882,
+      "net_saved_km": 18268.76212190135,
+      "mean_saved_km": 3.91697301069926,
+      "net_correct_non_ties": 357,
+      "hit25_changes": {
+        "additional_T4_only_rescues": 0,
+        "previous_T4_only_rescues_reversed": 1,
+        "additional_T5_only_losses": 40,
+        "previous_T5_only_losses_recovered": 52,
+        "net_T4_only_rescues": -1,
+        "net_T5_only_losses": -12,
+        "net_hits_25km": 11
+      }
+    }
+  },
+  "official": {
+    "splits": {
+      "test_in": {
+        "n": 47593,
+        "methods": {
+          "T7": {
+            "n": 47593,
+            "n_non_ties": 47593,
+            "n_ties": 0,
+            "correct_non_ties": 25117,
+            "accuracy_non_ties_pct": 52.77456768852562,
+            "choose_T4": 25737,
+            "mean_km": 50.44868020273078,
+            "median_km": 41.025451106314335,
+            "mean_oracle_regret_km": 20.293931574495122,
+            "hits_25km": 16404,
+            "hit_25km_pct": 34.46725358771248
+          },
+          "T6": {
+            "n": 47593,
+            "n_non_ties": 47593,
+            "n_ties": 0,
+            "correct_non_ties": 22670,
+            "accuracy_non_ties_pct": 47.63305528123884,
+            "choose_T4": 36396,
+            "mean_km": 52.23842945396092,
+            "median_km": 43.68764203457151,
+            "mean_oracle_regret_km": 22.083680825725263,
+            "hits_25km": 13944,
+            "hit_25km_pct": 29.298426239152814
+          },
+          "always_T4": {
+            "n": 47593,
+            "n_non_ties": 47593,
+            "n_ties": 0,
+            "correct_non_ties": 18159,
+            "accuracy_non_ties_pct": 38.15477065955078,
+            "choose_T4": 47593,
+            "mean_km": 55.40936100680297,
+            "median_km": 48.316762826556186,
+            "mean_oracle_regret_km": 25.25461237856731,
+            "hits_25km": 10053,
+            "hit_25km_pct": 21.12285420124808
+          },
+          "always_T5": {
+            "n": 47593,
+            "n_non_ties": 47593,
+            "n_ties": 0,
+            "correct_non_ties": 29434,
+            "accuracy_non_ties_pct": 61.84522934044922,
+            "choose_T4": 0,
+            "mean_km": 45.52137422416697,
+            "median_km": 26.70048256607333,
+            "mean_oracle_regret_km": 15.366625595931305,
+            "hits_25km": 22949,
+            "hit_25km_pct": 48.219275943941334
+          }
+        },
+        "expected_km": {
+          "T4": {
+            "mae_km": 39.596083048046566,
+            "mean_predicted_km": 80.83003372498483,
+            "mean_observed_km": 55.40936100680297,
+            "calibration_bins": [
+              {
+                "bin": "0-10",
+                "lower_km": 0.0,
+                "upper_km": 10.0,
+                "count": 0,
+                "mean_predicted_km": null,
+                "mean_observed_km": null
+              },
+              {
+                "bin": "10-25",
+                "lower_km": 10.0,
+                "upper_km": 25.0,
+                "count": 4,
+                "mean_predicted_km": 21.35443876582824,
+                "mean_observed_km": 21.01135873730435
+              },
+              {
+                "bin": "25-50",
+                "lower_km": 25.0,
+                "upper_km": 50.0,
+                "count": 307,
+                "mean_predicted_km": 45.26678400853494,
+                "mean_observed_km": 31.183151231004064
+              },
+              {
+                "bin": "50-100",
+                "lower_km": 50.0,
+                "upper_km": 100.0,
+                "count": 41456,
+                "mean_predicted_km": 76.78829848729808,
+                "mean_observed_km": 55.64818279739136
+              },
+              {
+                "bin": "100+",
+                "lower_km": 100.0,
+                "upper_km": null,
+                "count": 5826,
+                "mean_predicted_km": 111.50459535497615,
+                "mean_observed_km": 55.01019215332138
+              }
+            ]
+          },
+          "T5": {
+            "mae_km": 56.854165038981094,
+            "mean_predicted_km": 86.35098742455666,
+            "mean_observed_km": 45.52137422416697,
+            "calibration_bins": [
+              {
+                "bin": "0-10",
+                "lower_km": 0.0,
+                "upper_km": 10.0,
+                "count": 0,
+                "mean_predicted_km": null,
+                "mean_observed_km": null
+              },
+              {
+                "bin": "10-25",
+                "lower_km": 10.0,
+                "upper_km": 25.0,
+                "count": 0,
+                "mean_predicted_km": null,
+                "mean_observed_km": null
+              },
+              {
+                "bin": "25-50",
+                "lower_km": 25.0,
+                "upper_km": 50.0,
+                "count": 2474,
+                "mean_predicted_km": 44.30294603705528,
+                "mean_observed_km": 26.56843428938887
+              },
+              {
+                "bin": "50-100",
+                "lower_km": 50.0,
+                "upper_km": 100.0,
+                "count": 33141,
+                "mean_predicted_km": 76.79599167563484,
+                "mean_observed_km": 42.18610350593272
+              },
+              {
+                "bin": "100+",
+                "lower_km": 100.0,
+                "upper_km": null,
+                "count": 11978,
+                "mean_predicted_km": 121.47279144089458,
+                "mean_observed_km": 58.66411760967725
+              }
+            ]
+          }
+        },
+        "paired_vs_T6": {
+          "switches": 14075,
+          "T5_to_T4": 1708,
+          "T4_to_T5": 12367,
+          "improved": 8261,
+          "worsened": 5814,
+          "T4_closer_newly_correct": 726,
+          "T4_closer_previously_correct_lost": 4832,
+          "T5_closer_newly_correct": 7535,
+          "T5_closer_previously_correct_lost": 982,
+          "equal_after_switch": 0,
+          "saved_km": 276009.29979134205,
+          "added_km": 190829.763677546,
+          "net_saved_km": 85179.53611379606,
+          "mean_saved_km": 1.78974925123014,
+          "net_correct_non_ties": 2447,
+          "hit25_changes": {
+            "additional_T4_only_rescues": 129,
+            "previous_T4_only_rescues_reversed": 1124,
+            "additional_T5_only_losses": 604,
+            "previous_T5_only_losses_recovered": 4059,
+            "net_T4_only_rescues": -995,
+            "net_T5_only_losses": -3455,
+            "net_hits_25km": 2460
+          }
+        }
+      },
+      "test_city": {
+        "n": 3377,
+        "methods": {
+          "T7": {
+            "n": 3377,
+            "n_non_ties": 3377,
+            "n_ties": 0,
+            "correct_non_ties": 1530,
+            "accuracy_non_ties_pct": 45.306485045898725,
+            "choose_T4": 1818,
+            "mean_km": 75.2959861091782,
+            "median_km": 78.17012340574294,
+            "mean_oracle_regret_km": 20.746730407116083,
+            "hits_25km": 190,
+            "hit_25km_pct": 5.626295528575659
+          },
+          "T6": {
+            "n": 3377,
+            "n_non_ties": 3377,
+            "n_ties": 0,
+            "correct_non_ties": 1352,
+            "accuracy_non_ties_pct": 40.035534498075215,
+            "choose_T4": 2100,
+            "mean_km": 78.54700521872935,
+            "median_km": 82.42066308298944,
+            "mean_oracle_regret_km": 23.997749516667238,
+            "hits_25km": 167,
+            "hit_25km_pct": 4.9452176488007105
+          },
+          "always_T4": {
+            "n": 3377,
+            "n_non_ties": 3377,
+            "n_ties": 0,
+            "correct_non_ties": 2373,
+            "accuracy_non_ties_pct": 70.26946994373705,
+            "choose_T4": 3377,
+            "mean_km": 62.185020163085554,
+            "median_km": 61.28215851728474,
+            "mean_oracle_regret_km": 7.635764461023426,
+            "hits_25km": 337,
+            "hit_25km_pct": 9.979271542789458
+          },
+          "always_T5": {
+            "n": 3377,
+            "n_non_ties": 3377,
+            "n_ties": 0,
+            "correct_non_ties": 1004,
+            "accuracy_non_ties_pct": 29.730530056262957,
+            "choose_T4": 0,
+            "mean_km": 83.57697220214156,
+            "median_km": 93.49256443089172,
+            "mean_oracle_regret_km": 29.027716500079443,
+            "hits_25km": 235,
+            "hit_25km_pct": 6.95883920639621
+          }
+        },
+        "expected_km": {
+          "T4": {
+            "mae_km": 37.53394259497982,
+            "mean_predicted_km": 91.81328317795894,
+            "mean_observed_km": 62.185020163085554,
+            "calibration_bins": [
+              {
+                "bin": "0-10",
+                "lower_km": 0.0,
+                "upper_km": 10.0,
+                "count": 0,
+                "mean_predicted_km": null,
+                "mean_observed_km": null
+              },
+              {
+                "bin": "10-25",
+                "lower_km": 10.0,
+                "upper_km": 25.0,
+                "count": 0,
+                "mean_predicted_km": null,
+                "mean_observed_km": null
+              },
+              {
+                "bin": "25-50",
+                "lower_km": 25.0,
+                "upper_km": 50.0,
+                "count": 4,
+                "mean_predicted_km": 45.861782852276875,
+                "mean_observed_km": 129.62346446591573
+              },
+              {
+                "bin": "50-100",
+                "lower_km": 50.0,
+                "upper_km": 100.0,
+                "count": 2366,
+                "mean_predicted_km": 82.74721341947301,
+                "mean_observed_km": 60.98459848085088
+              },
+              {
+                "bin": "100+",
+                "lower_km": 100.0,
+                "upper_km": null,
+                "count": 1007,
+                "mean_predicted_km": 113.29702404179257,
+                "mean_observed_km": 64.73759605479948
+              }
+            ]
+          },
+          "T5": {
+            "mae_km": 36.84364595086119,
+            "mean_predicted_km": 96.69552450347472,
+            "mean_observed_km": 83.57697220214156,
+            "calibration_bins": [
+              {
+                "bin": "0-10",
+                "lower_km": 0.0,
+                "upper_km": 10.0,
+                "count": 0,
+                "mean_predicted_km": null,
+                "mean_observed_km": null
+              },
+              {
+                "bin": "10-25",
+                "lower_km": 10.0,
+                "upper_km": 25.0,
+                "count": 0,
+                "mean_predicted_km": null,
+                "mean_observed_km": null
+              },
+              {
+                "bin": "25-50",
+                "lower_km": 25.0,
+                "upper_km": 50.0,
+                "count": 86,
+                "mean_predicted_km": 43.40222851261548,
+                "mean_observed_km": 113.68041722796859
+              },
+              {
+                "bin": "50-100",
+                "lower_km": 50.0,
+                "upper_km": 100.0,
+                "count": 1925,
+                "mean_predicted_km": 76.56206027118522,
+                "mean_observed_km": 76.3637899029301
+              },
+              {
+                "bin": "100+",
+                "lower_km": 100.0,
+                "upper_km": null,
+                "count": 1366,
+                "mean_predicted_km": 128.42330056670394,
+                "mean_observed_km": 91.84672304676894
+              }
+            ]
+          }
+        },
+        "paired_vs_T6": {
+          "switches": 1038,
+          "T5_to_T4": 378,
+          "T4_to_T5": 660,
+          "improved": 608,
+          "worsened": 430,
+          "T4_closer_newly_correct": 319,
+          "T4_closer_previously_correct_lost": 371,
+          "T5_closer_newly_correct": 289,
+          "T5_closer_previously_correct_lost": 59,
+          "equal_after_switch": 0,
+          "saved_km": 22460.007084406556,
+          "added_km": 11481.315551452304,
+          "net_saved_km": 10978.691532954252,
+          "mean_saved_km": 3.2510191095511556,
+          "net_correct_non_ties": 178,
+          "hit25_changes": {
+            "additional_T4_only_rescues": 20,
+            "previous_T4_only_rescues_reversed": 18,
+            "additional_T5_only_losses": 13,
+            "previous_T5_only_losses_recovered": 34,
+            "net_T4_only_rescues": 2,
+            "net_T5_only_losses": -21,
+            "net_hits_25km": 23
+          }
+        }
+      },
+      "test_region": {
+        "n": 13039,
+        "methods": {
+          "T7": {
+            "n": 13039,
+            "n_non_ties": 13039,
+            "n_ties": 0,
+            "correct_non_ties": 9702,
+            "accuracy_non_ties_pct": 74.40754659099625,
+            "choose_T4": 9562,
+            "mean_km": 63.454614794979214,
+            "median_km": 51.29918335570465,
+            "mean_oracle_regret_km": 7.056157485904821,
+            "hits_25km": 2522,
+            "hit_25km_pct": 19.3419740777667
+          },
+          "T6": {
+            "n": 13039,
+            "n_non_ties": 13039,
+            "n_ties": 0,
+            "correct_non_ties": 10839,
+            "accuracy_non_ties_pct": 83.12754045555641,
+            "choose_T4": 11757,
+            "mean_km": 59.65230222522205,
+            "median_km": 47.22784553578014,
+            "mean_oracle_regret_km": 3.2538449161476506,
+            "hits_25km": 2684,
+            "hit_25km_pct": 20.584400644221184
+          },
+          "always_T4": {
+            "n": 13039,
+            "n_non_ties": 13039,
+            "n_ties": 0,
+            "correct_non_ties": 11289,
+            "accuracy_non_ties_pct": 86.57872536237441,
+            "choose_T4": 13039,
+            "mean_km": 58.4966880982066,
+            "median_km": 47.16883249517274,
+            "mean_oracle_regret_km": 2.0982307891322063,
+            "hits_25km": 2693,
+            "hit_25km_pct": 20.653424342357543
+          },
+          "always_T5": {
+            "n": 13039,
+            "n_non_ties": 13039,
+            "n_ties": 0,
+            "correct_non_ties": 1750,
+            "accuracy_non_ties_pct": 13.421274637625585,
+            "choose_T4": 0,
+            "mean_km": 96.09612359025745,
+            "median_km": 85.58810314892641,
+            "mean_oracle_regret_km": 39.69766628118306,
+            "hits_25km": 387,
+            "hit_25km_pct": 2.9680190198634864
+          }
+        },
+        "expected_km": {
+          "T4": {
+            "mae_km": 35.99232285849789,
+            "mean_predicted_km": 78.020757669884,
+            "mean_observed_km": 58.4966880982066,
+            "calibration_bins": [
+              {
+                "bin": "0-10",
+                "lower_km": 0.0,
+                "upper_km": 10.0,
+                "count": 0,
+                "mean_predicted_km": null,
+                "mean_observed_km": null
+              },
+              {
+                "bin": "10-25",
+                "lower_km": 10.0,
+                "upper_km": 25.0,
+                "count": 0,
+                "mean_predicted_km": null,
+                "mean_observed_km": null
+              },
+              {
+                "bin": "25-50",
+                "lower_km": 25.0,
+                "upper_km": 50.0,
+                "count": 3,
+                "mean_predicted_km": 45.095810858148546,
+                "mean_observed_km": 118.55482783285167
+              },
+              {
+                "bin": "50-100",
+                "lower_km": 50.0,
+                "upper_km": 100.0,
+                "count": 11975,
+                "mean_predicted_km": 75.15633679723281,
+                "mean_observed_km": 56.50046623413389
+              },
+              {
+                "bin": "100+",
+                "lower_km": 100.0,
+                "upper_km": null,
+                "count": 1061,
+                "mean_predicted_km": 110.44320327820948,
+                "mean_observed_km": 80.85727471749675
+              }
+            ]
+          },
+          "T5": {
+            "mae_km": 32.05431546517735,
+            "mean_predicted_km": 92.99404107958081,
+            "mean_observed_km": 96.09612359025745,
+            "calibration_bins": [
+              {
+                "bin": "0-10",
+                "lower_km": 0.0,
+                "upper_km": 10.0,
+                "count": 0,
+                "mean_predicted_km": null,
+                "mean_observed_km": null
+              },
+              {
+                "bin": "10-25",
+                "lower_km": 10.0,
+                "upper_km": 25.0,
+                "count": 0,
+                "mean_predicted_km": null,
+                "mean_observed_km": null
+              },
+              {
+                "bin": "25-50",
+                "lower_km": 25.0,
+                "upper_km": 50.0,
+                "count": 102,
+                "mean_predicted_km": 44.65942992077121,
+                "mean_observed_km": 108.5445452187142
+              },
+              {
+                "bin": "50-100",
+                "lower_km": 50.0,
+                "upper_km": 100.0,
+                "count": 9381,
+                "mean_predicted_km": 81.57604406589691,
+                "mean_observed_km": 80.7652388639283
+              },
+              {
+                "bin": "100+",
+                "lower_km": 100.0,
+                "upper_km": null,
+                "count": 3556,
+                "mean_predicted_km": 124.5020164236661,
+                "mean_observed_km": 136.18310070262842
+              }
+            ]
+          }
+        },
+        "paired_vs_T6": {
+          "switches": 2519,
+          "T5_to_T4": 162,
+          "T4_to_T5": 2357,
+          "improved": 691,
+          "worsened": 1828,
+          "T4_closer_newly_correct": 132,
+          "T4_closer_previously_correct_lost": 1798,
+          "T5_closer_newly_correct": 559,
+          "T5_closer_previously_correct_lost": 30,
+          "equal_after_switch": 0,
+          "saved_km": 12812.478917119523,
+          "added_km": 62390.83251418327,
+          "net_saved_km": -49578.353597063746,
+          "mean_saved_km": -3.8023125697571705,
+          "net_correct_non_ties": -1137,
+          "hit25_changes": {
+            "additional_T4_only_rescues": 14,
+            "previous_T4_only_rescues_reversed": 243,
+            "additional_T5_only_losses": 0,
+            "previous_T5_only_losses_recovered": 67,
+            "net_T4_only_rescues": -229,
+            "net_T5_only_losses": -67,
+            "net_hits_25km": -162
+          }
+        }
+      }
+    },
+    "pooled": {
+      "n": 64009,
+      "methods": {
+        "T7": {
+          "n": 64009,
+          "n_non_ties": 64009,
+          "n_ties": 0,
+          "correct_non_ties": 36349,
+          "accuracy_non_ties_pct": 56.787326782171256,
+          "choose_T4": 37117,
+          "mean_km": 54.40896286914332,
+          "median_km": 45.178658678720964,
+          "mean_oracle_regret_km": 17.62121000903764,
+          "hits_25km": 19116,
+          "hit_25km_pct": 29.8645502976144
+        },
+        "T6": {
+          "n": 64009,
+          "n_non_ties": 64009,
+          "n_ties": 0,
+          "correct_non_ties": 34861,
+          "accuracy_non_ties_pct": 54.46265368932494,
+          "choose_T4": 50253,
+          "mean_km": 55.136671067204325,
+          "median_km": 46.59645551325446,
+          "mean_oracle_regret_km": 18.34891820709864,
+          "hits_25km": 16795,
+          "hit_25km_pct": 26.238497711259356
+        },
+        "always_T4": {
+          "n": 64009,
+          "n_non_ties": 64009,
+          "n_ties": 0,
+          "correct_non_ties": 31821,
+          "accuracy_non_ties_pct": 49.71332156415504,
+          "choose_T4": 64009,
+          "mean_km": 56.39573884297566,
+          "median_km": 48.88525220839502,
+          "mean_oracle_regret_km": 19.607985982869987,
+          "hits_25km": 13083,
+          "hit_25km_pct": 20.439313221578214
+        },
+        "always_T5": {
+          "n": 64009,
+          "n_non_ties": 64009,
+          "n_ties": 0,
+          "correct_non_ties": 32188,
+          "accuracy_non_ties_pct": 50.28667843584496,
+          "choose_T4": 0,
+          "mean_km": 57.83148547971031,
+          "median_km": 42.290910700829116,
+          "mean_oracle_regret_km": 21.043732619604633,
+          "hits_25km": 23571,
+          "hit_25km_pct": 36.82450905341436
+        }
+      },
+      "expected_km": {
+        "T4": {
+          "mae_km": 38.75318162134827,
+          "mean_predicted_km": 80.83722463439184,
+          "mean_observed_km": 56.39573884297566,
+          "calibration_bins": [
+            {
+              "bin": "0-10",
+              "lower_km": 0.0,
+              "upper_km": 10.0,
+              "count": 0,
+              "mean_predicted_km": null,
+              "mean_observed_km": null
+            },
+            {
+              "bin": "10-25",
+              "lower_km": 10.0,
+              "upper_km": 25.0,
+              "count": 4,
+              "mean_predicted_km": 21.35443876582824,
+              "mean_observed_km": 21.01135873730435
+            },
+            {
+              "bin": "25-50",
+              "lower_km": 25.0,
+              "upper_km": 50.0,
+              "count": 314,
+              "mean_predicted_km": 45.27273011020311,
+              "mean_observed_km": 33.27192920153014
+            },
+            {
+              "bin": "50-100",
+              "lower_km": 50.0,
+              "upper_km": 100.0,
+              "count": 55797,
+              "mean_predicted_km": 76.69073144052125,
+              "mean_observed_km": 56.05738138624124
+            },
+            {
+              "bin": "100+",
+              "lower_km": 100.0,
+              "upper_km": null,
+              "count": 7894,
+              "mean_predicted_km": 111.5905896157026,
+              "mean_observed_km": 59.72507058369615
+            }
+          ]
+        },
+        "T5": {
+          "mae_km": 50.74657451962588,
+          "mean_predicted_km": 88.24997472826966,
+          "mean_observed_km": 57.83148547971031,
+          "calibration_bins": [
+            {
+              "bin": "0-10",
+              "lower_km": 0.0,
+              "upper_km": 10.0,
+              "count": 0,
+              "mean_predicted_km": null,
+              "mean_observed_km": null
+            },
+            {
+              "bin": "10-25",
+              "lower_km": 10.0,
+              "upper_km": 25.0,
+              "count": 0,
+              "mean_predicted_km": null,
+              "mean_observed_km": null
+            },
+            {
+              "bin": "25-50",
+              "lower_km": 25.0,
+              "upper_km": 50.0,
+              "count": 2662,
+              "mean_predicted_km": 44.287506386054986,
+              "mean_observed_km": 32.52380387898656
+            },
+            {
+              "bin": "50-100",
+              "lower_km": 50.0,
+              "upper_km": 100.0,
+              "count": 44447,
+              "mean_predicted_km": 77.79473970181171,
+              "mean_observed_km": 51.80886578702202
+            },
+            {
+              "bin": "100+",
+              "lower_km": 100.0,
+              "upper_km": null,
+              "count": 16900,
+              "mean_predicted_km": 122.67198194412481,
+              "mean_observed_km": 77.65730949758267
+            }
+          ]
+        }
+      },
+      "paired_vs_T6": {
+        "switches": 17632,
+        "T5_to_T4": 2248,
+        "T4_to_T5": 15384,
+        "improved": 9560,
+        "worsened": 8072,
+        "T4_closer_newly_correct": 1177,
+        "T4_closer_previously_correct_lost": 7001,
+        "T5_closer_newly_correct": 8383,
+        "T5_closer_previously_correct_lost": 1071,
+        "equal_after_switch": 0,
+        "saved_km": 311281.7857928682,
+        "added_km": 264701.9117431816,
+        "net_saved_km": 46579.874049686594,
+        "mean_saved_km": 0.7277081980610007,
+        "net_correct_non_ties": 1488,
+        "hit25_changes": {
+          "additional_T4_only_rescues": 163,
+          "previous_T4_only_rescues_reversed": 1385,
+          "additional_T5_only_losses": 617,
+          "previous_T5_only_losses_recovered": 4160,
+          "net_T4_only_rescues": -1222,
+          "net_T5_only_losses": -3543,
+          "net_hits_25km": 2321
+        }
+      }
+    }
+  },
+  "inputs": {
+    "training_sample_sha256": "62a81043eea38473dc0b33b836a6a279647af2687f11ba3851e989da54e78596",
+    "new_final_sample_sha256": "42eb6b89b2896fea1dc9d87c34a42608af2bc90fd16500e8262add430f459f89",
+    "new_final_decisions_sha256": "510a602a58a66b6e8f238f6dfc558a4cabb7c3f04cf0848480def232929c3229",
+    "official_decisions_sha256": "14bcf40744e764f15affb53efb7f0eaac8165b57d79e82e525f219371a44df67",
+    "t6_input_sha256": {
+      "data/local_runs/confidence_models/predictions.parquet": "0e8948b1b89913dcca677720356ebc5717468bd23511e30fa6954b7ad1f977a4",
+      "data/local_runs/confidence_models/inputs.parquet": "0d6fe29f5e468acab78330901d7fd5fd41c806cf135d817640e663c98486100f",
+      "data/t1_original/meta/smapshot.parquet": "0b80fdc41eb452c08b319bddcb46f492963f6993dc9567dd5e9f445889aa5650",
+      "data/t1_original/features/clip_vitl14_ids.npy": "9bd4e88dfeacb6a18f0620d7c006e324ad0d14828a543097d187371e34302a98",
+      "data/splits/main.csv.gz": "67d2a56bcad5ba826d73a63174315779827456fd9011e40583f743021e72a0a3",
+      "seven_regions.joblib": "c6d6edb1dcf5914337cf556955012fd9b252061bbd3768848cec51e58a9d17a8",
+      "coverage_summary": "ea8d84cd7163f7e1a70f1b812361e9cc7630658ae6807aedfffc6c568ec4a435"
+    },
+    "regional_study_sha256": "f876de2243cfafb16dc419a35d8b07813271c31937d31dae3a9e36dd993bb3f5",
+    "official_summary_sha256": "9ba5748be7897321b654911ff40b20be2ac053e80d90eda58d64f77ecb03205c"
+  },
+  "output_sha256": {
+    "T7.joblib": "e4640040c76ab33a726cbe00a8907b88236d4b7fdab6887544382b92a1dbee2e",
+    "decisions.parquet": "c8b99ee4f2cf5beabb73be094a5716fe2a0cd17e9271f54b3e5e5eaf10ecea96"
+  }
+}
