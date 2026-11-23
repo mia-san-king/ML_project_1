@@ -1,0 +1,170 @@
+{
+  "n": 3673,
+  "final_region": "final",
+  "development_n": 46235,
+  "development_regions": {
+    "dev1": {
+      "n": 30716,
+      "T4_closer": 19998,
+      "T5_closer": 10718,
+      "exact_ties": 0
+    },
+    "dev2": {
+      "n": 8225,
+      "T4_closer": 3675,
+      "T5_closer": 4550,
+      "exact_ties": 0
+    },
+    "dev3": {
+      "n": 7294,
+      "T4_closer": 3057,
+      "T5_closer": 4237,
+      "exact_ties": 0
+    }
+  },
+  "T4_closer": 1722,
+  "T5_closer": 1951,
+  "exact_ties": 0,
+  "oracle_mean_km": 88.35757980255693,
+  "description": "Unweighted classification on all development photos with unequal expert distances. Strictly greater than 0.5 selects T4. Exact equal distances are excluded from accuracy and included in all distance and 25 km metrics. Positive saved km means lower error.",
+  "inputs": {
+    "prior_decisions_sha256": "cae210abf7f00c6f4d8b36ce801ccf1b5fffbed7d342be779a0d06e257d5a48c",
+    "regional_confidence_and_prior_gate_sha256": "ac67ce9b9f8dba4898591504e3a2f27d6fc696a3541bcfc6e7c62e5b2502e548"
+  },
+  "methods": {
+    "current_T6": {
+      "n": 3673,
+      "n_non_ties": 3673,
+      "n_ties": 0,
+      "correct_non_ties": 1949,
+      "accuracy_non_ties_pct": 53.062891369452764,
+      "choose_T4": 8,
+      "mean_km": 109.97364735285669,
+      "median_km": 116.85823094981413,
+      "mean_oracle_regret_km": 21.616067550299768,
+      "hits_25km": 138,
+      "hit_25km_pct": 3.757146746528723
+    },
+    "current_gate_regional_confidence": {
+      "n": 3673,
+      "n_non_ties": 3673,
+      "n_ties": 0,
+      "correct_non_ties": 1873,
+      "accuracy_non_ties_pct": 50.993738088755784,
+      "choose_T4": 88,
+      "mean_km": 111.21373137468458,
+      "median_km": 121.09248484562174,
+      "mean_oracle_regret_km": 22.85615157212766,
+      "hits_25km": 131,
+      "hit_25km_pct": 3.5665668390961067
+    },
+    "regional_T6": {
+      "n": 3673,
+      "n_non_ties": 3673,
+      "n_ties": 0,
+      "correct_non_ties": 1851,
+      "accuracy_non_ties_pct": 50.39477266539613,
+      "choose_T4": 466,
+      "mean_km": 111.69171610974401,
+      "median_km": 125.48251503995947,
+      "mean_oracle_regret_km": 23.33413630718708,
+      "hits_25km": 118,
+      "hit_25km_pct": 3.2126327252926767
+    },
+    "regional_closer": {
+      "n": 3673,
+      "n_non_ties": 3673,
+      "n_ties": 0,
+      "correct_non_ties": 453,
+      "accuracy_non_ties_pct": 12.33324258099646,
+      "choose_T4": 2094,
+      "mean_km": 132.96150717084822,
+      "median_km": 132.60912384474366,
+      "mean_oracle_regret_km": 44.603927368291295,
+      "hits_25km": 1,
+      "hit_25km_pct": 0.027225701061802342
+    },
+    "always_T4": {
+      "n": 3673,
+      "n_non_ties": 3673,
+      "n_ties": 0,
+      "correct_non_ties": 1722,
+      "accuracy_non_ties_pct": 46.88265722842363,
+      "choose_T4": 3673,
+      "mean_km": 115.24993572239505,
+      "median_km": 114.25307743610085,
+      "mean_oracle_regret_km": 26.89235591983811,
+      "hits_25km": 1,
+      "hit_25km_pct": 0.027225701061802342
+    },
+    "always_T5": {
+      "n": 3673,
+      "n_non_ties": 3673,
+      "n_ties": 0,
+      "correct_non_ties": 1951,
+      "accuracy_non_ties_pct": 53.11734277157637,
+      "choose_T4": 0,
+      "mean_km": 109.93495692110572,
+      "median_km": 116.55111276516685,
+      "mean_oracle_regret_km": 21.577377118548807,
+      "hits_25km": 140,
+      "hit_25km_pct": 3.811598148652328
+    }
+  },
+  "comparisons": {
+    "vs_current_T6": {
+      "switches": 2088,
+      "T5_to_T4": 2087,
+      "T4_to_T5": 1,
+      "improved": 296,
+      "worsened": 1792,
+      "T4_closer_newly_correct": 295,
+      "T4_closer_previously_correct_lost": 0,
+      "T5_closer_newly_correct": 1,
+      "T5_closer_previously_correct_lost": 1792,
+      "equal_after_switch": 0,
+      "saved_km": 11238.498397394234,
+      "added_km": 95672.90750887714,
+      "net_saved_km": -84434.4091114829,
+      "mean_saved_km": -22.987859817991534,
+      "net_correct_non_ties": -1496,
+      "hit25_changes": {
+        "additional_T4_only_rescues": 1,
+        "previous_T4_only_rescues_reversed": 0,
+        "additional_T5_only_losses": 138,
+        "previous_T5_only_losses_recovered": 0,
+        "net_T4_only_rescues": 1,
+        "net_T5_only_losses": 138,
+        "net_hits_25km": -137
+      }
+    },
+    "vs_regional_T6": {
+      "switches": 1772,
+      "T5_to_T4": 1700,
+      "T4_to_T5": 72,
+      "improved": 187,
+      "worsened": 1585,
+      "T4_closer_newly_correct": 165,
+      "T4_closer_previously_correct_lost": 50,
+      "T5_closer_newly_correct": 22,
+      "T5_closer_previously_correct_lost": 1535,
+      "equal_after_switch": 0,
+      "saved_km": 3261.0804394175757,
+      "added_km": 81385.02300685336,
+      "net_saved_km": -78123.94256743578,
+      "mean_saved_km": -21.269791061104215,
+      "net_correct_non_ties": -1398,
+      "hit25_changes": {
+        "additional_T4_only_rescues": 1,
+        "previous_T4_only_rescues_reversed": 0,
+        "additional_T5_only_losses": 118,
+        "previous_T5_only_losses_recovered": 0,
+        "net_T4_only_rescues": 1,
+        "net_T5_only_losses": 118,
+        "net_hits_25km": -117
+      }
+    }
+  },
+  "decisions_sha256": "f77876dd2c16a53ecd0ceff003bcbca3d7f26380fe8bc47e68774d84493a792a",
+  "artifact_sha256": "f87e350ef1f6099b51849c2bec4bd071602a9c2400d1e18bdd285717297396e8"
+}
