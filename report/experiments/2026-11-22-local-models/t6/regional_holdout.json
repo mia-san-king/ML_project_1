@@ -1,0 +1,178 @@
+{
+  "design": "Three rotating 30 km square development regions and a fourth reserved square. A 10 km buffer surrounds each withheld square; the final square and buffer are excluded throughout. The official tests are excluded. Each fold has a separately fitted T4 and T5, shared by the selectors on that fold.",
+  "inputs": {
+    "canonical_split_sha256": "67d2a56bcad5ba826d73a63174315779827456fd9011e40583f743021e72a0a3",
+    "feature_ids_sha256": "cadbcea3f78de4c04c31c3ee08d0d4e43f3b497f17de19d2288f44d26a34a985",
+    "baseline_bundle_sha256": "44639eacf1b1bb40c35af4ab8e5d6a65b1a4f12a315c2131901cf432601eaeb3",
+    "folds": {
+      "dev1": {
+        "query_photos": 30716,
+        "blocks": 9,
+        "split_sha256": "9142b3f4bf35a5533e0e6701df8e0e1177e401cb4b359a519c5d2f10a8cc7e37",
+        "predictions_sha256": "71776335a86ada60348902e317421bbe4597b3ee093ee828f3994ce0380bf4cc"
+      },
+      "dev2": {
+        "query_photos": 8225,
+        "blocks": 9,
+        "split_sha256": "0d81bfc1a3199aac28bd8ad6318f971315afdb5ac45b505167540e8fda0c0f0e",
+        "predictions_sha256": "e4ffa248aa96f1dd9cbb234cd88944c6422f1d98061ebcd1a1f427e937b80f0e"
+      },
+      "dev3": {
+        "query_photos": 7294,
+        "blocks": 9,
+        "split_sha256": "e0234558c7933ddc3f4d9789735245995307d84efc4876441dbcec740fe71863",
+        "predictions_sha256": "396cac9a851385a52b81955be3e320b3b01389ac7d549face8788bd539f33170"
+      },
+      "final": {
+        "query_photos": 3673,
+        "blocks": 9,
+        "split_sha256": "69c60014d15b55f922095376f8e421832be168003ea2fa1b847c7b6bcbc891cf",
+        "predictions_sha256": "1e0b3db27216ebd5aa524881a6c9e03e5be755d5b9b231eb40adfb9245d82506"
+      }
+    }
+  },
+  "region_assignment": {
+    "dev1": {
+      "southwest_lv95_m": [
+        2660000,
+        1220000
+      ],
+      "side_km": 30,
+      "buffer_km": 10,
+      "canonical_real_queries": 30760,
+      "query": 30716,
+      "train_real": 129203,
+      "train_variant": 5972,
+      "val": 17856,
+      "split_sha256": "9142b3f4bf35a5533e0e6701df8e0e1177e401cb4b359a519c5d2f10a8cc7e37"
+    },
+    "dev2": {
+      "southwest_lv95_m": [
+        2710000,
+        1250000
+      ],
+      "side_km": 30,
+      "buffer_km": 10,
+      "canonical_real_queries": 8233,
+      "query": 8225,
+      "train_real": 155704,
+      "train_variant": 7209,
+      "val": 29056,
+      "split_sha256": "0d81bfc1a3199aac28bd8ad6318f971315afdb5ac45b505167540e8fda0c0f0e"
+    },
+    "dev3": {
+      "southwest_lv95_m": [
+        2610000,
+        1090000
+      ],
+      "side_km": 30,
+      "buffer_km": 10,
+      "canonical_real_queries": 7297,
+      "query": 7294,
+      "train_real": 157083,
+      "train_variant": 7320,
+      "val": 28740,
+      "split_sha256": "e0234558c7933ddc3f4d9789735245995307d84efc4876441dbcec740fe71863"
+    },
+    "final": {
+      "southwest_lv95_m": [
+        2780000,
+        1130000
+      ],
+      "side_km": 30,
+      "buffer_km": 10,
+      "canonical_real_queries": 3678,
+      "query": 3673,
+      "train_real": 170200,
+      "train_variant": 7890,
+      "val": 29529,
+      "split_sha256": "69c60014d15b55f922095376f8e421832be168003ea2fa1b847c7b6bcbc891cf"
+    }
+  },
+  "results": {
+    "final_region": "final",
+    "n": 3673,
+    "n_blocks": 9,
+    "development_regions": {
+      "dev1": {
+        "n": 30716,
+        "only_T4_hits": 6023,
+        "only_T5_hits": 3414,
+        "confidence_training_n": 15519
+      },
+      "dev2": {
+        "n": 8225,
+        "only_T4_hits": 262,
+        "only_T5_hits": 420,
+        "confidence_training_n": 38010
+      },
+      "dev3": {
+        "n": 7294,
+        "only_T4_hits": 175,
+        "only_T5_hits": 293,
+        "confidence_training_n": 38941
+      }
+    },
+    "development_n": 46235,
+    "radius_km": 25.0,
+    "confidence": "Leave each development region out when producing its confidence inputs. Within the remaining data, split fit and sigmoid calibration by geographic block. Fit final confidence on all development regions.",
+    "current_T6": "Published gate and published calibrators on the common fold-specific expert predictions.",
+    "current_gate_regional_confidence": "Published gate on exactly the same six inputs as regional_T6.",
+    "regional_T6": "Same six-input model and fixed 0.5 cutoff, fitted on development-region exclusive hits.",
+    "only_T4_hits": 1,
+    "only_T5_hits": 140,
+    "T4_hits": 1,
+    "T5_hits": 140,
+    "methods": {
+      "current_T6": {
+        "choose_T4": 8,
+        "hits_25km": 138,
+        "hit_25km_pct": 3.757146746528723,
+        "median_km": 116.85823094981413,
+        "T4_only_rescued": 0,
+        "T5_only_lost": 2
+      },
+      "current_gate_regional_confidence": {
+        "choose_T4": 88,
+        "hits_25km": 131,
+        "hit_25km_pct": 3.5665668390961067,
+        "median_km": 121.09248484562174,
+        "T4_only_rescued": 1,
+        "T5_only_lost": 10
+      },
+      "regional_T6": {
+        "choose_T4": 466,
+        "hits_25km": 118,
+        "hit_25km_pct": 3.2126327252926767,
+        "median_km": 125.48251503995947,
+        "T4_only_rescued": 0,
+        "T5_only_lost": 22
+      }
+    },
+    "comparisons": {
+      "vs_current_T6": {
+        "additional_T4_only_rescues": 0,
+        "previous_T4_only_rescues_reversed": 0,
+        "additional_T5_only_losses": 22,
+        "previous_T5_only_losses_recovered": 2,
+        "net_T4_only_rescues": 0,
+        "net_T5_only_losses": 20,
+        "net_hits_25km": -20
+      },
+      "vs_current_gate_regional_confidence": {
+        "additional_T4_only_rescues": 0,
+        "previous_T4_only_rescues_reversed": 1,
+        "additional_T5_only_losses": 22,
+        "previous_T5_only_losses_recovered": 10,
+        "net_T4_only_rescues": -1,
+        "net_T5_only_losses": 12,
+        "net_hits_25km": -13
+      }
+    },
+    "frozen_sha256": {
+      "gate": "9c083b4d4d1ae2b3a1ddd2dae413f3090d6111285322d41b67911a2ffb24bfd3",
+      "t4_confidence": "25fdda8baf0bcd50f686ea4c9bce842c16df9eee8c0cb7fd6c8354222b8fa2c7",
+      "t5_confidence": "64107184a1340f7afa7402a71cb96c2711b20536e5e99abd14326abfcae6e734"
+    }
+  }
+}
