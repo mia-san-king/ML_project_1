@@ -1,0 +1,1648 @@
+{
+  "training_n": 46235,
+  "provenance": {
+    "training_n": 46235,
+    "photos_by_region": {
+      "dev1": 17755,
+      "dev2": 8225,
+      "dev3": 7294,
+      "dev4": 4027,
+      "dev5": 3803,
+      "dev6": 3077,
+      "dev7": 2054
+    },
+    "training_ids_sha256": "ba31108e6c7881717a9dbd30d26fa7649a6079028f6cc44f9a81a82465bdf01c",
+    "training_sample_sha256": "62a81043eea38473dc0b33b836a6a279647af2687f11ba3851e989da54e78596",
+    "sampling_seed": 42,
+    "folds": {
+      "dev1": {
+        "split_sha256": "2378693fad037fcd1d8948d66bb47ff8fe8d647fe595cc653fc8b0c1702c94ca",
+        "predictions_sha256": "30721cb97e0bb485d531ac7ff680f5b466a7c4a01121459323f261dfb0845a3d"
+      },
+      "dev2": {
+        "split_sha256": "48e04a776e0f875df10f58ad3eee20d3efb2ea5533e6aba960b0e06b5439b239",
+        "predictions_sha256": "eb1ef3f6d22bb6cdbb21adbde8488801d10d6c8c93f209e2479f62f8b6e2b8fc"
+      },
+      "dev3": {
+        "split_sha256": "82b6675f843583b7c5969f0177810046c44b281885284b165bd1baaa4e69767c",
+        "predictions_sha256": "5b74c2022f2e471a029210959400ac826a083aa706094ad29423a3c5aecabc09"
+      },
+      "dev4": {
+        "split_sha256": "1a483b5ba2ce56b75981b1fd87b2dad4223937ea8545f9a49d9bfabdb6d4280c",
+        "predictions_sha256": "d5bce9e86f2c0404b9b2a853d553b59e9b457c4ca263f0c9347649a2f0e59b05"
+      },
+      "dev5": {
+        "split_sha256": "937668854d7ce2cb691e0c25b961132bd025219076599aa0610be948e5657053",
+        "predictions_sha256": "9bcbcdfbe0f004b9ea9c5fdde2b5e6ec7276c6344213374fe986c6571e3a2c2d"
+      },
+      "dev6": {
+        "split_sha256": "340007abf86808844b431d475500762724fef0ed79647c96302dad662059b003",
+        "predictions_sha256": "1c2992075c5479a3a9ea42f1b90cea8c415456f2821129673bb7f6a10355c179"
+      },
+      "dev7": {
+        "split_sha256": "e6038d69cb539e4aec97634db017857b72d619514b41d244fcb3bfd31ff391c4",
+        "predictions_sha256": "ea256c7b69d071b0d20cbac516d30fd570d6c2b7373de53d2a93b306416c66ed"
+      }
+    },
+    "t6_report_sha256": "f876de2243cfafb16dc419a35d8b07813271c31937d31dae3a9e36dd993bb3f5",
+    "t7_report_sha256": "d1ec1d666afdd072d799cd2f6cdb014e3f2f5f9994635850847305fb653ae2e7"
+  },
+  "curve": {
+    "n": 46235,
+    "seed": 42,
+    "stages": [
+      20,
+      40,
+      80,
+      160,
+      320
+    ],
+    "fractions": [
+      0.5,
+      1.0
+    ],
+    "folds": {
+      "dev1": {
+        "held_n": 17755,
+        "train_by_fraction": {
+          "0.5": {
+            "train_n": 14238,
+            "photos_by_region": {
+              "dev2": 4112,
+              "dev3": 3647,
+              "dev4": 2013,
+              "dev5": 1901,
+              "dev6": 1538,
+              "dev7": 1027
+            },
+            "sample_id_sha256": "c6c42717e5ea055f60c8b5e23120ec9c5dd40feccbe70c2a8874f192a916945e"
+          },
+          "1.0": {
+            "train_n": 28480,
+            "photos_by_region": {
+              "dev2": 8225,
+              "dev3": 7294,
+              "dev4": 4027,
+              "dev5": 3803,
+              "dev6": 3077,
+              "dev7": 2054
+            },
+            "sample_id_sha256": "dc8496f461a2b67d9b1dd361b2500960d7fb3c51a56fd29c2d752cde7d0f5459"
+          }
+        }
+      },
+      "dev2": {
+        "held_n": 8225,
+        "train_by_fraction": {
+          "0.5": {
+            "train_n": 19003,
+            "photos_by_region": {
+              "dev1": 8877,
+              "dev3": 3647,
+              "dev4": 2013,
+              "dev5": 1901,
+              "dev6": 1538,
+              "dev7": 1027
+            },
+            "sample_id_sha256": "696acaa9b043d5ce27779da42dcb801e2b6c483d9e5c99c782e69fa05d78f798"
+          },
+          "1.0": {
+            "train_n": 38010,
+            "photos_by_region": {
+              "dev1": 17755,
+              "dev3": 7294,
+              "dev4": 4027,
+              "dev5": 3803,
+              "dev6": 3077,
+              "dev7": 2054
+            },
+            "sample_id_sha256": "58616cd7d6bfec0f56f912a7ff7e03bc29968531e12d3a3410bf45ebfc8c9142"
+          }
+        }
+      },
+      "dev3": {
+        "held_n": 7294,
+        "train_by_fraction": {
+          "0.5": {
+            "train_n": 19468,
+            "photos_by_region": {
+              "dev1": 8877,
+              "dev2": 4112,
+              "dev4": 2013,
+              "dev5": 1901,
+              "dev6": 1538,
+              "dev7": 1027
+            },
+            "sample_id_sha256": "53bbe327531f75c41f8c0d71d72c9a68262949f60bbc226f3fa7db907ce9ad48"
+          },
+          "1.0": {
+            "train_n": 38941,
+            "photos_by_region": {
+              "dev1": 17755,
+              "dev2": 8225,
+              "dev4": 4027,
+              "dev5": 3803,
+              "dev6": 3077,
+              "dev7": 2054
+            },
+            "sample_id_sha256": "c6028ba738e2e32911bd000bd939c8a25308d6624bf38f26c297d87432cf5182"
+          }
+        }
+      },
+      "dev4": {
+        "held_n": 4027,
+        "train_by_fraction": {
+          "0.5": {
+            "train_n": 21102,
+            "photos_by_region": {
+              "dev1": 8877,
+              "dev2": 4112,
+              "dev3": 3647,
+              "dev5": 1901,
+              "dev6": 1538,
+              "dev7": 1027
+            },
+            "sample_id_sha256": "f5f63fbbaa7923f6bac35430a4ec99b8cfc472005618764c737e8a4b266a247c"
+          },
+          "1.0": {
+            "train_n": 42208,
+            "photos_by_region": {
+              "dev1": 17755,
+              "dev2": 8225,
+              "dev3": 7294,
+              "dev5": 3803,
+              "dev6": 3077,
+              "dev7": 2054
+            },
+            "sample_id_sha256": "cead3d63df5ba6c6cd320a413a5b8cc06ac5eb2f71083dae90dbc2179ad0d900"
+          }
+        }
+      },
+      "dev5": {
+        "held_n": 3803,
+        "train_by_fraction": {
+          "0.5": {
+            "train_n": 21214,
+            "photos_by_region": {
+              "dev1": 8877,
+              "dev2": 4112,
+              "dev3": 3647,
+              "dev4": 2013,
+              "dev6": 1538,
+              "dev7": 1027
+            },
+            "sample_id_sha256": "81b53a3357eb6d4f45ebab4cf6394afca55331aba8c3a742d2917b28fb8c42b0"
+          },
+          "1.0": {
+            "train_n": 42432,
+            "photos_by_region": {
+              "dev1": 17755,
+              "dev2": 8225,
+              "dev3": 7294,
+              "dev4": 4027,
+              "dev6": 3077,
+              "dev7": 2054
+            },
+            "sample_id_sha256": "13e1c2054f68487c2e6e40f8a48ba66ded24894c7adadb8b98c860142a8dc698"
+          }
+        }
+      },
+      "dev6": {
+        "held_n": 3077,
+        "train_by_fraction": {
+          "0.5": {
+            "train_n": 21577,
+            "photos_by_region": {
+              "dev1": 8877,
+              "dev2": 4112,
+              "dev3": 3647,
+              "dev4": 2013,
+              "dev5": 1901,
+              "dev7": 1027
+            },
+            "sample_id_sha256": "92f8a90c5a3e2f787df776f2378693c93c5b3d09644639a7ad39d70e9a6680bc"
+          },
+          "1.0": {
+            "train_n": 43158,
+            "photos_by_region": {
+              "dev1": 17755,
+              "dev2": 8225,
+              "dev3": 7294,
+              "dev4": 4027,
+              "dev5": 3803,
+              "dev7": 2054
+            },
+            "sample_id_sha256": "9d2d4cdad6fdfb6bf24847f039e6e1a89a9dabe720d72a8f37e6d7b6ffa8bd12"
+          }
+        }
+      },
+      "dev7": {
+        "held_n": 2054,
+        "train_by_fraction": {
+          "0.5": {
+            "train_n": 22088,
+            "photos_by_region": {
+              "dev1": 8877,
+              "dev2": 4112,
+              "dev3": 3647,
+              "dev4": 2013,
+              "dev5": 1901,
+              "dev6": 1538
+            },
+            "sample_id_sha256": "d67df708113167da332588269cffd977bb0753876d060083d48321555f31bd68"
+          },
+          "1.0": {
+            "train_n": 44181,
+            "photos_by_region": {
+              "dev1": 17755,
+              "dev2": 8225,
+              "dev3": 7294,
+              "dev4": 4027,
+              "dev5": 3803,
+              "dev6": 3077
+            },
+            "sample_id_sha256": "cadd3b8f07cf971f19f775f539d3a873abb7e7c51d60bd3a9baba5d115e9f66d"
+          }
+        }
+      }
+    },
+    "points": [
+      {
+        "fraction": 0.5,
+        "stage": 20,
+        "by_region": {
+          "dev1": {
+            "train_n": 14238,
+            "held_n": 17755,
+            "non_ties": 17755,
+            "closer_correct": 10752,
+            "train_joint_rmse_km": 42.724753980729815,
+            "held_joint_rmse_km": 57.61561290778836,
+            "held_T4_rmse_km": 48.083305487440185,
+            "held_T5_rmse_km": 65.78079837522287,
+            "held_T4_mae_km": 42.60909853284208,
+            "held_T5_mae_km": 57.71966349810345,
+            "chosen_mean_km": 68.03724221880772,
+            "chosen_median_km": 41.431583000830585,
+            "closer_accuracy": 0.605575894114334
+          },
+          "dev2": {
+            "train_n": 19003,
+            "held_n": 8225,
+            "non_ties": 8225,
+            "closer_correct": 3271,
+            "train_joint_rmse_km": 39.81462476217948,
+            "held_joint_rmse_km": 53.05542005107938,
+            "held_T4_rmse_km": 44.80290363043072,
+            "held_T5_rmse_km": 60.18683427357922,
+            "held_T4_mae_km": 39.334783941805384,
+            "held_T5_mae_km": 48.04320621313325,
+            "chosen_mean_km": 74.47449871799792,
+            "chosen_median_km": 71.11319273728544,
+            "closer_accuracy": 0.39768996960486325
+          },
+          "dev3": {
+            "train_n": 19468,
+            "held_n": 7294,
+            "non_ties": 7294,
+            "closer_correct": 2465,
+            "train_joint_rmse_km": 39.436401916186504,
+            "held_joint_rmse_km": 56.85766444563151,
+            "held_T4_rmse_km": 41.57738944230088,
+            "held_T5_rmse_km": 68.82520395601675,
+            "held_T4_mae_km": 35.17183277723157,
+            "held_T5_mae_km": 54.80278510286591,
+            "chosen_mean_km": 78.08400818723297,
+            "chosen_median_km": 75.70093814514571,
+            "closer_accuracy": 0.33794899917740606
+          },
+          "dev4": {
+            "train_n": 21102,
+            "held_n": 4027,
+            "non_ties": 4027,
+            "closer_correct": 1639,
+            "train_joint_rmse_km": 39.69644713209499,
+            "held_joint_rmse_km": 46.19828174403214,
+            "held_T4_rmse_km": 37.41130353688076,
+            "held_T5_rmse_km": 53.56264407096908,
+            "held_T4_mae_km": 30.92871880603197,
+            "held_T5_mae_km": 45.46060098546424,
+            "chosen_mean_km": 76.07859979596203,
+            "chosen_median_km": 72.43678446853025,
+            "closer_accuracy": 0.40700273156195677
+          },
+          "dev5": {
+            "train_n": 21214,
+            "held_n": 3803,
+            "non_ties": 3803,
+            "closer_correct": 1826,
+            "train_joint_rmse_km": 39.40659436221672,
+            "held_joint_rmse_km": 41.34141007637967,
+            "held_T4_rmse_km": 40.75154898235859,
+            "held_T5_rmse_km": 41.92297257763578,
+            "held_T4_mae_km": 35.62070084592708,
+            "held_T5_mae_km": 36.32783026742483,
+            "chosen_mean_km": 62.26797746424828,
+            "chosen_median_km": 59.552360959212855,
+            "closer_accuracy": 0.48014725216934
+          },
+          "dev6": {
+            "train_n": 21577,
+            "held_n": 3077,
+            "non_ties": 3077,
+            "closer_correct": 577,
+            "train_joint_rmse_km": 36.8269758857221,
+            "held_joint_rmse_km": 80.73492936590763,
+            "held_T4_rmse_km": 60.71553215080343,
+            "held_T5_rmse_km": 96.69478680405136,
+            "held_T4_mae_km": 54.00915886618935,
+            "held_T5_mae_km": 86.01184790820739,
+            "chosen_mean_km": 133.30743284980363,
+            "chosen_median_km": 131.05775966217988,
+            "closer_accuracy": 0.1875203119922002
+          },
+          "dev7": {
+            "train_n": 22088,
+            "held_n": 2054,
+            "non_ties": 2054,
+            "closer_correct": 295,
+            "train_joint_rmse_km": 32.64768771091925,
+            "held_joint_rmse_km": 122.72840684485529,
+            "held_T4_rmse_km": 112.10559052236134,
+            "held_T5_rmse_km": 132.50230287427195,
+            "held_T4_mae_km": 104.59589191216457,
+            "held_T5_mae_km": 121.80633612819126,
+            "chosen_mean_km": 191.57806962699598,
+            "chosen_median_km": 204.70262635598704,
+            "closer_accuracy": 0.1436222005842259
+          }
+        },
+        "macro": {
+          "train_joint_rmse_km": 38.65049796429269,
+          "held_joint_rmse_km": 65.50453220509628,
+          "held_T4_rmse_km": 55.06393910751085,
+          "held_T5_rmse_km": 74.21079184739243,
+          "held_T4_mae_km": 48.895740811741724,
+          "held_T5_mae_km": 64.31032430048433,
+          "chosen_mean_km": 97.68968983729266,
+          "chosen_median_km": 93.71360647559597,
+          "closer_accuracy": 0.3656439084577609
+        },
+        "pooled": {
+          "train_n": 138690,
+          "held_n": 46235,
+          "non_ties": 46235,
+          "closer_correct": 20825,
+          "train_joint_rmse_km": 38.48309040412865,
+          "held_joint_rmse_km": 60.95022895776446,
+          "held_T4_rmse_km": 50.79181335227779,
+          "held_T5_rmse_km": 69.64231843064384,
+          "held_T4_mae_km": 42.77361545186308,
+          "held_T5_mae_km": 57.44074316315544,
+          "chosen_mean_km": 80.82536409291039,
+          "chosen_median_km": 72.20026052717398,
+          "closer_accuracy": 0.45041635124905377
+        }
+      },
+      {
+        "fraction": 0.5,
+        "stage": 40,
+        "by_region": {
+          "dev1": {
+            "train_n": 14238,
+            "held_n": 17755,
+            "non_ties": 17755,
+            "closer_correct": 11808,
+            "train_joint_rmse_km": 40.36813572478172,
+            "held_joint_rmse_km": 54.72351921758284,
+            "held_T4_rmse_km": 45.162194630986995,
+            "held_T5_rmse_km": 62.84666488547476,
+            "held_T4_mae_km": 39.72817083016225,
+            "held_T5_mae_km": 54.73175127221652,
+            "chosen_mean_km": 63.90766831557302,
+            "chosen_median_km": 38.86225547046404,
+            "closer_accuracy": 0.6650520980005632
+          },
+          "dev2": {
+            "train_n": 19003,
+            "held_n": 8225,
+            "non_ties": 8225,
+            "closer_correct": 3218,
+            "train_joint_rmse_km": 35.95982751008581,
+            "held_joint_rmse_km": 55.088661087387834,
+            "held_T4_rmse_km": 47.57130360483325,
+            "held_T5_rmse_km": 61.69677652956381,
+            "held_T4_mae_km": 41.63851378634201,
+            "held_T5_mae_km": 49.316336582299996,
+            "chosen_mean_km": 74.2397667583778,
+            "chosen_median_km": 70.7973876431211,
+            "closer_accuracy": 0.3912462006079027
+          },
+          "dev3": {
+            "train_n": 19468,
+            "held_n": 7294,
+            "non_ties": 7294,
+            "closer_correct": 2085,
+            "train_joint_rmse_km": 35.986960909057515,
+            "held_joint_rmse_km": 62.4863767227234,
+            "held_T4_rmse_km": 45.88942877398649,
+            "held_T5_rmse_km": 75.51989723685698,
+            "held_T4_mae_km": 38.692679155300546,
+            "held_T5_mae_km": 60.24508678861521,
+            "chosen_mean_km": 79.28986516253885,
+            "chosen_median_km": 76.84745491551428,
+            "closer_accuracy": 0.28585138469975324
+          },
+          "dev4": {
+            "train_n": 21102,
+            "held_n": 4027,
+            "non_ties": 4027,
+            "closer_correct": 1605,
+            "train_joint_rmse_km": 35.75802052157589,
+            "held_joint_rmse_km": 50.5048117833536,
+            "held_T4_rmse_km": 40.40829588617623,
+            "held_T5_rmse_km": 58.89517510050529,
+            "held_T4_mae_km": 33.20759271487953,
+            "held_T5_mae_km": 49.59999203240959,
+            "chosen_mean_km": 76.86604233721228,
+            "chosen_median_km": 72.58878574474744,
+            "closer_accuracy": 0.398559721877328
+          },
+          "dev5": {
+            "train_n": 21214,
+            "held_n": 3803,
+            "non_ties": 3803,
+            "closer_correct": 1809,
+            "train_joint_rmse_km": 35.80168546601124,
+            "held_joint_rmse_km": 44.262606084915966,
+            "held_T4_rmse_km": 44.43063523006767,
+            "held_T5_rmse_km": 44.093936634298714,
+            "held_T4_mae_km": 39.12397328244773,
+            "held_T5_mae_km": 38.021968505782944,
+            "chosen_mean_km": 62.758996673234876,
+            "chosen_median_km": 59.09510404548216,
+            "closer_accuracy": 0.47567709702866157
+          },
+          "dev6": {
+            "train_n": 21577,
+            "held_n": 3077,
+            "non_ties": 3077,
+            "closer_correct": 530,
+            "train_joint_rmse_km": 33.65094417152553,
+            "held_joint_rmse_km": 82.29232871647585,
+            "held_T4_rmse_km": 59.40585102288453,
+            "held_T5_rmse_km": 100.0749698746289,
+            "held_T4_mae_km": 52.4344999788777,
+            "held_T5_mae_km": 89.42625495996363,
+            "chosen_mean_km": 134.01092648494523,
+            "chosen_median_km": 131.85413315479656,
+            "closer_accuracy": 0.17224569385765356
+          },
+          "dev7": {
+            "train_n": 22088,
+            "held_n": 2054,
+            "non_ties": 2054,
+            "closer_correct": 298,
+            "train_joint_rmse_km": 29.577197790290437,
+            "held_joint_rmse_km": 124.51769190354587,
+            "held_T4_rmse_km": 111.34596566290057,
+            "held_T5_rmse_km": 136.42355780644672,
+            "held_T4_mae_km": 103.46156371024429,
+            "held_T5_mae_km": 125.91160081252728,
+            "chosen_mean_km": 191.73341016848124,
+            "chosen_median_km": 204.99416296778702,
+            "closer_accuracy": 0.1450827653359299
+          }
+        },
+        "macro": {
+          "train_joint_rmse_km": 35.30039601333259,
+          "held_joint_rmse_km": 67.69657078799791,
+          "held_T4_rmse_km": 56.316239258833676,
+          "held_T5_rmse_km": 77.07871115253931,
+          "held_T4_mae_km": 49.75528477975058,
+          "held_T5_mae_km": 66.75042727911647,
+          "chosen_mean_km": 97.54381084290904,
+          "chosen_median_km": 93.57704056313037,
+          "closer_accuracy": 0.3619592802011132
+        },
+        "pooled": {
+          "train_n": 138690,
+          "held_n": 46235,
+          "non_ties": 46235,
+          "closer_correct": 21353,
+          "train_joint_rmse_km": 35.10504809603531,
+          "held_joint_rmse_km": 61.876077472857006,
+          "held_T4_rmse_km": 51.07136093412581,
+          "held_T5_rmse_km": 71.05641434233965,
+          "held_T4_mae_km": 42.964016552239066,
+          "held_T5_mae_km": 58.28788804988701,
+          "chosen_mean_km": 79.55070987664578,
+          "chosen_median_km": 70.95539036566156,
+          "closer_accuracy": 0.4618362712230994
+        }
+      },
+      {
+        "fraction": 0.5,
+        "stage": 80,
+        "by_region": {
+          "dev1": {
+            "train_n": 14238,
+            "held_n": 17755,
+            "non_ties": 17755,
+            "closer_correct": 12270,
+            "train_joint_rmse_km": 38.00411384116017,
+            "held_joint_rmse_km": 53.330002221545655,
+            "held_T4_rmse_km": 43.166569506361085,
+            "held_T5_rmse_km": 61.84517403122596,
+            "held_T4_mae_km": 37.13913863883913,
+            "held_T5_mae_km": 52.76687570588464,
+            "chosen_mean_km": 63.32125699811791,
+            "chosen_median_km": 37.82319087263051,
+            "closer_accuracy": 0.6910729372007886
+          },
+          "dev2": {
+            "train_n": 19003,
+            "held_n": 8225,
+            "non_ties": 8225,
+            "closer_correct": 3176,
+            "train_joint_rmse_km": 32.79565898767084,
+            "held_joint_rmse_km": 55.416946457966276,
+            "held_T4_rmse_km": 47.8165323842569,
+            "held_T5_rmse_km": 62.093921926348905,
+            "held_T4_mae_km": 41.463941913668044,
+            "held_T5_mae_km": 50.117157254462505,
+            "chosen_mean_km": 74.59871222378808,
+            "chosen_median_km": 70.79108443123395,
+            "closer_accuracy": 0.3861398176291793
+          },
+          "dev3": {
+            "train_n": 19468,
+            "held_n": 7294,
+            "non_ties": 7294,
+            "closer_correct": 1897,
+            "train_joint_rmse_km": 33.55075678951478,
+            "held_joint_rmse_km": 65.14761389012175,
+            "held_T4_rmse_km": 49.335800113884545,
+            "held_T5_rmse_km": 77.8100380302927,
+            "held_T4_mae_km": 41.76673117517622,
+            "held_T5_mae_km": 62.83532540710115,
+            "chosen_mean_km": 80.06660846080892,
+            "chosen_median_km": 77.35455237038892,
+            "closer_accuracy": 0.2600767754318618
+          },
+          "dev4": {
+            "train_n": 21102,
+            "held_n": 4027,
+            "non_ties": 4027,
+            "closer_correct": 1586,
+            "train_joint_rmse_km": 32.74173141699525,
+            "held_joint_rmse_km": 54.86485935625643,
+            "held_T4_rmse_km": 43.645165448666106,
+            "held_T5_rmse_km": 64.15142334603466,
+            "held_T4_mae_km": 35.56970414717503,
+            "held_T5_mae_km": 53.734423884955916,
+            "chosen_mean_km": 77.43340777889448,
+            "chosen_median_km": 73.27327517486266,
+            "closer_accuracy": 0.3938415694065061
+          },
+          "dev5": {
+            "train_n": 21214,
+            "held_n": 3803,
+            "non_ties": 3803,
+            "closer_correct": 1864,
+            "train_joint_rmse_km": 32.9866213496571,
+            "held_joint_rmse_km": 46.145834448753995,
+            "held_T4_rmse_km": 47.02282003345785,
+            "held_T5_rmse_km": 45.251855984530145,
+            "held_T4_mae_km": 41.63686289419951,
+            "held_T5_mae_km": 38.92315050743691,
+            "chosen_mean_km": 62.18868592311237,
+            "chosen_median_km": 57.776571841377894,
+            "closer_accuracy": 0.4901393636602682
+          },
+          "dev6": {
+            "train_n": 21577,
+            "held_n": 3077,
+            "non_ties": 3077,
+            "closer_correct": 536,
+            "train_joint_rmse_km": 31.179015288558375,
+            "held_joint_rmse_km": 81.36234575315073,
+            "held_T4_rmse_km": 58.60475756508739,
+            "held_T5_rmse_km": 99.02093214895436,
+            "held_T4_mae_km": 51.317143517819666,
+            "held_T5_mae_km": 88.79862154377119,
+            "chosen_mean_km": 133.26762388712032,
+            "chosen_median_km": 131.3284689984354,
+            "closer_accuracy": 0.17419564510887228
+          },
+          "dev7": {
+            "train_n": 22088,
+            "held_n": 2054,
+            "non_ties": 2054,
+            "closer_correct": 320,
+            "train_joint_rmse_km": 27.43499590437115,
+            "held_joint_rmse_km": 124.62628446684315,
+            "held_T4_rmse_km": 110.24246498555723,
+            "held_T5_rmse_km": 137.51371013076914,
+            "held_T4_mae_km": 102.20550109233497,
+            "held_T5_mae_km": 126.67496923270201,
+            "chosen_mean_km": 191.29595534950528,
+            "chosen_median_km": 204.8775518562194,
+            "closer_accuracy": 0.15579357351509251
+          }
+        },
+        "macro": {
+          "train_joint_rmse_km": 32.670413368275376,
+          "held_joint_rmse_km": 68.69912665637686,
+          "held_T4_rmse_km": 57.119158576753016,
+          "held_T5_rmse_km": 78.2410079425937,
+          "held_T4_mae_km": 50.15700333988751,
+          "held_T5_mae_km": 67.69293193375918,
+          "chosen_mean_km": 97.45317866019248,
+          "chosen_median_km": 93.31781364930696,
+          "closer_accuracy": 0.36446566885036696
+        },
+        "pooled": {
+          "train_n": 138690,
+          "held_n": 46235,
+          "non_ties": 46235,
+          "closer_correct": 21649,
+          "train_joint_rmse_km": 32.47023042225574,
+          "held_joint_rmse_km": 62.25718264086376,
+          "held_T4_rmse_km": 51.211030236944005,
+          "held_T5_rmse_km": 71.61943844255234,
+          "held_T4_mae_km": 42.70595877580936,
+          "held_T5_mae_km": 58.510811544370846,
+          "chosen_mean_km": 79.44551627198308,
+          "chosen_median_km": 69.87872497840063,
+          "closer_accuracy": 0.4682383475721856
+        }
+      },
+      {
+        "fraction": 0.5,
+        "stage": 160,
+        "by_region": {
+          "dev1": {
+            "train_n": 14238,
+            "held_n": 17755,
+            "non_ties": 17755,
+            "closer_correct": 12971,
+            "train_joint_rmse_km": 35.489823274572515,
+            "held_joint_rmse_km": 51.2803587182615,
+            "held_T4_rmse_km": 42.44919756928839,
+            "held_T5_rmse_km": 58.79979597133547,
+            "held_T4_mae_km": 35.627976168306716,
+            "held_T5_mae_km": 48.96777132338569,
+            "chosen_mean_km": 60.15200759537119,
+            "chosen_median_km": 37.250763675760425,
+            "closer_accuracy": 0.7305547733032949
+          },
+          "dev2": {
+            "train_n": 19003,
+            "held_n": 8225,
+            "non_ties": 8225,
+            "closer_correct": 2956,
+            "train_joint_rmse_km": 29.9698703235941,
+            "held_joint_rmse_km": 55.54918763572376,
+            "held_T4_rmse_km": 46.65972715242221,
+            "held_T5_rmse_km": 63.20043003049271,
+            "held_T4_mae_km": 40.13051976486742,
+            "held_T5_mae_km": 51.105492668219256,
+            "chosen_mean_km": 75.72412377205798,
+            "chosen_median_km": 71.84181950936478,
+            "closer_accuracy": 0.3593920972644377
+          },
+          "dev3": {
+            "train_n": 19468,
+            "held_n": 7294,
+            "non_ties": 7294,
+            "closer_correct": 1769,
+            "train_joint_rmse_km": 31.500973547718097,
+            "held_joint_rmse_km": 66.7489719562724,
+            "held_T4_rmse_km": 50.780261898829714,
+            "held_T5_rmse_km": 79.57521923265273,
+            "held_T4_mae_km": 42.77898396297655,
+            "held_T5_mae_km": 65.23006598012547,
+            "chosen_mean_km": 80.89352731459752,
+            "chosen_median_km": 77.7353235745919,
+            "closer_accuracy": 0.24252810529202085
+          },
+          "dev4": {
+            "train_n": 21102,
+            "held_n": 4027,
+            "non_ties": 4027,
+            "closer_correct": 1560,
+            "train_joint_rmse_km": 30.475386179768662,
+            "held_joint_rmse_km": 58.754406804233845,
+            "held_T4_rmse_km": 46.90731853872797,
+            "held_T5_rmse_km": 68.58472209859211,
+            "held_T4_mae_km": 38.35742564603782,
+            "held_T5_mae_km": 57.55228429482261,
+            "chosen_mean_km": 77.68700914359323,
+            "chosen_median_km": 73.60510881431419,
+            "closer_accuracy": 0.38738515023590764
+          },
+          "dev5": {
+            "train_n": 21214,
+            "held_n": 3803,
+            "non_ties": 3803,
+            "closer_correct": 1812,
+            "train_joint_rmse_km": 30.504847272248924,
+            "held_joint_rmse_km": 47.94719234821442,
+            "held_T4_rmse_km": 49.39490555296727,
+            "held_T5_rmse_km": 46.454384223308644,
+            "held_T4_mae_km": 43.65464724563338,
+            "held_T5_mae_km": 39.76036542909646,
+            "chosen_mean_km": 62.825241057972896,
+            "chosen_median_km": 58.12505832229909,
+            "closer_accuracy": 0.47646594793584013
+          },
+          "dev6": {
+            "train_n": 21577,
+            "held_n": 3077,
+            "non_ties": 3077,
+            "closer_correct": 615,
+            "train_joint_rmse_km": 28.918394162877906,
+            "held_joint_rmse_km": 79.43271346846072,
+            "held_T4_rmse_km": 58.512496540955965,
+            "held_T5_rmse_km": 95.89264667569552,
+            "held_T4_mae_km": 51.17751206130149,
+            "held_T5_mae_km": 86.21967756654625,
+            "chosen_mean_km": 131.73243844842196,
+            "chosen_median_km": 129.9788920043899,
+            "closer_accuracy": 0.19987000324991874
+          },
+          "dev7": {
+            "train_n": 22088,
+            "held_n": 2054,
+            "non_ties": 2054,
+            "closer_correct": 364,
+            "train_joint_rmse_km": 25.638379573741535,
+            "held_joint_rmse_km": 123.86219931881094,
+            "held_T4_rmse_km": 109.33547112676065,
+            "held_T5_rmse_km": 136.855557408806,
+            "held_T4_mae_km": 101.26993482712751,
+            "held_T5_mae_km": 125.81013904856187,
+            "chosen_mean_km": 190.27925191275685,
+            "chosen_median_km": 203.40212974462776,
+            "closer_accuracy": 0.17721518987341772
+          }
+        },
+        "macro": {
+          "train_joint_rmse_km": 30.35681061921739,
+          "held_joint_rmse_km": 69.08214717856823,
+          "held_T4_rmse_km": 57.71991119713602,
+          "held_T5_rmse_km": 78.4803936629833,
+          "held_T4_mae_km": 50.428142810892986,
+          "held_T5_mae_km": 67.80654233010823,
+          "chosen_mean_km": 97.04194274925308,
+          "chosen_median_km": 93.13415652076401,
+          "closer_accuracy": 0.36763018102211964
+        },
+        "pooled": {
+          "train_n": 138690,
+          "held_n": 46235,
+          "non_ties": 46235,
+          "closer_correct": 22047,
+          "train_joint_rmse_km": 30.167914905266056,
+          "held_joint_rmse_km": 62.07172038387948,
+          "held_T4_rmse_km": 51.354941931160354,
+          "held_T5_rmse_km": 71.19316597873835,
+          "held_T4_mae_km": 42.40605122222459,
+          "held_T5_mae_km": 57.79684763408598,
+          "chosen_mean_km": 78.48624365119464,
+          "chosen_median_km": 69.46994195932082,
+          "closer_accuracy": 0.4768465448253488
+        }
+      },
+      {
+        "fraction": 0.5,
+        "stage": 320,
+        "by_region": {
+          "dev1": {
+            "train_n": 14238,
+            "held_n": 17755,
+            "non_ties": 17755,
+            "closer_correct": 13247,
+            "train_joint_rmse_km": 33.11332369432536,
+            "held_joint_rmse_km": 50.5131843458667,
+            "held_T4_rmse_km": 42.85445130808075,
+            "held_T5_rmse_km": 57.1546987447433,
+            "held_T4_mae_km": 35.14174384232537,
+            "held_T5_mae_km": 46.67401245782597,
+            "chosen_mean_km": 58.94103655212159,
+            "chosen_median_km": 37.19104083598095,
+            "closer_accuracy": 0.7460996902281047
+          },
+          "dev2": {
+            "train_n": 19003,
+            "held_n": 8225,
+            "non_ties": 8225,
+            "closer_correct": 2858,
+            "train_joint_rmse_km": 27.799875517229257,
+            "held_joint_rmse_km": 55.87573623432385,
+            "held_T4_rmse_km": 46.033645524220276,
+            "held_T5_rmse_km": 64.22693577624499,
+            "held_T4_mae_km": 38.856929795500605,
+            "held_T5_mae_km": 52.04966027458631,
+            "chosen_mean_km": 76.45474103571051,
+            "chosen_median_km": 72.06956331743503,
+            "closer_accuracy": 0.3474772036474164
+          },
+          "dev3": {
+            "train_n": 19468,
+            "held_n": 7294,
+            "non_ties": 7294,
+            "closer_correct": 1756,
+            "train_joint_rmse_km": 29.664833932586433,
+            "held_joint_rmse_km": 67.09223331749779,
+            "held_T4_rmse_km": 51.875060988864696,
+            "held_T5_rmse_km": 79.44629374905219,
+            "held_T4_mae_km": 43.45911903281768,
+            "held_T5_mae_km": 65.95496176469528,
+            "chosen_mean_km": 81.20067673497546,
+            "chosen_median_km": 77.85647606652412,
+            "closer_accuracy": 0.24074581848094323
+          },
+          "dev4": {
+            "train_n": 21102,
+            "held_n": 4027,
+            "non_ties": 4027,
+            "closer_correct": 1533,
+            "train_joint_rmse_km": 28.47680214749251,
+            "held_joint_rmse_km": 60.79705550858843,
+            "held_T4_rmse_km": 48.275727196546825,
+            "held_T5_rmse_km": 71.14786068936544,
+            "held_T4_mae_km": 39.56022938278802,
+            "held_T5_mae_km": 59.87206129538127,
+            "chosen_mean_km": 77.8064349299296,
+            "chosen_median_km": 73.99581924906646,
+            "closer_accuracy": 0.3806804072510554
+          },
+          "dev5": {
+            "train_n": 21214,
+            "held_n": 3803,
+            "non_ties": 3803,
+            "closer_correct": 1691,
+            "train_joint_rmse_km": 28.33616357674924,
+            "held_joint_rmse_km": 49.47826263076688,
+            "held_T4_rmse_km": 50.99496524784992,
+            "held_T5_rmse_km": 47.91357287125291,
+            "held_T4_mae_km": 44.79481373985354,
+            "held_T5_mae_km": 40.73797068974115,
+            "chosen_mean_km": 64.05887286952401,
+            "chosen_median_km": 59.160592903734916,
+            "closer_accuracy": 0.44464896134630555
+          },
+          "dev6": {
+            "train_n": 21577,
+            "held_n": 3077,
+            "non_ties": 3077,
+            "closer_correct": 698,
+            "train_joint_rmse_km": 27.081847353113922,
+            "held_joint_rmse_km": 78.15836727525067,
+            "held_T4_rmse_km": 58.971956236761386,
+            "held_T5_rmse_km": 93.48673236280884,
+            "held_T4_mae_km": 51.638207994061595,
+            "held_T5_mae_km": 83.94268078657535,
+            "chosen_mean_km": 129.82647002526718,
+            "chosen_median_km": 128.69739930222536,
+            "closer_accuracy": 0.22684432889177772
+          },
+          "dev7": {
+            "train_n": 22088,
+            "held_n": 2054,
+            "non_ties": 2054,
+            "closer_correct": 377,
+            "train_joint_rmse_km": 23.84772973150608,
+            "held_joint_rmse_km": 122.97749168978515,
+            "held_T4_rmse_km": 108.13564118542753,
+            "held_T5_rmse_km": 136.2116369112376,
+            "held_T4_mae_km": 99.998730185218,
+            "held_T5_mae_km": 125.18433142366231,
+            "chosen_mean_km": 189.91188203469133,
+            "chosen_median_km": 202.66957206418581,
+            "closer_accuracy": 0.18354430379746836
+          }
+        },
+        "macro": {
+          "train_joint_rmse_km": 28.33151085042897,
+          "held_joint_rmse_km": 69.27033300029707,
+          "held_T4_rmse_km": 58.163063955393056,
+          "held_T5_rmse_km": 78.51253301495788,
+          "held_T4_mae_km": 50.492824853223546,
+          "held_T5_mae_km": 67.77366838463823,
+          "chosen_mean_km": 96.88573059745995,
+          "chosen_median_km": 93.09149481987895,
+          "closer_accuracy": 0.3671486733775816
+        },
+        "pooled": {
+          "train_n": 138690,
+          "held_n": 46235,
+          "non_ties": 46235,
+          "closer_correct": 22160,
+          "train_joint_rmse_km": 28.157869204883326,
+          "held_joint_rmse_km": 62.02501261275233,
+          "held_T4_rmse_km": 51.71623576832887,
+          "held_T5_rmse_km": 70.8493848750911,
+          "held_T4_mae_km": 42.27279337924013,
+          "held_T5_mae_km": 57.30145078302023,
+          "chosen_mean_km": 78.16834748695098,
+          "chosen_median_km": 69.45564348860695,
+          "closer_accuracy": 0.47929058072888503
+        }
+      },
+      {
+        "fraction": 1.0,
+        "stage": 20,
+        "by_region": {
+          "dev1": {
+            "train_n": 28480,
+            "held_n": 17755,
+            "non_ties": 17755,
+            "closer_correct": 10596,
+            "train_joint_rmse_km": 43.25088233763447,
+            "held_joint_rmse_km": 58.79219463364085,
+            "held_T4_rmse_km": 48.436578980844864,
+            "held_T5_rmse_km": 67.57915445100059,
+            "held_T4_mae_km": 42.90068813474854,
+            "held_T5_mae_km": 58.55417625301468,
+            "chosen_mean_km": 68.79921255278138,
+            "chosen_median_km": 40.17657891523237,
+            "closer_accuracy": 0.5967896367220501
+          },
+          "dev2": {
+            "train_n": 38010,
+            "held_n": 8225,
+            "non_ties": 8225,
+            "closer_correct": 3381,
+            "train_joint_rmse_km": 40.15181580537765,
+            "held_joint_rmse_km": 52.37744358157681,
+            "held_T4_rmse_km": 45.08344698927196,
+            "held_T5_rmse_km": 58.773089078659375,
+            "held_T4_mae_km": 39.77363575885188,
+            "held_T5_mae_km": 46.57943129519082,
+            "chosen_mean_km": 73.9022314482459,
+            "chosen_median_km": 69.83578637097519,
+            "closer_accuracy": 0.41106382978723405
+          },
+          "dev3": {
+            "train_n": 38941,
+            "held_n": 7294,
+            "non_ties": 7294,
+            "closer_correct": 2526,
+            "train_joint_rmse_km": 39.82133198335914,
+            "held_joint_rmse_km": 56.74111226484118,
+            "held_T4_rmse_km": 41.41954723590268,
+            "held_T5_rmse_km": 68.72793281392542,
+            "held_T4_mae_km": 34.73831132045285,
+            "held_T5_mae_km": 54.76079586686452,
+            "chosen_mean_km": 77.75034473623522,
+            "chosen_median_km": 75.6311574172525,
+            "closer_accuracy": 0.346312037290924
+          },
+          "dev4": {
+            "train_n": 42208,
+            "held_n": 4027,
+            "non_ties": 4027,
+            "closer_correct": 1659,
+            "train_joint_rmse_km": 40.00080662266965,
+            "held_joint_rmse_km": 46.50578916433153,
+            "held_T4_rmse_km": 37.661848316229666,
+            "held_T5_rmse_km": 53.91810487210971,
+            "held_T4_mae_km": 31.1539355089869,
+            "held_T5_mae_km": 45.903784410521816,
+            "chosen_mean_km": 75.95912687324903,
+            "chosen_median_km": 72.51574160193482,
+            "closer_accuracy": 0.4119692078470325
+          },
+          "dev5": {
+            "train_n": 42432,
+            "held_n": 3803,
+            "non_ties": 3803,
+            "closer_correct": 1815,
+            "train_joint_rmse_km": 39.90930712598164,
+            "held_joint_rmse_km": 41.995771550838505,
+            "held_T4_rmse_km": 41.893345377339806,
+            "held_T5_rmse_km": 42.097948517657656,
+            "held_T4_mae_km": 37.064081924321115,
+            "held_T5_mae_km": 36.47393585889243,
+            "chosen_mean_km": 62.17137593396246,
+            "chosen_median_km": 59.220377889547905,
+            "closer_accuracy": 0.4772547988430187
+          },
+          "dev6": {
+            "train_n": 43158,
+            "held_n": 3077,
+            "non_ties": 3077,
+            "closer_correct": 582,
+            "train_joint_rmse_km": 36.931229382139925,
+            "held_joint_rmse_km": 80.61482081297599,
+            "held_T4_rmse_km": 60.20730057937636,
+            "held_T5_rmse_km": 96.81208409264352,
+            "held_T4_mae_km": 53.476775600693465,
+            "held_T5_mae_km": 86.24927950527602,
+            "chosen_mean_km": 133.42775717431851,
+            "chosen_median_km": 131.01108175970805,
+            "closer_accuracy": 0.1891452713682158
+          },
+          "dev7": {
+            "train_n": 44181,
+            "held_n": 2054,
+            "non_ties": 2054,
+            "closer_correct": 311,
+            "train_joint_rmse_km": 32.8292140832088,
+            "held_joint_rmse_km": 122.72063976251684,
+            "held_T4_rmse_km": 112.51807098817841,
+            "held_T5_rmse_km": 132.137786225372,
+            "held_T4_mae_km": 104.99074218115922,
+            "held_T5_mae_km": 121.67927711587159,
+            "chosen_mean_km": 191.72007038503037,
+            "chosen_median_km": 204.9307188375547,
+            "closer_accuracy": 0.15141187925998054
+          }
+        },
+        "macro": {
+          "train_joint_rmse_km": 38.984941048624464,
+          "held_joint_rmse_km": 65.6782531101031,
+          "held_T4_rmse_km": 55.31716263816339,
+          "held_T5_rmse_km": 74.29230000733833,
+          "held_T4_mae_km": 49.15688148988771,
+          "held_T5_mae_km": 64.31438290080455,
+          "chosen_mean_km": 97.67573130054612,
+          "chosen_median_km": 93.33163468460079,
+          "closer_accuracy": 0.36913523730263653
+        },
+        "pooled": {
+          "train_n": 277410,
+          "held_n": 46235,
+          "non_ties": 46235,
+          "closer_correct": 20870,
+          "train_joint_rmse_km": 38.81300113002774,
+          "held_joint_rmse_km": 61.305103194828334,
+          "held_T4_rmse_km": 51.03673041161436,
+          "held_T5_rmse_km": 70.0848307720672,
+          "held_T4_mae_km": 43.01571838513504,
+          "held_T5_mae_km": 57.55496167307027,
+          "chosen_mean_km": 80.95949533976899,
+          "chosen_median_km": 71.16062576598037,
+          "closer_accuracy": 0.45138963988320535
+        }
+      },
+      {
+        "fraction": 1.0,
+        "stage": 40,
+        "by_region": {
+          "dev1": {
+            "train_n": 28480,
+            "held_n": 17755,
+            "non_ties": 17755,
+            "closer_correct": 12039,
+            "train_joint_rmse_km": 40.862560805156235,
+            "held_joint_rmse_km": 54.19708026160544,
+            "held_T4_rmse_km": 45.632840017372516,
+            "held_T5_rmse_km": 61.5815794675217,
+            "held_T4_mae_km": 40.29521309199985,
+            "held_T5_mae_km": 53.88823535690878,
+            "chosen_mean_km": 62.290241189424464,
+            "chosen_median_km": 38.46560128676589,
+            "closer_accuracy": 0.6780625176006758
+          },
+          "dev2": {
+            "train_n": 38010,
+            "held_n": 8225,
+            "non_ties": 8225,
+            "closer_correct": 3093,
+            "train_joint_rmse_km": 36.436317986924024,
+            "held_joint_rmse_km": 55.31238712897482,
+            "held_T4_rmse_km": 47.709072627492304,
+            "held_T5_rmse_km": 61.990037335331735,
+            "held_T4_mae_km": 41.96865444974779,
+            "held_T5_mae_km": 49.347946439396075,
+            "chosen_mean_km": 75.06908345164538,
+            "chosen_median_km": 71.97864107357047,
+            "closer_accuracy": 0.376048632218845
+          },
+          "dev3": {
+            "train_n": 38941,
+            "held_n": 7294,
+            "non_ties": 7294,
+            "closer_correct": 1990,
+            "train_joint_rmse_km": 36.44503266430028,
+            "held_joint_rmse_km": 62.57286666685792,
+            "held_T4_rmse_km": 46.60640349257087,
+            "held_T5_rmse_km": 75.22347000308105,
+            "held_T4_mae_km": 39.18370111199368,
+            "held_T5_mae_km": 59.67989689965112,
+            "chosen_mean_km": 79.53907129015403,
+            "chosen_median_km": 77.03786208241135,
+            "closer_accuracy": 0.27282698108034
+          },
+          "dev4": {
+            "train_n": 42208,
+            "held_n": 4027,
+            "non_ties": 4027,
+            "closer_correct": 1673,
+            "train_joint_rmse_km": 36.33452935545081,
+            "held_joint_rmse_km": 50.08541020183423,
+            "held_T4_rmse_km": 40.02779451772286,
+            "held_T5_rmse_km": 58.436908681234634,
+            "held_T4_mae_km": 32.79187003648889,
+            "held_T5_mae_km": 49.44206512470803,
+            "chosen_mean_km": 76.19052009064478,
+            "chosen_median_km": 72.64035057733952,
+            "closer_accuracy": 0.41544574124658556
+          },
+          "dev5": {
+            "train_n": 42432,
+            "held_n": 3803,
+            "non_ties": 3803,
+            "closer_correct": 1861,
+            "train_joint_rmse_km": 36.42447641948847,
+            "held_joint_rmse_km": 44.503790330324826,
+            "held_T4_rmse_km": 44.93674376900635,
+            "held_T5_rmse_km": 44.06658333669285,
+            "held_T4_mae_km": 40.20359168075019,
+            "held_T5_mae_km": 37.889028816928025,
+            "chosen_mean_km": 62.096493259631664,
+            "chosen_median_km": 57.929985448039716,
+            "closer_accuracy": 0.48935051275308966
+          },
+          "dev6": {
+            "train_n": 43158,
+            "held_n": 3077,
+            "non_ties": 3077,
+            "closer_correct": 564,
+            "train_joint_rmse_km": 33.9301637719952,
+            "held_joint_rmse_km": 82.76080336057419,
+            "held_T4_rmse_km": 59.390382617685134,
+            "held_T5_rmse_km": 100.85377334686203,
+            "held_T4_mae_km": 52.42080362388847,
+            "held_T5_mae_km": 90.27788476235584,
+            "chosen_mean_km": 133.5903571876069,
+            "chosen_median_km": 131.4242259147251,
+            "closer_accuracy": 0.18329541761455964
+          },
+          "dev7": {
+            "train_n": 44181,
+            "held_n": 2054,
+            "non_ties": 2054,
+            "closer_correct": 291,
+            "train_joint_rmse_km": 29.804956537985177,
+            "held_joint_rmse_km": 124.37359866710052,
+            "held_T4_rmse_km": 111.05192812038628,
+            "held_T5_rmse_km": 136.40034219735134,
+            "held_T4_mae_km": 103.27341021571294,
+            "held_T5_mae_km": 125.93201981281287,
+            "chosen_mean_km": 192.1579047879646,
+            "chosen_median_km": 205.1559309006592,
+            "closer_accuracy": 0.14167478091528724
+          }
+        },
+        "macro": {
+          "train_joint_rmse_km": 35.748291077328595,
+          "held_joint_rmse_km": 67.686562373896,
+          "held_T4_rmse_km": 56.4793093088909,
+          "held_T5_rmse_km": 76.93609919543935,
+          "held_T4_mae_km": 50.0196063157974,
+          "held_T5_mae_km": 66.63672531610868,
+          "chosen_mean_km": 97.27623875101027,
+          "chosen_median_km": 93.51894246907304,
+          "closer_accuracy": 0.36524351191848325
+        },
+        "pooled": {
+          "train_n": 277410,
+          "held_n": 46235,
+          "non_ties": 46235,
+          "closer_correct": 21511,
+          "train_joint_rmse_km": 35.555119949590505,
+          "held_joint_rmse_km": 61.76057783810082,
+          "held_T4_rmse_km": 51.33729911890109,
+          "held_T5_rmse_km": 70.66271767324477,
+          "held_T4_mae_km": 43.36128743032612,
+          "held_T5_mae_km": 57.913317598556645,
+          "chosen_mean_km": 78.99397606727695,
+          "chosen_median_km": 70.74698905328587,
+          "closer_accuracy": 0.4652535957607873
+        }
+      },
+      {
+        "fraction": 1.0,
+        "stage": 80,
+        "by_region": {
+          "dev1": {
+            "train_n": 28480,
+            "held_n": 17755,
+            "non_ties": 17755,
+            "closer_correct": 12461,
+            "train_joint_rmse_km": 38.65915983575758,
+            "held_joint_rmse_km": 52.233455614477904,
+            "held_T4_rmse_km": 43.885361303007116,
+            "held_T5_rmse_km": 59.42005414137379,
+            "held_T4_mae_km": 37.822367213327766,
+            "held_T5_mae_km": 51.22805453903666,
+            "chosen_mean_km": 61.2329309382267,
+            "chosen_median_km": 37.998908339158,
+            "closer_accuracy": 0.7018304702900592
+          },
+          "dev2": {
+            "train_n": 38010,
+            "held_n": 8225,
+            "non_ties": 8225,
+            "closer_correct": 3200,
+            "train_joint_rmse_km": 33.14248604834071,
+            "held_joint_rmse_km": 55.486015686071816,
+            "held_T4_rmse_km": 48.33965976679073,
+            "held_T5_rmse_km": 61.81159411518949,
+            "held_T4_mae_km": 41.92414598023282,
+            "held_T5_mae_km": 49.57978193925988,
+            "chosen_mean_km": 74.4207961476046,
+            "chosen_median_km": 70.48762501401049,
+            "closer_accuracy": 0.3890577507598784
+          },
+          "dev3": {
+            "train_n": 38941,
+            "held_n": 7294,
+            "non_ties": 7294,
+            "closer_correct": 1781,
+            "train_joint_rmse_km": 34.07797906023691,
+            "held_joint_rmse_km": 65.01355255102668,
+            "held_T4_rmse_km": 49.85651537581854,
+            "held_T5_rmse_km": 77.25187315004719,
+            "held_T4_mae_km": 42.01928792987466,
+            "held_T5_mae_km": 62.072554055506636,
+            "chosen_mean_km": 80.37638154957253,
+            "chosen_median_km": 77.48491456255897,
+            "closer_accuracy": 0.24417329311763092
+          },
+          "dev4": {
+            "train_n": 42208,
+            "held_n": 4027,
+            "non_ties": 4027,
+            "closer_correct": 1605,
+            "train_joint_rmse_km": 33.38360311092665,
+            "held_joint_rmse_km": 54.33172823112763,
+            "held_T4_rmse_km": 43.74380185127362,
+            "held_T5_rmse_km": 63.169242395003685,
+            "held_T4_mae_km": 35.579795619981184,
+            "held_T5_mae_km": 53.099563764015144,
+            "chosen_mean_km": 76.73708856599616,
+            "chosen_median_km": 73.27703367960014,
+            "closer_accuracy": 0.398559721877328
+          },
+          "dev5": {
+            "train_n": 42432,
+            "held_n": 3803,
+            "non_ties": 3803,
+            "closer_correct": 1879,
+            "train_joint_rmse_km": 33.54696411193545,
+            "held_joint_rmse_km": 46.29908371050661,
+            "held_T4_rmse_km": 46.86022679193801,
+            "held_T5_rmse_km": 45.73105563917295,
+            "held_T4_mae_km": 41.93092678894552,
+            "held_T5_mae_km": 39.459842049911565,
+            "chosen_mean_km": 61.567863104370126,
+            "chosen_median_km": 57.36134367577349,
+            "closer_accuracy": 0.4940836181961609
+          },
+          "dev6": {
+            "train_n": 43158,
+            "held_n": 3077,
+            "non_ties": 3077,
+            "closer_correct": 602,
+            "train_joint_rmse_km": 31.565618469798903,
+            "held_joint_rmse_km": 81.46923690214473,
+            "held_T4_rmse_km": 58.12244071247705,
+            "held_T5_rmse_km": 99.4799226399988,
+            "held_T4_mae_km": 50.8089232845544,
+            "held_T5_mae_km": 89.1204365274737,
+            "chosen_mean_km": 132.65573085791874,
+            "chosen_median_km": 130.86912975989927,
+            "closer_accuracy": 0.1956451088722782
+          },
+          "dev7": {
+            "train_n": 44181,
+            "held_n": 2054,
+            "non_ties": 2054,
+            "closer_correct": 301,
+            "train_joint_rmse_km": 27.78023114416745,
+            "held_joint_rmse_km": 124.06203353932233,
+            "held_T4_rmse_km": 110.12738497680319,
+            "held_T5_rmse_km": 136.58233930488547,
+            "held_T4_mae_km": 102.00520928104702,
+            "held_T5_mae_km": 125.91763095192378,
+            "chosen_mean_km": 191.7000357946605,
+            "chosen_median_km": 204.99416296778702,
+            "closer_accuracy": 0.14654333008763387
+          }
+        },
+        "macro": {
+          "train_joint_rmse_km": 33.16514882588053,
+          "held_joint_rmse_km": 68.41358660495395,
+          "held_T4_rmse_km": 57.276484396872604,
+          "held_T5_rmse_km": 77.63515448366732,
+          "held_T4_mae_km": 50.298665156851904,
+          "held_T5_mae_km": 67.21112340387535,
+          "chosen_mean_km": 96.95583242262134,
+          "chosen_median_km": 93.21044542839819,
+          "closer_accuracy": 0.36712761331442423
+        },
+        "pooled": {
+          "train_n": 277410,
+          "held_n": 46235,
+          "non_ties": 46235,
+          "closer_correct": 21829,
+          "train_joint_rmse_km": 32.96333423931697,
+          "held_joint_rmse_km": 61.81532136890112,
+          "held_T4_rmse_km": 51.5588695657669,
+          "held_T5_rmse_km": 70.59710249706627,
+          "held_T4_mae_km": 43.07238726225638,
+          "held_T5_mae_km": 57.68056978124071,
+          "chosen_mean_km": 78.52629956868346,
+          "chosen_median_km": 69.86948451768295,
+          "closer_accuracy": 0.47213150210879207
+        }
+      },
+      {
+        "fraction": 1.0,
+        "stage": 160,
+        "by_region": {
+          "dev1": {
+            "train_n": 28480,
+            "held_n": 17755,
+            "non_ties": 17755,
+            "closer_correct": 12900,
+            "train_joint_rmse_km": 36.40736870131206,
+            "held_joint_rmse_km": 50.476241519438084,
+            "held_T4_rmse_km": 42.909454107941784,
+            "held_T5_rmse_km": 57.048055742643214,
+            "held_T4_mae_km": 36.301207766426145,
+            "held_T5_mae_km": 47.784843225593896,
+            "chosen_mean_km": 59.855468735059496,
+            "chosen_median_km": 37.38922051727698,
+            "closer_accuracy": 0.7265558997465502
+          },
+          "dev2": {
+            "train_n": 38010,
+            "held_n": 8225,
+            "non_ties": 8225,
+            "closer_correct": 2868,
+            "train_joint_rmse_km": 30.54890748488662,
+            "held_joint_rmse_km": 55.75094025769577,
+            "held_T4_rmse_km": 46.808342336640784,
+            "held_T5_rmse_km": 63.445360483885395,
+            "held_T4_mae_km": 40.264355276530296,
+            "held_T5_mae_km": 51.07363161370338,
+            "chosen_mean_km": 76.18353437659428,
+            "chosen_median_km": 72.06562592318302,
+            "closer_accuracy": 0.348693009118541
+          },
+          "dev3": {
+            "train_n": 38941,
+            "held_n": 7294,
+            "non_ties": 7294,
+            "closer_correct": 1733,
+            "train_joint_rmse_km": 32.1586911479014,
+            "held_joint_rmse_km": 66.58509774999644,
+            "held_T4_rmse_km": 51.38955751934775,
+            "held_T5_rmse_km": 78.90667818834355,
+            "held_T4_mae_km": 43.12503701898383,
+            "held_T5_mae_km": 64.1697185855396,
+            "chosen_mean_km": 80.95297883703587,
+            "chosen_median_km": 77.7238962346643,
+            "closer_accuracy": 0.23759254181519057
+          },
+          "dev4": {
+            "train_n": 42208,
+            "held_n": 4027,
+            "non_ties": 4027,
+            "closer_correct": 1587,
+            "train_joint_rmse_km": 31.129279477934176,
+            "held_joint_rmse_km": 57.71911822054409,
+            "held_T4_rmse_km": 46.041289063109325,
+            "held_T5_rmse_km": 67.4032114792871,
+            "held_T4_mae_km": 37.69571579238675,
+            "held_T5_mae_km": 56.71604368912832,
+            "chosen_mean_km": 77.01108067529985,
+            "chosen_median_km": 73.40828567420157,
+            "closer_accuracy": 0.3940898932207599
+          },
+          "dev5": {
+            "train_n": 42432,
+            "held_n": 3803,
+            "non_ties": 3803,
+            "closer_correct": 1755,
+            "train_joint_rmse_km": 31.144883028203136,
+            "held_joint_rmse_km": 48.222531503119576,
+            "held_T4_rmse_km": 48.91658581753316,
+            "held_T5_rmse_km": 47.51834089164555,
+            "held_T4_mae_km": 43.62148980270604,
+            "held_T5_mae_km": 40.91011527519474,
+            "chosen_mean_km": 62.69302218743419,
+            "chosen_median_km": 58.48233111655593,
+            "closer_accuracy": 0.4614777806994478
+          },
+          "dev6": {
+            "train_n": 43158,
+            "held_n": 3077,
+            "non_ties": 3077,
+            "closer_correct": 592,
+            "train_joint_rmse_km": 29.37516849242711,
+            "held_joint_rmse_km": 80.0482150752393,
+            "held_T4_rmse_km": 57.76374566437156,
+            "held_T5_rmse_km": 97.35904251935374,
+            "held_T4_mae_km": 50.36687867265423,
+            "held_T5_mae_km": 87.34326609389501,
+            "chosen_mean_km": 132.41746063631612,
+            "chosen_median_km": 130.88769749449105,
+            "closer_accuracy": 0.192395190120247
+          },
+          "dev7": {
+            "train_n": 44181,
+            "held_n": 2054,
+            "non_ties": 2054,
+            "closer_correct": 354,
+            "train_joint_rmse_km": 26.0291331102351,
+            "held_joint_rmse_km": 123.3759623304708,
+            "held_T4_rmse_km": 109.08258558047277,
+            "held_T5_rmse_km": 136.1772583253839,
+            "held_T4_mae_km": 101.04641919653353,
+            "held_T5_mae_km": 125.17763781311282,
+            "chosen_mean_km": 190.44503436260888,
+            "chosen_median_km": 203.72673213265745,
+            "closer_accuracy": 0.17234664070107109
+          }
+        },
+        "macro": {
+          "train_joint_rmse_km": 30.970490206128517,
+          "held_joint_rmse_km": 68.88258666521486,
+          "held_T4_rmse_km": 57.558794298488166,
+          "held_T5_rmse_km": 78.26542109007748,
+          "held_T4_mae_km": 50.34587193231726,
+          "held_T5_mae_km": 67.59646518516682,
+          "chosen_mean_km": 97.07979711576411,
+          "chosen_median_km": 93.38339844186147,
+          "closer_accuracy": 0.36187870791740107
+        },
+        "pooled": {
+          "train_n": 277410,
+          "held_n": 46235,
+          "non_ties": 46235,
+          "closer_correct": 21789,
+          "train_joint_rmse_km": 30.774636489547206,
+          "held_joint_rmse_km": 61.76480945859451,
+          "held_T4_rmse_km": 51.435219589952425,
+          "held_T5_rmse_km": 70.59887789934304,
+          "held_T4_mae_km": 42.61874532237256,
+          "held_T5_mae_km": 57.23804937866962,
+          "chosen_mean_km": 78.44668016638472,
+          "chosen_median_km": 69.86399289410886,
+          "closer_accuracy": 0.4712663566562128
+        }
+      },
+      {
+        "fraction": 1.0,
+        "stage": 320,
+        "by_region": {
+          "dev1": {
+            "train_n": 28480,
+            "held_n": 17755,
+            "non_ties": 17755,
+            "closer_correct": 13031,
+            "train_joint_rmse_km": 34.133025057520136,
+            "held_joint_rmse_km": 50.69803288302933,
+            "held_T4_rmse_km": 43.69907420414726,
+            "held_T5_rmse_km": 56.84163957978232,
+            "held_T4_mae_km": 36.33901330115657,
+            "held_T5_mae_km": 45.919190513026116,
+            "chosen_mean_km": 59.46758043396332,
+            "chosen_median_km": 37.301537420539645,
+            "closer_accuracy": 0.7339341030695579
+          },
+          "dev2": {
+            "train_n": 38010,
+            "held_n": 8225,
+            "non_ties": 8225,
+            "closer_correct": 2666,
+            "train_joint_rmse_km": 28.421833433770068,
+            "held_joint_rmse_km": 56.12980140310295,
+            "held_T4_rmse_km": 46.20126526829859,
+            "held_T5_rmse_km": 64.54883654034255,
+            "held_T4_mae_km": 38.905439372190855,
+            "held_T5_mae_km": 52.02823630189003,
+            "chosen_mean_km": 77.11020834608533,
+            "chosen_median_km": 72.83700601175738,
+            "closer_accuracy": 0.3241337386018237
+          },
+          "dev3": {
+            "train_n": 38941,
+            "held_n": 7294,
+            "non_ties": 7294,
+            "closer_correct": 1762,
+            "train_joint_rmse_km": 30.53263894699378,
+            "held_joint_rmse_km": 67.28028538028695,
+            "held_T4_rmse_km": 52.08332436761154,
+            "held_T5_rmse_km": 79.62789036841218,
+            "held_T4_mae_km": 43.521713177357306,
+            "held_T5_mae_km": 66.31395810453434,
+            "chosen_mean_km": 81.43223211714607,
+            "chosen_median_km": 78.06910404385594,
+            "closer_accuracy": 0.2415684123937483
+          },
+          "dev4": {
+            "train_n": 42208,
+            "held_n": 4027,
+            "non_ties": 4027,
+            "closer_correct": 1564,
+            "train_joint_rmse_km": 29.244717629370744,
+            "held_joint_rmse_km": 59.848382725641706,
+            "held_T4_rmse_km": 47.34557751313488,
+            "held_T5_rmse_km": 70.157352570472,
+            "held_T4_mae_km": 38.84801650584304,
+            "held_T5_mae_km": 59.14070477531876,
+            "chosen_mean_km": 77.3468402917996,
+            "chosen_median_km": 73.75082740786642,
+            "closer_accuracy": 0.3883784454929228
+          },
+          "dev5": {
+            "train_n": 42432,
+            "held_n": 3803,
+            "non_ties": 3803,
+            "closer_correct": 1701,
+            "train_joint_rmse_km": 29.000205028457163,
+            "held_joint_rmse_km": 50.195055142979676,
+            "held_T4_rmse_km": 51.05554495039468,
+            "held_T5_rmse_km": 49.319554452891886,
+            "held_T4_mae_km": 45.28118537324264,
+            "held_T5_mae_km": 42.27563159442657,
+            "chosen_mean_km": 62.94312441117168,
+            "chosen_median_km": 58.57214992644538,
+            "closer_accuracy": 0.44727846437023405
+          },
+          "dev6": {
+            "train_n": 43158,
+            "held_n": 3077,
+            "non_ties": 3077,
+            "closer_correct": 637,
+            "train_joint_rmse_km": 27.643569759589415,
+            "held_joint_rmse_km": 78.85777447578616,
+            "held_T4_rmse_km": 57.441964219758184,
+            "held_T5_rmse_km": 95.59036529443709,
+            "held_T4_mae_km": 50.11594910452386,
+            "held_T5_mae_km": 85.63358470763414,
+            "chosen_mean_km": 130.97075805374573,
+            "chosen_median_km": 129.69181841503377,
+            "closer_accuracy": 0.20701982450438738
+          },
+          "dev7": {
+            "train_n": 44181,
+            "held_n": 2054,
+            "non_ties": 2054,
+            "closer_correct": 397,
+            "train_joint_rmse_km": 24.395520377448182,
+            "held_joint_rmse_km": 122.34978783941393,
+            "held_T4_rmse_km": 107.60057777930945,
+            "held_T5_rmse_km": 135.50297720071683,
+            "held_T4_mae_km": 99.69161658360592,
+            "held_T5_mae_km": 124.37185299815887,
+            "chosen_mean_km": 189.72732860936497,
+            "chosen_median_km": 203.19624094868428,
+            "closer_accuracy": 0.19328140214216163
+          }
+        },
+        "macro": {
+          "train_joint_rmse_km": 29.053072890449926,
+          "held_joint_rmse_km": 69.33701712146296,
+          "held_T4_rmse_km": 57.918189757522086,
+          "held_T5_rmse_km": 78.79837371529356,
+          "held_T4_mae_km": 50.38613334541717,
+          "held_T5_mae_km": 67.95473699928412,
+          "chosen_mean_km": 96.99972460903953,
+          "chosen_median_km": 93.34552631059753,
+          "closer_accuracy": 0.36222777008211937
+        },
+        "pooled": {
+          "train_n": 277410,
+          "held_n": 46235,
+          "non_ties": 46235,
+          "closer_correct": 21758,
+          "train_joint_rmse_km": 28.87195616550138,
+          "held_joint_rmse_km": 62.126570097298405,
+          "held_T4_rmse_km": 51.81301561511614,
+          "held_T5_rmse_km": 70.95655598305767,
+          "held_T4_mae_km": 42.61409023931582,
+          "held_T5_mae_km": 57.20362610238389,
+          "chosen_mean_km": 78.45983429868733,
+          "chosen_median_km": 69.87022031506395,
+          "closer_accuracy": 0.47059586893046396
+        }
+      }
+    ],
+    "protocol": {
+      "sampling": "Within each source region use the same seeded ID permutation prefix, taking max(1, floor(fraction * n)). Both regressors use the same six source regions and photos.",
+      "joint_rmse": "Square root of the mean squared forecast error over both experts and all photos, after clipping expected distances to zero from below.",
+      "pooling": "Pooled training metrics count each in-fold training exposure. Held photos enter once. Macro averages the seven region metrics equally, excluding undefined closer accuracies.",
+      "routing": "Choose the smaller expected distance; predicted ties choose T5. Closer accuracy is a fraction excluding exact observed-error ties. Geographic distance metrics include all photos."
+    }
+  }
+}
