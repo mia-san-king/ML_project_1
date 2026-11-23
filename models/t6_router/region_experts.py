@@ -16,11 +16,17 @@ from models.clip_regression.scripts.compare_t1 import _errors
 from models.clip_regression.scripts.train import CHUNK_SIZE, LV95_ORIGIN_M, fit_linear
 from models.geoclip_time.lib.temporal_data import load_temporal_data
 from models.geoclip_time.lib.temporal_training import load_temporal_checkpoint
-from models.geoclip_time.scripts.rerank_references import _ids_hash, _sha256, dates_to_retrieval_years
+from models.geoclip_time.scripts.rerank_references import (
+    DEFAULT_GAMMAS, _ids_hash, _sha256, dates_to_retrieval_years, select_gamma_on_validation,
+)
 from models.t5_reranker.candidates import encode_images, year_scores
-from models.t5_reranker.rerank import _encode_gallery, _restore_section, _score, choose_candidates
+from models.t5_reranker.rerank import WEIGHTS, _encode_gallery, _restore_section, _score, choose_candidates, select_weight
 from models.t6_router.region_towers import fit_towers
 from scripts.augmentation.parent_retrieval import exact_parent_cosine_topk, parent_reference_layout
+
+
+RERANK_SELECTION = {"protocol": "full_fold_val_sequential_v1", "gamma_grid": list(DEFAULT_GAMMAS),
+                    "weight_grid": list(WEIGHTS), "criterion": "minimum median km; ties prefer smaller coefficient"}
 
 
 def _partition(rows):
@@ -64,18 +70,38 @@ def _predict_t4(data, refs, parents, queries, border, output):
 
 
 @torch.inference_mode()
-def _predict_t5(data, refs, parents, groups, queries, t0, t1, *, device, top_k=50, gallery_path=None):
+def _predict_t5(data, refs, parents, groups, queries, t0, t1, *, device, top_k=50,
+                gallery_path=None, selection_path=None):
     vectors = encode_images(t0, data.features, refs.feat_idx.to_numpy(), 2048)
-    idx = queries.feat_idx.to_numpy()
-    query_vectors = encode_images(t0, data.features, idx, 2048)
-    parent_idx, visual = exact_parent_cosine_topk(query_vectors, vectors, groups, top_k=top_k, device=device)
     coords = parents[["latitude", "longitude"]].to_numpy(dtype=np.float64)
     years, _ = dates_to_retrieval_years(parents.date_shot_min.to_numpy(), parents.date_shot_max.to_numpy())
-    query_years, _ = dates_to_retrieval_years(queries.date_shot_min.to_numpy(), queries.date_shot_max.to_numpy())
-    base = year_scores(visual, query_years, years[parent_idx], gamma=1.)
     bases = _encode_gallery(t1, coords, device)
-    location = _score(t1, data, idx, bases, parent_idx, device)
-    winner = choose_candidates(base, location, 1.)
+
+    def shortlist(rows):
+        idx = rows.feat_idx.to_numpy()
+        images = encode_images(t0, data.features, idx, 2048)
+        candidates, visual = exact_parent_cosine_topk(images, vectors, groups, top_k=top_k, device=device)
+        query_years, _ = dates_to_retrieval_years(rows.date_shot_min.to_numpy(), rows.date_shot_max.to_numpy())
+        return candidates, visual, query_years, _score(t1, data, idx, bases, candidates, device)
+
+    gamma, weight = 1., 1.
+    if selection_path is not None:
+        val = data.table.loc[data.table.split.eq("val")]
+        if val.empty or val.id.le(0).any() or val.id.duplicated().any() or val.id.isin(queries.id).any():
+            raise ValueError("Rerank fitting requires distinct positive fold-val IDs disjoint from queries")
+        candidates, visual, val_years, location = shortlist(val)
+        truth = val[["latitude", "longitude"]].to_numpy()
+        gamma, gamma_curve = select_gamma_on_validation(candidates, visual, val_years, years, coords, truth, val.split)
+        base = year_scores(visual, val_years, years[candidates], gamma)
+        weight, weight_curve = select_weight(base, location, coords[candidates], truth, val.split)
+        audit = {**RERANK_SELECTION, "split": "val", "n": len(val), "ids": val.id.to_list(),
+                 "ids_sha256": _ids_hash(val.id), "gallery_ids_sha256": _ids_hash(parents.id),
+                 "gamma": gamma, "weight": weight, "gamma_curve": gamma_curve, "weight_curve": weight_curve}
+        selection_path.write_text(json.dumps(audit, allow_nan=False) + "\n", encoding="utf-8")
+
+    parent_idx, visual, query_years, location = shortlist(queries)
+    base = year_scores(visual, query_years, years[parent_idx], gamma)
+    winner = choose_candidates(base, location, weight)
     row = np.arange(len(queries))
     selected = parent_idx[row, winner]
     if gallery_path is not None:
@@ -89,7 +115,7 @@ def _predict_t5(data, refs, parents, groups, queries, t0, t1, *, device, top_k=5
     })
 
 
-def run_experts(workspace, augmented_root, assigned_split_csv, output_dir, *, device="cuda"):
+def run_experts(workspace, augmented_root, assigned_split_csv, output_dir, *, device="cuda", refit_rerank=False):
     workspace, augmented_root, split, output = map(Path, (workspace, augmented_root, assigned_split_csv, output_dir))
     torch.set_num_threads(4)
     if torch.device(device).type == "cuda":
@@ -99,10 +125,14 @@ def run_experts(workspace, augmented_root, assigned_split_csv, output_dir, *, de
     artifacts = output / "experts"
     source = {**{name: _sha256(path) for name, path in checkpoints.items()},
               "split_sha256": _sha256(split), "border_sha256": _sha256(border_path)}
+    if refit_rerank:
+        source["rerank_selection"] = RERANK_SELECTION
     if artifacts.exists():
         receipt = json.loads((artifacts / "summary.json").read_text(encoding="utf-8"))
         if receipt["inputs"] != source or receipt["predictions_sha256"] != _sha256(artifacts / "predictions.parquet"):
             raise ValueError("Existing regional expert predictions differ from this protocol")
+        if refit_rerank and receipt["rerank_validation_sha256"] != _sha256(artifacts / "rerank_validation.json"):
+            raise ValueError("Existing rerank validation evidence differs from this protocol")
         return artifacts / "predictions.parquet"
     data = load_temporal_data(augmented_root, split)
     refs, parents, groups, queries = _partition(data.table)
@@ -113,10 +143,20 @@ def run_experts(workspace, augmented_root, assigned_split_csv, output_dir, *, de
         t4, rank = _predict_t4(data, refs, parents, queries, border, stage / "T4.pt")
         t0, p0 = load_temporal_checkpoint(checkpoints["T0"])
         t1, p1 = load_temporal_checkpoint(checkpoints["T1"], device=device)
-        t5 = _predict_t5(data, refs, parents, groups, queries, t0, t1, device=device, gallery_path=stage / "t5_gallery.npz")
+        selection_path = stage / "rerank_validation.json" if refit_rerank else None
+        t5 = _predict_t5(data, refs, parents, groups, queries, t0, t1, device=device,
+                         gallery_path=stage / "t5_gallery.npz", selection_path=selection_path)
+        coefficients = {"gamma": 1., "weight": 1.}
+        selection_receipt = {}
+        if selection_path is not None:
+            selected = json.loads(selection_path.read_text(encoding="utf-8"))
+            coefficients = {key: selected[key] for key in coefficients}
+            selection_receipt = {"rerank_validation_sha256": _sha256(selection_path),
+                                 "rerank_validation_count": selected["n"],
+                                 "rerank_validation_ids_sha256": selected["ids_sha256"]}
         inputs = json.loads((checkpoints["T0"].parents[1] / "provenance.json").read_text(encoding="utf-8"))["inputs"]
         torch.save({
-            "model": "T5", "format_version": 1, "weight": 1., "gamma": 1., "top_k": 50, "parent_grouping": True,
+            "model": "T5", "format_version": 1, **coefficients, **selection_receipt, "top_k": 50, "parent_grouping": True,
             "gallery_ids_sha256": _ids_hash(parents.id), "t0_source_sha256": source["T0"], "t1_source_sha256": source["T1"],
             "input_sha256": {"metadata": inputs["meta/smapshot.parquet"], "features": inputs["features/clip_vitl14.npy"],
                              "feature_ids": inputs["features/clip_vitl14_ids.npy"], "split": inputs["assigned_split"]},
@@ -130,7 +170,7 @@ def run_experts(workspace, augmented_root, assigned_split_csv, output_dir, *, de
         summary = {"inputs": source, "query_count": len(frame), "query_ids_sha256": _ids_hash(frame.id),
                    "train_count": len(refs), "unique_train_parents": len(parents),
                    "gallery_ids_sha256": _ids_hash(parents.id), "train_ids_sha256": _ids_hash(refs.id),
-                   "t4_design_rank": rank, "top_k": 50, "gamma": 1., "weight": 1.,
+                   "t4_design_rank": rank, "top_k": 50, **coefficients, **selection_receipt,
                    "predictions_sha256": _sha256(stage / "predictions.parquet")}
         (stage / "summary.json").write_text(json.dumps(summary, indent=2, allow_nan=False) + "\n", encoding="utf-8")
         stage.rename(artifacts)
@@ -142,4 +182,6 @@ if __name__ == "__main__":
     for name in ("workspace", "augmented-root", "assigned-split-csv", "output-dir"):
         cli.add_argument("--" + name, type=Path, required=True)
     cli.add_argument("--device", default="cuda")
+    cli.add_argument("--refit-rerank", action="store_true",
+                     help="Fit the T3 year penalty and T5 location weight on all allowed fold validation photos")
     print(run_experts(**vars(cli.parse_args())), flush=True)
