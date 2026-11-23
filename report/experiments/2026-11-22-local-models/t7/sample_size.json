@@ -1,0 +1,543 @@
+{
+  "provenance": {
+    "matched": {
+      "training_n": 46235,
+      "photos_by_region": {
+        "dev1": 17755,
+        "dev2": 8225,
+        "dev3": 7294,
+        "dev4": 4027,
+        "dev5": 3803,
+        "dev6": 3077,
+        "dev7": 2054
+      },
+      "training_ids_sha256": "ba31108e6c7881717a9dbd30d26fa7649a6079028f6cc44f9a81a82465bdf01c",
+      "training_sample_sha256": "62a81043eea38473dc0b33b836a6a279647af2687f11ba3851e989da54e78596",
+      "sampling_seed": 42,
+      "folds": {
+        "dev1": {
+          "split_sha256": "2378693fad037fcd1d8948d66bb47ff8fe8d647fe595cc653fc8b0c1702c94ca",
+          "predictions_sha256": "30721cb97e0bb485d531ac7ff680f5b466a7c4a01121459323f261dfb0845a3d"
+        },
+        "dev2": {
+          "split_sha256": "48e04a776e0f875df10f58ad3eee20d3efb2ea5533e6aba960b0e06b5439b239",
+          "predictions_sha256": "eb1ef3f6d22bb6cdbb21adbde8488801d10d6c8c93f209e2479f62f8b6e2b8fc"
+        },
+        "dev3": {
+          "split_sha256": "82b6675f843583b7c5969f0177810046c44b281885284b165bd1baaa4e69767c",
+          "predictions_sha256": "5b74c2022f2e471a029210959400ac826a083aa706094ad29423a3c5aecabc09"
+        },
+        "dev4": {
+          "split_sha256": "1a483b5ba2ce56b75981b1fd87b2dad4223937ea8545f9a49d9bfabdb6d4280c",
+          "predictions_sha256": "d5bce9e86f2c0404b9b2a853d553b59e9b457c4ca263f0c9347649a2f0e59b05"
+        },
+        "dev5": {
+          "split_sha256": "937668854d7ce2cb691e0c25b961132bd025219076599aa0610be948e5657053",
+          "predictions_sha256": "9bcbcdfbe0f004b9ea9c5fdde2b5e6ec7276c6344213374fe986c6571e3a2c2d"
+        },
+        "dev6": {
+          "split_sha256": "340007abf86808844b431d475500762724fef0ed79647c96302dad662059b003",
+          "predictions_sha256": "1c2992075c5479a3a9ea42f1b90cea8c415456f2821129673bb7f6a10355c179"
+        },
+        "dev7": {
+          "split_sha256": "e6038d69cb539e4aec97634db017857b72d619514b41d244fcb3bfd31ff391c4",
+          "predictions_sha256": "ea256c7b69d071b0d20cbac516d30fd570d6c2b7373de53d2a93b306416c66ed"
+        }
+      },
+      "t6_report_sha256": "f876de2243cfafb16dc419a35d8b07813271c31937d31dae3a9e36dd993bb3f5",
+      "t7_report_sha256": "d1ec1d666afdd072d799cd2f6cdb014e3f2f5f9994635850847305fb653ae2e7"
+    },
+    "full": {
+      "n": 59196,
+      "photos_by_region": {
+        "dev1": 30716,
+        "dev2": 8225,
+        "dev3": 7294,
+        "dev4": 4027,
+        "dev5": 3803,
+        "dev6": 3077,
+        "dev7": 2054
+      },
+      "ids_sha256": "aa095942b8cc161f6eb8a41d7e1fff1bedd886196916d1f71f562da38cce21fc",
+      "sample_sha256": "7eec01717f37b95ec754c593122047c7d7c2df7c44fe8184fec550f9937ec883"
+    },
+    "added": {
+      "n": 12961,
+      "photos_by_region": {
+        "dev1": 12961
+      },
+      "ids_sha256": "9e41104fa90aeb2f70612435c13b55c48bf8e3da73456b210724db195a8d86b4",
+      "sample_sha256": "e5379a902a48ca63d8fb6ba2401143c99bc43928a1663d5d883990bef691f09e"
+    }
+  },
+  "comparison": {
+    "matched_n": 46235,
+    "full_n": 59196,
+    "parameters": {
+      "max_iter": 80,
+      "max_leaf_nodes": 7,
+      "min_samples_leaf": 100,
+      "learning_rate": 0.08,
+      "l2_regularization": 1.0,
+      "early_stopping": false,
+      "random_state": 42,
+      "loss": "squared_error"
+    },
+    "folds": {
+      "dev1": {
+        "held_n": 30716,
+        "matched_held_n": 17755,
+        "same_training_ids": true,
+        "matched_train_n": 28480,
+        "matched_train_ids_sha256": "dc8496f461a2b67d9b1dd361b2500960d7fb3c51a56fd29c2d752cde7d0f5459",
+        "full_train_n": 28480,
+        "full_train_ids_sha256": "dc8496f461a2b67d9b1dd361b2500960d7fb3c51a56fd29c2d752cde7d0f5459",
+        "identical_forecasts": true,
+        "identical_choices": true
+      },
+      "dev2": {
+        "held_n": 8225,
+        "matched_held_n": 8225,
+        "same_training_ids": false,
+        "matched_train_n": 38010,
+        "matched_train_ids_sha256": "58616cd7d6bfec0f56f912a7ff7e03bc29968531e12d3a3410bf45ebfc8c9142",
+        "full_train_n": 50971,
+        "full_train_ids_sha256": "81293c09bd4c07360088458c91d9d4333c55dde20754b4b53335ea552a9e030a",
+        "identical_forecasts": false,
+        "identical_choices": false
+      },
+      "dev3": {
+        "held_n": 7294,
+        "matched_held_n": 7294,
+        "same_training_ids": false,
+        "matched_train_n": 38941,
+        "matched_train_ids_sha256": "c6028ba738e2e32911bd000bd939c8a25308d6624bf38f26c297d87432cf5182",
+        "full_train_n": 51902,
+        "full_train_ids_sha256": "ae123295615a7a248b962f3f5798ccd1755f83da22e603c1d03b79c414854f73",
+        "identical_forecasts": false,
+        "identical_choices": false
+      },
+      "dev4": {
+        "held_n": 4027,
+        "matched_held_n": 4027,
+        "same_training_ids": false,
+        "matched_train_n": 42208,
+        "matched_train_ids_sha256": "cead3d63df5ba6c6cd320a413a5b8cc06ac5eb2f71083dae90dbc2179ad0d900",
+        "full_train_n": 55169,
+        "full_train_ids_sha256": "b0a4bf1a30eff01f585b478d885ef8787512e34e40f6feb67552733d3871926b",
+        "identical_forecasts": false,
+        "identical_choices": false
+      },
+      "dev5": {
+        "held_n": 3803,
+        "matched_held_n": 3803,
+        "same_training_ids": false,
+        "matched_train_n": 42432,
+        "matched_train_ids_sha256": "13e1c2054f68487c2e6e40f8a48ba66ded24894c7adadb8b98c860142a8dc698",
+        "full_train_n": 55393,
+        "full_train_ids_sha256": "1b99bade3523024d346cfe21bc79ddbb74a11bca0bec9c5f9c890b6521245267",
+        "identical_forecasts": false,
+        "identical_choices": false
+      },
+      "dev6": {
+        "held_n": 3077,
+        "matched_held_n": 3077,
+        "same_training_ids": false,
+        "matched_train_n": 43158,
+        "matched_train_ids_sha256": "9d2d4cdad6fdfb6bf24847f039e6e1a89a9dabe720d72a8f37e6d7b6ffa8bd12",
+        "full_train_n": 56119,
+        "full_train_ids_sha256": "07bc2e1614b2f08410304cc2649d3f0c209d5869d13e14b2ce2cffcbad335e00",
+        "identical_forecasts": false,
+        "identical_choices": false
+      },
+      "dev7": {
+        "held_n": 2054,
+        "matched_held_n": 2054,
+        "same_training_ids": false,
+        "matched_train_n": 44181,
+        "matched_train_ids_sha256": "cadd3b8f07cf971f19f775f539d3a873abb7e7c51d60bd3a9baba5d115e9f66d",
+        "full_train_n": 57142,
+        "full_train_ids_sha256": "8bf43d8317f1c9c2b18dd8064e1837b0939dfdde80ff12e51a03f6535d7113ff",
+        "identical_forecasts": false,
+        "identical_choices": false
+      }
+    },
+    "by_region": {
+      "dev1": {
+        "n": 30716,
+        "matched": {
+          "chosen_mean_km": 61.56338115786412,
+          "chosen_median_km": 38.286450368369565,
+          "non_ties": 30716,
+          "closer_correct": 21606,
+          "closer_accuracy": 0.7034119025914832,
+          "choose_T4": 18551,
+          "forecast_joint_rmse_km": 52.44582912738733,
+          "forecast_T4_rmse_km": 44.062534165441335,
+          "forecast_T5_rmse_km": 59.66257678509648
+        },
+        "full": {
+          "chosen_mean_km": 61.56338115786412,
+          "chosen_median_km": 38.286450368369565,
+          "non_ties": 30716,
+          "closer_correct": 21606,
+          "closer_accuracy": 0.7034119025914832,
+          "choose_T4": 18551,
+          "forecast_joint_rmse_km": 52.44582912738733,
+          "forecast_T4_rmse_km": 44.062534165441335,
+          "forecast_T5_rmse_km": 59.66257678509648
+        },
+        "paired": {
+          "closer": 0,
+          "farther": 0,
+          "unchanged": 30716,
+          "switched": 0,
+          "net_closer": 0,
+          "total_saved_km": 0.0,
+          "mean_saved_km": 0.0
+        }
+      },
+      "dev2": {
+        "n": 8225,
+        "matched": {
+          "chosen_mean_km": 74.4207961476046,
+          "chosen_median_km": 70.48762501401049,
+          "non_ties": 8225,
+          "closer_correct": 3200,
+          "closer_accuracy": 0.3890577507598784,
+          "choose_T4": 4228,
+          "forecast_joint_rmse_km": 55.486015686071816,
+          "forecast_T4_rmse_km": 48.33965976679073,
+          "forecast_T5_rmse_km": 61.81159411518949
+        },
+        "full": {
+          "chosen_mean_km": 72.48579824190507,
+          "chosen_median_km": 69.37514462517792,
+          "non_ties": 8225,
+          "closer_correct": 3581,
+          "closer_accuracy": 0.43537993920972645,
+          "choose_T4": 4197,
+          "forecast_joint_rmse_km": 54.906036989819775,
+          "forecast_T4_rmse_km": 48.19499603021619,
+          "forecast_T5_rmse_km": 60.881755506082115
+        },
+        "paired": {
+          "closer": 644,
+          "farther": 263,
+          "unchanged": 7318,
+          "switched": 907,
+          "net_closer": 381,
+          "total_saved_km": 15915.357774378594,
+          "mean_saved_km": 1.934997905699525
+        }
+      },
+      "dev3": {
+        "n": 7294,
+        "matched": {
+          "chosen_mean_km": 80.37638154957253,
+          "chosen_median_km": 77.48491456255897,
+          "non_ties": 7294,
+          "closer_correct": 1781,
+          "closer_accuracy": 0.24417329311763092,
+          "choose_T4": 5284,
+          "forecast_joint_rmse_km": 65.01355255102668,
+          "forecast_T4_rmse_km": 49.85651537581854,
+          "forecast_T5_rmse_km": 77.25187315004719
+        },
+        "full": {
+          "chosen_mean_km": 79.51757378435696,
+          "chosen_median_km": 77.06608192982543,
+          "non_ties": 7294,
+          "closer_correct": 2044,
+          "closer_accuracy": 0.2802303262955854,
+          "choose_T4": 5421,
+          "forecast_joint_rmse_km": 64.23178037020037,
+          "forecast_T4_rmse_km": 48.879770128394455,
+          "forecast_T5_rmse_km": 76.56507879736449
+        },
+        "paired": {
+          "closer": 398,
+          "farther": 135,
+          "unchanged": 6761,
+          "switched": 533,
+          "net_closer": 263,
+          "total_saved_km": 6264.143839482574,
+          "mean_saved_km": 0.8588077652155982
+        }
+      },
+      "dev4": {
+        "n": 4027,
+        "matched": {
+          "chosen_mean_km": 76.73708856599616,
+          "chosen_median_km": 73.27703367960014,
+          "non_ties": 4027,
+          "closer_correct": 1605,
+          "closer_accuracy": 0.398559721877328,
+          "choose_T4": 2213,
+          "forecast_joint_rmse_km": 54.33172823112762,
+          "forecast_T4_rmse_km": 43.74380185127362,
+          "forecast_T5_rmse_km": 63.169242395003685
+        },
+        "full": {
+          "chosen_mean_km": 76.13756303945873,
+          "chosen_median_km": 72.9642583327635,
+          "non_ties": 4027,
+          "closer_correct": 1632,
+          "closer_accuracy": 0.40526446486218026,
+          "choose_T4": 2198,
+          "forecast_joint_rmse_km": 52.55461020556538,
+          "forecast_T4_rmse_km": 43.29171762106611,
+          "forecast_T5_rmse_km": 60.41358533588044
+        },
+        "paired": {
+          "closer": 124,
+          "farther": 97,
+          "unchanged": 3806,
+          "switched": 221,
+          "net_closer": 27,
+          "total_saved_km": 2414.2892953661717,
+          "mean_saved_km": 0.5995255265374154
+        }
+      },
+      "dev5": {
+        "n": 3803,
+        "matched": {
+          "chosen_mean_km": 61.567863104370126,
+          "chosen_median_km": 57.36134367577349,
+          "non_ties": 3803,
+          "closer_correct": 1879,
+          "closer_accuracy": 0.4940836181961609,
+          "choose_T4": 1977,
+          "forecast_joint_rmse_km": 46.29908371050661,
+          "forecast_T4_rmse_km": 46.86022679193801,
+          "forecast_T5_rmse_km": 45.73105563917295
+        },
+        "full": {
+          "chosen_mean_km": 61.25226780260863,
+          "chosen_median_km": 57.60183463770613,
+          "non_ties": 3803,
+          "closer_correct": 1888,
+          "closer_accuracy": 0.49645017091769655,
+          "choose_T4": 1976,
+          "forecast_joint_rmse_km": 44.80366049204717,
+          "forecast_T4_rmse_km": 44.413526496046444,
+          "forecast_T5_rmse_km": 45.19042654322083
+        },
+        "paired": {
+          "closer": 251,
+          "farther": 242,
+          "unchanged": 3310,
+          "switched": 493,
+          "net_closer": 9,
+          "total_saved_km": 1200.2089325990128,
+          "mean_saved_km": 0.3155953017615074
+        }
+      },
+      "dev6": {
+        "n": 3077,
+        "matched": {
+          "chosen_mean_km": 132.65573085791874,
+          "chosen_median_km": 130.86912975989927,
+          "non_ties": 3077,
+          "closer_correct": 602,
+          "closer_accuracy": 0.1956451088722782,
+          "choose_T4": 2091,
+          "forecast_joint_rmse_km": 81.46923690214471,
+          "forecast_T4_rmse_km": 58.12244071247705,
+          "forecast_T5_rmse_km": 99.4799226399988
+        },
+        "full": {
+          "chosen_mean_km": 132.99346496297883,
+          "chosen_median_km": 131.4242259147251,
+          "non_ties": 3077,
+          "closer_correct": 589,
+          "closer_accuracy": 0.19142021449463764,
+          "choose_T4": 2084,
+          "forecast_joint_rmse_km": 82.39846163474972,
+          "forecast_T4_rmse_km": 58.8307880366903,
+          "forecast_T5_rmse_km": 100.5880278091218
+        },
+        "paired": {
+          "closer": 64,
+          "farther": 77,
+          "unchanged": 2936,
+          "switched": 141,
+          "net_closer": -13,
+          "total_saved_km": -1039.2078412698702,
+          "mean_saved_km": -0.33773410506008134
+        }
+      },
+      "dev7": {
+        "n": 2054,
+        "matched": {
+          "chosen_mean_km": 191.7000357946605,
+          "chosen_median_km": 204.99416296778702,
+          "non_ties": 2054,
+          "closer_correct": 301,
+          "closer_accuracy": 0.14654333008763387,
+          "choose_T4": 1132,
+          "forecast_joint_rmse_km": 124.06203353932233,
+          "forecast_T4_rmse_km": 110.12738497680319,
+          "forecast_T5_rmse_km": 136.58233930488547
+        },
+        "full": {
+          "chosen_mean_km": 191.46587679824506,
+          "chosen_median_km": 204.94847916138394,
+          "non_ties": 2054,
+          "closer_correct": 314,
+          "closer_accuracy": 0.1528724440116845,
+          "choose_T4": 1121,
+          "forecast_joint_rmse_km": 125.98150257250126,
+          "forecast_T4_rmse_km": 111.3344373594896,
+          "forecast_T5_rmse_km": 139.09464777156657
+        },
+        "paired": {
+          "closer": 47,
+          "farther": 34,
+          "unchanged": 1973,
+          "switched": 81,
+          "net_closer": 13,
+          "total_saved_km": 480.96257863732626,
+          "mean_saved_km": 0.23415899641544607
+        }
+      }
+    },
+    "pooled": {
+      "n": 59196,
+      "matched": {
+        "chosen_mean_km": 74.9113721770866,
+        "chosen_median_km": 64.77386440825877,
+        "non_ties": 59196,
+        "closer_correct": 30974,
+        "closer_accuracy": 0.5232448138387729,
+        "choose_T4": 35476,
+        "forecast_joint_rmse_km": 59.94497592927099,
+        "forecast_T4_rmse_km": 50.0604096749786,
+        "forecast_T5_rmse_km": 68.41604827447333
+      },
+      "full": {
+        "chosen_mean_km": 74.48506373430006,
+        "chosen_median_km": 64.30242166705676,
+        "non_ties": 59196,
+        "closer_correct": 31654,
+        "closer_accuracy": 0.5347320764916549,
+        "choose_T4": 35548,
+        "forecast_joint_rmse_km": 59.790870928852144,
+        "forecast_T4_rmse_km": 49.887663555602735,
+        "forecast_T5_rmse_km": 68.27237741447341
+      },
+      "paired": {
+        "closer": 1528,
+        "farther": 848,
+        "unchanged": 56820,
+        "switched": 2376,
+        "net_closer": 680,
+        "total_saved_km": 25235.754579193806,
+        "mean_saved_km": 0.42630844278657015
+      }
+    },
+    "macro": {
+      "n_regions": 7,
+      "matched": {
+        "chosen_mean_km": 97.00303959685526,
+        "chosen_median_km": 93.2515228611427,
+        "closer_accuracy": 0.36735353221462763,
+        "forecast_joint_rmse_km": 68.44392567822673,
+        "forecast_T4_rmse_km": 57.30179480579178,
+        "forecast_T5_rmse_km": 77.66980057562772
+      },
+      "full": {
+        "chosen_mean_km": 96.48798939820249,
+        "chosen_median_km": 93.09521070999308,
+        "closer_accuracy": 0.38071849462614205,
+        "forecast_joint_rmse_km": 68.18884019889586,
+        "forecast_T4_rmse_km": 57.00110997676349,
+        "forecast_T5_rmse_km": 77.4851569354761
+      },
+      "paired": {
+        "closer_fraction": 0.03904822979251383,
+        "farther_fraction": 0.02568326738099947,
+        "unchanged_fraction": 0.9352685028264868,
+        "switched_fraction": 0.0647314971735133,
+        "mean_saved_km": 0.515050198652773
+      }
+    },
+    "matched_evaluation": {
+      "n": 46235,
+      "matched": {
+        "chosen_mean_km": 78.52629956868346,
+        "chosen_median_km": 69.86948451768295,
+        "non_ties": 46235,
+        "closer_correct": 21829,
+        "closer_accuracy": 0.47213150210879207,
+        "choose_T4": 27645,
+        "forecast_joint_rmse_km": 61.81532136890111,
+        "forecast_T4_rmse_km": 51.5588695657669,
+        "forecast_T5_rmse_km": 70.59710249706627
+      },
+      "full": {
+        "chosen_mean_km": 77.9804846107686,
+        "chosen_median_km": 69.3562557404428,
+        "non_ties": 46235,
+        "closer_correct": 22509,
+        "closer_accuracy": 0.4868389748026387,
+        "choose_T4": 27717,
+        "forecast_joint_rmse_km": 61.62393582926058,
+        "forecast_T4_rmse_km": 51.34404866426307,
+        "forecast_T5_rmse_km": 70.41880147332414
+      },
+      "paired": {
+        "closer": 1528,
+        "farther": 848,
+        "unchanged": 43859,
+        "switched": 2376,
+        "net_closer": 680,
+        "total_saved_km": 25235.754579193806,
+        "mean_saved_km": 0.5458149579148655
+      }
+    },
+    "affected_regions": [
+      "dev2",
+      "dev3",
+      "dev4",
+      "dev5",
+      "dev6",
+      "dev7"
+    ],
+    "affected_evaluation": {
+      "n": 28480,
+      "matched": {
+        "chosen_mean_km": 89.30733046874525,
+        "chosen_median_km": 79.36474391606586,
+        "non_ties": 28480,
+        "closer_correct": 9368,
+        "closer_accuracy": 0.32893258426966293,
+        "choose_T4": 16925,
+        "forecast_joint_rmse_km": 67.09997998885811,
+        "forecast_T4_rmse_km": 55.81133280188692,
+        "forecast_T5_rmse_km": 76.74574750360661
+      },
+      "full": {
+        "chosen_mean_km": 88.42124358043088,
+        "chosen_median_km": 78.53190737036239,
+        "non_ties": 28480,
+        "closer_correct": 10048,
+        "closer_accuracy": 0.35280898876404493,
+        "choose_T4": 16997,
+        "forecast_joint_rmse_km": 66.8135828117364,
+        "forecast_T4_rmse_km": 55.48890013928156,
+        "forecast_T5_rmse_km": 76.47935445343633
+      },
+      "paired": {
+        "closer": 1528,
+        "farther": 848,
+        "unchanged": 26104,
+        "switched": 2376,
+        "net_closer": 680,
+        "total_saved_km": 25235.754579193806,
+        "mean_saved_km": 0.8860868883143893
+      }
+    },
+    "protocol": "Both arms score every photo in the same full held-out region after fitting on their other six regions. Paired counts compare observed errors per photo. Positive saved km means the full arm is closer. Closer accuracy excludes observed error ties. Joint RMSE weights both expert error forecasts equally. Macro metrics weight regions equally, omitting undefined accuracies. Matched evaluation reuses the same forecasts on matched IDs."
+  }
+}
