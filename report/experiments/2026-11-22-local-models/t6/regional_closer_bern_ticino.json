@@ -1,0 +1,237 @@
+{
+  "cohort": "Official Bern city and Ticino canton test photographs. Fixed production +8192 T4/T5 coordinates for every policy. No fitting or threshold selection on these test images.",
+  "policies": {
+    "old": "Published T6 v2 with original 25 km confidence inputs",
+    "new": "Frozen regional closer gate with its own regional confidence calibrators, P(T4 closer)>0.5",
+    "original_confidence": "Compare original probabilities of a 25 km hit, ties to T5",
+    "regional_confidence": "Compare regional probabilities of a 25 km hit, ties to T5"
+  },
+  "hashes": {
+    "regional_closer_gate_and_confidence": "f87e350ef1f6099b51849c2bec4bd071602a9c2400d1e18bdd285717297396e8",
+    "published_gate": "9c083b4d4d1ae2b3a1ddd2dae413f3090d6111285322d41b67911a2ffb24bfd3",
+    "predictions": "0e8948b1b89913dcca677720356ebc5717468bd23511e30fa6954b7ad1f977a4",
+    "confidence_inputs": "0d6fe29f5e468acab78330901d7fd5fd41c806cf135d817640e663c98486100f"
+  },
+  "splits": {
+    "test_city": {
+      "n": 3377,
+      "n_blocks": 7,
+      "methods": {
+        "T4": {
+          "n": 3377,
+          "n_non_ties": 3377,
+          "n_ties": 0,
+          "correct_non_ties": 2373,
+          "accuracy_non_ties_pct": 70.26946994373705,
+          "choose_T4": 3377,
+          "mean_km": 62.185020163085554,
+          "median_km": 61.28215851728474,
+          "mean_oracle_regret_km": 7.635764461023426,
+          "hits_25km": 337,
+          "hit_25km_pct": 9.979271542789458
+        },
+        "T5": {
+          "n": 3377,
+          "n_non_ties": 3377,
+          "n_ties": 0,
+          "correct_non_ties": 1004,
+          "accuracy_non_ties_pct": 29.730530056262957,
+          "choose_T4": 0,
+          "mean_km": 83.57697220214156,
+          "median_km": 93.49256443089172,
+          "mean_oracle_regret_km": 29.027716500079443,
+          "hits_25km": 235,
+          "hit_25km_pct": 6.95883920639621
+        },
+        "old": {
+          "n": 3377,
+          "n_non_ties": 3377,
+          "n_ties": 0,
+          "correct_non_ties": 901,
+          "accuracy_non_ties_pct": 26.68048563814036,
+          "choose_T4": 567,
+          "mean_km": 84.08807935331991,
+          "median_km": 93.29610310493041,
+          "mean_oracle_regret_km": 29.538823651257786,
+          "hits_25km": 199,
+          "hit_25km_pct": 5.8928042641397695
+        },
+        "new": {
+          "n": 3377,
+          "n_non_ties": 3377,
+          "n_ties": 0,
+          "correct_non_ties": 716,
+          "accuracy_non_ties_pct": 21.20225051821143,
+          "choose_T4": 1440,
+          "mean_km": 83.46206113687006,
+          "median_km": 92.3030178184113,
+          "mean_oracle_regret_km": 28.912805434807925,
+          "hits_25km": 138,
+          "hit_25km_pct": 4.086467278649689
+        },
+        "original_confidence": {
+          "n": 3377,
+          "n_non_ties": 3377,
+          "n_ties": 0,
+          "correct_non_ties": 991,
+          "accuracy_non_ties_pct": 29.345572993781463,
+          "choose_T4": 59,
+          "mean_km": 83.8433931244645,
+          "median_km": 93.38378081082763,
+          "mean_oracle_regret_km": 29.294137422402375,
+          "hits_25km": 227,
+          "hit_25km_pct": 6.721942552561446
+        },
+        "regional_confidence": {
+          "n": 3377,
+          "n_non_ties": 3377,
+          "n_ties": 0,
+          "correct_non_ties": 1160,
+          "accuracy_non_ties_pct": 34.35001480604087,
+          "choose_T4": 258,
+          "mean_km": 80.65409223897247,
+          "median_km": 91.77538937377852,
+          "mean_oracle_regret_km": 26.104836536910344,
+          "hits_25km": 302,
+          "hit_25km_pct": 8.942848682262364
+        }
+      },
+      "paired_vs_old": {
+        "switches": 1077,
+        "T5_to_T4": 975,
+        "T4_to_T5": 102,
+        "improved": 446,
+        "worsened": 631,
+        "T4_closer_newly_correct": 438,
+        "T4_closer_previously_correct_lost": 94,
+        "T5_closer_newly_correct": 8,
+        "T5_closer_previously_correct_lost": 537,
+        "equal_after_switch": 0,
+        "saved_km": 17878.438384027373,
+        "added_km": 15764.374867076192,
+        "net_saved_km": 2114.0635169511806,
+        "mean_saved_km": 0.626018216449861,
+        "net_correct_non_ties": -185
+      },
+      "paired_hits25_vs_old": {
+        "additional_T4_only_rescues": 93,
+        "previous_T4_only_rescues_reversed": 5,
+        "additional_T5_only_losses": 149,
+        "previous_T5_only_losses_recovered": 0,
+        "net_T4_only_rescues": 88,
+        "net_T5_only_losses": 149,
+        "net_hits_25km": -61
+      }
+    },
+    "test_region": {
+      "n": 13039,
+      "n_blocks": 42,
+      "methods": {
+        "T4": {
+          "n": 13039,
+          "n_non_ties": 13039,
+          "n_ties": 0,
+          "correct_non_ties": 11289,
+          "accuracy_non_ties_pct": 86.57872536237441,
+          "choose_T4": 13039,
+          "mean_km": 58.4966880982066,
+          "median_km": 47.16883249517274,
+          "mean_oracle_regret_km": 2.0982307891322063,
+          "hits_25km": 2693,
+          "hit_25km_pct": 20.653424342357543
+        },
+        "T5": {
+          "n": 13039,
+          "n_non_ties": 13039,
+          "n_ties": 0,
+          "correct_non_ties": 1750,
+          "accuracy_non_ties_pct": 13.421274637625585,
+          "choose_T4": 0,
+          "mean_km": 96.09612359025745,
+          "median_km": 85.58810314892641,
+          "mean_oracle_regret_km": 39.69766628118306,
+          "hits_25km": 387,
+          "hit_25km_pct": 2.9680190198634864
+        },
+        "old": {
+          "n": 13039,
+          "n_non_ties": 13039,
+          "n_ties": 0,
+          "correct_non_ties": 1864,
+          "accuracy_non_ties_pct": 14.29557481401948,
+          "choose_T4": 176,
+          "mean_km": 95.7684160948899,
+          "median_km": 85.44899835410575,
+          "mean_oracle_regret_km": 39.3699587858155,
+          "hits_25km": 391,
+          "hit_25km_pct": 2.9986962190352022
+        },
+        "new": {
+          "n": 13039,
+          "n_non_ties": 13039,
+          "n_ties": 0,
+          "correct_non_ties": 7220,
+          "accuracy_non_ties_pct": 55.372344504946696,
+          "choose_T4": 7360,
+          "mean_km": 75.01437455751297,
+          "median_km": 68.17411517403802,
+          "mean_oracle_regret_km": 18.61591724843858,
+          "hits_25km": 1512,
+          "hit_25km_pct": 11.595981286908504
+        },
+        "original_confidence": {
+          "n": 13039,
+          "n_non_ties": 13039,
+          "n_ties": 0,
+          "correct_non_ties": 1760,
+          "accuracy_non_ties_pct": 13.497967635554874,
+          "choose_T4": 14,
+          "mean_km": 96.06727814829617,
+          "median_km": 85.57151759608838,
+          "mean_oracle_regret_km": 39.668820839221766,
+          "hits_25km": 387,
+          "hit_25km_pct": 2.9680190198634864
+        },
+        "regional_confidence": {
+          "n": 13039,
+          "n_non_ties": 13039,
+          "n_ties": 0,
+          "correct_non_ties": 4683,
+          "accuracy_non_ties_pct": 35.91533093028607,
+          "choose_T4": 3547,
+          "mean_km": 83.88778490106768,
+          "median_km": 74.17934660653387,
+          "mean_oracle_regret_km": 27.489327591993273,
+          "hits_25km": 1519,
+          "hit_25km_pct": 11.649666385459009
+        }
+      },
+      "paired_vs_old": {
+        "switches": 7218,
+        "T5_to_T4": 7201,
+        "T4_to_T5": 17,
+        "improved": 6287,
+        "worsened": 931,
+        "T4_closer_newly_correct": 6281,
+        "T4_closer_previously_correct_lost": 11,
+        "T5_closer_newly_correct": 6,
+        "T5_closer_previously_correct_lost": 920,
+        "equal_after_switch": 0,
+        "saved_km": 285156.40971917496,
+        "added_km": 14544.462113317371,
+        "net_saved_km": 270611.94760585757,
+        "mean_saved_km": 20.754041537376914,
+        "net_correct_non_ties": 5356
+      },
+      "paired_hits25_vs_old": {
+        "additional_T4_only_rescues": 1241,
+        "previous_T4_only_rescues_reversed": 0,
+        "additional_T5_only_losses": 120,
+        "previous_T5_only_losses_recovered": 0,
+        "net_T4_only_rescues": 1241,
+        "net_T5_only_losses": 120,
+        "net_hits_25km": 1121
+      }
+    }
+  }
+}
