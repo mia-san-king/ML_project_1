@@ -1,0 +1,966 @@
+{
+  "design": "New final is the largest of five predeclared new squares by original query count. Both groups use the same fold-specific experts and final predictions. T5 reranking parameters are refitted on allowed validation data. The new and previous final squares, with buffers, are excluded from all fitting.",
+  "sampling_seed": 42,
+  "shared_training_ids": 33274,
+  "assignment": {
+    "canonical_split_sha256": "67d2a56bcad5ba826d73a63174315779827456fd9011e40583f743021e72a0a3",
+    "roles": {
+      "train": "Original train parents and their cached variants outside both reserved squares, the current query square, and all three exclusion rings.",
+      "val": "Original positive validation IDs outside the same areas, for expert checkpoint selection.",
+      "query": "Real train or validation photo inside the current square, used for predictions only.",
+      "ignore": "All other rows, including official tests and all removed parents' variants."
+    },
+    "three": [
+      "dev1",
+      "dev2",
+      "dev3"
+    ],
+    "seven": [
+      "dev1",
+      "dev2",
+      "dev3",
+      "dev4",
+      "dev5",
+      "dev6",
+      "dev7"
+    ],
+    "final": "new_final",
+    "archived_final_excluded": {
+      "southwest_lv95_m": [
+        2780000,
+        1130000
+      ],
+      "side_km": 30,
+      "buffer_km": 10
+    },
+    "regions": {
+      "dev1": {
+        "southwest_lv95_m": [
+          2660000,
+          1220000
+        ],
+        "side_km": 30,
+        "buffer_km": 10,
+        "canonical_real_queries": 30760,
+        "canonical_train": 27303,
+        "canonical_val": 3457,
+        "query": 30716,
+        "blocks": 9,
+        "train_real": 120285,
+        "train_variant": 5543,
+        "val": 16326,
+        "ignore": 143994,
+        "split_sha256": "2378693fad037fcd1d8948d66bb47ff8fe8d647fe595cc653fc8b0c1702c94ca"
+      },
+      "dev2": {
+        "southwest_lv95_m": [
+          2710000,
+          1250000
+        ],
+        "side_km": 30,
+        "buffer_km": 10,
+        "canonical_real_queries": 8233,
+        "canonical_train": 8233,
+        "canonical_val": 0,
+        "query": 8225,
+        "blocks": 9,
+        "train_real": 146786,
+        "train_variant": 6780,
+        "val": 27526,
+        "ignore": 127547,
+        "split_sha256": "48e04a776e0f875df10f58ad3eee20d3efb2ea5533e6aba960b0e06b5439b239"
+      },
+      "dev3": {
+        "southwest_lv95_m": [
+          2610000,
+          1090000
+        ],
+        "side_km": 30,
+        "buffer_km": 10,
+        "canonical_real_queries": 7297,
+        "canonical_train": 6508,
+        "canonical_val": 789,
+        "query": 7294,
+        "blocks": 9,
+        "train_real": 148165,
+        "train_variant": 6891,
+        "val": 27210,
+        "ignore": 127304,
+        "split_sha256": "82b6675f843583b7c5969f0177810046c44b281885284b165bd1baaa4e69767c"
+      },
+      "dev4": {
+        "southwest_lv95_m": [
+          2710000,
+          1190000
+        ],
+        "side_km": 30,
+        "buffer_km": 10,
+        "canonical_real_queries": 4028,
+        "canonical_train": 3322,
+        "canonical_val": 706,
+        "query": 4027,
+        "blocks": 9,
+        "train_real": 153109,
+        "train_variant": 7090,
+        "val": 26764,
+        "ignore": 125874,
+        "split_sha256": "1a483b5ba2ce56b75981b1fd87b2dad4223937ea8545f9a49d9bfabdb6d4280c"
+      },
+      "dev5": {
+        "southwest_lv95_m": [
+          2590000,
+          1220000
+        ],
+        "side_km": 30,
+        "buffer_km": 10,
+        "canonical_real_queries": 3808,
+        "canonical_train": 2849,
+        "canonical_val": 959,
+        "query": 3803,
+        "blocks": 9,
+        "train_real": 155429,
+        "train_variant": 7197,
+        "val": 25330,
+        "ignore": 125105,
+        "split_sha256": "937668854d7ce2cb691e0c25b961132bd025219076599aa0610be948e5657053"
+      },
+      "dev6": {
+        "southwest_lv95_m": [
+          2520000,
+          1160000
+        ],
+        "side_km": 30,
+        "buffer_km": 10,
+        "canonical_real_queries": 3080,
+        "canonical_train": 2517,
+        "canonical_val": 563,
+        "query": 3077,
+        "blocks": 9,
+        "train_real": 156488,
+        "train_variant": 7245,
+        "val": 26904,
+        "ignore": 123150,
+        "split_sha256": "340007abf86808844b431d475500762724fef0ed79647c96302dad662059b003"
+      },
+      "dev7": {
+        "southwest_lv95_m": [
+          2490000,
+          1110000
+        ],
+        "side_km": 30,
+        "buffer_km": 10,
+        "canonical_real_queries": 2057,
+        "canonical_train": 1675,
+        "canonical_val": 382,
+        "query": 2054,
+        "blocks": 8,
+        "train_real": 158694,
+        "train_variant": 7336,
+        "val": 27605,
+        "ignore": 121175,
+        "split_sha256": "e6038d69cb539e4aec97634db017857b72d619514b41d244fcb3bfd31ff391c4"
+      },
+      "new_final": {
+        "southwest_lv95_m": [
+          2570000,
+          1140000
+        ],
+        "side_km": 30,
+        "buffer_km": 10,
+        "canonical_real_queries": 4667,
+        "canonical_train": 3760,
+        "canonical_val": 907,
+        "query": 4664,
+        "blocks": 9,
+        "train_real": 161282,
+        "train_variant": 7461,
+        "val": 27999,
+        "ignore": 115458,
+        "split_sha256": "6b2c48f9739ae90fef357e4016de4af7e5db2508b5fc9f9d65fe417b99dca88d"
+      }
+    }
+  },
+  "folds": {
+    "dev1": {
+      "inputs": {
+        "T0": "10e2925091e92fbce1b505608bf1734814599ce34bff8170c47b829d7423ae1e",
+        "T1": "eceed8d886790e2148d9e67a801c5b267e46955c90817ba4355ffe314095ed8e",
+        "split_sha256": "2378693fad037fcd1d8948d66bb47ff8fe8d647fe595cc653fc8b0c1702c94ca",
+        "border_sha256": "d2260ef267949d6816b8dee35d780b97cf85636af7caef4af2fc8a164637928f",
+        "rerank_selection": {
+          "protocol": "full_fold_val_sequential_v1",
+          "gamma_grid": [
+            0.0,
+            0.05,
+            0.1,
+            0.2,
+            0.35,
+            0.5,
+            0.75,
+            1.0
+          ],
+          "weight_grid": [
+            0.0,
+            0.03125,
+            0.0625,
+            0.125,
+            0.25,
+            0.5,
+            0.75,
+            1.0,
+            1.5,
+            2.0,
+            3.0,
+            4.0,
+            8.0,
+            16.0
+          ],
+          "criterion": "minimum median km; ties prefer smaller coefficient"
+        }
+      },
+      "query_count": 30716,
+      "query_ids_sha256": "3a585525b5a5970c7c4cd509b315ccce5fc4e6b49eb941d274715c953ff70991",
+      "train_count": 125828,
+      "unique_train_parents": 120285,
+      "gallery_ids_sha256": "54c1df1272a7bc916b458c1a722e9c662e360b3c3d8207b2d12a9cbf9fee2b06",
+      "train_ids_sha256": "150f9ba28cc2092ec0cf1e3a7815bb71c1ac489747944d7e5b0684db350e4fdd",
+      "t4_design_rank": 772,
+      "top_k": 50,
+      "gamma": 1.0,
+      "weight": 0.75,
+      "rerank_validation_sha256": "f9530fc455bad90bc3ca314933f77ae97692f77c8971464c2d6be36b1b6ed4e3",
+      "rerank_validation_count": 16326,
+      "rerank_validation_ids_sha256": "6018e3830b2b3ff04743ed06a2dced913826fcf6c215000251354bdedad18690",
+      "predictions_sha256": "30721cb97e0bb485d531ac7ff680f5b466a7c4a01121459323f261dfb0845a3d"
+    },
+    "dev2": {
+      "inputs": {
+        "T0": "ec0a55c56dfde6366cec6be4693f105f001c5797886393afc12d3b0749d156ec",
+        "T1": "52631c56726910d46ae913094579853609591392f989fcc23c8d5e69dbe6f9d3",
+        "split_sha256": "48e04a776e0f875df10f58ad3eee20d3efb2ea5533e6aba960b0e06b5439b239",
+        "border_sha256": "d2260ef267949d6816b8dee35d780b97cf85636af7caef4af2fc8a164637928f",
+        "rerank_selection": {
+          "protocol": "full_fold_val_sequential_v1",
+          "gamma_grid": [
+            0.0,
+            0.05,
+            0.1,
+            0.2,
+            0.35,
+            0.5,
+            0.75,
+            1.0
+          ],
+          "weight_grid": [
+            0.0,
+            0.03125,
+            0.0625,
+            0.125,
+            0.25,
+            0.5,
+            0.75,
+            1.0,
+            1.5,
+            2.0,
+            3.0,
+            4.0,
+            8.0,
+            16.0
+          ],
+          "criterion": "minimum median km; ties prefer smaller coefficient"
+        }
+      },
+      "query_count": 8225,
+      "query_ids_sha256": "117ac3b2892506d06824d82f89d9a0df0a1d46a5059232d5e15491a0792b22d9",
+      "train_count": 153566,
+      "unique_train_parents": 146786,
+      "gallery_ids_sha256": "f2eb3a0b34d317e2890c234c7cd7da660d4d6ac9587b2db7fdf74f24197e8db6",
+      "train_ids_sha256": "62e483f1e24c258aebbc698a47fbb31c99913afbb5df0120d5b28942557f981f",
+      "t4_design_rank": 772,
+      "top_k": 50,
+      "gamma": 1.0,
+      "weight": 1.0,
+      "rerank_validation_sha256": "0491d0cd3d981d825756680d8623d4f35651074688113082bbb5b04856ec2c9e",
+      "rerank_validation_count": 27526,
+      "rerank_validation_ids_sha256": "e7306d3b63e61c635116f7c4d3cd2b7be433b5351963c27d674f7a0b53fe9876",
+      "predictions_sha256": "eb1ef3f6d22bb6cdbb21adbde8488801d10d6c8c93f209e2479f62f8b6e2b8fc"
+    },
+    "dev3": {
+      "inputs": {
+        "T0": "b814613cff098e257525937232435ed5e260a72d9cdaf9fbbd797493bed668f1",
+        "T1": "8518b2489e41bdfefcf8e19d8177a2ac27360f0069e43eba871717966594dd71",
+        "split_sha256": "82b6675f843583b7c5969f0177810046c44b281885284b165bd1baaa4e69767c",
+        "border_sha256": "d2260ef267949d6816b8dee35d780b97cf85636af7caef4af2fc8a164637928f",
+        "rerank_selection": {
+          "protocol": "full_fold_val_sequential_v1",
+          "gamma_grid": [
+            0.0,
+            0.05,
+            0.1,
+            0.2,
+            0.35,
+            0.5,
+            0.75,
+            1.0
+          ],
+          "weight_grid": [
+            0.0,
+            0.03125,
+            0.0625,
+            0.125,
+            0.25,
+            0.5,
+            0.75,
+            1.0,
+            1.5,
+            2.0,
+            3.0,
+            4.0,
+            8.0,
+            16.0
+          ],
+          "criterion": "minimum median km; ties prefer smaller coefficient"
+        }
+      },
+      "query_count": 7294,
+      "query_ids_sha256": "18557f12e328850bdaeef26b2077176b5679c38ecea00348d46768cc32917a1f",
+      "train_count": 155056,
+      "unique_train_parents": 148165,
+      "gallery_ids_sha256": "988c3325d0e0395aea9448f26dc7e1ee7f319aa5bb0378c7f551bf3f15818841",
+      "train_ids_sha256": "68660b1525cc563687369e0307c1020f410d452d35e96ec405450eacf16f433b",
+      "t4_design_rank": 772,
+      "top_k": 50,
+      "gamma": 1.0,
+      "weight": 0.75,
+      "rerank_validation_sha256": "00857192ee9a30d53d8400c42f5245f9639dad6975b8677c7de2a7fcf7fa152c",
+      "rerank_validation_count": 27210,
+      "rerank_validation_ids_sha256": "c643f18e67e50f9ca8f82f8029889c03fbff6f14f8a0608a4fc8dc8d1caeac61",
+      "predictions_sha256": "5b74c2022f2e471a029210959400ac826a083aa706094ad29423a3c5aecabc09"
+    },
+    "dev4": {
+      "inputs": {
+        "T0": "97e0ad6bd40c0b59b57011754dc2d7525725d564679e6f5dfa5dda5bcf85adec",
+        "T1": "eeecf7fcd2d14a4da400a20f4e35a393246544533873c8a92062a96338e9a6c8",
+        "split_sha256": "1a483b5ba2ce56b75981b1fd87b2dad4223937ea8545f9a49d9bfabdb6d4280c",
+        "border_sha256": "d2260ef267949d6816b8dee35d780b97cf85636af7caef4af2fc8a164637928f",
+        "rerank_selection": {
+          "protocol": "full_fold_val_sequential_v1",
+          "gamma_grid": [
+            0.0,
+            0.05,
+            0.1,
+            0.2,
+            0.35,
+            0.5,
+            0.75,
+            1.0
+          ],
+          "weight_grid": [
+            0.0,
+            0.03125,
+            0.0625,
+            0.125,
+            0.25,
+            0.5,
+            0.75,
+            1.0,
+            1.5,
+            2.0,
+            3.0,
+            4.0,
+            8.0,
+            16.0
+          ],
+          "criterion": "minimum median km; ties prefer smaller coefficient"
+        }
+      },
+      "query_count": 4027,
+      "query_ids_sha256": "e023dcd04059383d910c58f0edc117dc6fc974aff0b576bf0d87f2d47a5cce20",
+      "train_count": 160199,
+      "unique_train_parents": 153109,
+      "gallery_ids_sha256": "450cea041a940f80fef53de5b0ac02ba2cfa34a33a67e7fb1ce212ee421adff0",
+      "train_ids_sha256": "97e1dfa6f8ba21d4600410e522eaa8705bf2f94b39b55e127efee26adeb52628",
+      "t4_design_rank": 772,
+      "top_k": 50,
+      "gamma": 1.0,
+      "weight": 0.75,
+      "rerank_validation_sha256": "0779525b29117e53beb61b0ae1af73774cdbce5b866b4b64a57dfa54bc6e86da",
+      "rerank_validation_count": 26764,
+      "rerank_validation_ids_sha256": "4c0983af2fe3f85db168c7dac43c345142f8ca20025cabbce2e5acb215d29218",
+      "predictions_sha256": "d5bce9e86f2c0404b9b2a853d553b59e9b457c4ca263f0c9347649a2f0e59b05"
+    },
+    "dev5": {
+      "inputs": {
+        "T0": "abcc41ba24f7ae566cc3d40e111bc0d683688a8f7ca5ca2af79c7be68f3df749",
+        "T1": "f9b19805a76ff711fa6a80d65faecfc4baf224c3b0f8cff707b159ac54b2a560",
+        "split_sha256": "937668854d7ce2cb691e0c25b961132bd025219076599aa0610be948e5657053",
+        "border_sha256": "d2260ef267949d6816b8dee35d780b97cf85636af7caef4af2fc8a164637928f",
+        "rerank_selection": {
+          "protocol": "full_fold_val_sequential_v1",
+          "gamma_grid": [
+            0.0,
+            0.05,
+            0.1,
+            0.2,
+            0.35,
+            0.5,
+            0.75,
+            1.0
+          ],
+          "weight_grid": [
+            0.0,
+            0.03125,
+            0.0625,
+            0.125,
+            0.25,
+            0.5,
+            0.75,
+            1.0,
+            1.5,
+            2.0,
+            3.0,
+            4.0,
+            8.0,
+            16.0
+          ],
+          "criterion": "minimum median km; ties prefer smaller coefficient"
+        }
+      },
+      "query_count": 3803,
+      "query_ids_sha256": "671e365157578478ed9fad92cbeb636a032c376f9a1467c2435418166d63754e",
+      "train_count": 162626,
+      "unique_train_parents": 155429,
+      "gallery_ids_sha256": "098f1338b0499c52c834f8920426d874701129868b3c1a4d29eaca0fff86bb5f",
+      "train_ids_sha256": "909ead5912d434c57183402099c9cebbe094a487ea2567349fbba60e8fd7d9ca",
+      "t4_design_rank": 772,
+      "top_k": 50,
+      "gamma": 1.0,
+      "weight": 0.5,
+      "rerank_validation_sha256": "e731157091c5609c4bae62528cbf65fda776aa92a9d2e5fe3db5be428ed7c70a",
+      "rerank_validation_count": 25330,
+      "rerank_validation_ids_sha256": "5055cf863d2ea3828effe0de8ce6d0868b4edae7a241d4458c1413d2b33d3a9c",
+      "predictions_sha256": "9bcbcdfbe0f004b9ea9c5fdde2b5e6ec7276c6344213374fe986c6571e3a2c2d"
+    },
+    "dev6": {
+      "inputs": {
+        "T0": "39fe2caabdf1388edb925dbace5f75507aa77073d05c8e5ed0aa512d76c92bda",
+        "T1": "2aa9d37f230c73176f2bc54c6172b856713d0a1e4aa77f850b7436c6eaea5329",
+        "split_sha256": "340007abf86808844b431d475500762724fef0ed79647c96302dad662059b003",
+        "border_sha256": "d2260ef267949d6816b8dee35d780b97cf85636af7caef4af2fc8a164637928f",
+        "rerank_selection": {
+          "protocol": "full_fold_val_sequential_v1",
+          "gamma_grid": [
+            0.0,
+            0.05,
+            0.1,
+            0.2,
+            0.35,
+            0.5,
+            0.75,
+            1.0
+          ],
+          "weight_grid": [
+            0.0,
+            0.03125,
+            0.0625,
+            0.125,
+            0.25,
+            0.5,
+            0.75,
+            1.0,
+            1.5,
+            2.0,
+            3.0,
+            4.0,
+            8.0,
+            16.0
+          ],
+          "criterion": "minimum median km; ties prefer smaller coefficient"
+        }
+      },
+      "query_count": 3077,
+      "query_ids_sha256": "b817951cd03619462abb0552c77cd88e71a595a5868027bcc1fe178277788d08",
+      "train_count": 163733,
+      "unique_train_parents": 156488,
+      "gallery_ids_sha256": "c042d7aef27fb3942b43e98513f6262c97a317ffef236e5768a38c8c7cb4b993",
+      "train_ids_sha256": "589a4e02c59da4b05a91988ccc07513dcc8fb12373dd676e39d509229157dba8",
+      "t4_design_rank": 772,
+      "top_k": 50,
+      "gamma": 1.0,
+      "weight": 0.75,
+      "rerank_validation_sha256": "e6d33bd13f063aa5f3898283787106b4f025c7be21377275622eda53ff6b69ef",
+      "rerank_validation_count": 26904,
+      "rerank_validation_ids_sha256": "9c06c0f4d724eb5140ebe38154a088a651c1e86a944773f875a9c76b1275eb29",
+      "predictions_sha256": "1c2992075c5479a3a9ea42f1b90cea8c415456f2821129673bb7f6a10355c179"
+    },
+    "dev7": {
+      "inputs": {
+        "T0": "31ea84ccbb651331430272748396f87d51dac5d1875afe699f281c05ac3c34be",
+        "T1": "e32c35c521db70f4992394d823eedfd6a27002f74bf23a2b891304be0572919e",
+        "split_sha256": "e6038d69cb539e4aec97634db017857b72d619514b41d244fcb3bfd31ff391c4",
+        "border_sha256": "d2260ef267949d6816b8dee35d780b97cf85636af7caef4af2fc8a164637928f",
+        "rerank_selection": {
+          "protocol": "full_fold_val_sequential_v1",
+          "gamma_grid": [
+            0.0,
+            0.05,
+            0.1,
+            0.2,
+            0.35,
+            0.5,
+            0.75,
+            1.0
+          ],
+          "weight_grid": [
+            0.0,
+            0.03125,
+            0.0625,
+            0.125,
+            0.25,
+            0.5,
+            0.75,
+            1.0,
+            1.5,
+            2.0,
+            3.0,
+            4.0,
+            8.0,
+            16.0
+          ],
+          "criterion": "minimum median km; ties prefer smaller coefficient"
+        }
+      },
+      "query_count": 2054,
+      "query_ids_sha256": "23620eece35e4f85068b622470170ab9004be6af9152e44a28e08e9ed4bb96b9",
+      "train_count": 166030,
+      "unique_train_parents": 158694,
+      "gallery_ids_sha256": "baba58f511959401bb62e4e13ab1ef6a3dd20b6ca354d447875c077df603f1bd",
+      "train_ids_sha256": "e704e77eda422177cfefa28ffe1025b73c01a10ec36c2591b4b6c5db66c74dd8",
+      "t4_design_rank": 772,
+      "top_k": 50,
+      "gamma": 1.0,
+      "weight": 1.0,
+      "rerank_validation_sha256": "c8c900d53cf6d84f37f2bb2833b4c58e9d26acb2d390e656e12aa064da7349bc",
+      "rerank_validation_count": 27605,
+      "rerank_validation_ids_sha256": "6cc97f8a561743f1ae10d798eaca52c7f1277d95184beba07d1fe05c160db6c6",
+      "predictions_sha256": "ea256c7b69d071b0d20cbac516d30fd570d6c2b7373de53d2a93b306416c66ed"
+    },
+    "new_final": {
+      "inputs": {
+        "T0": "4f265736948220005ba315dad336d2c6fa040b55e40b7ee1125da8ede5c23fbe",
+        "T1": "3063225ea5564c3a18f3b3e43dc1e7edd1b5be4fa58d3d0fbb6b46dd33b3dc40",
+        "split_sha256": "6b2c48f9739ae90fef357e4016de4af7e5db2508b5fc9f9d65fe417b99dca88d",
+        "border_sha256": "d2260ef267949d6816b8dee35d780b97cf85636af7caef4af2fc8a164637928f",
+        "rerank_selection": {
+          "protocol": "full_fold_val_sequential_v1",
+          "gamma_grid": [
+            0.0,
+            0.05,
+            0.1,
+            0.2,
+            0.35,
+            0.5,
+            0.75,
+            1.0
+          ],
+          "weight_grid": [
+            0.0,
+            0.03125,
+            0.0625,
+            0.125,
+            0.25,
+            0.5,
+            0.75,
+            1.0,
+            1.5,
+            2.0,
+            3.0,
+            4.0,
+            8.0,
+            16.0
+          ],
+          "criterion": "minimum median km; ties prefer smaller coefficient"
+        }
+      },
+      "query_count": 4664,
+      "query_ids_sha256": "c44d2cb29a08da46a29271dcf7da7807cfca9df989e62048fc5a211149bbf6d2",
+      "train_count": 168743,
+      "unique_train_parents": 161282,
+      "gallery_ids_sha256": "02d176a7c4445af9c8764693e0b65d0153ed08edaa84b5e415768edd6953b08b",
+      "train_ids_sha256": "75413d015c14759b9ae9a629639f10928f9129557af190d9d2fc396783441296",
+      "t4_design_rank": 772,
+      "top_k": 50,
+      "gamma": 1.0,
+      "weight": 1.0,
+      "rerank_validation_sha256": "27b94d9065907272f445bde5ef65f183ca538bf72cc5293424357bd66f03f477",
+      "rerank_validation_count": 27999,
+      "rerank_validation_ids_sha256": "d6e7ec4abbd80dd63dbbfa4b22b1d00d00ad1bf5cc1e457b1faca32c3e000648",
+      "predictions_sha256": "5ad2022e30d462af5640b0c890c163c1bb30fb1db55fc940669a25d381efff2d"
+    }
+  },
+  "comparison": {
+    "n": 4664,
+    "final_region": "new_final",
+    "final_n_blocks": 9,
+    "development_n_per_arm": 46235,
+    "gate_train_n_per_arm": 46235,
+    "oof_confidence_train_n_per_fold": 15519,
+    "training": {
+      "three_regions": {
+        "photos_by_region": {
+          "dev1": 30716,
+          "dev2": 8225,
+          "dev3": 7294
+        },
+        "oof": {
+          "dev1": {
+            "held_n": 30716,
+            "confidence_fit_n": 15519,
+            "confidence_source_regions": {
+              "dev2": 8225,
+              "dev3": 7294
+            },
+            "source_ids_sha256": "51e60579c3b6d8dba3f69701628604f8241295ecd4e9d5a497a2d4539e281fe4"
+          },
+          "dev2": {
+            "held_n": 8225,
+            "confidence_fit_n": 15519,
+            "confidence_source_regions": {
+              "dev1": 8225,
+              "dev3": 7294
+            },
+            "source_ids_sha256": "0c758ebab483ea5ee30ac4a18f1b123c5df7af460711e53a8fa5d3309987e075"
+          },
+          "dev3": {
+            "held_n": 7294,
+            "confidence_fit_n": 15519,
+            "confidence_source_regions": {
+              "dev1": 7760,
+              "dev2": 7759
+            },
+            "source_ids_sha256": "e1e7ef16a2bef0e2d5ecd39de0b053a0a185cd1880ac40a4ba0b3c8ae80682d5"
+          }
+        },
+        "source_ties": 0,
+        "gate_train_by_region": {
+          "dev1": 30716,
+          "dev2": 8225,
+          "dev3": 7294
+        },
+        "gate_train_n": 46235,
+        "gate_train_ids_sha256": "a81c148eb3cf83a572b24760bd33c21059c08d543409f2234131dda996e712ae",
+        "final_confidence_train_n": 46235,
+        "sample_sha256": "cf8179ed552566a5be45b9f441542c7b3ce45ea813ca5a988a3abe16861c8e64"
+      },
+      "seven_regions": {
+        "photos_by_region": {
+          "dev1": 17755,
+          "dev2": 8225,
+          "dev3": 7294,
+          "dev4": 4027,
+          "dev5": 3803,
+          "dev6": 3077,
+          "dev7": 2054
+        },
+        "oof": {
+          "dev1": {
+            "held_n": 17755,
+            "confidence_fit_n": 15519,
+            "confidence_source_regions": {
+              "dev2": 2693,
+              "dev3": 2693,
+              "dev4": 2693,
+              "dev5": 2693,
+              "dev6": 2693,
+              "dev7": 2054
+            },
+            "source_ids_sha256": "fb4c058cd3b526c9a5fc573d90a65fd4e7bea4943d109c0a65d7eef6b52d3495"
+          },
+          "dev2": {
+            "held_n": 8225,
+            "confidence_fit_n": 15519,
+            "confidence_source_regions": {
+              "dev1": 2693,
+              "dev3": 2693,
+              "dev4": 2693,
+              "dev5": 2693,
+              "dev6": 2693,
+              "dev7": 2054
+            },
+            "source_ids_sha256": "2a98fd5186ce98bd73cb17894aa400efc2050a23de7ef5f0adbf1719eb755bfe"
+          },
+          "dev3": {
+            "held_n": 7294,
+            "confidence_fit_n": 15519,
+            "confidence_source_regions": {
+              "dev1": 2693,
+              "dev2": 2693,
+              "dev4": 2693,
+              "dev5": 2693,
+              "dev6": 2693,
+              "dev7": 2054
+            },
+            "source_ids_sha256": "3d41a528089541b74f99e85518a01e821eb8bbbfb47a5b918b5a637398537f26"
+          },
+          "dev4": {
+            "held_n": 4027,
+            "confidence_fit_n": 15519,
+            "confidence_source_regions": {
+              "dev1": 2693,
+              "dev2": 2693,
+              "dev3": 2693,
+              "dev5": 2693,
+              "dev6": 2693,
+              "dev7": 2054
+            },
+            "source_ids_sha256": "8da5d6020a38479e198e3deb049092e8f3c12eee2138bfa1872e9c6b1fea7655"
+          },
+          "dev5": {
+            "held_n": 3803,
+            "confidence_fit_n": 15519,
+            "confidence_source_regions": {
+              "dev1": 2693,
+              "dev2": 2693,
+              "dev3": 2693,
+              "dev4": 2693,
+              "dev6": 2693,
+              "dev7": 2054
+            },
+            "source_ids_sha256": "fa3beb875852fb9fbd058df35cb35391dd61534b4dd292522802ccb25e6a93ed"
+          },
+          "dev6": {
+            "held_n": 3077,
+            "confidence_fit_n": 15519,
+            "confidence_source_regions": {
+              "dev1": 2693,
+              "dev2": 2693,
+              "dev3": 2693,
+              "dev4": 2693,
+              "dev5": 2693,
+              "dev7": 2054
+            },
+            "source_ids_sha256": "13f19515e443795d2fc0c14304e1670d88ffc76fd548e16619925f4e0819b1e0"
+          },
+          "dev7": {
+            "held_n": 2054,
+            "confidence_fit_n": 15519,
+            "confidence_source_regions": {
+              "dev1": 2587,
+              "dev2": 2587,
+              "dev3": 2587,
+              "dev4": 2586,
+              "dev5": 2586,
+              "dev6": 2586
+            },
+            "source_ids_sha256": "1079d2f12f5b4c663f652c2b63b2cf87a7516693513df771ff22d1fa903de500"
+          }
+        },
+        "source_ties": 0,
+        "gate_train_by_region": {
+          "dev1": 17755,
+          "dev2": 8225,
+          "dev3": 7294,
+          "dev4": 4027,
+          "dev5": 3803,
+          "dev6": 3077,
+          "dev7": 2054
+        },
+        "gate_train_n": 46235,
+        "gate_train_ids_sha256": "ba31108e6c7881717a9dbd30d26fa7649a6079028f6cc44f9a81a82465bdf01c",
+        "final_confidence_train_n": 46235,
+        "sample_sha256": "62a81043eea38473dc0b33b836a6a279647af2687f11ba3851e989da54e78596"
+      }
+    },
+    "final_input_sha256": "42eb6b89b2896fea1dc9d87c34a42608af2bc90fd16500e8262add430f459f89",
+    "T4_closer": 1655,
+    "T5_closer": 3009,
+    "exact_ties": 0,
+    "oracle_mean_km": 72.28291160221404,
+    "features": [
+      "T4_lat_pred",
+      "T4_lon_pred",
+      "T5_lat_pred",
+      "T5_lon_pred",
+      "T4_p25",
+      "T5_p25"
+    ],
+    "gate_parameters": {
+      "max_iter": 80,
+      "max_leaf_nodes": 7,
+      "min_samples_leaf": 100,
+      "learning_rate": 0.08,
+      "l2_regularization": 1.0,
+      "early_stopping": false,
+      "random_state": 42
+    },
+    "protocol": "Leave each source region out for its training confidences. Match the per-fold source photo count across arms by deterministic region-balanced sampling. Refit both calibrators on each arm's entire matched sample. Train the same unweighted closer gate; exclude exact ties from its training and accuracy. Select T4 for score > 0.5.",
+    "methods": {
+      "three_regions": {
+        "n": 4664,
+        "n_non_ties": 4664,
+        "n_ties": 0,
+        "correct_non_ties": 2855,
+        "accuracy_non_ties_pct": 61.213550600343055,
+        "choose_T4": 2360,
+        "mean_km": 91.90973402719806,
+        "median_km": 94.28728353548738,
+        "mean_oracle_regret_km": 19.62682242498402,
+        "hits_25km": 241,
+        "hit_25km_pct": 5.167238421955403
+      },
+      "seven_regions": {
+        "n": 4664,
+        "n_non_ties": 4664,
+        "n_ties": 0,
+        "correct_non_ties": 1691,
+        "accuracy_non_ties_pct": 36.25643224699829,
+        "choose_T4": 3846,
+        "mean_km": 107.93748765842477,
+        "median_km": 111.1550135539288,
+        "mean_oracle_regret_km": 35.65457605621075,
+        "hits_25km": 59,
+        "hit_25km_pct": 1.265008576329331
+      },
+      "always_T4": {
+        "n": 4664,
+        "n_non_ties": 4664,
+        "n_ties": 0,
+        "correct_non_ties": 1655,
+        "accuracy_non_ties_pct": 35.48456260720412,
+        "choose_T4": 4664,
+        "mean_km": 109.86635271013566,
+        "median_km": 110.91684707002288,
+        "mean_oracle_regret_km": 37.58344110792163,
+        "hits_25km": 11,
+        "hit_25km_pct": 0.2358490566037736
+      },
+      "always_T5": {
+        "n": 4664,
+        "n_non_ties": 4664,
+        "n_ties": 0,
+        "correct_non_ties": 3009,
+        "accuracy_non_ties_pct": 64.51543739279589,
+        "choose_T4": 0,
+        "mean_km": 90.23308439059764,
+        "median_km": 67.53283240548971,
+        "mean_oracle_regret_km": 17.95017278838361,
+        "hits_25km": 369,
+        "hit_25km_pct": 7.911663807890223
+      }
+    },
+    "seven_vs_three": {
+      "switches": 1820,
+      "T5_to_T4": 1653,
+      "T4_to_T5": 167,
+      "improved": 328,
+      "worsened": 1492,
+      "T4_closer_newly_correct": 186,
+      "T4_closer_previously_correct_lost": 25,
+      "T5_closer_newly_correct": 142,
+      "T5_closer_previously_correct_lost": 1467,
+      "equal_after_switch": 0,
+      "saved_km": 13828.15140284469,
+      "added_km": 88581.59433888615,
+      "net_saved_km": -74753.44293604145,
+      "mean_saved_km": -16.027753631226727,
+      "net_correct_non_ties": -1164,
+      "hit25_changes": {
+        "additional_T4_only_rescues": 1,
+        "previous_T4_only_rescues_reversed": 0,
+        "additional_T5_only_losses": 194,
+        "previous_T5_only_losses_recovered": 11,
+        "net_T4_only_rescues": 1,
+        "net_T5_only_losses": 183,
+        "net_hits_25km": -182
+      }
+    },
+    "final_by_block": {
+      "25700114": {
+        "n": 567,
+        "n_non_ties": 567,
+        "three_correct": 408,
+        "seven_correct": 163,
+        "improved": 12,
+        "worsened": 257,
+        "net": -245
+      },
+      "25700115": {
+        "n": 646,
+        "n_non_ties": 646,
+        "three_correct": 394,
+        "seven_correct": 184,
+        "improved": 25,
+        "worsened": 235,
+        "net": -210
+      },
+      "25700116": {
+        "n": 1158,
+        "n_non_ties": 1158,
+        "three_correct": 447,
+        "seven_correct": 404,
+        "improved": 129,
+        "worsened": 172,
+        "net": -43
+      },
+      "25800114": {
+        "n": 456,
+        "n_non_ties": 456,
+        "three_correct": 333,
+        "seven_correct": 198,
+        "improved": 30,
+        "worsened": 165,
+        "net": -135
+      },
+      "25800115": {
+        "n": 414,
+        "n_non_ties": 414,
+        "three_correct": 321,
+        "seven_correct": 158,
+        "improved": 26,
+        "worsened": 189,
+        "net": -163
+      },
+      "25800116": {
+        "n": 493,
+        "n_non_ties": 493,
+        "three_correct": 323,
+        "seven_correct": 190,
+        "improved": 29,
+        "worsened": 162,
+        "net": -133
+      },
+      "25900114": {
+        "n": 337,
+        "n_non_ties": 337,
+        "three_correct": 212,
+        "seven_correct": 133,
+        "improved": 30,
+        "worsened": 109,
+        "net": -79
+      },
+      "25900115": {
+        "n": 310,
+        "n_non_ties": 310,
+        "three_correct": 228,
+        "seven_correct": 145,
+        "improved": 24,
+        "worsened": 107,
+        "net": -83
+      },
+      "25900116": {
+        "n": 283,
+        "n_non_ties": 283,
+        "three_correct": 189,
+        "seven_correct": 116,
+        "improved": 23,
+        "worsened": 96,
+        "net": -73
+      }
+    },
+    "outputs_sha256": {
+      "decisions.parquet": "510a602a58a66b6e8f238f6dfc558a4cabb7c3f04cf0848480def232929c3229",
+      "seven_regions.joblib": "c6d6edb1dcf5914337cf556955012fd9b252061bbd3768848cec51e58a9d17a8",
+      "three_regions.joblib": "554d63352d8fda953a30bd91241d239316c12ad9beb982a3fb1e043f688d1406"
+    }
+  }
+}
